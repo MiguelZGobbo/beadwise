@@ -104,6 +104,88 @@ PowerShell(...)
 
 ---
 
+# 3.1 Capabilities compartilhadas
+
+A arquitetura deve distinguir:
+
+```text
+Product Area
+```
+
+de:
+
+```text
+System Capability
+```
+
+As áreas de produto representam experiências ou contextos de uso.
+
+Exemplos provisórios:
+
+```text
+Optimization
+My PC
+Benchmark
+Monitoring
+Tools
+```
+
+Capabilities representam capacidades técnicas reutilizáveis.
+
+Exemplos:
+
+```text
+System Information
+Hardware Detection
+Performance Monitoring
+Windows Configuration
+Storage Inspection
+Display Detection
+```
+
+Uma mesma capability pode atender várias áreas.
+
+Exemplo:
+
+```text
+GpuInformationService
+        │
+        ├── My PC
+        ├── Optimization
+        ├── Benchmark
+        └── Monitoring
+```
+
+Não criar:
+
+```text
+MyPcGpuDetector
+OptimizationGpuDetector
+BenchmarkGpuDetector
+MonitoringGpuDetector
+```
+
+quando todos precisam da mesma informação básica.
+
+## Shared Services
+
+Possíveis serviços compartilhados:
+
+```text
+ISystemInformationService
+IHardwareDetectionService
+ICapabilityService
+IPerformanceMonitoringService
+ISystemRestoreService
+IProcessService
+```
+
+A lista definitiva deve surgir das features reais.
+
+Não criar serviços apenas para preencher uma arquitetura teórica.
+
+---
+
 # 4. Camadas propostas
 
 Estrutura conceitual inicial:
@@ -1084,6 +1166,96 @@ Não confundir isso com o catálogo de discovery em documentação.
 
 Esse seria um conceito runtime.
 
+O runtime poderá distinguir:
+
+```text
+Capabilities
+Features
+Product Areas
+```
+
+Conceitualmente:
+
+```text
+Capability
+→ algo que o sistema sabe fazer ou detectar
+
+Feature
+→ comportamento ou função do produto
+
+Product Area
+→ contexto de apresentação/uso
+```
+
+Exemplo:
+
+```text
+Capability:
+Detect GPU
+
+Feature:
+Show PC Specifications
+
+Product Area:
+My PC
+```
+
+Outro:
+
+```text
+Capability:
+Detect GPU
+
+Feature:
+Determine available GPU optimizations
+
+Product Area:
+Optimization
+```
+
+---
+
+# 41.1 Monitoring
+
+A possibilidade de monitoramento/FPS introduz requisitos arquiteturais ainda não avaliados.
+
+Possíveis necessidades futuras:
+
+```text
+continuous sampling
+performance counters
+GPU metrics
+FPS / frametime collection
+overlay
+background process
+session recording
+time-series data
+```
+
+Nenhuma dessas decisões deve ser fechada antes da especificação e prova técnica das features de monitoramento.
+
+Monitoring deve ser considerado uma área capaz de introduzir requisitos diferentes das otimizações tradicionais.
+
+---
+
+# 41.2 Benchmark
+
+Benchmarks também devem ser tratados como capacidades próprias.
+
+Possíveis requisitos:
+
+```text
+workload execution
+measurement
+timing
+result normalization
+hardware awareness
+thermal considerations
+result comparison
+```
+
+O sistema não deve misturar lógica de benchmark diretamente com UI.
+
 ---
 
 # 42. Feature IDs
@@ -1443,6 +1615,19 @@ Complexidade arquitetural também possui custo.
 
 A arquitetura pode mudar.
 
+A descoberta global do produto poderá revelar novos módulos de infraestrutura.
+
+Exemplo:
+
+```text
+Optimizer.Monitoring
+Optimizer.Benchmark
+```
+
+Esses projetos só devem ser criados se houver complexidade suficiente para justificar separação.
+
+Inicialmente, preferir organizar responsabilidades dentro dos projetos existentes até existir motivo real para novos assemblies.
+
 Mudanças relevantes devem ser registradas em:
 
 ```text
@@ -1462,6 +1647,16 @@ motivo
 ↓
 consequências
 ```
+
+## Decisão arquitetural provisória
+
+A posição de uma feature na UI não deve determinar onde sua implementação vive.
+
+Exemplo:
+
+Uma detecção de GPU exibida em `My PC` não deve necessariamente ficar em um namespace ou serviço exclusivo da tela `My PC`.
+
+A implementação deve refletir responsabilidade técnica e reutilização.
 
 ---
 

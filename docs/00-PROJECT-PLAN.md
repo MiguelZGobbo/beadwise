@@ -61,6 +61,44 @@ Sempre que possível, o aplicativo deve entender:
 6. se a mudança pode ser revertida;
 7. se a alteração realmente funcionou depois de aplicada.
 
+# 2.1 Escopo mais amplo do produto
+
+Embora a otimização seja uma das áreas centrais do aplicativo, o produto não deve ser tratado apenas como um "otimizador".
+
+A V2 poderá conter múltiplas áreas de uso, por exemplo:
+
+```text
+Optimization
+My PC
+Benchmark
+Monitoring / FPS
+Tools
+Repair
+Settings
+```
+
+Essas áreas são provisórias.
+
+Elas servem apenas para organizar a descoberta e entender os diferentes tipos de capacidade que podem existir no produto.
+
+A navegação definitiva e a divisão final da interface serão definidas posteriormente na fase de UX.
+
+Uma mesma capacidade pode atender várias áreas.
+
+Exemplo:
+
+```text
+GPU Detection
+
+Pode alimentar:
+- My PC
+- Optimization
+- Benchmark
+- Monitoring
+```
+
+Portanto, durante a descoberta, o foco deve ser identificar capacidades úteis para o produto como um todo, sem obrigar cada uma a possuir imediatamente uma tela ou seção definitiva.
+
 ---
 
 # 3. Filosofia de experiência
@@ -282,6 +320,41 @@ O ponto de restauração deve ser tratado como proteção de último nível para
 
 ---
 
+## 4.9 Capacidade não é sinônimo de tela
+
+Durante discovery e arquitetura, distinguir:
+
+```text
+Capability
+```
+
+de:
+
+```text
+UI Placement
+```
+
+Uma capacidade representa algo que o sistema sabe detectar, analisar, executar ou medir.
+
+Seu posicionamento visual poderá ser decidido posteriormente.
+
+Exemplo:
+
+```text
+Capability:
+Detect installed GPU
+
+Possible consumers:
+- My PC
+- Recommendation Engine
+- Benchmark
+- Monitoring
+```
+
+A arquitetura deve favorecer reutilização dessas capacidades.
+
+---
+
 # 5. Tipos de funcionalidades
 
 Nem tudo no aplicativo deve ser tratado como "Optimization".
@@ -333,7 +406,32 @@ A V2 seguirá as fases abaixo.
 
 ## Objetivo
 
-Mapear tudo que pode ser relevante para um aplicativo de otimização, diagnóstico, manutenção e configuração de PC.
+Mapear tudo que pode ser relevante para o produto como um todo.
+
+Isso inclui, mas não se limita a:
+
+- otimização;
+- diagnóstico;
+- informações do PC;
+- monitoramento;
+- benchmark;
+- reparos;
+- configuração;
+- ferramentas.
+
+Nesta fase, não é necessário decidir onde cada capacidade aparecerá na interface.
+
+O objetivo é primeiro descobrir:
+
+```text
+o que o produto pode fazer
+```
+
+e apenas posteriormente definir:
+
+```text
+onde e como isso será apresentado
+```
 
 Nesta fase, profundidade técnica não é necessária.
 
@@ -582,6 +680,33 @@ Diagnóstico
 ```
 
 A organização final poderá combinar ambos os conceitos.
+
+A fase de agrupamento deverá diferenciar:
+
+```text
+Technical Domain
+```
+
+de:
+
+```text
+Product Area
+```
+
+Exemplo:
+
+```text
+Technical Domain:
+GPU
+
+Possible Product Areas:
+My PC
+Optimization
+Benchmark
+Monitoring
+```
+
+Uma capacidade compartilhada não deve ser duplicada apenas porque aparece em diferentes partes da experiência.
 
 ## Importante
 

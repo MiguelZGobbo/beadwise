@@ -110,6 +110,49 @@ Da mesma forma, múltiplas alterações técnicas podem fazer parte de uma únic
 
 ---
 
+# 5.1 Capacidade vs área do produto
+
+Durante discovery, uma ideia não precisa possuir uma seção definitiva da interface.
+
+Cada item deve distinguir:
+
+```text
+Feature / Capability
+```
+
+de:
+
+```text
+Product Area
+```
+
+Uma capacidade pode ser utilizada em várias áreas.
+
+Exemplo:
+
+```text
+GPU Detection
+
+Type:
+Diagnostic
+
+Primary Product Area:
+Shared
+
+Possible Consumers:
+- My PC
+- Optimization
+- Benchmark
+- Monitoring
+
+Final UI Placement:
+TBD
+```
+
+A posição final será decidida na fase de UX.
+
+---
+
 # 6. Template inicial de item
 
 Durante a descoberta, utilizar uma estrutura leve.
@@ -117,20 +160,26 @@ Durante a descoberta, utilizar uma estrutura leve.
 ```text
 ## Nome
 
-Tipo:
-Área:
+Type:
+Technical Domain:
+Primary Product Area:
+Possible Consumers:
+Final UI Placement:
 
 Descrição:
-O que é esta funcionalidade em poucas linhas?
+O que é esta funcionalidade/capacidade em poucas linhas?
 
 Possível objetivo:
 Qual problema ela pode resolver?
 
 Possível benefício:
-O que pode melhorar?
+O que pode melhorar ou oferecer?
 
 Aplicabilidade:
 Em quais cenários parece fazer sentido?
+
+Shared Capability:
+Yes / No / Unknown
 
 Risco inicial:
 Low / Medium / High / Unknown
@@ -701,6 +750,101 @@ Cuidado para não transformar benchmarks sintéticos em promessa de melhoria rea
 
 ---
 
+## 8.28 Áreas provisórias do produto
+
+Além dos domínios técnicos, discovery deve considerar possíveis áreas de produto.
+
+Lista inicial provisória:
+
+```text
+Optimization
+My PC
+Benchmark
+Monitoring / FPS
+Tools
+Repair
+Settings
+Shared
+```
+
+Esses nomes não representam necessariamente a navegação final.
+
+Eles existem para ajudar a entender onde uma capacidade pode ser consumida.
+
+### Optimization
+
+Capacidades relacionadas a análise, recomendação e aplicação de alterações.
+
+### My PC
+
+Informações e diagnóstico sobre:
+
+- CPU;
+- GPU;
+- RAM;
+- storage;
+- motherboard;
+- BIOS;
+- Windows;
+- displays;
+- network;
+- battery;
+- devices.
+
+### Benchmark
+
+Capacidades de medição de desempenho.
+
+Possíveis exemplos:
+
+- CPU benchmark;
+- GPU benchmark;
+- storage benchmark;
+- memory benchmark;
+- system comparison.
+
+### Monitoring / FPS
+
+Capacidades de monitoramento em tempo real ou durante sessões.
+
+Exemplos:
+
+- FPS;
+- frametime;
+- 1% lows;
+- CPU usage;
+- GPU usage;
+- temperatures;
+- clocks;
+- memory usage.
+
+### Tools
+
+Ferramentas independentes que não precisam fazer parte do fluxo principal.
+
+### Repair
+
+Recursos voltados à correção de problemas.
+
+### Settings
+
+Configurações do próprio aplicativo e preferências do usuário.
+
+### Shared
+
+Capacidades utilizadas por várias áreas.
+
+Exemplos:
+
+```text
+System Information
+Hardware Detection
+Windows Version Detection
+Capability Detection
+```
+
+---
+
 # 9. Pesquisa de funcionalidades
 
 Durante a descoberta, usar fontes variadas.
@@ -1023,6 +1167,22 @@ Exemplo:
 
 Não criar essa fragmentação antes de ela ser necessária.
 
+O catálogo poderá ser organizado principalmente por domínio técnico durante discovery.
+
+Exemplo:
+
+```text
+CPU
+GPU
+Storage
+Network
+Display
+```
+
+Dentro de cada item, registrar possíveis áreas de produto.
+
+Isso evita descobrir a mesma capacidade várias vezes apenas porque ela pode aparecer em diferentes seções da aplicação.
+
 ---
 
 # 22. Processo de descoberta
@@ -1128,6 +1288,16 @@ Existe API ou método confiável?
 Estamos prometendo mais do que podemos entregar?
 
 Isso pertence ao nosso produto?
+
+Essa capacidade pertence a uma única área?
+
+Ela pode ser compartilhada?
+
+Estamos duplicando uma capacidade só porque ela aparece em duas telas?
+
+O posicionamento final precisa ser decidido agora?
+
+Ou pode permanecer TBD?
 ```
 
 ---

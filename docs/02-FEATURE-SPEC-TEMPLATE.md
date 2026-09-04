@@ -38,12 +38,68 @@ Não é obrigatório saber cada linha de código.
 Nome:
 ID:
 Tipo:
-Área:
+Technical Domain:
+Primary Product Area:
+Also Used By:
+Shared Capability:
+Final UI Placement:
 Status:
 Prioridade:
 Responsável:
 Última revisão:
 ```
+
+### Primary Product Area
+
+Pode utilizar provisoriamente:
+
+```text
+Optimization
+My PC
+Benchmark
+Monitoring
+Tools
+Repair
+Settings
+Shared
+TBD
+```
+
+Esses valores não representam obrigatoriamente as seções finais da interface.
+
+### Also Used By
+
+Registrar outras áreas que possam consumir a capacidade.
+
+Exemplo:
+
+```text
+Primary Product Area:
+Shared
+
+Also Used By:
+- My PC
+- Optimization
+- Monitoring
+```
+
+### Shared Capability
+
+```text
+Yes / No
+```
+
+Usar `Yes` quando a funcionalidade fornecer uma capacidade reutilizável por diferentes partes do produto.
+
+### Final UI Placement
+
+Inicialmente pode permanecer:
+
+```text
+TBD
+```
+
+A posição definitiva será tratada durante UX.
 
 ### Tipo
 
@@ -143,6 +199,50 @@ Registrar cenários em que a feature deve:
 - não ser recomendada;
 - gerar aviso;
 - exigir decisão manual.
+
+---
+
+# 5.1 Uso dentro do produto
+
+## Consumidores
+
+Quais partes do produto utilizarão esta capacidade?
+
+Exemplo:
+
+```text
+My PC
+Recommendation Engine
+Benchmark
+Monitoring
+```
+
+## Uso direto pelo usuário
+
+O usuário interage diretamente com esta feature?
+
+```text
+Yes / No / Partial
+```
+
+Exemplo:
+
+`GPU Detection` pode não ser uma tela independente, mas alimentar diversas áreas.
+
+## Capacidade compartilhada
+
+Se compartilhada, definir qual responsabilidade comum ela oferece.
+
+Exemplo:
+
+```text
+SystemInformationService
+→ Detect GPU
+→ Detect CPU
+→ Detect RAM
+```
+
+Evitar implementar detectores duplicados para cada área visual.
 
 ---
 
@@ -988,6 +1088,27 @@ Rollback
 
 Somente quando aplicável.
 
+Nem toda feature precisa aparecer diretamente na interface.
+
+Uma capacidade pode existir apenas para alimentar outras features.
+
+Exemplo:
+
+```text
+Feature:
+Windows Version Detection
+
+Direct UI:
+No
+
+Consumers:
+- Compatibility Engine
+- My PC
+- Feature Catalog
+```
+
+Nesse caso, `Final UI Placement` pode permanecer `N/A`.
+
 ---
 
 # 35. Dados necessários pelo frontend
@@ -1012,6 +1133,33 @@ status
 ```
 
 Isso ajuda futuramente na definição do contrato sem acoplar a feature ao layout.
+
+Também distinguir entre:
+
+```text
+Data exposed directly to UI
+```
+
+e:
+
+```text
+Data consumed internally
+```
+
+Exemplo:
+
+```text
+GPU model
+→ UI + internal
+
+Windows build
+→ possibly UI + compatibility logic
+
+Capability flag
+→ internal
+```
+
+Essa distinção ajuda a evitar expor detalhes internos sem necessidade.
 
 ---
 
