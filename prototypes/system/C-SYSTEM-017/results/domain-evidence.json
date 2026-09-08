@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-09-08T20:33:27.0931354-03:00",
+  "capturedAt": "2026-09-08T20:34:36.1345605-03:00",
   "mode": "full",
   "mutationPolicy": "read-only",
   "domains": {
@@ -14,7 +14,7 @@
             "C-AUDIO-006"
           ],
           "status": "PASS",
-          "durationMs": 74,
+          "durationMs": 21,
           "data": [
             {
               "Name": "AMD High Definition Audio Device",
@@ -109,7 +109,7 @@
             "C-CPU-013"
           ],
           "status": "PASS",
-          "durationMs": 1080,
+          "durationMs": 1073,
           "data": {
             "Name": "AMD Ryzen 7 5700                               ",
             "Manufacturer": "AuthenticAMD",
@@ -128,11 +128,11 @@
             "C-CPU-015"
           ],
           "status": "PASS",
-          "durationMs": 603,
+          "durationMs": 1132,
           "data": {
-            "PercentProcessorTime": 19,
-            "PercentUserTime": 14,
-            "PercentPrivilegedTime": 5
+            "PercentProcessorTime": 14,
+            "PercentUserTime": 11,
+            "PercentPrivilegedTime": 4
           },
           "error": null
         }
@@ -184,7 +184,7 @@
             "C-DRIVERS-007"
           ],
           "status": "PASS",
-          "durationMs": 490,
+          "durationMs": 429,
           "data": {
             "presentCount": 190,
             "problemDevices": []
@@ -203,7 +203,7 @@
             "C-ENERGY-007"
           ],
           "status": "PASS",
-          "durationMs": 25,
+          "durationMs": 20,
           "data": {
             "activeScheme": "GUID do Esquema de Energia: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c  (Alto desempenho)",
             "exitCode": 0
@@ -237,10 +237,10 @@
             "C-GAMING-012"
           ],
           "status": "PASS",
-          "durationMs": 41,
+          "durationMs": 34,
           "data": {
             "foregroundProcessAvailable": true,
-            "processCount": 273
+            "processCount": 277
           },
           "error": null
         }
@@ -257,7 +257,7 @@
             "C-GPU-015"
           ],
           "status": "PASS",
-          "durationMs": 19,
+          "durationMs": 20,
           "data": {
             "Name": "Radeon RX 570 Series",
             "AdapterRAM": 4293918720,
@@ -279,7 +279,7 @@
             "C-HARDWARE-009"
           ],
           "status": "PASS",
-          "durationMs": 38,
+          "durationMs": 29,
           "data": {
             "system": [
               {
@@ -321,7 +321,7 @@
             "C-NETWORK-016"
           ],
           "status": "PASS",
-          "durationMs": 653,
+          "durationMs": 645,
           "data": [
             {
               "Name": "Conexão Local* 3",
@@ -446,7 +446,7 @@
             "C-NETWORK-008"
           ],
           "status": "PASS",
-          "durationMs": 1030,
+          "durationMs": 1018,
           "data": {
             "success": true
           },
@@ -458,7 +458,7 @@
             "C-NETWORK-004"
           ],
           "status": "PASS",
-          "durationMs": 279,
+          "durationMs": 281,
           "data": [
             {
               "Name": "localhost",
@@ -487,7 +487,7 @@
             "C-PRIVACY-005"
           ],
           "status": "PASS",
-          "durationMs": 42,
+          "durationMs": 23,
           "data": [
             {
               "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
@@ -517,9 +517,9 @@
             "C-PROCESSES-006"
           ],
           "status": "PASS",
-          "durationMs": 22,
+          "durationMs": 21,
           "data": {
-            "count": 274,
+            "count": 278,
             "sampledProcessesWithCpuData": 163
           },
           "error": null
@@ -539,7 +539,7 @@
             "C-RAM-014"
           ],
           "status": "PASS",
-          "durationMs": 127,
+          "durationMs": 117,
           "data": {
             "modules": [
               {
@@ -562,9 +562,9 @@
             "operatingSystem": [
               {
                 "TotalVisibleMemorySize": 33342468,
-                "FreePhysicalMemory": 19943960,
+                "FreePhysicalMemory": 20012276,
                 "TotalVirtualMemorySize": 38585348,
-                "FreeVirtualMemory": 20158224
+                "FreeVirtualMemory": 20101680
               }
             ],
             "pageFiles": [
@@ -590,7 +590,7 @@
             "C-REPAIR-010"
           ],
           "status": "FAIL",
-          "durationMs": 39,
+          "durationMs": 30,
           "data": null,
           "error": "DISM_EXIT_740_ADMIN_REQUIRED"
         }
@@ -606,7 +606,7 @@
             "C-SECURITY-007"
           ],
           "status": "PASS",
-          "durationMs": 1608,
+          "durationMs": 1614,
           "data": {
             "AMServiceEnabled": true,
             "AntivirusEnabled": true,
@@ -625,7 +625,7 @@
             "C-SECURITY-002"
           ],
           "status": "PASS",
-          "durationMs": 794,
+          "durationMs": 650,
           "data": [
             {
               "Name": "Domain",
@@ -660,7 +660,7 @@
             "C-STARTUP-006"
           ],
           "status": "PASS",
-          "durationMs": 18,
+          "durationMs": 19,
           "data": {
             "count": 12,
             "locations": [
@@ -687,7 +687,7 @@
             "C-STORAGE-019"
           ],
           "status": "PASS",
-          "durationMs": 1153,
+          "durationMs": 990,
           "data": {
             "physicalDisks": [
               {
@@ -742,7 +742,7 @@
                 "HealthStatus": "Healthy",
                 "OperationalStatus": "OK",
                 "Size": 1000203087872,
-                "SizeRemaining": 1000049373184
+                "SizeRemaining": 1000049332224
               },
               {
                 "DriveLetter": "C",
@@ -750,7 +750,7 @@
                 "HealthStatus": "Healthy",
                 "OperationalStatus": "OK",
                 "Size": 999064334336,
-                "SizeRemaining": 710185078784
+                "SizeRemaining": 710183022592
               }
             ]
           },
@@ -768,7 +768,7 @@
             "C-SYSTEM-017"
           ],
           "status": "PASS",
-          "durationMs": 78,
+          "durationMs": 89,
           "data": {
             "caption": "Microsoft Windows 11 Pro",
             "version": "10.0.26200",
@@ -785,7 +785,7 @@
             "C-REPAIR-004"
           ],
           "status": "PASS",
-          "durationMs": 85,
+          "durationMs": 80,
           "data": {
             "componentBasedServicing": false,
             "windowsUpdate": false,
@@ -806,7 +806,7 @@
             "C-UPDATE-009"
           ],
           "status": "PASS",
-          "durationMs": 1368,
+          "durationMs": 1323,
           "data": {
             "services": [
               {
@@ -855,7 +855,7 @@
             "C-USB-015"
           ],
           "status": "PASS",
-          "durationMs": 283,
+          "durationMs": 307,
           "data": {
             "count": 12,
             "byClass": [

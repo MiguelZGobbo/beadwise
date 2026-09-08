@@ -260,6 +260,6 @@ if ($outputDirectory) {
     New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
 }
 
-$json = $bundle | ConvertTo-Json -Depth 12
+$json = ($bundle | ConvertTo-Json -Depth 12).Replace("`r`n", "`n")
 [IO.File]::WriteAllText($OutputPath, $json, [Text.UTF8Encoding]::new($false))
 Write-Output $OutputPath

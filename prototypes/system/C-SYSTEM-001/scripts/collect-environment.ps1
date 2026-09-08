@@ -68,6 +68,6 @@ if ($outputDirectory) {
     New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
 }
 
-$json = $result | ConvertTo-Json -Depth 6
+$json = ($result | ConvertTo-Json -Depth 6).Replace("`r`n", "`n")
 [IO.File]::WriteAllText($OutputPath, $json, [Text.UTF8Encoding]::new($false))
 Write-Output $json
