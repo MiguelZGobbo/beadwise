@@ -1,6 +1,6 @@
 # Fase 2 — Pacote de retorno da campanha de prova técnica
 
-Gerado em: 2026-09-08T20:33:27.0931354-03:00
+Gerado em: 2026-09-08T20:34:36.1345605-03:00
 Commit-base: `e9ead732ffc34cae60d9b4e4d6f41361702c3a6b`
 Escopo: 234 Feature Specs em 20 domínios; prototypes isolados, sem backend final.
 
@@ -20,11 +20,11 @@ Escopo: 234 Feature Specs em 20 domínios; prototypes isolados, sem backend fina
 ### git log --oneline -5 capturado
 
 ```text
-42e1600 docs(proof): refresh phase 2 return package
+6eab645 fix(proof): normalize evidence artifacts
+8885513 docs(proof): refresh phase 2 return package
 323d493 docs(feature-specs): record phase 2 campaign evidence
 a340e30 test(system): add phase 2 evidence prototypes
 e9ead73 docs(feature-specs): document researched capability paths
-80c0ad2 docs(feature-specs): add capability specifications
 ```
 
 ## E. Inventário final de status
