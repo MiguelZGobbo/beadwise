@@ -1,19 +1,23 @@
-# Consolidated Discovery — CPU
+# Final Discovery — CPU
 
-> Source: `cpu.md`
 > Canonical rules: `01-DISCOVERY.md`
-> This file is a consolidation layer. The original discovery remains unchanged and traceable.
+> Scope boundary: `02-FEATURE-SPEC-TEMPLATE.md` is used only to keep implementation research out of Discovery.
 
-## Consolidation result
+## Final review result
 
-- Raw discovery items: **138**
-- Consolidated active capability groups: **15**
-- Explicitly rejected source items kept outside active catalog: **0**
-- Items conservatively preserved as standalone because no safe merge was identified: **0**
+- Raw discovery items represented: **138**
+- Consolidated capability groups: **15**
+- Active non-duplicate groups: **14**
+- `READY_FOR_SPEC`: **13**
+- `CANDIDATE`: **0**
+- `QUESTIONABLE`: **1**
+- `DUPLICATE`: **1**
+
+> A status decision is conceptual only. `READY_FOR_SPEC` does not imply implementation, API, Registry, rollback, benchmark proof, test or compatibility method already resolved.
 
 ## C-CPU-001 — CPU identity, capabilities & topology
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic
 
@@ -21,14 +25,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **cpu identity, capabilities & topology**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [1] CPU Identification — `CANDIDATE`
 - [2] CPU Topology Detection — `CANDIDATE`
 - [3] Physical Core / Logical Processor Mapping — `CANDIDATE`
@@ -46,12 +71,12 @@ Origem / itens absorvidos:
 - [88] Preferred / Favored Core Detection — `RESEARCHING`
 - [93] Intel Hybrid Scheduling Capability Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-002 — CPU benchmark suite
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Benchmark / Diagnostic, Benchmark / Validation, Benchmark Safeguard, Product Behavior
 
@@ -59,14 +84,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para medir e comparar **cpu benchmark suite**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Fornecer uma medição reproduzível e interpretável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Medição comparável para compreender desempenho e validar se uma mudança realmente produziu efeito.
+
+Aplicabilidade:
+quando for necessário quantificar desempenho, regressão ou resultado de uma alteração.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [5] SMT Performance Comparison — `IDEA`
 - [34] Single-Thread Benchmark — `CANDIDATE`
 - [35] Multi-Thread Benchmark — `CANDIDATE`
@@ -78,12 +124,12 @@ Origem / itens absorvidos:
 - [135] Minimum Meaningful CPU Improvement — `IDEA`
 - [138] CPU Optimization Multi-Metric Result — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-003 — CPU utilization & saturation diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Monitoring
 
@@ -91,14 +137,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu utilization & saturation diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [11] Current CPU Utilization — `CANDIDATE`
 - [12] Per-Core CPU Utilization — `CANDIDATE`
 - [13] CPU Utility vs CPU Time — `CANDIDATE`
@@ -112,12 +179,12 @@ Origem / itens absorvidos:
 - [63] CPU Idle Baseline — `CANDIDATE`
 - [64] CPU Idle Anomaly Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-004 — CPU bottleneck & performance classification
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Benchmark / Diagnostic, Diagnostic
 
@@ -125,14 +192,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu bottleneck & performance classification**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [15] CPU Bottleneck Detection — `CANDIDATE`
 - [32] CPU Sustained Performance Test — `CANDIDATE`
 - [33] CPU Short Burst Performance Test — `CANDIDATE`
@@ -140,12 +228,12 @@ Origem / itens absorvidos:
 - [61] CPU Performance Variability Detection — `IDEA`
 - [69] CPU Performance Baseline vs Expected Hardware — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-005 — CPU clocks, boost & performance-state diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Diagnostic, Monitoring, Monitoring / Diagnostic
 
@@ -153,14 +241,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu clocks, boost & performance-state diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [21] CPU Clock Detection — `CANDIDATE`
 - [22] Per-Core Clock Monitoring — `CANDIDATE`
 - [23] Effective Clock Monitoring — `CANDIDATE`
@@ -171,12 +280,12 @@ Origem / itens absorvidos:
 - [118] Frequency Residency Analysis — `IDEA`
 - [119] CPU Performance State Transition Analysis — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-006 — CPU thermal, power & limiter diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Diagnostic, Monitoring
 
@@ -184,14 +293,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu thermal, power & limiter diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [26] CPU Temperature Monitoring — `CANDIDATE`
 - [27] Thermal Throttling Detection — `CANDIDATE`
 - [28] CPU Power Throttling Detection — `CANDIDATE`
@@ -211,12 +341,12 @@ Origem / itens absorvidos:
 - [107] AMD Eco Mode Detection — `CANDIDATE`
 - [108] AMD Precision Boost Overdrive State Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-007 — CPU scheduler & workload placement diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Configuration, Configuration / Optimization, Diagnostic, Product Behavior, Safety
 
@@ -224,14 +354,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: High
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu scheduler & workload placement diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [37] CPU Scheduler Observation — `CANDIDATE`
 - [38] Hybrid Scheduler Behavior Analysis — `CANDIDATE`
 - [39] Heterogeneous Scheduling Policy Detection — `CANDIDATE`
@@ -261,12 +412,12 @@ Origem / itens absorvidos:
 - [94] Hardware-Guided Scheduling Context — `RESEARCHING`
 - [95] CPU Scheduling Intervention Threshold — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-008 — CPU tuning controls & safeguards
 
-Status: CANDIDATE
+Status: QUESTIONABLE
 
 Type: Advanced Tuning, Benchmark, Diagnostic, Safety
 
@@ -274,14 +425,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: High
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para identificar e bloquear recomendações inadequadas relacionadas a **cpu tuning controls & safeguards**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Evitar tweaks sem evidência, riscos desnecessários e perda de qualidade de uso, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Evita alterações populares, agressivas ou cosméticas que não apresentem benefício técnico proporcional.
+
+Aplicabilidade:
+quando uma configuração ou recomendação puder ser confundida com otimização universal.
+
+Dúvidas:
+O benefício real é suficiente para justificar uma capability independente? Quais limites impedem que se transforme em tweak pack, preferência ou tuning de risco desproporcional?
+
+Origem / itens consolidados:
 - [53] Realtime Priority Safeguard — `CANDIDATE`
 - [65] CPU Core Parking Observation — `CANDIDATE`
 - [66] CPU Core Parking Benchmark — `RESEARCHING`
@@ -289,12 +461,12 @@ Origem / itens absorvidos:
 - [109] PBO Modification — `QUESTIONABLE`
 - [110] CPU Tuning Mode Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+Não avançar ainda. O grupo contém risco de tuning agressivo, benefício incerto ou comportamento que pode virar preferência/tweak pack; precisa de justificativa conceitual adicional antes de Feature Spec.
 
 ## C-CPU-009 — CPU PMU & hardware-counter diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Advanced Diagnostic / Benchmark, Advanced Diagnostic Tool, Safety / Architecture, Shared Capability
 
@@ -302,14 +474,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu pmu & hardware-counter diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [56] CPU Hardware Counter Profiling — `IDEA`
 - [57] IPC / Instructions-per-Cycle Analysis — `IDEA`
 - [58] Cache Miss Analysis — `IDEA`
@@ -324,12 +517,12 @@ Origem / itens absorvidos:
 - [127] Hardware Counter Portability Guard — `CANDIDATE`
 - [128] CPU Performance Source Selection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-010 — CPU firmware, microcode & security context
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Recommendation
 
@@ -337,25 +530,46 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **cpu firmware, microcode & security context**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor compreensão da postura de segurança sem desativar proteções por ganho marginal.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [71] CPU Firmware / Microcode Context Detection — `RESEARCHING`
 - [72] CPU Firmware Update Recommendation — `IDEA`
 - [73] CPU Security Mitigation Context — `IDEA`
 - [74] Hypervisor Presence Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-011 — CPU optimization myth & unsafe-tweak guards
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Safety, Safety / Product Behavior, Safety / Research
 
@@ -363,24 +577,45 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para identificar e bloquear recomendações inadequadas relacionadas a **cpu optimization myth & unsafe-tweak guards**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Evitar tweaks sem evidência, riscos desnecessários e perda de qualidade de uso, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Evita alterações populares, agressivas ou cosméticas que não apresentem benefício técnico proporcional.
+
+Aplicabilidade:
+quando uma configuração ou recomendação puder ser confundida com otimização universal.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [76] CPU “Use All Cores” Myth Guard — `CANDIDATE`
 - [77] Scheduler Registry Tweak Guard — `CANDIDATE`
 - [79] Priority Tweak Myth Guard — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-012 — CPU diagnostic summary & evidence gate
 
-Status: CANDIDATE
+Status: DUPLICATE
 
 Type: Diagnostic / Product Behavior
 
@@ -388,22 +623,46 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para correlacionar e contextualizar **cpu diagnostic summary & evidence gate**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Ajudar a distinguir coincidência de causa provável e explicar mudanças ao longo do tempo, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando histórico, comparação ou múltiplas evidências forem necessárias para interpretar um problema.
+
+Dúvidas:
+Ownership consolidado em C-SYSTEM-002 / C-SYSTEM-003. Esta entrada não deve gerar Feature Spec independente.
+
+Duplicate of:
+C-SYSTEM-002 / C-SYSTEM-003
+
+Origem / itens consolidados:
 - [80] CPU Diagnostic Summary — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+Não manter como capability ativa independente. O comportamento é coberto por C-SYSTEM-002 / C-SYSTEM-003; esta entrada permanece apenas para registrar a decisão de ownership.
 
 ## C-CPU-013 — CPU vendor-specific capability abstraction
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Shared Capability
 
@@ -411,23 +670,44 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **cpu vendor-specific capability abstraction**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [81] CPU Vendor-Specific Capability Layer — `CANDIDATE`
 - [101] Intel Dynamic Tuning Context — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-014 — CPU stability & hardware-error validation
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark / Diagnostic, Diagnostic, Diagnostic / Validation, Safety / Validation, Validation
 
@@ -435,14 +715,35 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **cpu stability & hardware-error validation**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [111] CPU Stability Test — `CANDIDATE`
 - [112] WHEA Monitoring During CPU Test — `CANDIDATE`
 - [113] Corrected Hardware Error Detection — `CANDIDATE`
@@ -451,12 +752,12 @@ Origem / itens absorvidos:
 - [136] CPU Optimization Rejection on Instability — `CANDIDATE`
 - [137] CPU Optimization Rejection on Excessive Thermal Cost — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-CPU-015 — CPU monitoring modes & overhead safeguards
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Diagnostic Infrastructure, Monitoring
 
@@ -464,17 +765,38 @@ Technical Domain: CPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para identificar e bloquear recomendações inadequadas relacionadas a **cpu monitoring modes & overhead safeguards**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Evitar tweaks sem evidência, riscos desnecessários e perda de qualidade de uso, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Evita alterações populares, agressivas ou cosméticas que não apresentem benefício técnico proporcional.
+
+Aplicabilidade:
+quando uma configuração ou recomendação puder ser confundida com otimização universal.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [129] CPU Telemetry Sampling Cost Analysis — `IDEA`
 - [130] CPU Monitoring Low-Overhead Mode — `CANDIDATE`
 - [131] CPU Deep Diagnostic Mode — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.

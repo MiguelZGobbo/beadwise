@@ -1,19 +1,23 @@
-# Consolidated Discovery — RAM
+# Final Discovery — RAM
 
-> Source: `ram.md`
 > Canonical rules: `01-DISCOVERY.md`
-> This file is a consolidation layer. The original discovery remains unchanged and traceable.
+> Scope boundary: `02-FEATURE-SPEC-TEMPLATE.md` is used only to keep implementation research out of Discovery.
 
-## Consolidation result
+## Final review result
 
-- Raw discovery items: **140**
-- Consolidated active capability groups: **17**
-- Explicitly rejected source items kept outside active catalog: **4**
-- Items conservatively preserved as standalone because no safe merge was identified: **0**
+- Raw discovery items represented: **140**
+- Consolidated capability groups: **17**
+- Active non-duplicate groups: **17**
+- `READY_FOR_SPEC`: **17**
+- `CANDIDATE`: **0**
+- `QUESTIONABLE`: **0**
+- `DUPLICATE`: **0**
+
+> A status decision is conceptual only. `READY_FOR_SPEC` does not imply implementation, API, Registry, rollback, benchmark proof, test or compatibility method already resolved.
 
 ## C-RAM-001 — Memory capacity, modules & topology inventory
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Product Logic, Diagnostic / Recommendation, Product Behavior
 
@@ -21,14 +25,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **memory capacity, modules & topology inventory**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [1] Physical Memory Capacity Detection — `CANDIDATE`
 - [2] OS-Usable Memory Detection — `CANDIDATE`
 - [3] Installed vs Usable RAM Difference Analysis — `CANDIDATE`
@@ -45,12 +70,12 @@ Origem / itens absorvidos:
 - [88] DDR5 Architecture Awareness — `CANDIDATE`
 - [89] DDR5 Subchannel Awareness — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-002 — SPD, JEDEC, XMP/EXPO profile diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark / Stability, Configuration Guidance, Diagnostic, Diagnostic / Recommendation, Product Infrastructure, Safety, Shared Diagnostic Capability
 
@@ -58,14 +83,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **spd, jedec, xmp/expo profile diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [10] SPD Information Detection — `RESEARCHING`
 - [11] JEDEC Profile Detection — `CANDIDATE`
 - [12] Intel XMP Profile Detection — `CANDIDATE`
@@ -82,12 +128,12 @@ Origem / itens absorvidos:
 - [99] SPD Read Fallback Strategy — `CANDIDATE`
 - [100] SMBus Access Conflict Safeguard — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-003 — ECC & physical-memory error diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Diagnostic
 
@@ -95,26 +141,47 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **ecc & physical-memory error diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [25] ECC Capability Detection — `CANDIDATE`
 - [26] ECC Error Monitoring — `CANDIDATE`
 - [27] Predictive Bad Memory Page Detection — `IDEA`
 - [127] Memory Fault Source Classification — `IDEA`
 - [136] Memory Error Address Pattern Analysis — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-004 — Memory usage, pressure & commit diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Visualization, Monitoring
 
@@ -122,14 +189,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **memory usage, pressure & commit diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [28] Total Physical Memory Usage — `CANDIDATE`
 - [29] Available Memory Monitoring — `CANDIDATE`
 - [30] Memory Pressure Detection — `CANDIDATE`
@@ -146,12 +234,12 @@ Origem / itens absorvidos:
 - [107] Low Virtual Memory Incident Attribution — `CANDIDATE`
 - [108] Resource Exhaustion Timeline Correlation — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-005 — Pagefile & crash-dump configuration diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Recommendation, Recommendation
 
@@ -159,14 +247,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **pagefile & crash-dump configuration diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [35] Pagefile Presence Detection — `CANDIDATE`
 - [36] Pagefile Configuration Detection — `CANDIDATE`
 - [37] Pagefile Requirement Analysis — `CANDIDATE`
@@ -176,12 +285,12 @@ Origem / itens absorvidos:
 - [41] Crash Dump Memory Requirement Analysis — `CANDIDATE`
 - [122] ClearPageFileAtShutdown Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-006 — Per-process memory & leak diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Monitoring
 
@@ -189,26 +298,47 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **per-process memory & leak diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [42] Working Set Monitoring — `CANDIDATE`
 - [44] Process Memory Growth Detection — `CANDIDATE`
 - [45] Memory Leak Candidate Detection — `CANDIDATE`
 - [64] Memory Usage by Process Ranking — `CANDIDATE`
 - [65] Memory Usage Anomaly Detection — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-007 — Kernel pool & driver leak diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Advanced Diagnostic Tool, Diagnostic
 
@@ -216,14 +346,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **kernel pool & driver leak diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [46] Paged Pool Monitoring — `CANDIDATE`
 - [47] Nonpaged Pool Monitoring — `CANDIDATE`
 - [48] Kernel Pool Leak Detection — `CANDIDATE`
@@ -232,12 +383,12 @@ Origem / itens absorvidos:
 - [111] Pool Tag to Driver Mapping — `CANDIDATE`
 - [112] Kernel Memory Leak Diagnostic Session — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-008 — Standby/cache/compression diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Configuration, Diagnostic, Optimization, Product Behavior
 
@@ -245,14 +396,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **standby/cache/compression diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [49] Standby Memory Observation — `CANDIDATE`
 - [50] Standby Cache Explanation — `CANDIDATE`
 - [51] Standby List Clear — `QUESTIONABLE`
@@ -262,12 +434,15 @@ Origem / itens absorvidos:
 - [61] System Cache Size Observation — `CANDIDATE`
 - [62] Modified Page List Observation — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Limite conceitual:
+O `READY_FOR_SPEC` vale para a responsabilidade principal descrita nesta capability. Subitens de origem marcados `QUESTIONABLE` continuam questionáveis e **não** são aprovados implicitamente; qualquer alteração agressiva neles representada permanece fora do escopo ativo até justificativa própria.
+
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-009 — Memory-manager tweak/default-state safeguards
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Repair / Diagnostic, Safety, Safety / Product Principle
 
@@ -275,14 +450,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para identificar e bloquear recomendações inadequadas relacionadas a **memory-manager tweak/default-state safeguards**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Evitar tweaks sem evidência, riscos desnecessários e perda de qualidade de uso, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Evita alterações populares, agressivas ou cosméticas que não apresentem benefício técnico proporcional.
+
+Aplicabilidade:
+quando uma configuração ou recomendação puder ser confundida com otimização universal.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [52] RAM Cleaner Myth Guard — `CANDIDATE`
 - [87] Memory Optimization Myth Guard — `CANDIDATE`
 - [117] DisablePagingExecutive State Detection — `CANDIDATE`
@@ -292,12 +488,12 @@ Origem / itens absorvidos:
 - [125] Memory Working Set Trim Detection — `RESEARCHING`
 - [126] Working Set Trim Abuse Guard — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-010 — Paging & hard-fault diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Diagnostic, Safety / Diagnostic Logic
 
@@ -305,14 +501,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **paging & hard-fault diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [56] Paging Activity Monitoring — `CANDIDATE`
 - [57] Pages Output Rate — `CANDIDATE`
 - [58] Pages/sec Misinterpretation Guard — `CANDIDATE`
@@ -320,12 +537,12 @@ Origem / itens absorvidos:
 - [60] Hard Fault / Stutter Correlation — `IDEA`
 - [128] Page Fault ETW Trace — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-011 — Memory benchmark suite
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Benchmark Safeguard
 
@@ -333,14 +550,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para medir e comparar **memory benchmark suite**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Fornecer uma medição reproduzível e interpretável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Medição comparável para compreender desempenho e validar se uma mudança realmente produziu efeito.
+
+Aplicabilidade:
+quando for necessário quantificar desempenho, regressão ou resultado de uma alteração.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [69] Memory Bandwidth Benchmark — `CANDIDATE`
 - [70] Memory Latency Benchmark — `CANDIDATE`
 - [71] Memory Bandwidth Scaling Test — `IDEA`
@@ -351,12 +589,12 @@ Origem / itens absorvidos:
 - [131] Random Memory Access Benchmark — `CANDIDATE`
 - [132] Memory Benchmark Topology Awareness — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-012 — NUMA & reserved-memory diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Diagnostic
 
@@ -364,25 +602,46 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **numa & reserved-memory diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [73] NUMA Memory Topology — `CANDIDATE`
 - [74] Remote NUMA Memory Access Analysis — `IDEA`
 - [75] Integrated GPU Memory Reservation Analysis — `CANDIDATE`
 - [76] Hardware Reserved Memory Anomaly Detection — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-013 — Memory stability testing & validation
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark / Product Logic, Diagnostic / Benchmark, Diagnostic Guidance, Product Behavior, Safety, Tool / Diagnostic Guidance, Validation
 
@@ -390,14 +649,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **memory stability testing & validation**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [77] Memory Stability Test — `CANDIDATE`
 - [78] Windows Memory Diagnostic Integration — `CANDIDATE`
 - [79] Memory Test WHEA Monitoring — `CANDIDATE`
@@ -410,12 +690,12 @@ Origem / itens absorvidos:
 - [139] Memory Optimization Rejection on Error — `CANDIDATE`
 - [140] Memory Optimization Meaningful Gain Validation — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-014 — Memory capacity adequacy & upgrade guidance
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Explainability, Diagnostic / Product Behavior, Diagnostic / Recommendation
 
@@ -423,25 +703,46 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar **memory capacity adequacy & upgrade guidance**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer uma capacidade de produto coerente e contextual, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando o cenário descrito pela capability estiver presente.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [83] Memory Upgrade Need Detection — `IDEA`
 - [84] Memory Capacity Adequacy Classification — `IDEA`
 - [85] Memory Configuration Health Summary — `CANDIDATE`
 - [86] “High RAM Usage” Explanation Engine — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-015 — Memory-controller, voltage & training context
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Tuning, Diagnostic, Diagnostic / Benchmark
 
@@ -449,14 +750,35 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: High
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **memory-controller, voltage & training context**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [90] Memory Controller Ratio Detection — `RESEARCHING`
 - [91] Intel Memory Gear Mode Detection — `CANDIDATE`
 - [92] Intel Gear Mode Performance Context — `CANDIDATE`
@@ -470,12 +792,15 @@ Origem / itens absorvidos:
 - [104] Memory Training Failure / Fallback Detection — `RESEARCHING`
 - [105] Memory Context Restore Awareness — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Limite conceitual:
+O `READY_FOR_SPEC` vale para a responsabilidade principal descrita nesta capability. Subitens de origem marcados `QUESTIONABLE` continuam questionáveis e **não** são aprovados implicitamente; qualquer alteração agressiva neles representada permanece fora do escopo ativo até justificativa própria.
+
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-016 — Large-page capability & application guidance
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Configuration Guidance
 
@@ -483,24 +808,45 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **large-page capability & application guidance**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [113] Large Page Capability Detection — `CANDIDATE`
 - [114] Large Page Application Usage Detection — `RESEARCHING`
 - [116] Large Page Application Guidance — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-RAM-017 — Memory-bound workload diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic
 
@@ -508,43 +854,36 @@ Technical Domain: RAM
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **memory-bound workload diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [129] Memory-Bound Workload Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
-
-# Rejected / removed from active capability catalog
-
-> These items remain recorded for traceability but do not proceed as active capabilities.
-
-## R-RAM-115 — Force Large Pages Optimization
-
-Original status: `REJECTED`
-
-Decision: Keep rejected; do not promote to Feature Spec unless new evidence materially changes the assessment.
-
-## R-RAM-118 — DisablePagingExecutive Optimization
-
-Original status: `REJECTED`
-
-Decision: Keep rejected; do not promote to Feature Spec unless new evidence materially changes the assessment.
-
-## R-RAM-121 — LargeSystemCache Gaming Optimization
-
-Original status: `REJECTED`
-
-Decision: Keep rejected; do not promote to Feature Spec unless new evidence materially changes the assessment.
-
-## R-RAM-123 — Clear Pagefile for Performance
-
-Original status: `REJECTED`
-
-Decision: Keep rejected; do not promote to Feature Spec unless new evidence materially changes the assessment.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.

@@ -1,19 +1,23 @@
-# Consolidated Discovery — ENERGY
+# Final Discovery — ENERGY
 
-> Source: `energy.md`
 > Canonical rules: `01-DISCOVERY.md`
-> This file is a consolidation layer. The original discovery remains unchanged and traceable.
+> Scope boundary: `02-FEATURE-SPEC-TEMPLATE.md` is used only to keep implementation research out of Discovery.
 
-## Consolidation result
+## Final review result
 
-- Raw discovery items: **100**
-- Consolidated active capability groups: **13**
-- Explicitly rejected source items kept outside active catalog: **0**
-- Items conservatively preserved as standalone because no safe merge was identified: **0**
+- Raw discovery items represented: **100**
+- Consolidated capability groups: **13**
+- Active non-duplicate groups: **12**
+- `READY_FOR_SPEC`: **11**
+- `CANDIDATE`: **1**
+- `QUESTIONABLE`: **0**
+- `DUPLICATE`: **1**
+
+> A status decision is conceptual only. `READY_FOR_SPEC` does not imply implementation, API, Registry, rollback, benchmark proof, test or compatibility method already resolved.
 
 ## C-ENERGY-001 — Power scheme inventory, switching & state
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration / Optimization, Diagnostic, Diagnostic / Configuration, Diagnostic / Product Behavior, Diagnostic / Repair, Monitoring, Safety / Configuration
 
@@ -21,14 +25,33 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **power scheme inventory, switching & state**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [1] Power Scheme Inventory — `CANDIDATE`
 - [2] Power Scheme Switching — `CANDIDATE`
 - [3] Power Scheme Backup / Restore — `CANDIDATE`
@@ -45,8 +68,8 @@ Origem / itens absorvidos:
 - [67] OEM Power Overlay Detection — `RESEARCHING`
 - [68] Effective Power Configuration Explanation — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-002 — Dynamic workload power profiles
 
@@ -58,24 +81,43 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **dynamic workload power profiles**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+A proposta é conceitualmente plausível, mas ainda precisa de evidência adicional de utilidade/escopo antes de avançar para Feature Spec.
+
+Origem / itens consolidados:
 - [8] AC × Battery Policy Detection — `CANDIDATE`
 - [9] AC/Battery Profile Switching — `IDEA`
 - [59] Dynamic Workload Power Profile — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+Manter no Discovery, mas não avançar ainda. O conceito precisa amadurecer quanto a benefício/escopo, sem antecipar investigação técnica de implementação.
 
 ## C-ENERGY-003 — Processor power policy diagnostics & tuning
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration / Optimization, Diagnostic, Diagnostic / Configuration, Optimization / Configuration, Optimization / Recommendation
 
@@ -83,14 +125,33 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **processor power policy diagnostics & tuning**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [10] Processor Minimum Performance State — `CANDIDATE`
 - [11] Processor Maximum Performance State — `CANDIDATE`
 - [12] Processor Boost Mode Detection — `CANDIDATE`
@@ -107,12 +168,12 @@ Origem / itens absorvidos:
 - [71] Background Work EcoQoS Advisor — `IDEA`
 - [72] Power Throttling Diagnostics — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-004 — Energy efficiency & performance-per-watt analysis
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Benchmark / Diagnostic, Diagnostic
 
@@ -120,14 +181,33 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar **energy efficiency & performance-per-watt analysis**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer uma capacidade de produto coerente e contextual, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando o cenário descrito pela capability estiver presente.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [20] Idle Power Consumption Diagnosis — `CANDIDATE`
 - [42] Energy Efficiency Scan — `CANDIDATE`
 - [55] Performance-per-Watt Benchmark — `IDEA`
@@ -135,12 +215,12 @@ Origem / itens absorvidos:
 - [57] Power-Limited Performance Detection — `CANDIDATE`
 - [58] Performance Regression Caused by Energy Policy — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-005 — Sleep, wake, hibernate & fast-startup diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration, Configuration / Storage, Diagnostic, Diagnostic / Configuration, Diagnostic / Repair
 
@@ -148,14 +228,33 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: High
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **sleep, wake, hibernate & fast-startup diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [21] Power Requests Detection — `CANDIDATE`
 - [22] Power Request Override Advisor — `RESEARCHING`
 - [23] Available Sleep States Detection — `CANDIDATE`
@@ -179,12 +278,12 @@ Origem / itens absorvidos:
 - [82] Standby Drain Session Comparison — `IDEA`
 - [83] Standby Energy Regression Detection — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-006 — Device power-management diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration / Optimization, Diagnostic, Diagnostic / Repair
 
@@ -192,25 +291,44 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **device power-management diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [36] USB Selective Suspend State — `CANDIDATE`
 - [37] USB Selective Suspend Troubleshooter — `CANDIDATE`
 - [38] PCIe Link State Power Management Detection — `CANDIDATE`
 - [39] PCIe ASPM Policy Tuning — `RESEARCHING`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-007 — Display energy-management diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration, Configuration / Recommendation, Diagnostic, Diagnostic / Configuration, Diagnostic / Recommendation
 
@@ -218,14 +336,33 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **display energy-management diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [40] Display Power Policy — `CANDIDATE`
 - [88] Display Refresh Rate Energy Analysis — `CANDIDATE`
 - [89] Dynamic Refresh Rate Detection — `CANDIDATE`
@@ -236,12 +373,12 @@ Origem / itens absorvidos:
 - [94] Display Power Consumption Advisor — `IDEA`
 - [95] OLED Energy Context — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-008 — Energy recommendation confidence
 
-Status: IDEA
+Status: DUPLICATE
 
 Type: Diagnostic Safeguard, Product Behavior
 
@@ -249,23 +386,45 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar **energy recommendation confidence**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer uma capacidade de produto coerente e contextual, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando o cenário descrito pela capability estiver presente.
+
+Dúvidas:
+Ownership consolidado em C-SYSTEM-003. Esta entrada não deve gerar Feature Spec independente.
+
+Duplicate of:
+C-SYSTEM-003
+
+Origem / itens consolidados:
 - [43] Energy Diagnostic Readiness Check — `IDEA`
 - [100] Energy Recommendation Confidence — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+Não manter como capability ativa independente. O comportamento é coberto por C-SYSTEM-003; esta entrada permanece apenas para registrar a decisão de ownership.
 
 ## C-ENERGY-009 — Energy state history, conflict & outcome validation
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark / Validation, Diagnostic, Monitoring / Diagnostic
 
@@ -273,25 +432,44 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para correlacionar e contextualizar **energy state history, conflict & outcome validation**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Ajudar a distinguir coincidência de causa provável e explicar mudanças ao longo do tempo, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando histórico, comparação ou múltiplas evidências forem necessárias para interpretar um problema.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [44] Historical Energy Usage — `CANDIDATE`
 - [60] Power Profile Before × After Validation — `CANDIDATE`
 - [98] Energy Optimization Conflict Detection — `IDEA`
 - [99] Energy State Timeline — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-010 — Application/process energy attribution & policy
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration, Diagnostic, Diagnostic / Configuration, Optimization
 
@@ -299,14 +477,33 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **application/process energy attribution & policy**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [45] Energy Consumption by Application — `IDEA`
 - [54] Per-Process Energy Efficiency Policy — `RESEARCHING`
 - [84] Hybrid Graphics Capability Detection — `CANDIDATE`
@@ -314,12 +511,12 @@ Origem / itens absorvidos:
 - [86] Unnecessary dGPU Activation Detection — `CANDIDATE`
 - [87] GPU Power Preference Recommendation — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-011 — Battery capability, health & drain diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Monitoring
 
@@ -327,26 +524,45 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **battery capability, health & drain diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [46] Battery Presence / Capability Detection — `CANDIDATE`
 - [47] Battery Health Overview — `CANDIDATE`
 - [48] Battery Usage Report — `CANDIDATE`
 - [49] Abnormal Battery Drain Detection — `IDEA`
 - [50] Charging / Discharging Rate Monitoring — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-012 — Energy Saver diagnostics & configuration
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration, Diagnostic
 
@@ -354,25 +570,44 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **energy saver diagnostics & configuration**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [51] Energy Saver State Detection — `CANDIDATE`
 - [52] Energy Saver Configuration — `CANDIDATE`
 - [96] Energy Saver Background Activity Impact — `CANDIDATE`
 - [97] Energy Saver Automatic Activation Policy — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-ENERGY-013 — Timer-resolution energy diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Benchmark, Product Behavior / Safety
 
@@ -380,19 +615,38 @@ Technical Domain: ENERGY
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- Optimization
+- Diagnostics
+- My PC
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **timer-resolution energy diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [73] Timer Resolution Request Detection — `CANDIDATE`
 - [74] Excessive Timer Resolution Diagnostic — `CANDIDATE`
 - [75] Timer Resolution Energy Correlation — `IDEA`
 - [76] Timer Resolution Myth Guard — `CANDIDATE`
 - [77] Occluded Process Timer Throttling Detection — `RESEARCHING`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.

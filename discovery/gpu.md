@@ -1,19 +1,23 @@
-# Consolidated Discovery — GPU
+# Final Discovery — GPU
 
-> Source: `gpu.md`
 > Canonical rules: `01-DISCOVERY.md`
-> This file is a consolidation layer. The original discovery remains unchanged and traceable.
+> Scope boundary: `02-FEATURE-SPEC-TEMPLATE.md` is used only to keep implementation research out of Discovery.
 
-## Consolidation result
+## Final review result
 
-- Raw discovery items: **168**
-- Consolidated active capability groups: **17**
-- Explicitly rejected source items kept outside active catalog: **0**
-- Items conservatively preserved as standalone because no safe merge was identified: **0**
+- Raw discovery items represented: **168**
+- Consolidated capability groups: **17**
+- Active non-duplicate groups: **16**
+- `READY_FOR_SPEC`: **15**
+- `CANDIDATE`: **0**
+- `QUESTIONABLE`: **1**
+- `DUPLICATE`: **1**
+
+> A status decision is conceptual only. `READY_FOR_SPEC` does not imply implementation, API, Registry, rollback, benchmark proof, test or compatibility method already resolved.
 
 ## C-GPU-001 — GPU identity, inventory & architecture
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic
 
@@ -21,14 +25,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **gpu identity, inventory & architecture**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [1] GPU Adapter Inventory — `CANDIDATE`
 - [2] GPU Vendor Detection — `CANDIDATE`
 - [3] GPU Hardware ID Detection — `CANDIDATE`
@@ -39,12 +64,12 @@ Origem / itens absorvidos:
 - [8] Physical GPU Count — `CANDIDATE`
 - [9] GPU Engine Enumeration — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-002 — GPU memory capacity, usage & pressure
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Monitoring
 
@@ -52,14 +77,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu memory capacity, usage & pressure**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [10] Dedicated VRAM Detection — `CANDIDATE`
 - [11] Dedicated System Graphics Memory Detection — `CANDIDATE`
 - [12] Shared System Graphics Memory Detection — `CANDIDATE`
@@ -72,12 +118,12 @@ Origem / itens absorvidos:
 - [140] GPU Video Memory Budget Diagnostics — `CANDIDATE`
 - [141] GPU Memory Residency Pressure Analysis — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-003 — GPU utilization, clocks & telemetry
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Monitoring
 
@@ -85,14 +131,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu utilization, clocks & telemetry**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [18] GPU Utilization Monitoring — `CANDIDATE`
 - [19] Per-Engine GPU Utilization — `CANDIDATE`
 - [20] GPU Usage by Process — `CANDIDATE`
@@ -104,12 +171,12 @@ Origem / itens absorvidos:
 - [29] GPU Board Power Monitoring — `CANDIDATE`
 - [30] GPU Voltage Monitoring — `RESEARCHING`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-004 — GPU thermal, power & limiter diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Tuning, Diagnostic, Monitoring, Validation
 
@@ -117,14 +184,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: High
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu thermal, power & limiter diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [24] GPU Temperature Monitoring — `CANDIDATE`
 - [25] GPU Hotspot Temperature — `RESEARCHING`
 - [26] GPU Memory Temperature — `RESEARCHING`
@@ -137,12 +225,15 @@ Origem / itens absorvidos:
 - [152] GPU Limiter Diagnostics — `CANDIDATE`
 - [153] Laptop GPU Power Envelope Context — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Limite conceitual:
+O `READY_FOR_SPEC` vale para a responsabilidade principal descrita nesta capability. Subitens de origem marcados `QUESTIONABLE` continuam questionáveis e **não** são aprovados implicitamente; qualquer alteração agressiva neles representada permanece fora do escopo ativo até justificativa própria.
+
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-005 — GPU driver health & crash diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Diagnostic, Recommendation, Repair / Guidance, Safety, Validation
 
@@ -150,14 +241,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu driver health & crash diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [35] GPU Driver Version Detection — `CANDIDATE`
 - [36] GPU Driver Provider Detection — `CANDIDATE`
 - [37] WDDM Version Detection — `CANDIDATE`
@@ -179,12 +291,12 @@ Origem / itens absorvidos:
 - [149] DRED Crash Context — `CANDIDATE`
 - [150] GPU Crash Incident Correlation — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-006 — Graphics API & rendering capability inventory
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic
 
@@ -192,14 +304,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **graphics api & rendering capability inventory**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [50] DirectX Runtime Capability Detection — `CANDIDATE`
 - [51] Direct3D Feature Level Detection — `CANDIDATE`
 - [52] DirectX 12 Capability — `CANDIDATE`
@@ -213,12 +346,12 @@ Origem / itens absorvidos:
 - [161] Modern Rendering Feature Inventory — `CANDIDATE`
 - [162] Upscaling / Frame Generation Capability Context — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-007 — GPU scheduling & presentation diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Advanced Diagnostic, Benchmark, Diagnostic, Monitoring / Diagnostic, Safety
 
@@ -226,14 +359,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu scheduling & presentation diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [58] Hardware-Accelerated GPU Scheduling Detection — `CANDIDATE`
 - [59] HAGS Performance Test — `CANDIDATE`
 - [60] HAGS Universal Optimization Guard — `CANDIDATE`
@@ -244,12 +398,12 @@ Origem / itens absorvidos:
 - [146] MPO Disable Tweak Guard — `CANDIDATE`
 - [147] VRR / Tearing Presentation Capability — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-008 — Per-app GPU selection & hybrid graphics routing
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration, Diagnostic, Monitoring, Recommendation
 
@@ -257,14 +411,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **per-app gpu selection & hybrid graphics routing**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [61] Per-App GPU Preference Detection — `CANDIDATE`
 - [62] Per-App GPU Preference Configuration — `CANDIDATE`
 - [63] Wrong-GPU Execution Detection — `CANDIDATE`
@@ -276,12 +451,12 @@ Origem / itens absorvidos:
 - [69] MUX Mode Advisor — `IDEA`
 - [154] Hybrid Graphics Routing Diagnostics — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-009 — Resizable BAR readiness & context
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration Guidance, Diagnostic, Explainability
 
@@ -289,14 +464,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **resizable bar readiness & context**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [70] Resizable BAR Capability Detection — `CANDIDATE`
 - [71] Resizable BAR Active-State Detection — `CANDIDATE`
 - [72] Resizable BAR Platform Readiness — `CANDIDATE`
@@ -305,12 +501,12 @@ Origem / itens absorvidos:
 - [75] ReBAR Benefit Context — `CANDIDATE`
 - [122] AMD Smart Access Memory Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-010 — GPU PCIe link & transfer diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark / Diagnostic, Diagnostic
 
@@ -318,14 +514,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu pcie link & transfer diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [76] PCIe Link Generation Detection — `CANDIDATE`
 - [77] PCIe Link Width Detection — `CANDIDATE`
 - [78] GPU PCIe Link Bottleneck Detection — `CANDIDATE`
@@ -333,12 +550,12 @@ Origem / itens absorvidos:
 - [80] GPU PCIe Error Correlation — `IDEA`
 - [163] PCIe GPU Transfer Diagnostics — `IDEA`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-011 — GPU bottleneck, frametime & stutter diagnostics
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Monitoring
 
@@ -346,14 +563,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para diagnosticar **gpu bottleneck, frametime & stutter diagnostics**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Transformar sintomas e métricas em uma explicação útil e acionável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando houver sintomas, degradação, anomalias ou necessidade de entender o estado atual.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [81] GPU Bottleneck Detection — `CANDIDATE`
 - [82] CPU-Limited GPU Underutilization Detection — `CANDIDATE`
 - [83] Frame Cap / VSync Limited Detection — `IDEA`
@@ -366,12 +604,12 @@ Origem / itens absorvidos:
 - [94] Video Encode Utilization — `CANDIDATE`
 - [95] GPU Copy Engine Utilization — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-012 — Shader cache diagnostics & safeguards
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Configuration, Diagnostic, Diagnostic / Configuration, Safety
 
@@ -379,25 +617,46 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para identificar e bloquear recomendações inadequadas relacionadas a **shader cache diagnostics & safeguards**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Evitar tweaks sem evidência, riscos desnecessários e perda de qualidade de uso, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Evita alterações populares, agressivas ou cosméticas que não apresentem benefício técnico proporcional.
+
+Aplicabilidade:
+quando uma configuração ou recomendação puder ser confundida com otimização universal.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [88] Shader Cache State Awareness — `CANDIDATE`
 - [89] Shader Cache Cleanup Guard — `CANDIDATE`
 - [90] Shader Cache Size Tuning — `RESEARCHING`
 - [113] NVIDIA Shader Cache Size State — `RESEARCHING`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-013 — GPU benchmark suite
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Benchmark Architecture, Benchmark Safeguard
 
@@ -405,14 +664,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Unknown
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para medir e comparar **gpu benchmark suite**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Fornecer uma medição reproduzível e interpretável, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Medição comparável para compreender desempenho e validar se uma mudança realmente produziu efeito.
+
+Aplicabilidade:
+quando for necessário quantificar desempenho, regressão ou resultado de uma alteração.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [96] GPU Benchmark Readiness — `CANDIDATE`
 - [97] GPU Synthetic Benchmark — `CANDIDATE`
 - [98] GPU Sustained Performance Benchmark — `CANDIDATE`
@@ -421,12 +701,12 @@ Origem / itens absorvidos:
 - [164] GPU Memory Performance Benchmark — `IDEA`
 - [165] GPU Benchmark Workload Classification — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-014 — GPU stability & tuning validation
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Benchmark, Benchmark / Diagnostic, Diagnostic, Product Behavior, Safety, Validation
 
@@ -434,14 +714,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Medium
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **gpu stability & tuning validation**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
+
+Origem / itens consolidados:
 - [99] GPU Stability Test — `CANDIDATE`
 - [102] GPU Performance Variability — `CANDIDATE`
 - [103] GPU Before × After Validation — `CANDIDATE`
@@ -450,12 +751,12 @@ Origem / itens absorvidos:
 - [135] GPU Optimization Rejection on Thermal Cost — `IDEA`
 - [136] GPU Multi-Metric Optimization Result — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-015 — GPU vendor capability & profile layer
 
-Status: CANDIDATE
+Status: READY_FOR_SPEC
 
 Type: Diagnostic, Diagnostic / Configuration, Infrastructure, Shared Capability
 
@@ -463,14 +764,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para detectar e contextualizar **gpu vendor capability & profile layer**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Dar ao produto uma visão confiável do estado e das capacidades relevantes, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Contexto confiável para diagnósticos e recomendações posteriores, reduzindo suposições sobre o sistema.
+
+Aplicabilidade:
+quando outras áreas precisarem conhecer o ambiente antes de diagnosticar, recomendar ou agir.
+
+Dúvidas:
+Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
+
+Origem / itens consolidados:
 - [106] NVIDIA Capability Layer — `CANDIDATE`
 - [107] AMD GPU Capability Layer — `CANDIDATE`
 - [108] Intel GPU Capability Layer — `CANDIDATE`
@@ -490,12 +812,12 @@ Origem / itens absorvidos:
 - [124] Intel Arc Performance Readiness — `CANDIDATE`
 - [151] Vendor Performance Telemetry Layer — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+A responsabilidade de produto está clara e não há motivo conceitual óbvio para descarte. As dúvidas restantes são técnicas e pertencem à Feature Spec.
 
 ## C-GPU-016 — GPU tuning state, conflicts & controls
 
-Status: CANDIDATE
+Status: QUESTIONABLE
 
 Type: Advanced Tuning, Diagnostic, Repair
 
@@ -503,14 +825,35 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
+
+Shared Capability: No
 
 Risco inicial: High
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para avaliar e, quando justificado, permitir configurar **gpu tuning state, conflicts & controls**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Oferecer controle contextual sem tratar preferência como ganho garantido, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+somente quando o estado atual, o objetivo do usuário e o risco tornarem a mudança justificável.
+
+Dúvidas:
+O benefício real é suficiente para justificar uma capability independente? Quais limites impedem que se transforme em tweak pack, preferência ou tuning de risco desproporcional?
+
+Origem / itens consolidados:
 - [125] GPU Driver Profile Default Restore — `CANDIDATE`
 - [126] GPU Tweak Residue Detection — `IDEA`
 - [127] GPU Overclock State Detection — `RESEARCHING`
@@ -522,12 +865,12 @@ Origem / itens absorvidos:
 - [157] GPU Configuration Provenance — `IDEA`
 - [158] GPU Tuning Tool Conflict Detection — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+Não avançar ainda. O grupo contém risco de tuning agressivo, benefício incerto ou comportamento que pode virar preferência/tweak pack; precisa de justificativa conceitual adicional antes de Feature Spec.
 
 ## C-GPU-017 — GPU diagnostic summary & evidence gate
 
-Status: CANDIDATE
+Status: DUPLICATE
 
 Type: Diagnostic, Diagnostic / Product Behavior, Diagnostic Tool, Explainability, Product Behavior / Safety, Safety / Infrastructure
 
@@ -535,14 +878,38 @@ Technical Domain: GPU
 
 Primary Product Area: TBD
 
+Possible Consumers:
+- My PC
+- Monitoring
+- Optimization
+- Benchmark
+- Gaming
+
 Final UI Placement: TBD
 
-Risco inicial: Unknown
+Shared Capability: No
+
+Risco inicial: Low
 
 Descrição:
-Capacidade consolidada que reúne os itens abaixo por representarem partes do mesmo comportamento de produto, etapas do mesmo diagnóstico/ação, ou mecanismos inseparáveis de validação e segurança.
+Capability de produto para correlacionar e contextualizar **gpu diagnostic summary & evidence gate**. Os itens de origem abaixo representam sinais, subcomportamentos ou variações do mesmo objetivo e não devem virar features independentes apenas por terem mecanismos técnicos distintos.
 
-Origem / itens absorvidos:
+Possível objetivo:
+Ajudar a distinguir coincidência de causa provável e explicar mudanças ao longo do tempo, mantendo a decisão no nível de produto e deixando método exato de detecção/aplicação para a Feature Spec.
+
+Possível benefício:
+Melhor entendimento do estado atual e decisões mais contextualizadas, evitando mudanças universais sem evidência.
+
+Aplicabilidade:
+quando histórico, comparação ou múltiplas evidências forem necessárias para interpretar um problema.
+
+Dúvidas:
+Ownership consolidado em C-SYSTEM-002 / C-SYSTEM-003. Esta entrada não deve gerar Feature Spec independente.
+
+Duplicate of:
+C-SYSTEM-002 / C-SYSTEM-003
+
+Origem / itens consolidados:
 - [137] GPU Health Summary — `CANDIDATE`
 - [138] GPU Performance Summary — `CANDIDATE`
 - [139] GPU Configuration Explain Why — `CANDIDATE`
@@ -550,5 +917,5 @@ Origem / itens absorvidos:
 - [167] GPU Optimization Evidence Gate — `CANDIDATE`
 - [168] GPU Diagnostic Session — `CANDIDATE`
 
-Decisão de consolidação:
-Mantido como uma única capability de alto nível. Detalhes técnicos permanecem rastreáveis pelos itens de origem e deverão ser aprofundados somente na Feature Spec, conforme `01-DISCOVERY.md`.
+Decisão de revisão:
+Não manter como capability ativa independente. O comportamento é coberto por C-SYSTEM-002 / C-SYSTEM-003; esta entrada permanece apenas para registrar a decisão de ownership.
