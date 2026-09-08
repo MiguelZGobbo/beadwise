@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: SPECIFIED  
+Status: RESEARCH
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -379,7 +379,7 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
-- **Observed behavior:** TBD até execução dos protótipos/testes.
+- **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `storage.inventory-and-health`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows/win32/fileio/working-with-nvme-devices
 - https://learn.microsoft.com/windows-hardware/drivers/storage/working-with-nvme-devices
 

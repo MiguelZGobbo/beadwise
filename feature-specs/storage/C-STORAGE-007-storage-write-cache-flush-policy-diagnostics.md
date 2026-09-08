@@ -377,7 +377,7 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
-- **Observed behavior:** TBD até execução dos protótipos/testes.
+- **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 
 ## 32. Benefício real
 Reasonable

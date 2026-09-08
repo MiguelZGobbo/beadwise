@@ -388,11 +388,11 @@ Local: `/prototypes/processes/c-processes-003/` — **TBD / ainda não executado
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
+DETECT: NOT_TESTED
+PLAN: NOT_TESTED
+DRY-RUN: NOT_TESTED
 APPLY: N/A
-VERIFY: NOT_RUN
+VERIFY: NOT_TESTED
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
@@ -413,7 +413,7 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/etw/about-event-tracing
 - Documented behavior — https://learn.microsoft.com/windows/win32/wer/windows-error-reporting
 
-**Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 
 ## 32. Benefício real
 Reasonable

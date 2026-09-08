@@ -410,13 +410,13 @@ Local: `/prototypes/security/c-security-006/` — **TBD / ainda não executado n
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
-APPLY: NOT_RUN
-VERIFY: NOT_RUN
-ROLLBACK: NOT_RUN
-RESTORE VERIFY: NOT_RUN
+DETECT: NOT_TESTED
+PLAN: NOT_TESTED
+DRY-RUN: NOT_TESTED
+APPLY: NOT_TESTED
+VERIFY: NOT_TESTED
+ROLLBACK: NOT_TESTED
+RESTORE VERIFY: NOT_TESTED
 ```
 
 ### Ambiente utilizado
@@ -436,7 +436,7 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/credential-guard/
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
-**Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `RESEARCH` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/security/operating-system-security/system-security/user-account-control/
 
 ## 32. Benefício real

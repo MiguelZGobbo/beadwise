@@ -389,25 +389,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/system/c-system-017/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/system/C-SYSTEM-017/` — executado nesta campanha.
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
 APPLY: N/A
-VERIFY: NOT_RUN
+VERIFY: PASS
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -419,7 +419,7 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/rstmgr/about-restart-manager
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
-**Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+**Observed behavior (campanha 2026-09-08):** o bundle completo produziu JSON para os 20 domínios: 26 probes `PASS` e 1 `FAIL`. A falha foi preservada de forma estruturada: `DISM /Online /Cleanup-Image /CheckHealth` retornou exit code 740 em sessão não elevada. O teste do schema confirmou domínio/probe/status obrigatórios (`PASS: domain evidence bundle contract is complete`). Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. O prototype prova coleta/export e modelagem de falha neste host, mas não prova correlação semântica completa, privacidade do pacote em todos os cenários nem compatibilidade ampla; status permanece `SPECIFIED`.
 
 ## 32. Benefício real
 Reasonable

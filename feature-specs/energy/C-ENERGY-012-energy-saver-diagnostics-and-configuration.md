@@ -407,13 +407,13 @@ Local: `/prototypes/energy/c-energy-012/` — **TBD / ainda não executado nesta
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
-APPLY: NOT_RUN
-VERIFY: NOT_RUN
-ROLLBACK: NOT_RUN
-RESTORE VERIFY: NOT_RUN
+DETECT: NOT_TESTED
+PLAN: NOT_TESTED
+DRY-RUN: NOT_TESTED
+APPLY: NOT_TESTED
+VERIFY: NOT_TESTED
+ROLLBACK: NOT_TESTED
+RESTORE VERIFY: NOT_TESTED
 ```
 
 ### Ambiente utilizado
@@ -433,7 +433,7 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/device-experiences/modern-standby-sleepstudy
 
-**Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `energy.available-sleep-states`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 ## 32. Benefício real

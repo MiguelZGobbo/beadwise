@@ -373,11 +373,11 @@ Local: `/prototypes/startup/c-startup-002/` — TBD.
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
+DETECT: NOT_TESTED
+PLAN: NOT_TESTED
+DRY-RUN: NOT_TESTED
 APPLY: N/A
-VERIFY: NOT_RUN
+VERIFY: NOT_TESTED
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
@@ -397,6 +397,8 @@ Date: TBD
 - Documented behavior — https://learn.microsoft.com/windows-hardware/test/wpt/introduction-to-wpr
 
 Observed behavior: N/A nesta revisão; nenhuma execução real foi alegada.
+
+**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 
 ## 32. Benefício real
 Situational

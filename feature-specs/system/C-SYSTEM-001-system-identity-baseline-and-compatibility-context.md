@@ -389,25 +389,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/system/c-system-001/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/system/C-SYSTEM-001/` — executado nesta campanha.
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
 APPLY: N/A
-VERIFY: NOT_RUN
+VERIFY: PASS
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -419,7 +419,7 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/rstmgr/about-restart-manager
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
-**Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+**Observed behavior (campanha 2026-09-08):** o prototype próprio coletou OS/build/arquitetura, CPU/topologia, GPU/driver/PNP ID, placa-mãe, form factor, admin, bateria e hypervisor em JSON. O teste automatizado do contrato falhou antes da implementação e passou depois (`PASS: environment evidence contract is complete`). Evidências: `/prototypes/system/C-SYSTEM-001/results/environment.json` e `/prototypes/system/C-SYSTEM-001/tests/collect-environment.tests.ps1`. Esta execução comprova o caminho neste host; cenários de campo ausente, acesso negado, ARM64, laptop e VM continuam `NOT_TESTED`, portanto o status permanece `SPECIFIED`.
 
 ## 32. Benefício real
 Reasonable

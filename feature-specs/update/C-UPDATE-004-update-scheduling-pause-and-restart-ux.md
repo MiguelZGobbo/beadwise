@@ -408,13 +408,13 @@ Local: `/prototypes/update/c-update-004/` — **TBD / ainda não executado nesta
 
 ### Resultado
 ```text
-DETECT: NOT_RUN
-PLAN: NOT_RUN
-DRY-RUN: NOT_RUN
-APPLY: NOT_RUN
-VERIFY: NOT_RUN
-ROLLBACK: NOT_RUN
-RESTORE VERIFY: NOT_RUN
+DETECT: NOT_TESTED
+PLAN: NOT_TESTED
+DRY-RUN: NOT_TESTED
+APPLY: NOT_TESTED
+VERIFY: NOT_TESTED
+ROLLBACK: NOT_TESTED
+RESTORE VERIFY: NOT_TESTED
 ```
 
 ### Ambiente utilizado
@@ -434,7 +434,7 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/deployment/do/delivery-optimization-powershell
 - Documented behavior — https://learn.microsoft.com/windows/release-health/supported-versions-windows-client
 
-**Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `RESEARCH` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/deployment/update/waas-restart
 - https://learn.microsoft.com/windows/client-management/mdm/policy-csp-update
 
