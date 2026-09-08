@@ -1,6 +1,7 @@
 param(
     [string]$RepositoryRoot = (Resolve-Path (Join-Path $PSScriptRoot '..\..\..\..')).Path,
-    [string]$OutputPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'results\PHASE-2-RETURN-PACKAGE.md')
+    [string]$OutputPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'results\PHASE-2-RETURN-PACKAGE.md'),
+    [string]$CommitBase
 )
 
 $ErrorActionPreference = 'Stop'
@@ -14,7 +15,7 @@ function Get-MatchValue {
 
 function Escape-Cell {
     param([string]$Value)
-    (($Value -replace '\|', '\|') -replace '\r?\n', ' ')
+    ((($Value -replace '\|', '\|') -replace '\r?\n', ' ').Trim())
 }
 
 $specRoot = Join-Path $RepositoryRoot 'feature-specs'
@@ -22,6 +23,9 @@ $evidencePath = Join-Path $RepositoryRoot 'prototypes\system\C-SYSTEM-017\result
 $environmentPath = Join-Path $RepositoryRoot 'prototypes\system\C-SYSTEM-001\results\environment.json'
 $evidence = Get-Content -Raw -LiteralPath $evidencePath | ConvertFrom-Json
 $environment = Get-Content -Raw -LiteralPath $environmentPath | ConvertFrom-Json
+if ([string]::IsNullOrWhiteSpace($CommitBase)) {
+    $CommitBase = git -C $RepositoryRoot rev-parse HEAD
+}
 $specs = @()
 
 foreach ($file in Get-ChildItem -LiteralPath $specRoot -File -Recurse -Filter '*.md' | Sort-Object FullName) {
@@ -46,12 +50,16 @@ foreach ($file in Get-ChildItem -LiteralPath $specRoot -File -Recurse -Filter '*
 }
 
 $builder = [Text.StringBuilder]::new()
-function Add-Line { param([string]$Line = '') [void]$builder.AppendLine($Line) }
+function Add-Line {
+    param([string]$Line = '')
+    [void]$builder.Append($Line)
+    [void]$builder.Append("`n")
+}
 
 Add-Line '# Fase 2 — Pacote de retorno da campanha de prova técnica'
 Add-Line
-Add-Line "Gerado em: $($evidence.capturedAt)  "
-Add-Line "Commit-base: ``$(git -C $RepositoryRoot rev-parse HEAD)``  "
+Add-Line "Gerado em: $(([datetimeoffset]$evidence.capturedAt).ToString('o'))"
+Add-Line "Commit-base: ``$($CommitBase.Trim())``"
 Add-Line 'Escopo: 234 Feature Specs em 20 domínios; prototypes isolados, sem backend final.'
 Add-Line
 Add-Line '## A–D. Artefatos e estado do Git'
@@ -64,13 +72,13 @@ Add-Line
 Add-Line '### git status --short capturado'
 Add-Line
 Add-Line '```text'
-Add-Line ((git -C $RepositoryRoot status --short) -join "`n")
+Add-Line (((git -C $RepositoryRoot status --short) | ForEach-Object { $_.TrimEnd() }) -join "`n")
 Add-Line '```'
 Add-Line
 Add-Line '### git log --oneline -5 capturado'
 Add-Line
 Add-Line '```text'
-Add-Line ((git -C $RepositoryRoot log -5 --oneline) -join "`n")
+Add-Line (((git -C $RepositoryRoot log -5 --oneline) | ForEach-Object { $_.TrimEnd() }) -join "`n")
 Add-Line '```'
 Add-Line
 Add-Line '## E. Inventário final de status'

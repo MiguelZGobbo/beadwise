@@ -180,7 +180,8 @@ $domains.repair = New-DomainEvidence @(
     Invoke-EvidenceProbe 'repair.component-store-check' @('C-REPAIR-001', 'C-REPAIR-002', 'C-REPAIR-010') {
         if ($Fast) { return [ordered]@{ skippedInFastMode = $true } }
         $output = & dism.exe /Online /Cleanup-Image /CheckHealth 2>&1 | Out-String
-        if ($LASTEXITCODE -ne 0) { throw "DISM exit code $LASTEXITCODE`: $output" }
+        if ($LASTEXITCODE -eq 740) { throw 'DISM_EXIT_740_ADMIN_REQUIRED' }
+        if ($LASTEXITCODE -ne 0) { throw "DISM_EXIT_$LASTEXITCODE" }
         [ordered]@{ exitCode = $LASTEXITCODE; output = $output.Trim() }
     }
 )
