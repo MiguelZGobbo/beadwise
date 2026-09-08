@@ -10,7 +10,7 @@ Primary Product Area: Repair
 Also Used By: Repair, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -429,6 +429,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
@@ -473,9 +474,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Esta é uma capability de gate/diagnóstico: calcula confiança e readiness a partir de evidência disponível, reversibilidade declarada, snapshot verificável, requisitos de reboot e disponibilidade do caminho de recuperação.
+- Não executa reparo nem cria rollback próprio; consome os contratos das features mutáveis.
+- `READY` só pode ser emitido quando os pré-requisitos exigidos pela operação concreta estão satisfeitos; desconhecido deve reduzir confiança, nunca ser tratado como sucesso.
+- `PROVEN` exige testar regras com operações Fully/Partially/No reversible e falhas de snapshot/recovery.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

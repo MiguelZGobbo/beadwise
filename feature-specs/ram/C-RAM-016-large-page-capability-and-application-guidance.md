@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -103,12 +103,13 @@ Primary truth is the documented Windows/API state closest to the subsystem being
 - Unknown / Error
 
 ## 8. Estado alvo
-Only an explicitly selected, supported change for **Large-page capability & application guidance**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+
+A read-only assessment of whether the platform supports large pages and clear application guidance about their prerequisites. BeadWise does not grant `SeLockMemoryPrivilege` to arbitrary users/apps or force large pages system-wide.
 
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Detect platform support with `GetLargePageMinimum`. Explain that actually allocating large pages is an **application design decision** requiring the caller to hold `SeLockMemoryPrivilege` and use `MEM_LARGE_PAGES` with correctly sized/aligned allocations.
 
 ### Tecnologias utilizadas
 - [x] .NET API
@@ -116,27 +117,23 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] Registry
 - [ ] PowerShell
 - [ ] CMD / executable
-- [x] WMI / CIM
+- [ ] WMI / CIM
 - [ ] Vendor API
 - [ ] File modification
 - [ ] Service Control Manager
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+- `GetLargePageMinimum`
+- `AdjustTokenPrivileges` / token privilege query for a **test process owned by the prototype**, not arbitrary privilege assignment
+- `VirtualAlloc(..., MEM_LARGE_PAGES, ...)` only in the isolated proof prototype
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Automatically edit Local Security Policy to grant "Lock pages in memory": rejected; that expands privilege/security scope and is not a general PC optimization.
+- Claim performance benefit from capability alone: rejected; large pages can benefit specific memory-intensive applications and require application support.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Capability/guidance only; optional isolated prototype can prove allocation on a controlled test account/process.
 
 ## 10. Permissões
 
@@ -216,16 +213,10 @@ Yes — ausência é parte do snapshot e rollback deve restaurar ausência quand
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+N/A for product configuration. A technical prototype may allocate/free a large-page buffer inside its own process solely to prove capability.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+N/A.
 
 ## 16. Verify
 
@@ -241,16 +232,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+N/A
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+N/A — the product makes no persistent security-policy or system configuration change. Prototype allocations are released normally.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+N/A.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+N/A.
 
 ## 18. Verify Rollback
 
@@ -263,10 +254,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Not Required
 
 ### Motivo
-A capability possui caminho mutável. A necessidade de System Restore deve ser decidida somente após o mecanismo concreto, risco e capacidade de rollback específico serem comprovados; ele não substitui snapshot/rollback determinístico.
+No persistent system change.
 
 ## 20. Risco
 
@@ -432,12 +423,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getlargepageminimum
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
 
 ## 32. Benefício real
 Situational
@@ -476,10 +470,10 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Execute a prototype that queries `GetLargePageMinimum` and, in a controlled environment with the privilege already granted, confirms a `MEM_LARGE_PAGES` allocation; failure without privilege must be represented explicitly.
+- Validate x64/ARM64 support behavior on target Windows versions.
+- Keep security-policy privilege assignment outside this capability; if ever desired, it requires a separate security-reviewed feature.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

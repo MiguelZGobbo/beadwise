@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Gaming, Configuration  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -431,6 +431,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-querydisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/monitor/monitor-configuration
@@ -475,9 +476,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- CCD (`QueryDisplayConfig`/`SetDisplayConfig`) define topologia/modos e `SDC_VALIDATE` permite validar uma configuração sem persistir alteração.
+- ChangePlan deve representar source/target mode por path; Apply real usa flags suportadas e Verify reconsulta CCD.
+- Snapshot preserva configuração/topologia original; rollback restaura exatamente essa configuração quando ainda disponível.
+- `PROVEN` exige teste real com multi-monitor, modo inválido e rollback após Apply.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

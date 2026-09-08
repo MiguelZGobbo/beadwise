@@ -425,12 +425,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/privacy/windows-privacy-compliance-guide
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-Privacy
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-experience
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-search
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-privacy
+- Documented behavior — https://support.microsoft.com/windows/privacy/general-privacy-settings-in-windows
 
 ## 32. Benefício real
 Situational
@@ -469,9 +472,12 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais limitações e estados gerenciados precisam ser considerados na Feature Spec? Como manter a apresentação como escolha de privacidade, sem chamar preferência de otimização?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- A Policy CSP de Privacy documenta estados administrados para câmera, microfone e localização, inclusive `User in control`, `Force allow` e `Force deny`; isso deve ser modelado como camada de policy, não confundido com a preferência local do usuário.
+- Não foi estabelecida nesta revisão uma API pública geral que permita a um app desktop arbitrar e escrever as permissões de outros apps exatamente como Settings. Manter mutação em `RESEARCH`; não usar CapabilityAccessManager/Registry interno como contrato sem documentação pública correspondente.
+- Definir comportamento para permissões por app versus default, apps Win32 versus apps empacotados, e dispositivo sem sensor/capability.
+- Confirmar build/edition mínimo de cada propriedade usada.
+- Executar prova real de leitura em cenários User-controlled/ForceAllow/ForceDeny e confirmar que `Managed` prevalece na interpretação.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

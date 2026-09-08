@@ -428,12 +428,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/wua_sdk/portal-client
 - Documented behavior — https://learn.microsoft.com/windows/deployment/update/windows-update-client-policies
 - Documented behavior — https://learn.microsoft.com/windows/deployment/do/delivery-optimization-powershell
 - Documented behavior — https://learn.microsoft.com/windows/release-health/supported-versions-windows-client
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/deployment/update/windows-update-overview
 
 ## 32. Benefício real
 Situational
@@ -472,9 +474,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Histórico/erro pode ser diagnosticado, mas o antigo troubleshooter/MSDT não deve ser assumido como mecanismo permanente de automação; fluxos modernos podem ser Get Help/servicing-owned.
+- Não resetar SoftwareDistribution/Catroot2 ou serviços como “fix universal” sem contrato e rollback.
+- Separar diagnóstico de reparos específicos suportados e registrar quando o próprio Windows deve conduzir a recuperação.
+- `SPECIFIED` depende de um caminho de Apply suportado e versionado ou de redefinir a capability como read-only.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

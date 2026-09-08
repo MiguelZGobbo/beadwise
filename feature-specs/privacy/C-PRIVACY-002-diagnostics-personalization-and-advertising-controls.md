@@ -425,12 +425,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/privacy/windows-privacy-compliance-guide
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-Privacy
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-experience
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-search
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-privacy
+- Documented behavior — https://support.microsoft.com/windows/privacy/general-privacy-settings-in-windows
 
 ## 32. Benefício real
 Situational
@@ -469,9 +472,12 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais limitações e estados gerenciados precisam ser considerados na Feature Spec? Como manter a apresentação como escolha de privacidade, sem chamar preferência de otimização?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- A documentação Microsoft confirma superfícies de **policy/MDM** para diagnostic data, tailored experiences e App Privacy, mas isso não equivale a uma API pública de preferência local destinada a um app consumidor. Antes de `SPECIFIED` para mutação, provar uma superfície suportada de escrita que represente o mesmo estado efetivo que Settings e que não dependa de Registry não documentado.
+- Separar explicitamente `user preference` de `policy-enforced state`: policy mais restritiva pode tornar a preferência local inefetiva; o app deve mostrar `Managed` e não tentar sobrescrever silenciosamente.
+- Advertising ID/tailored experiences são escolhas de privacidade, não otimizações de performance; recomendação automática permanece proibida.
+- Confirmar build/edition mínimo e escopo Device/User de cada CSP/ADMX utilizado antes de APPROVED.
+- Prova Windows real continua pendente para Detect/Plan/Dry-run e, se um mecanismo suportado de Apply for encontrado, Snapshot/Apply/Verify/Rollback.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

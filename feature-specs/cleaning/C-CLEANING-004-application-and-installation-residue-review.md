@@ -427,12 +427,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/configuration/storage/storage-sense
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-storage
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows/win32/shell/knownfolderid
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/msi/uninstalling-an-application
 
 ## 32. Benefício real
 Situational
@@ -471,10 +473,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- “Resíduo” não pode ser determinado apenas porque arquivo/pasta não aparece no uninstall registry; apps podem manter dados compartilhados, perfis, plugins e licenças.
+- Antes de permitir delete, provar ownership/provenance por mecanismo confiável e definir exclusões de dados do usuário/shared components.
+- Uninstall deve usar mecanismo do aplicativo/Windows, não remoção manual de arquivos como substituto.
+- Sem provenance suficiente, capability deve permanecer review-only e marcar `UNKNOWN_OWNER`.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

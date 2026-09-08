@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Gaming, Repair  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -431,12 +431,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/samples/microsoft/windows-driver-samples/usbview-sample-application/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/usb-selective-suspend
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/component-guidelines/usb4-tracelogging-rundown-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/drivers/usbcon/usbview
+- https://learn.microsoft.com/windows-hardware/drivers/ddi/usbioctl/
 
 ## 32. Benefício real
 Situational
@@ -475,9 +478,10 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Read-only topology/inventory com SetupAPI/PnP e IOCTLs USB documentados quando disponíveis; preservar controller/hub/port/device identity e `Unknown` para campos não expostos.
+- Não inferir velocidade/capability a partir do nome comercial do dispositivo.
+- `PROVEN` exige hubs, dispositivos compostos e múltiplos controllers.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

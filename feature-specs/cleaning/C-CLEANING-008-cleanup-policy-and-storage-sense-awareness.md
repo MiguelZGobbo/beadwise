@@ -306,28 +306,21 @@ Device class: conforme a capability.
 ## 22. Dependências
 
 ### Outras features
-Usar outputs de capabilities relacionadas por ID quando definidos no Discovery; não duplicar detectores apenas por existirem múltiplos consumidores.
+- Cleaning owns recommendations/safety for cleanup.
+- Storage capabilities fornecem volume/free-space context; não implementam uma segunda configuração de Storage Sense.
 
 ### Serviços
-Somente serviços nativos necessários às APIs escolhidas; detectar indisponibilidade e retornar estado estruturado.
+Storage Sense/servicing somente quando expostos por mecanismos suportados.
 
 ### APIs
-GetDiskFreeSpaceEx, Known Folder API, Storage Sense Policy CSP, DISM /StartComponentCleanup /AnalyzeComponentStore when servicing scope applies, filesystem APIs with reparse-point and access checks
+Storage Sense Settings/Policy surfaces para awareness; filesystem APIs para medição.
 
 ### Componentes do Windows
-Componentes do subsistema CLEANING e infraestrutura comum de Event Log/ETW/CIM quando aplicável.
-
-### Drivers
-Conditional — necessários apenas quando a fonte/ação depende de dispositivo ou vendor.
-
-### Internet
-Conditional — somente para catálogo/lifecycle/vendor/update externo explicitamente previsto; detecção local não deve depender da Internet sem necessidade.
-
-### Aplicações externas
-N/A por padrão; ferramentas vendor/terceiros só entram como dependência explícita de prova/escalation.
+Storage Sense + filesystem.
 
 ## 23. Conflitos
-Pode conflitar com política corporativa/MDM, software de fabricante, Windows Update, antivírus/security tooling, tuning software e personalizações do usuário. Antes de alterar, Detect deve identificar ownership/policy quando disponível; estado gerenciado não deve ser sobrescrito silenciosamente.
+
+Evitar duplicar cleanup de `C-STORAGE-011`: Storage fornece safeguards/contexto de artefatos de storage; Cleaning owns user-facing cleanup policy. Policy CSP/GPO não pode ser sobrescrita como preferência local.
 
 ## 24. Idempotência
 
@@ -427,6 +420,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/configuration/storage/storage-sense
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-storage
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
@@ -471,9 +465,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Storage Sense possui Settings e políticas CSP/GPO documentadas, mas Policy CSP é instrumento de gerenciamento e não deve ser usado como substituto silencioso da preferência local do usuário.
+- Diagnóstico pode mostrar cadence/retention/policy quando observável e recomendar abrir Settings.
+- Antes de Apply direto, identificar contrato público suportado para configuração local consumer e distinguir `MANAGED` de `USER_CONFIGURABLE`.
+- Não configurar Downloads cleanup automaticamente; a própria política permite 0 = nunca e o custo é perda de dados.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

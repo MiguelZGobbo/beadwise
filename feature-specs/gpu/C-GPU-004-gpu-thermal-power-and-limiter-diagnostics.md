@@ -411,12 +411,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/_direct3ddxgi/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/display/timeout-detection-and-recovery
 - Documented behavior — https://learn.microsoft.com/windows-hardware/test/wpt/gpuview
 - Documented behavior — https://learn.microsoft.com/windows/win32/direct3ddxgi/dx-graphics-dxgi
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-query-video-memory-info
 
 ## 32. Benefício real
 Reasonable
@@ -455,9 +457,9 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Temperatura/power/limiter reasons exigem vendor API/driver telemetry; definir adapters AMD/Intel/NVIDIA e Unsupported sem inferência.
+- `PROVEN` exige hardware real do(s) vendor(es) aplicáveis; campos não suportados permanecem `Unavailable/Unknown`.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: Optimization, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -394,6 +394,7 @@ Date: TBD
 ```
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/setupapi/run-and-runonce-registry-keys
 - Documented behavior — https://learn.microsoft.com/windows/win32/w8cookbook/startup-apps
 - Documented behavior — https://learn.microsoft.com/windows/win32/shell/knownfolderid
@@ -432,8 +433,11 @@ Details sempre. Apply/Skip/Rollback apenas em C-STARTUP-004/008 quando o source-
 Raw source identity, registry/task/file/package identifiers, signer verification details, measurement/session IDs, provenance, policy/dependency flags, ChangePlan/snapshot references. Redact secrets from command lines.
 
 ## 36. Questões em aberto
-- Freeze the Tier-2 extended-location coverage matrix and decide which locations are supported vs informational only.
-- Confirm a documented, maintainable way to enumerate arbitrary packaged startup tasks across installed packages; otherwise expose them as partial/Settings-owned.
+
+- Cobertura mínima suportada definida: Run/RunOnce (HKCU/HKLM incluindo views relevantes) e Startup folders; outras extensões (scheduled tasks, services, shell/winlogon) devem ser classificadas pela fonte e nunca achatadas como se fossem equivalentes.
+- Inventário é read-only e deve preservar provenance, user scope e publisher/path quando disponíveis.
+- Entradas protegidas/sistema não viram automaticamente candidatas a disable.
+- `PROVEN` exige fixtures reais em cada fonte suportada e deduplicação por identidade sem perder provenance.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado em todas as sources declaradas supported

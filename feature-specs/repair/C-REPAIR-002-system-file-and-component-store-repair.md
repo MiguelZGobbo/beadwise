@@ -10,7 +10,7 @@ Primary Product Area: Repair
 Also Used By: Repair, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -429,12 +429,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-server/administration/windows-commands/sfc
 
 ## 32. Benefício real
 Situational
@@ -473,9 +475,12 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Método suportado definido: diagnosticar component store com DISM (`/CheckHealth`/`/ScanHealth` quando aplicável), reparar com `/RestoreHealth` quando necessário e executar `sfc /scannow` para arquivos protegidos.
+- Verificação deve repetir o diagnóstico apropriado e interpretar o resultado/registro, não apenas exit code.
+- Reparos substituem conteúdo corrompido por conteúdo considerado íntegro pelo servicing stack; não existe rollback específico confiável para “recolocar o arquivo corrompido”, portanto rollback = N/A e isso deve ser explícito.
+- Fonte alternativa do DISM só pode ser usada quando compatível com versão/edição/build; não assumir imagem aleatória como válida.
+- `PROVEN` exige corrupção/controlado ou ambiente de teste que demonstre detectar → reparar → verificar.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

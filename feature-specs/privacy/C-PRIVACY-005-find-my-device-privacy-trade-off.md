@@ -425,12 +425,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/privacy/windows-privacy-compliance-guide
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-Privacy
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-experience
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-search
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-privacy
+- Documented behavior — https://support.microsoft.com/windows/privacy/general-privacy-settings-in-windows
 
 ## 32. Benefício real
 Situational
@@ -469,9 +472,12 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais limitações e estados gerenciados precisam ser considerados na Feature Spec? Como manter a apresentação como escolha de privacidade, sem chamar preferência de otimização?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- O guia de conformidade da Microsoft documenta política para Find My Device (`Experience/AllowFindMyDevice` / ADMX), mas policy gerenciada não é equivalente a uma API pública de toggle local do usuário.
+- Manter Apply em `RESEARCH` até existir mecanismo suportado para o estado local; não escrever Registry privado apenas para imitar Settings.
+- A UX deve tratar explicitamente o trade-off: desativar pode reduzir capacidade de recuperação/localização do dispositivo e não é uma otimização.
+- Detect deve distinguir ausência de suporte, conta/requisitos não satisfeitos e estado bloqueado por policy.
+- Prova real pendente para leitura e interpretação em dispositivo suportado.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -430,12 +430,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/secure-the-windows-10-boot-process
 - Documented behavior — https://learn.microsoft.com/windows/security/hardware-security/tpm/trusted-platform-module-overview
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/credential-guard/
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity
+- https://learn.microsoft.com/windows/security/identity-protection/credential-guard/
 
 ## 32. Benefício real
 Situational
@@ -474,9 +477,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais estados e compatibilidades serão confirmados tecnicamente na Feature Spec? Como garantir que nenhuma recomendação reduza proteção apenas por desempenho marginal?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Diagnóstico de VBS/Credential Guard/Memory Integrity é possível, mas a mutação tem dependências de hardware, firmware, drivers, boot e política que exigem plano próprio e testes.
+- Não recomendar desativar VBS/HVCI como otimização de performance sem medição específica e consentimento informado.
+- Confirmar fonte de verdade efetiva versus configuração/policy desejada e comportamento após reboot.
+- Provar rollback em Windows 10/11 com estados suportados antes de `SPECIFIED` mutável.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

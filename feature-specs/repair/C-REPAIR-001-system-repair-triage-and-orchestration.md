@@ -10,7 +10,7 @@ Primary Product Area: Repair
 Also Used By: Repair, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -429,6 +429,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
@@ -473,9 +474,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- A capacidade é um orquestrador: não inventa mutações próprias; classifica sintomas/evidências e delega para o reparador owner (component store, AppX, PnP, boot etc.).
+- ChangePlan deve listar apenas operações suportadas do reparador delegado e seus requisitos de admin/reboot/reversibilidade.
+- Resultado `NO_SUPPORTED_REPAIR_PATH` é válido; não executar “repair packs”, Registry cleanup ou comandos não relacionados por tentativa e erro.
+- `PROVEN` permanece pendente até exercitar a matriz de roteamento e falhas em Windows real.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

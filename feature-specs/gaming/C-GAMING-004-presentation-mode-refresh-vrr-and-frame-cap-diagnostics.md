@@ -429,12 +429,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/optimizations-for-windowed-games-in-windows-11
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/use-auto-hdr-for-better-gaming-in-windows
 - Documented behavior — https://devblogs.microsoft.com/directx/updates-in-graphics-and-gaming/
 - Documented behavior — https://learn.microsoft.com/gaming/gdk/_content/gc/system/overviews/directstorage/directstorage-overview
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://github.com/GameTechDev/PresentMon
+- https://learn.microsoft.com/windows/win32/direct3ddxgi/variable-refresh-rate-displays
 
 ## 32. Benefício real
 Situational
@@ -473,9 +476,9 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Refresh/mode pode vir de Display, mas VRR/frame cap effective dependem OS/driver/app. Separar configured capability de observed presentation; não aplicar cap/VRR universal.
+- `PROVEN` permanece dependente de teste real e compatibilidade mínima; nenhuma alegação de FPS/latência pode ser marcada PASS apenas por documentação.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

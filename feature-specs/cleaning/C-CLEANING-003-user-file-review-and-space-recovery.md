@@ -10,7 +10,7 @@ Primary Product Area: Cleaning
 Also Used By: Cleaning, Optimization  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -427,6 +427,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/configuration/storage/storage-sense
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-storage
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
@@ -471,9 +472,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Discovery/review é read-only; Downloads, arquivos grandes/antigos/duplicados e cloud dehydration são recomendações, nunca exclusão automática.
+- Duplicate detection deve comparar conteúdo/metadata suficiente e nunca apagar todas as cópias; decisão final é do usuário.
+- Move/archive/delete de dados do usuário são ações explícitas e não reversíveis pelo app sem backup próprio.
+- Nenhum threshold de idade/tamanho vira regra universal sem preferência/contexto.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -10,7 +10,7 @@ Primary Product Area: Shared
 Also Used By: My PC, Diagnostics, Monitoring, Benchmark, Optimization  
 Shared Capability: Yes  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -409,12 +409,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/install/setupapi
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/whea/error-records
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/whea/whea-hardware-error-events
 - Documented behavior — https://learn.microsoft.com/windows/win32/etw/about-event-tracing
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable
 
 ## 32. Benefício real
 Reasonable
@@ -453,9 +455,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Inventário base usa SMBIOS via `GetSystemFirmwareTable`, PnP/SetupAPI e APIs específicas de CPU/GPU/storage; vendor utilities são enrichment, não truth única.
+- Preservar raw identifiers + normalized fields e `Unknown` quando firmware não expõe dado.
+- Não inferir PSU/wattage/VRM specs por motherboard model sem fonte vendor.
+- `PROVEN` exige comparação com firmware/vendor em múltiplas máquinas.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -425,12 +425,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/privacy/windows-privacy-compliance-guide
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-Privacy
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-experience
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-search
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-privacy
+- Documented behavior — https://support.microsoft.com/windows/privacy/general-privacy-settings-in-windows
 
 ## 32. Benefício real
 Situational
@@ -469,9 +472,12 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais limitações e estados gerenciados precisam ser considerados na Feature Spec? Como manter a apresentação como escolha de privacidade, sem chamar preferência de otimização?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- As superfícies de activity/search/speech/cloud privacy variam por recurso e versão; não assumir que um único switch/Registry representa o estado efetivo.
+- Policy CSP/ADMX pode descrever estado administrado, mas não prova uma API pública de preferência local para app consumidor. Qualquer mutação direta permanece `RESEARCH` até haver contrato suportado por operação.
+- Separar dados locais, dados enviados à nuvem e preferências de personalização; não rotular redução de coleta como ganho de performance.
+- Identificar recursos removidos/depreciados por build e retornar `Unsupported/Not Applicable` em vez de inferir.
+- Prova real de Detect/Plan/Dry-run ainda pendente em Windows 11 suportado.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

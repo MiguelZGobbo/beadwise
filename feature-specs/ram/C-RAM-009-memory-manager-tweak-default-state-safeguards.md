@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -103,17 +103,18 @@ Primary truth is the documented Windows/API state closest to the subsystem being
 - Unknown / Error
 
 ## 8. Estado alvo
-Only an explicitly selected, supported change for **Memory-manager tweak/default-state safeguards**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+
+A read-only safeguard verdict that prevents unsupported or context-free memory-manager tweaks from being recommended as optimizations. It may explain a non-default state when detectable, but does not automatically force Windows defaults.
 
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Maintain an allowlist of supported BeadWise memory operations rather than a registry-tweak denylist that attempts to know every folklore setting. A memory-manager change is eligible only if it has documented semantics, a supported state source, a measured use case and deterministic rollback.
 
 ### Tecnologias utilizadas
 - [x] .NET API
 - [x] Win32
-- [ ] Registry
+- [ ] Registry (not a generic mutation mechanism)
 - [ ] PowerShell
 - [ ] CMD / executable
 - [x] WMI / CIM
@@ -123,20 +124,15 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+Uses outputs from RAM diagnostics and the feature catalog's evidence metadata. Known Registry names may be displayed only where Microsoft documents their semantics; mere key presence never establishes an optimization.
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Apply a "safe RAM registry pack": rejected.
+- Restore every non-default value to a presumed default: rejected; customized/managed state may be intentional.
+- Purge cache/standby memory periodically: rejected as a general optimization.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Fail closed: if the mechanism/benefit/rollback is not proven, BeadWise does not recommend or apply it.
 
 ## 10. Permissões
 
@@ -216,16 +212,10 @@ Yes — ausência é parte do snapshot e rollback deve restaurar ausência quand
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+N/A — safeguard/diagnostic capability. It blocks unsafe ChangePlans; it does not itself mutate memory-manager settings.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+N/A.
 
 ## 16. Verify
 
@@ -241,16 +231,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+N/A
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+N/A — no persistent change.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+N/A.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+N/A.
 
 ## 18. Verify Rollback
 
@@ -263,10 +253,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Not Required
 
 ### Motivo
-A capability possui caminho mutável. A necessidade de System Restore deve ser decidida somente após o mecanismo concreto, risco e capacidade de rollback específico serem comprovados; ele não substitui snapshot/rollback determinístico.
+The safeguard itself is read-only.
 
 ## 20. Risco
 
@@ -432,12 +422,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented context — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/
 
 ## 32. Benefício real
 Situational
@@ -476,9 +468,10 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Build unit fixtures proving that undocumented/no-benefit/no-rollback candidates are rejected rather than silently normalized to defaults.
+- Maintain explicit evidence provenance for every memory-manager operation that is ever allowlisted.
+- If a future Windows build documents/deprecates a relevant setting, update the allowlist by capability/version instead of by folklore/default assumptions.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

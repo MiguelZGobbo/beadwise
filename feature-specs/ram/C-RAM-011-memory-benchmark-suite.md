@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -108,35 +108,41 @@ A normalized, provenance-aware assessment of **Memory benchmark suite** with exp
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Use an isolated native benchmark workload with explicitly defined access patterns and reproducibility controls. The benchmark is measurement, not a tweak.
 
 ### Tecnologias utilizadas
-- [x] .NET API
+- [x] .NET API (orchestration/result schema)
 - [x] Win32
 - [ ] Registry
 - [ ] PowerShell
 - [ ] CMD / executable
-- [x] WMI / CIM
+- [ ] WMI / CIM
 - [ ] Vendor API
 - [ ] File modification
 - [ ] Service Control Manager
-- [ ] Other
+- [x] Other — isolated native benchmark prototype
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+- `VirtualAlloc`/normal committed memory for the test buffers
+- `QueryPerformanceCounter` for high-resolution elapsed time
+- topology/context from `GetLogicalProcessorInformationEx` and RAM inventory capability
+- optional affinity only as a declared benchmark-control variable, not an optimization
+
+### Benchmark contract
+- warm-up before recorded runs;
+- allocate/touch buffers so page faults are not accidentally counted as memory bandwidth unless that is the metric;
+- working set large enough to distinguish DRAM from CPU-cache-only tests;
+- separate sequential read/write/copy and latency-sensitive/random-access workloads;
+- repeat runs and report distribution (at minimum median plus spread), not a single best number;
+- record CPU, memory configured speed, channel/topology evidence, power mode and competing load;
+- abort/flag results when thermal/power contention or background load invalidates comparability.
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- One `memcpy` score as "RAM performance": rejected as insufficient characterization.
+- Third-party benchmark binary as hidden dependency: optional validation reference, not canonical engine.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+A small deterministic benchmark prototype whose methodology is versioned and whose result is comparable only against the same methodology/version.
 
 ## 10. Permissões
 
@@ -411,12 +417,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
 
 ## 32. Benefício real
 Reasonable
@@ -455,9 +464,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Build and execute the isolated benchmark prototype; calibrate buffer sizes/run count so measurement overhead is small and the test is long enough to be stable without becoming a thermal stress test.
+- Validate repeatability on at least two memory configurations and confirm cache-vs-DRAM separation.
+- Define acceptable coefficient/spread threshold for a valid run from observed data rather than inventing it before measurement.
+- `SPECIFIED` reflects that the proof can now be built; `PROVEN` remains blocked until these runs exist.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

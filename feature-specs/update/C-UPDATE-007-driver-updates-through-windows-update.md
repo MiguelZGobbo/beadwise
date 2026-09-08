@@ -307,28 +307,22 @@ Device class: conforme a capability.
 ## 22. Dependências
 
 ### Outras features
-Usar outputs de capabilities relacionadas por ID quando definidos no Discovery; não duplicar detectores apenas por existirem múltiplos consumidores.
+- `C-DRIVERS-003` owns driver source/update awareness.
+- `C-DRIVERS-004` owns install/rollback/restart workflow.
+- Esta feature apenas acrescenta contexto de disponibilidade/origem via Windows Update.
 
 ### Serviços
-Somente serviços nativos necessários às APIs escolhidas; detectar indisponibilidade e retornar estado estruturado.
+Windows Update components quando consultados.
 
 ### APIs
-Windows Update Agent COM API, Windows Update policy CSP / Group Policy, Delivery Optimization PowerShell interfaces, DISM package servicing for installed package context, Microsoft lifecycle/release-health data
+Somente interfaces atuais suportadas de Windows Update quando aplicáveis.
 
 ### Componentes do Windows
-Componentes do subsistema UPDATE e infraestrutura comum de Event Log/ETW/CIM quando aplicável.
-
-### Drivers
-Conditional — necessários apenas quando a fonte/ação depende de dispositivo ou vendor.
-
-### Internet
-Conditional — somente para catálogo/lifecycle/vendor/update externo explicitamente previsto; detecção local não deve depender da Internet sem necessidade.
-
-### Aplicações externas
-N/A por padrão; ferramentas vendor/terceiros só entram como dependência explícita de prova/escalation.
+Windows Update + PnP integration.
 
 ## 23. Conflitos
-Pode conflitar com política corporativa/MDM, software de fabricante, Windows Update, antivírus/security tooling, tuning software e personalizações do usuário. Antes de alterar, Detect deve identificar ownership/policy quando disponível; estado gerenciado não deve ser sobrescrito silenciosamente.
+
+Nenhuma instalação/rollback de driver deve ser duplicada aqui. Política corporativa de Windows Update/driver distribution tem precedência; feature deve retornar `MANAGED/POLICY_BLOCKED` em vez de contornar.
 
 ## 24. Idempotência
 
@@ -428,12 +422,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/wua_sdk/portal-client
 - Documented behavior — https://learn.microsoft.com/windows/deployment/update/windows-update-client-policies
 - Documented behavior — https://learn.microsoft.com/windows/deployment/do/delivery-optimization-powershell
 - Documented behavior — https://learn.microsoft.com/windows/release-health/supported-versions-windows-client
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/drivers/dashboard/understanding-windows-update-automatic-and-optional-rules-for-driver-distribution
 
 ## 32. Benefício real
 Situational
@@ -472,9 +468,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Awareness de driver updates é válida, mas seleção/instalação/rollback pertence ao owner Drivers e ao Windows Update.
+- Não automatizar driver optional updates via APIs antigas/privadas sem contrato atual suportado.
+- Definir apenas correlação e encaminhamento, ou provar API pública atual para enumeration/install.
+- Rollback de driver anterior continua dependência de `C-DRIVERS-004`.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

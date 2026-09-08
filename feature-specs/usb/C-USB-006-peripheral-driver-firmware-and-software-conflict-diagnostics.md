@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Gaming, Repair  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -410,12 +410,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/samples/microsoft/windows-driver-samples/usbview-sample-application/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/usb-selective-suspend
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/component-guidelines/usb4-tracelogging-rundown-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/drivers/hid/
 
 ## 32. Benefício real
 Reasonable
@@ -454,9 +456,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Capability diagnóstica/read-only por padrão; usar PnP/SetupAPI e APIs específicas documentadas da classe/protocolo, com vendor data apenas como enriquecimento opcional.
+- Não transformar ausência de telemetria vendor em erro e não inferir firmware/conflict/coexistence sem evidência observável.
+- Alterações de driver, energia ou rede devem ser delegadas aos respectivos owners.
+- `PROVEN` exige pelo menos um cenário suportado e um `Unsupported/Unknown`.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

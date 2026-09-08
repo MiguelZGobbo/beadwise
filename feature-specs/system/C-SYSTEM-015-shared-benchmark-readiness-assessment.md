@@ -10,7 +10,7 @@ Primary Product Area: Shared
 Also Used By: Benchmark, Optimization, Diagnostics  
 Shared Capability: Yes  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -411,6 +411,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/services/service-control-manager
 - Documented behavior — https://learn.microsoft.com/windows/win32/taskschd/task-scheduler-start-page
 - Documented behavior — https://learn.microsoft.com/windows/win32/wes/windows-event-log
@@ -456,9 +457,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Read-only gate compartilhado: registrar carga de fundo, power state, reboot/pending maintenance, thermal state e condições que invalidem comparabilidade antes de benchmark.
+- Não “otimizar” o sistema silenciosamente para torná-lo ready; retornar reasons e permitir adiar.
+- Critérios precisam ser definidos por benchmark consumidor; sem magic thresholds globais onde não há evidência.
+- `PROVEN` exige mostrar que condições inválidas são detectadas e propagadas ao benchmark.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

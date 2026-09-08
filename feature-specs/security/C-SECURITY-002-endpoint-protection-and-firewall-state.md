@@ -430,12 +430,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/secure-the-windows-10-boot-process
 - Documented behavior — https://learn.microsoft.com/windows/security/hardware-security/tpm/trusted-platform-module-overview
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/credential-guard/
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/security/operating-system-security/system-security/windows-defender-security-center/
+- https://learn.microsoft.com/defender-endpoint/microsoft-defender-antivirus-windows
 
 ## 32. Benefício real
 Situational
@@ -474,9 +477,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais estados e compatibilidades serão confirmados tecnicamente na Feature Spec? Como garantir que nenhuma recomendação reduza proteção apenas por desempenho marginal?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Detect pode usar superfícies documentadas do Windows Security/Defender/Firewall, porém a parte `Configuration` continua sem contrato único e seguro para todos os provedores de endpoint protection.
+- Separar estado do Microsoft Defender, perfis do Windows Firewall e presença de AV de terceiros; não assumir que Defender desativado = desprotegido quando outro provider está registrado.
+- Tamper Protection/política corporativa pode impedir mutação; não contornar proteção nem escrever Registry interno.
+- Antes de `SPECIFIED`, definir quais mudanças, se alguma, pertencem realmente a esta feature e quais devem apenas abrir/encaminhar para Windows Security.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

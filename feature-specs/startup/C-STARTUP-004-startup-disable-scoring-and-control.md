@@ -409,6 +409,7 @@ Date: TBD
 ```
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/setupapi/run-and-runonce-registry-keys
 - Documented behavior — https://learn.microsoft.com/uwp/api/windows.applicationmodel.startuptask?view=winrt-28000
 - Documented behavior — https://learn.microsoft.com/windows/win32/taskschd/task-scheduler-2-0-interfaces
@@ -444,9 +445,11 @@ Details sempre. Apply/Skip/Rollback apenas em C-STARTUP-004/008 quando o source-
 Raw source identity, registry/task/file/package identifiers, signer verification details, measurement/session IDs, provenance, policy/dependency flags, ChangePlan/snapshot references. Redact secrets from command lines.
 
 ## 36. Questões em aberto
-- Decide whether Run/RunOnce deletion/restoration is acceptable product behavior or whether BeadWise should be manual-guidance-only for those sources.
-- Design/approve a non-destructive Startup-folder control mechanism; moving user shortcuts into app-owned storage changes filesystem state and needs explicit UX/recovery rules.
-- Confirm whether any public API exists for cross-package packaged startup task control; current `StartupTask` documentation does not provide that capability.
+
+- Scoring pode ser definido, mas o controle genérico equivalente ao botão Enable/Disable do Task Manager não possui contrato público único para todas as fontes de startup.
+- Não escrever estruturas internas `StartupApproved` como API de produto sem documentação oficial de contrato.
+- Operações deverão ser source-specific: Run/Startup folder podem ser mutáveis com snapshot exato; StartupTask/app-packaged segue seu próprio contrato; serviços/tasks pertencem aos respectivos owners.
+- Antes de `SPECIFIED`, definir ChangePlan/rollback por fonte e impedir disable de componentes críticos/protegidos.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado em todas as sources declaradas supported

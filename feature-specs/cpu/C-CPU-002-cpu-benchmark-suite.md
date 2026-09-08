@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -410,12 +410,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimes
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/whea/whea-hardware-error-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/sysinfo/acquiring-high-resolution-time-stamps
+- https://learn.microsoft.com/windows/win32/procthread/processor-groups
 
 ## 32. Benefício real
 Reasonable
@@ -454,9 +457,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Metodologia definida para protótipo: single-thread e multi-thread workloads determinísticos, warm-up, cooldown/thermal-state check, repetição e distribuição de resultados; registrar CPU topology, power mode e background load.
+- Before/after deve usar mesma build, workload e condições; resultado abaixo da variância não é melhoria comprovada.
+- Não incorporar overclock/tuning ao benchmark.
+- `PROVEN` só após implementação isolada e correlação/repetibilidade em hardware real.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

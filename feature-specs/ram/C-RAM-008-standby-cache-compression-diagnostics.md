@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -103,18 +103,19 @@ Primary truth is the documented Windows/API state closest to the subsystem being
 - Unknown / Error
 
 ## 8. Estado alvo
-Only an explicitly selected, supported change for **Standby/cache/compression diagnostics**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+
+A read-only assessment of memory compression/cache/standby behavior that explains pressure and avoids treating cached/standby memory as inherently wasted. No standby-list purge or memory-compression toggle is applied as an optimization.
 
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Use documented memory performance information/counters for pressure and cache context. Where available, `Get-MMAgent` may expose MemoryCompression configuration; it is contextual state, not an automatic optimization target.
 
 ### Tecnologias utilizadas
 - [x] .NET API
 - [x] Win32
 - [ ] Registry
-- [ ] PowerShell
+- [x] PowerShell (structured cmdlet result only where needed)
 - [ ] CMD / executable
 - [x] WMI / CIM
 - [ ] Vendor API
@@ -123,20 +124,17 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+- `GlobalMemoryStatusEx` / `GetPerformanceInfo`
+- Memory performance counters
+- `Get-MMAgent` for MemoryCompression configuration when available
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Purging standby lists (`EmptyStandbyList`, private memory-manager commands, RAM cleaners): rejected as optimization behavior; reclaimable standby cache is part of Windows memory management.
+- Disabling MemoryCompression to "free CPU": not recommended generically; benefit is workload-dependent and Windows manages the feature.
+- Repeated cache clearing before benchmarks: allowed only as an explicitly controlled experimental methodology if the benchmark spec requires it, never as normal optimization.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Diagnose pressure and explain cache/compression rather than fight the memory manager.
 
 ## 10. Permissões
 
@@ -216,16 +214,10 @@ Yes — ausência é parte do snapshot e rollback deve restaurar ausência quand
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+N/A — diagnostic/safeguard only. The BeadWise feature does not purge standby lists or toggle MemoryCompression as an optimization.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+N/A.
 
 ## 16. Verify
 
@@ -241,16 +233,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+N/A
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+N/A — no persistent change.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+N/A.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+N/A.
 
 ## 18. Verify Rollback
 
@@ -263,10 +255,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Not Required
 
 ### Motivo
-A capability possui caminho mutável. A necessidade de System Restore deve ser decidida somente após o mecanismo concreto, risco e capacidade de rollback específico serem comprovados; ele não substitui snapshot/rollback determinístico.
+Read-only diagnostics.
 
 ## 20. Risco
 
@@ -432,12 +424,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/powershell/module/mmagent/get-mmagent
+- Documented behavior — https://learn.microsoft.com/powershell/module/mmagent/enable-mmagent
 
 ## 32. Benefício real
 Situational
@@ -476,9 +471,10 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Validate the chosen pressure/cache counters on Windows 11 and compare with Task Manager/Performance Monitor before `PROVEN`.
+- Treat `Get-MMAgent` availability/version differences as `Partial/Unsupported` rather than falling back to private registry state.
+- Keep standby-list purging and universal memory-compression toggles outside Apply unless a future separate experiment demonstrates a narrow, user-meaningful use case.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -411,12 +411,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/_direct3ddxgi/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/display/timeout-detection-and-recovery
 - Documented behavior — https://learn.microsoft.com/windows-hardware/test/wpt/gpuview
 - Documented behavior — https://learn.microsoft.com/windows/win32/direct3ddxgi/dx-graphics-dxgi
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://github.com/GameTechDev/PresentMon
 
 ## 32. Benefício real
 Reasonable
@@ -455,9 +457,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Benchmark deve separar graphics/compute workloads, warm-up, shader compilation, repeated runs e monitorar clocks/thermal/power context sem alterar tuning.
+- Medição usa high-resolution timing e frame telemetry quando workload gráfico; before/after preserva driver/mode/power/workload.
+- Não comparar GPUs por score inventado sem calibration/versioned workload.
+- `PROVEN` exige protótipo determinístico e repetibilidade em hardware real.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

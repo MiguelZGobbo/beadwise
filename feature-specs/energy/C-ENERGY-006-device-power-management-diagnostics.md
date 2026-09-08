@@ -427,12 +427,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows/win32/power/power-schemes
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/device-experiences/modern-standby-sleepstudy
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 ## 32. Benefício real
 Situational
@@ -471,9 +473,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Device power management é class/vendor-specific; capability genérica não deve escrever “Allow computer to turn off” Registry/device properties sem contrato público.
+- USB/network/display owners fornecem contexto; Energy mantém policy correlation.
+- Não desativar selective suspend/EEE por padrão.
+- `SPECIFIED` exige adapters suportados por device class e snapshot exato.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

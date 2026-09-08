@@ -10,7 +10,7 @@ Primary Product Area: Gaming
 Also Used By: Gaming, Monitoring, Optimization, Benchmark  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -408,12 +408,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/optimizations-for-windowed-games-in-windows-11
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/use-auto-hdr-for-better-gaming-in-windows
 - Documented behavior — https://devblogs.microsoft.com/directx/updates-in-graphics-and-gaming/
 - Documented behavior — https://learn.microsoft.com/gaming/gdk/_content/gc/system/overviews/directstorage/directstorage-overview
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://github.com/GameTechDev/PresentMon
+- https://learn.microsoft.com/windows/win32/direct3ddxgi/variable-refresh-rate-displays
 
 ## 32. Benefício real
 Reasonable
@@ -452,9 +455,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Método de prova definido: capturar frame presentation/frametime por processo, warm-up, janela estável, repetições e distribuição; registrar mode/refresh/power/driver/background state.
+- Before/after usa cenário idêntico e invalida run com mudança de resolução, scene, shader compilation anômala ou captura incompleta.
+- Reportar média + percentis/low metrics e variância, sem declarar melhoria abaixo do ruído.
+- `PROVEN` só após protótipo/captura real; status atual apenas habilita essa prova.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

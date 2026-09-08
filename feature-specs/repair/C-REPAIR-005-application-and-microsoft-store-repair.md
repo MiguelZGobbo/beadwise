@@ -10,7 +10,7 @@ Primary Product Area: Repair
 Also Used By: Repair, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -429,12 +429,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/powershell/module/appx/reset-appxpackage
+- https://learn.microsoft.com/windows/msix/desktop/managing-your-msix-deployment-overview
 
 ## 32. Benefício real
 Situational
@@ -473,9 +476,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Escopo mutável suportado nesta spec: pacotes MSIX/AppX quando a plataforma expõe operação documentada, como `Reset-AppxPackage`; aplicativos Win32 arbitrários devem retornar `APP_SPECIFIC_REPAIR_REQUIRED`.
+- Reset de pacote apaga permanentemente dados/preferências do aplicativo; deve exigir confirmação explícita, snapshot apenas de metadados observáveis e declarar rollback = No.
+- Não remover/re-registrar Microsoft Store globalmente como “fix universal”; não remover pacotes protegidos do sistema.
+- Verify deve reconsultar pacote/estado e, quando possível, validar inicialização/erro-alvo; sucesso do cmdlet isolado não basta.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

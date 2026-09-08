@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Repair, Update  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -429,6 +429,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/install/setupapi
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-driver-servicing-command-line-options-s14
@@ -473,10 +474,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Driver Store inventory/export/delete só usa PnPUtil suportado; remoção é ação explícita e nunca “limpeza automática”.
+- Pacote in-use/boot-critical/current driver deve bloquear remoção; não usar `/force` por padrão.
+- Preview deve identificar published name/provider/class/devices relacionados; rollback de pacote removido requer fonte exportada/instalável e não é garantido como re-seleção ativa.
+- `PROVEN` exige pacote não utilizado e cenário bloqueado.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

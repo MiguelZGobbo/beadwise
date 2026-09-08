@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -310,28 +310,21 @@ Device class: conforme a capability.
 ## 22. Dependências
 
 ### Outras features
-Usar outputs de capabilities relacionadas por ID quando definidos no Discovery; não duplicar detectores apenas por existirem múltiplos consumidores.
+- `C-PROCESSES-005` é owner das mutações genéricas de priority/affinity/process scheduling policy.
+- Esta feature fornece contexto de topologia/scheduler/CPU sets e diagnóstico para CPU/hybrid workloads.
 
 ### Serviços
-Somente serviços nativos necessários às APIs escolhidas; detectar indisponibilidade e retornar estado estruturado.
+ETW/performance infrastructure quando usada.
 
 ### APIs
-GetLogicalProcessorInformationEx, GetSystemTimes / PDH Processor Information counters, ETW/WPR, Power APIs for processor power policy context, WHEA Event Log, vendor telemetry adapter conditional
+Processor groups, CPU Sets, topology, ETW e APIs públicas de observação.
 
 ### Componentes do Windows
-Componentes do subsistema CPU e infraestrutura comum de Event Log/ETW/CIM quando aplicável.
-
-### Drivers
-Conditional — necessários apenas quando a fonte/ação depende de dispositivo ou vendor.
-
-### Internet
-Conditional — somente para catálogo/lifecycle/vendor/update externo explicitamente previsto; detecção local não deve depender da Internet sem necessidade.
-
-### Aplicações externas
-N/A por padrão; ferramentas vendor/terceiros só entram como dependência explícita de prova/escalation.
+Scheduler/process/thread subsystem.
 
 ## 23. Conflitos
-Pode conflitar com política corporativa/MDM, software de fabricante, Windows Update, antivírus/security tooling, tuning software e personalizações do usuário. Antes de alterar, Detect deve identificar ownership/policy quando disponível; estado gerenciado não deve ser sobrescrito silenciosamente.
+
+Não competir com `C-PROCESSES-005`: CPU diagnostica placement/topology; Processes owns generic process-level mutation. Vendor scheduler/tuning software e hypervisor podem alterar comportamento e devem reduzir confidence.
 
 ## 24. Idempotência
 
@@ -431,12 +424,16 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimes
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/whea/whea-hardware-error-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/procthread/cpu-sets
+- https://learn.microsoft.com/windows/win32/procthread/processor-groups
+- https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocessaffinitymask
 
 ## 32. Benefício real
 Situational
@@ -475,10 +472,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Diagnóstico usa APIs públicas de processor groups/CPU sets/affinity/priority e ETW quando necessário; mutations genéricas de process priority/affinity pertencem a `C-PROCESSES-005`.
+- Não implementar heterogeneous scheduler Registry tweaks nem afinidade fixa como otimização universal.
+- CPU Sets/affinity devem respeitar processor groups e hardware heterogêneo; ausência de suporte retorna `Unsupported`.
+- `PROVEN` exige workload com/sem restrição e sistema multi-group/hybrid quando disponível.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

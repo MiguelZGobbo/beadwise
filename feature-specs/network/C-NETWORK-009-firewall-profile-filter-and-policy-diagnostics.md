@@ -311,28 +311,21 @@ Device class: conforme a capability.
 ## 22. Dependências
 
 ### Outras features
-Usar outputs de capabilities relacionadas por ID quando definidos no Discovery; não duplicar detectores apenas por existirem múltiplos consumidores.
+- `C-SECURITY-002` é owner da postura/proteção de firewall como security capability.
+- Network consome perfis/regras apenas para explicar conectividade e diagnosticar bloqueios.
 
 ### Serviços
-Somente serviços nativos necessários às APIs escolhidas; detectar indisponibilidade e retornar estado estruturado.
+Windows Firewall/BFE quando necessários à leitura suportada.
 
 ### APIs
-GetAdaptersAddresses / GetIfTable2 / GetIfEntry2, GetIpForwardTable2, DnsQueryEx, IcmpSendEcho2, Native Wi-Fi API (Wlan*), Get-NetTCPConnection / NetTCPIP, Windows Filtering Platform / NetSecurity
+Windows Filtering Platform / NetSecurity para diagnóstico permitido.
 
 ### Componentes do Windows
-Componentes do subsistema NETWORK e infraestrutura comum de Event Log/ETW/CIM quando aplicável.
-
-### Drivers
-Conditional — necessários apenas quando a fonte/ação depende de dispositivo ou vendor.
-
-### Internet
-Conditional — somente para catálogo/lifecycle/vendor/update externo explicitamente previsto; detecção local não deve depender da Internet sem necessidade.
-
-### Aplicações externas
-N/A por padrão; ferramentas vendor/terceiros só entram como dependência explícita de prova/escalation.
+Networking + Windows Firewall.
 
 ## 23. Conflitos
-Pode conflitar com política corporativa/MDM, software de fabricante, Windows Update, antivírus/security tooling, tuning software e personalizações do usuário. Antes de alterar, Detect deve identificar ownership/policy quando disponível; estado gerenciado não deve ser sobrescrito silenciosamente.
+
+Network não deve desabilitar firewall nem editar regras como reparo genérico. Mudança security-relevant pertence ao owner Security e deve preservar GPO/MDM/provider policy.
 
 ## 24. Idempotência
 
@@ -432,12 +425,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/iphlp/ip-helper-start-page
 - Documented behavior — https://learn.microsoft.com/windows/win32/nativewifi/portal
 - Documented behavior — https://learn.microsoft.com/powershell/module/nettcpip/get-nettcpconnection
 - Documented behavior — https://learn.microsoft.com/windows/win32/fwp/windows-filtering-platform-start-page
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/iphlp/ip-helper-functions
+- https://learn.microsoft.com/windows/win32/nativewifi/native-wifi-start-page
 
 ## 32. Benefício real
 Situational
@@ -476,9 +472,9 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Firewall state/policy can be diagnosed, but rule mutation overlaps Security and corporate policy. Establish owner and never disable firewall as network fix.
+- Before `SPECIFIED`, test supported/unsupported/policy-managed cases and define authoritative Verify; no “network tweak pack”.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

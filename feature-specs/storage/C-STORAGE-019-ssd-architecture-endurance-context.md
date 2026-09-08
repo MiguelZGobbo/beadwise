@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -373,12 +373,15 @@ Não elevar status para `PROVEN` antes de executar os testes aplicáveis e regis
 TBD até execução da prova: Windows version, hardware/storage topology, driver, admin state e date.
 
 ## 31. Evidências
+
 - hmb: https://learn.microsoft.com/en-us/windows/win32/api/nvme/ns-nvme-nvme_cdw12_feature_host_memory_buffer
 - nvme: https://learn.microsoft.com/en-us/windows/win32/fileio/working-with-nvme-devices
 
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior:** TBD até execução dos protótipos/testes.
+- https://learn.microsoft.com/windows/win32/fileio/working-with-nvme-devices
+- https://learn.microsoft.com/windows-hardware/drivers/storage/working-with-nvme-devices
 
 ## 32. Benefício real
 Situational
@@ -418,8 +421,11 @@ Separação:
 - Data consumed internally: provenance detalhada, raw descriptors, stable mapping IDs e telemetry interna salvo necessidade de Details.
 
 ## 36. Questões em aberto
-- Fonte sustentável para endurance/revision-specific metadata sem scraping frágil.
-- Como distinguir HMB capability de uso efetivo em vendor driver.
+
+- Capability read-only: contextualizar SSD/NVMe/SATA, health/endurance somente quando protocolo ou vendor expõe atributo com semântica conhecida.
+- Não converter atributos SMART vendor-specific em “vida restante” universal nem inventar TBW quando o modelo não fornece especificação confiável.
+- `Unknown` é resultado correto para endurance não exposta.
+- `PROVEN` exige comparar ao menos NVMe e SATA e validar normalização contra ferramenta/vendor oficial.
 
 ## 37. Critério para PROVEN
 - [ ] Detect funciona nos ambientes aplicáveis.

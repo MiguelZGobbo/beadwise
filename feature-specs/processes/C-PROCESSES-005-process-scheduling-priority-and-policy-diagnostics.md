@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: Monitoring, Diagnostics, Optimization  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -77,26 +77,28 @@ High somente para estados diretamente retornados por fonte documentada e coerent
 ## 7. Estado atual
 
 ### O que precisa ser detectado?
-- process enumeration and identity through Win32 process APIs
-- CPU/memory/I/O handles and thread metrics through process APIs and performance counters
-- ETW for time-series/root-cause correlation when sampling is insufficient
-- Wait Chain Traversal for hangs/deadlocks where supported
-- Windows Error Reporting/Event Log evidence for crashes and lifecycle incidents
-- N/A
+- Process identity must be stable as `PID + creation time`; a reused PID must never receive a stale plan.
+- Priority class: `GetPriorityClass`.
+- CPU affinity: `GetProcessAffinityMask`; CPU-set-specific state only through documented CPU Set APIs on builds where available.
+- Memory priority and power throttling/EcoQoS: `GetProcessInformation` with the corresponding `PROCESS_INFORMATION_CLASS` when supported.
+- Job membership: `IsProcessInJob` / documented Job Object queries when required for safeguards.
+- Mitigation policy: `GetProcessMitigationPolicy` for read-only context.
+- Working-set limits/state through documented Process Working Set APIs when diagnostic context requires them.
+- **I/O priority:** no generic public Win32 mutation contract was established in this review; do not use `NtQueryInformationProcess/NtSetInformationProcess` or private information classes as product contract. Represent as `Unsupported/Unknown` unless a supported surface is later proven.
 
 ### Como detectar?
-Coletar os sinais documentados acima, normalizar por identidade estável do objeto relevante, anexar `source/provenance`, timestamp e confidence, e correlacionar somente sinais temporal/semanticamente compatíveis.
+Open the target with the minimum query rights, capture `PID + creation time`, query only documented process APIs, and revalidate identity immediately before Apply. Access denied to protected/system processes is an explicit state, not evidence that a value is absent.
 
 ### Fonte da verdade
-Primary truth is the documented Windows/API state closest to the subsystem being modeled for Process scheduling, priority & policy diagnostics; secondary sources may enrich context but must carry provenance/confidence. Vendor data is authoritative only for vendor-defined telemetry on explicitly supported hardware.
+The documented Win32 getter paired with each supported setter is authoritative for mutable fields. ETW/Performance Counters can enrich workload context but do not replace the actual scheduling-policy getter.
 
 ### Estados possíveis
-- Supported / normal
-- Supported / attention candidate
-- Supported / problem confirmed
-- Managed/policy-controlled
+- Supported / current value known
+- Supported / change candidate
+- Restricted/protected process
+- Process exited / identity changed
 - Partial data
-- Not Applicable / Unsupported
+- Unsupported field
 - Unknown / Error
 
 ## 8. Estado alvo
@@ -105,7 +107,7 @@ Only an explicitly selected, supported change for **Process scheduling, priority
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Split the capability into **documented mutable fields** and **diagnostic-only fields**. A ChangePlan may contain only operations that have a supported getter/setter pair and an exact pre-change snapshot.
 
 ### Tecnologias utilizadas
 - [x] .NET API
@@ -113,27 +115,36 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] Registry
 - [ ] PowerShell
 - [ ] CMD / executable
-- [x] WMI / CIM
+- [ ] WMI / CIM
 - [ ] Vendor API
 - [ ] File modification
 - [ ] Service Control Manager
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- CreateToolhelp32Snapshot / Process32First/Next or EnumProcesses
-- OpenProcess / QueryFullProcessImageName / GetProcessTimes
-- GetProcessMemoryInfo
-- PDH / Performance Counters
-- ETW
-- Wait Chain Traversal API
+Supported mutable subset:
+- `GetPriorityClass` / `SetPriorityClass`
+- `GetProcessAffinityMask` / `SetProcessAffinityMask` when affinity adjustment is explicitly selected
+- `GetProcessInformation` / `SetProcessInformation` for supported classes such as `ProcessMemoryPriority` and `ProcessPowerThrottling`
+
+Read-only/safeguard context:
+- `IsProcessInJob`
+- `GetProcessMitigationPolicy`
+- documented working-set APIs
+- process identity/timing APIs
+
+Explicit exclusions:
+- no undocumented `NtSetInformationProcess`/private information classes for I/O priority or hidden scheduling knobs;
+- no automatic REALTIME priority recommendation;
+- no working-set trimming presented as a performance optimization.
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Native/NT private information classes: rejected as production contract because compatibility/support guarantees are insufficient.
+- Registry tweaks and scheduler folklore: rejected.
+- Vendor/game-specific tuning: out of ownership; may be contextual evidence only.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Use exact documented state transitions and make unsupported subfields visible instead of forcing one generic scheduling-tuning abstraction.
 
 ## 10. Permissões
 
@@ -149,38 +160,40 @@ Retornar erro estruturado (`ADMIN_REQUIRED`/`ACCESS_DENIED`) por operação/camp
 ## 11. Reinicialização
 
 ### Requer:
-- [ ] Nada
+- [x] Nada
 - [ ] Reinício do aplicativo
 - [ ] Reinício de processo
 - [ ] Reinício de serviço
 - [ ] Logoff
 - [ ] Reboot do Windows
-- [x] Desconhecido
+- [ ] Desconhecido
 
 ### A alteração só pode ser validada depois da reinicialização?
-Conditional — deve ser resolvido por operação concreta; não assumir reboot se a API permitir verificação imediata.
+No for the supported per-process operations. Verify immediately with the matching getter.
 
 ### Rollback também exige reinicialização?
-Conditional — igual ao mecanismo revertido; registrar no ChangePlan.
+No. Rollback is immediate while the original process identity still exists.
 
 ## 12. Change Plan
 
 ```text
 Feature: C-PROCESSES-005
-Current state: normalized Detect result + provenance
-Target state: Only an explicitly selected, supported change for **Process scheduling, priority & policy diagnostics**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+Current state: PID + creation time + exact supported policy fields
+Target state: only the explicitly selected documented field/value
 Changes:
-1. Re-run Detect immediately before execution.
-2. Validate support/managed state/prerequisites.
-3. Capture exact snapshot.
-4. Execute only the user-selected supported operation.
-5. Re-detect and compare actual vs target.
-6. On partial failure, stop or rollback already-applied dependent changes according to the operation graph.
+1. Revalidate PID + creation time.
+2. Verify target process is not restricted by the action policy.
+3. Capture exact getter values for every field to be changed.
+4. Apply one documented setter per ChangePlan operation.
+5. Re-read each field and compare actual vs target.
+6. On failure, restore already changed fields from the snapshot when process identity still matches.
 Admin required: Conditional
-Restart required: Desconhecido
-Risk: High
-Reversible: Unknown
+Restart required: No
+Risk: Medium (High/Realtime class is never auto-recommended; REALTIME is blocked by product safeguard)
+Reversible: Fully for supported fields while the same process instance exists
 ```
+
+A plan must never silently include I/O-priority/private NT operations or other unsupported fields.
 
 ## 13. Dry-run
 
@@ -205,24 +218,27 @@ Efeitos de desempenho, estabilidade, hardware/vendor e operações que exigem re
 Yes
 
 ### O que precisa ser salvo antes da alteração?
-Estado efetivo completo dos objetos/propriedades que serão alterados; origem, tipo, existência/ausência, owner/policy, timestamp e qualquer relação necessária para restauração.
+- stable process identity (`PID + creation time`);
+- exact priority class when changed;
+- exact affinity mask/CPU-set state when changed;
+- exact supported `GetProcessInformation` structure/value when changed;
+- field-by-field support/access result.
 
 ### Estado inexistente também deve ser registrado
-Yes — ausência é parte do snapshot e rollback deve restaurar ausência quando esse era o estado original.
+Yes. Unsupported/unqueryable is not converted to a default value and makes that field ineligible for Apply.
 
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+1. Revalidate process identity.
+2. Reject stale/exited/protected targets and unsupported fields.
+3. Capture the final snapshot.
+4. Apply only the user-selected documented field.
+5. Read the field back with the matching getter.
+6. If Verify fails and the same process instance exists, restore the snapshot for fields already changed.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+Prefer one field per user-visible operation. If a plan intentionally contains multiple independent supported fields, failure stops subsequent operations and rolls back already changed fields in reverse order. A process exit changes the result to `TARGET_EXITED`; it must not cause changes to a new process that reused the PID.
 
 ## 16. Verify
 
@@ -238,16 +254,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+Fully for the supported mutable subset **while the same process instance still exists**. If the target exits/restarts, the old per-process state no longer exists and rollback becomes `Not Applicable/Stale`, not an attempt to modify a new PID owner.
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+Revalidate `PID + creation time`, then call the same documented setter for each changed field using the exact getter value captured before Apply.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+`estado original capturado`.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+Reverse Apply order for multi-field plans.
 
 ## 18. Verify Rollback
 
@@ -260,10 +276,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Not Required
 
 ### Motivo
-Diagnostics não exigem restore point. Para mudanças, System Restore só pode ser camada adicional quando risco/escopo justificarem; não substitui snapshot/rollback determinístico.
+The supported changes are per-process runtime state and do not persist system configuration. System Restore is not an appropriate rollback mechanism.
 
 ## 20. Risco
 
@@ -429,12 +445,19 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/procthread/process-and-thread-functions
 - Documented behavior — https://learn.microsoft.com/windows/win32/debug/wait-chain-traversal
 - Documented behavior — https://learn.microsoft.com/windows/win32/etw/about-event-tracing
 - Documented behavior — https://learn.microsoft.com/windows/win32/wer/windows-error-reporting
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getpriorityclass
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setpriorityclass
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocessinformation
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setprocessinformation
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprocessaffinitymask
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setprocessaffinitymask
 
 ## 32. Benefício real
 Situational
@@ -473,10 +496,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Execute the Windows prototype/test matrix for priority class, affinity, memory priority and power-throttling on supported Windows 11 builds; documentary definition is sufficient for `SPECIFIED`, not `PROVEN`.
+- Confirm exact minimum build for every optional CPU Set / ProcessInformation class included by the implementation before enabling it.
+- Determine which cross-process targets permit each setter under normal user/admin rights and encode access-denied behavior.
+- Keep I/O priority and any private NT scheduling class `Unsupported` until Microsoft exposes/documented a suitable contract; do not block the supported subset on that absence.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

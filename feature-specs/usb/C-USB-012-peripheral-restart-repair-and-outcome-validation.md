@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Gaming, Repair  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -431,12 +431,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/samples/microsoft/windows-driver-samples/usbview-sample-application/
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/usb-selective-suspend
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/component-guidelines/usb4-tracelogging-rundown-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
 
 ## 32. Benefício real
 Situational
@@ -475,9 +477,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Apply genérico suportado fica limitado a restart/re-scan PnP quando dispositivo suporta e usuário autorizou (`pnputil /restart-device`, `/scan-devices`).
+- Snapshot captura instance identity/problem state; restart não promete restaurar estado interno do periférico.
+- Verify reenumera e compara health/presence; falha não dispara remove-device automaticamente.
+- Driver rollback/update e power changes pertencem a outros owners.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

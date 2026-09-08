@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: Monitoring, Diagnostics, Optimization  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -77,26 +77,27 @@ High somente para estados diretamente retornados por fonte documentada e coerent
 ## 7. Estado atual
 
 ### O que precisa ser detectado?
-- process enumeration and identity through Win32 process APIs
-- CPU/memory/I/O handles and thread metrics through process APIs and performance counters
-- ETW for time-series/root-cause correlation when sampling is insufficient
-- Wait Chain Traversal for hangs/deadlocks where supported
-- Windows Error Reporting/Event Log evidence for crashes and lifecycle incidents
-- N/A
+- Stable process identity (`PID + creation time`) and image/user/session context.
+- `IsProcessCritical` for a first-party critical-process safeguard where supported.
+- Restart Manager `RM_PROCESS_INFO` (`ApplicationType`, `bRestartable`, service name/session) when a controlled shutdown/restart workflow is being considered.
+- Access/protection state: inability to obtain required rights is an explicit `Restricted/AccessDenied` result.
+- Unsaved-state risk cannot be inferred generically; require user confirmation for destructive termination.
+- Suspend/resume capability is **awareness only** in the production contract unless a supported public process-level API is established later.
 
 ### Como detectar?
-Coletar os sinais documentados acima, normalizar por identidade estável do objeto relevante, anexar `source/provenance`, timestamp e confidence, e correlacionar somente sinais temporal/semanticamente compatíveis.
+Use Win32 process APIs and Restart Manager only. Revalidate the unique process instance immediately before action. Never identify a target solely by executable name.
 
 ### Fonte da verdade
-Primary truth is the documented Windows/API state closest to the subsystem being modeled for Process action workflow & safeguards; secondary sources may enrich context but must carry provenance/confidence. Vendor data is authoritative only for vendor-defined telemetry on explicitly supported hardware.
+`IsProcessCritical` and Restart Manager are authoritative for the safeguards they explicitly expose. `bRestartable = false` means the app must not promise Restart Manager recovery. Access denial/protected-process behavior is preserved rather than bypassed.
 
 ### Estados possíveis
-- Supported / normal
-- Supported / attention candidate
-- Supported / problem confirmed
-- Managed/policy-controlled
-- Partial data
-- Not Applicable / Unsupported
+- Action eligible
+- Critical / blocked
+- Restricted / access denied
+- Restart Manager restartable
+- Not restartable / restart unsupported
+- Target exited / identity changed
+- Unsupported suspend-resume
 - Unknown / Error
 
 ## 8. Estado alvo
@@ -105,7 +106,7 @@ Only an explicitly selected, supported change for **Process action workflow & sa
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Define each process action separately instead of a generic "process control" mutation.
 
 ### Tecnologias utilizadas
 - [x] .NET API
@@ -113,27 +114,32 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] Registry
 - [ ] PowerShell
 - [ ] CMD / executable
-- [x] WMI / CIM
+- [ ] WMI / CIM
 - [ ] Vendor API
 - [ ] File modification
 - [ ] Service Control Manager
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- CreateToolhelp32Snapshot / Process32First/Next or EnumProcesses
-- OpenProcess / QueryFullProcessImageName / GetProcessTimes
-- GetProcessMemoryInfo
-- PDH / Performance Counters
-- ETW
-- Wait Chain Traversal API
+- `IsProcessCritical`
+- `OpenProcess` with minimum required rights
+- `TerminateProcess` only for an explicit destructive user action after safeguards
+- Restart Manager: `RmStartSession`, `RmRegisterResources`, `RmGetList`, and only where appropriate `RmShutdown`/`RmRestart`
+- `RM_PROCESS_INFO.bRestartable` and `RM_APP_TYPE`
+
+Explicit exclusions:
+- no `NtSuspendProcess`/`NtResumeProcess` production dependency;
+- no generic "kill and reconstruct command line" restart claim;
+- no termination of critical processes;
+- no attempt to bypass protected-process/access controls.
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Undocumented NT suspend/resume: rejected as production contract.
+- Recreating arbitrary apps from image path/command line: rejected as exact restart/rollback because app state, elevation, package activation and working directory may differ.
+- Restart Manager: selected only for resources/apps where its own contract reports restartability.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Safe explicit termination plus conditional Restart Manager orchestration; unsupported operations remain visible rather than emulated unsafely.
 
 ## 10. Permissões
 
@@ -149,38 +155,39 @@ Retornar erro estruturado (`ADMIN_REQUIRED`/`ACCESS_DENIED`) por operação/camp
 ## 11. Reinicialização
 
 ### Requer:
-- [ ] Nada
+- [x] Nada
 - [ ] Reinício do aplicativo
-- [ ] Reinício de processo
+- [x] Reinício de processo (only when the user explicitly selects a supported restart workflow)
 - [ ] Reinício de serviço
 - [ ] Logoff
 - [ ] Reboot do Windows
-- [x] Desconhecido
+- [ ] Desconhecido
 
 ### A alteração só pode ser validada depois da reinicialização?
-Conditional — deve ser resolvido por operação concreta; não assumir reboot se a API permitir verificação imediata.
+No OS reboot. A restart action is verified by observing termination of the original process identity and, when Restart Manager promises restartability, a new expected application instance.
 
 ### Rollback também exige reinicialização?
-Conditional — igual ao mecanismo revertido; registrar no ChangePlan.
+N/A for termination; terminating a process is not reversible. A restart is the intended action, not rollback.
 
 ## 12. Change Plan
 
 ```text
 Feature: C-PROCESSES-007
-Current state: normalized Detect result + provenance
-Target state: Only an explicitly selected, supported change for **Process action workflow & safeguards**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+Current state: stable process identity + critical/restricted/restartability state
+Target state: one explicit supported action
 Changes:
-1. Re-run Detect immediately before execution.
-2. Validate support/managed state/prerequisites.
-3. Capture exact snapshot.
-4. Execute only the user-selected supported operation.
-5. Re-detect and compare actual vs target.
-6. On partial failure, stop or rollback already-applied dependent changes according to the operation graph.
+1. Revalidate PID + creation time.
+2. Block critical/restricted/unsupported target.
+3. Explain destructive consequences and restartability.
+4. Execute only explicit user-selected terminate OR supported Restart Manager workflow.
+5. Verify original process exit and, if promised, restart result.
 Admin required: Conditional
-Restart required: Desconhecido
+Restart required: Process only, conditional
 Risk: High
-Reversible: Unknown
+Reversible: No for termination; restart is conditional and not equivalent to rollback
 ```
+
+Suspend/resume never appears in the ChangePlan under the current supported contract.
 
 ## 13. Dry-run
 
@@ -202,27 +209,30 @@ Efeitos de desempenho, estabilidade, hardware/vendor e operações que exigem re
 ## 14. Snapshot
 
 ### É necessário?
-Yes
+Yes for audit/safety context, but it does **not** make process termination reversible.
 
 ### O que precisa ser salvo antes da alteração?
-Estado efetivo completo dos objetos/propriedades que serão alterados; origem, tipo, existência/ausência, owner/policy, timestamp e qualquer relação necessária para restauração.
+- PID + creation time;
+- image/session/user metadata needed to explain the target;
+- critical/restricted state;
+- Restart Manager classification and `bRestartable` when used;
+- action chosen and confirmation context.
 
 ### Estado inexistente também deve ser registrado
-Yes — ausência é parte do snapshot e rollback deve restaurar ausência quando esse era o estado original.
+N/A. If the process exits before Apply, the plan becomes stale and must be rebuilt.
 
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+1. Revalidate unique process identity.
+2. Query critical/restricted/restartability safeguards again.
+3. Require explicit user confirmation for terminate/restart.
+4. For termination, use `TerminateProcess` only after guard success.
+5. For Restart Manager, operate only on the registered resource/session and only when the API contract reports the app/service as eligible; never promise restart for `bRestartable = false`.
+6. Verify the original instance is gone and any promised restart occurred.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+Termination is intrinsically destructive and cannot be transactionally undone. Restart Manager may affect multiple resource owners; its full affected set must be shown before execution. Partial restart is reported explicitly rather than hidden.
 
 ## 16. Verify
 
@@ -238,16 +248,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+No for process termination. Conditional restart is a forward recovery action, not restoration of the terminated process's in-memory state.
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+N/A. Do not claim that relaunching an executable restores the original process state.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+N/A.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+N/A.
 
 ## 18. Verify Rollback
 
@@ -260,10 +270,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Not Required
 
 ### Motivo
-Diagnostics não exigem restore point. Para mudanças, System Restore só pode ser camada adicional quando risco/escopo justificarem; não substitui snapshot/rollback determinístico.
+System Restore cannot restore a terminated process's volatile in-memory/application state and is not an appropriate safeguard for this action.
 
 ## 20. Risco
 
@@ -429,12 +439,18 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/procthread/process-and-thread-functions
 - Documented behavior — https://learn.microsoft.com/windows/win32/debug/wait-chain-traversal
 - Documented behavior — https://learn.microsoft.com/windows/win32/etw/about-event-tracing
 - Documented behavior — https://learn.microsoft.com/windows/win32/wer/windows-error-reporting
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-isprocesscritical
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/restartmanager/
+- Documented behavior — https://learn.microsoft.com/windows/win32/api/restartmanager/ns-restartmanager-rm_process_info
+- Documented behavior — https://learn.microsoft.com/windows/win32/rstmgr/critical-system-services
 
 ## 32. Benefício real
 Situational
@@ -473,10 +489,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Execute Windows tests for critical-process blocking, access denied/protected targets, ordinary termination, target exit between plan/apply, and Restart Manager `bRestartable` true/false cases before `PROVEN`.
+- Validate UX/confirmation requirements for destructive termination and multi-process Restart Manager impact.
+- Suspend/resume remains intentionally unsupported for Apply until a stable public Windows process-level contract exists; do not substitute undocumented NT APIs.
+- Confirm packaged/UWP/application-lifecycle edge cases and service ownership before enabling restart beyond tested classes.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

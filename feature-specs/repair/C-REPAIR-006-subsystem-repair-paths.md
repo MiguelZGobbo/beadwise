@@ -10,7 +10,7 @@ Primary Product Area: Repair
 Also Used By: Repair, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -429,6 +429,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
@@ -473,10 +474,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Capability de roteamento: cada subsistema só pode executar reparo documentado pelo seu owner (network, audio, update, storage etc.).
+- Não possuir mutação genérica própria; ChangePlan referencia a operação concreta do domínio delegado e mantém risco/reboot/rollback daquela operação.
+- Se nenhum reparo suportado existir, retornar diagnóstico e orientação em vez de executar comandos heurísticos.
+- `PROVEN` exige validar o roteamento e propagação de resultados/erros, não provar novamente cada reparador delegado.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -10,7 +10,7 @@ Primary Product Area: Security
 Also Used By: Security, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -430,12 +430,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/secure-the-windows-10-boot-process
 - Documented behavior — https://learn.microsoft.com/windows/security/hardware-security/tpm/trusted-platform-module-overview
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/credential-guard/
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/lifecycle/products/windows-11-home-and-pro
+- https://learn.microsoft.com/lifecycle/products/windows-10-home-and-pro
 
 ## 32. Benefício real
 Situational
@@ -474,9 +477,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais estados e compatibilidades serão confirmados tecnicamente na Feature Spec? Como garantir que nenhuma recomendação reduza proteção apenas por desempenho marginal?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Capability read-only/recommendation: correlacionar versão/build/edição com lifecycle/support e estado de atualização de segurança disponível; não instala update diretamente.
+- `Unsupported`/fim de suporte deve ser apresentado como risco de segurança, não como falha de performance.
+- Fonte de lifecycle deve ser metadado oficial e versionado; não codificar datas sem mecanismo de atualização.
+- `PROVEN` exige testar builds suportadas e fora de suporte e indisponibilidade da fonte.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

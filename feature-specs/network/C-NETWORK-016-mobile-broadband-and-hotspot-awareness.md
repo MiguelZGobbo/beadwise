@@ -432,12 +432,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/iphlp/ip-helper-start-page
 - Documented behavior — https://learn.microsoft.com/windows/win32/nativewifi/portal
 - Documented behavior — https://learn.microsoft.com/powershell/module/nettcpip/get-nettcpconnection
 - Documented behavior — https://learn.microsoft.com/windows/win32/fwp/windows-filtering-platform-start-page
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/iphlp/ip-helper-functions
+- https://learn.microsoft.com/windows/win32/nativewifi/native-wifi-start-page
 
 ## 32. Benefício real
 Situational
@@ -476,10 +479,9 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- WWAN/hotspot capabilities depend on hardware/carrier/build. Keep diagnostic until public API support and policy interactions are tested.
+- Before `SPECIFIED`, test supported/unsupported/policy-managed cases and define authoritative Verify; no “network tweak pack”.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

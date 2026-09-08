@@ -410,6 +410,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-querydisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/monitor/monitor-configuration
@@ -454,9 +455,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Virtual/remote/indirect displays podem alterar topologia e capabilities; critérios robustos de classificação cross-vendor ainda precisam de prova.
+- Não tratar adaptador/display virtual como defeito nem aplicar modo/refresh automaticamente.
+- Definir sinais PnP/CCD/Remote Session suportados e matriz com RDP/virtual display/streaming.
+- Até lá, manter somente heurística marcada com confidence e sem Apply.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

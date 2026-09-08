@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Gaming, Configuration  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -310,28 +310,21 @@ Device class: conforme a capability.
 ## 22. Dependências
 
 ### Outras features
-Usar outputs de capabilities relacionadas por ID quando definidos no Discovery; não duplicar detectores apenas por existirem múltiplos consumidores.
+- `C-ENERGY-007` é owner das mutações de política/timeout de energia do display; esta feature consome o estado para diagnóstico e UX.
+- Capabilities de monitor/topologia deste domínio continuam owners de detecção física/display.
 
 ### Serviços
-Somente serviços nativos necessários às APIs escolhidas; detectar indisponibilidade e retornar estado estruturado.
+Somente serviços nativos exigidos pelas APIs escolhidas.
 
 ### APIs
-QueryDisplayConfig / SetDisplayConfig, DisplayConfigGetDeviceInfo, EnumDisplaySettingsEx, GetDpiForMonitor / GetDpiForWindow, Windows Color System APIs, Monitor Configuration API (DDC/CI) conditional
+APIs de display/brightness apenas para detecção suportada; Power APIs são consumidas via owner Energy.
 
 ### Componentes do Windows
-Componentes do subsistema DISPLAY e infraestrutura comum de Event Log/ETW/CIM quando aplicável.
-
-### Drivers
-Conditional — necessários apenas quando a fonte/ação depende de dispositivo ou vendor.
-
-### Internet
-Conditional — somente para catálogo/lifecycle/vendor/update externo explicitamente previsto; detecção local não deve depender da Internet sem necessidade.
-
-### Aplicações externas
-N/A por padrão; ferramentas vendor/terceiros só entram como dependência explícita de prova/escalation.
+Display stack + power management.
 
 ## 23. Conflitos
-Pode conflitar com política corporativa/MDM, software de fabricante, Windows Update, antivírus/security tooling, tuning software e personalizações do usuário. Antes de alterar, Detect deve identificar ownership/policy quando disponível; estado gerenciado não deve ser sobrescrito silenciosamente.
+
+Conflito principal: duplicação de ownership com `C-ENERGY-007`. Nenhuma escrita de timeout/power policy deve ocorrer aqui. Estado gerenciado por OEM/MDM deve ser preservado.
 
 ## 24. Idempotência
 
@@ -431,12 +424,14 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-querydisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/monitor/monitor-configuration
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options
 
 ## 32. Benefício real
 Situational
@@ -475,9 +470,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Ownership corrigido: esta capability diagnostica brilho/display-off/wake behavior e consome o estado de energia; mutações de timeout/power plan pertencem ao domínio Energy.
+- Brightness control só é aplicável quando a plataforma/display expõe interface suportada; desktop externo pode ser `Unsupported`.
+- Não reduzir brilho/desligar display como “performance optimization”.
+- `PROVEN` aqui valida detecção/correlação; Apply/Rollback das políticas são provados pelo owner Energy.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

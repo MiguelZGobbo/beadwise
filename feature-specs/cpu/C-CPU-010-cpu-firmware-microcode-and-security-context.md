@@ -410,12 +410,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimes
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/whea/whea-hardware-error-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-server/virtualization/hyper-v/host-hardware-requirements
+- https://learn.microsoft.com/windows-server/virtualization/hyper-v/manage/manage-hyper-v-scheduler-types
 
 ## 32. Benefício real
 Reasonable
@@ -454,9 +457,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Hypervisor/security mitigation context possui sinais OS suportados, mas “microcode version/update recommendation” não tem uma fonte universal e estável cross-vendor definida nesta spec.
+- Não recomendar BIOS/microcode apenas por número maior sem mapping oficial CPU/platform/advisory.
+- Firmware update é vendor/OEM-owned e não terá Apply genérico no BeadWise.
+- `SPECIFIED` depende de fonte de verdade por AMD/Intel/OEM e modelo de freshness/security advisory.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

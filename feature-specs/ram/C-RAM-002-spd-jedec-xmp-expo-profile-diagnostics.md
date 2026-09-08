@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -103,12 +103,13 @@ Primary truth is the documented Windows/API state closest to the subsystem being
 - Unknown / Error
 
 ## 8. Estado alvo
-Only an explicitly selected, supported change for **SPD, JEDEC, XMP/EXPO profile diagnostics**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+
+A read-only, provenance-aware memory-module/profile assessment that distinguishes **OS-visible SMBIOS data** from **SPD/XMP/EXPO data that requires a vendor/firmware-specific source**. No BIOS profile or voltage/timing is changed by this capability.
 
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Use `Win32_PhysicalMemory`/SMBIOS Type 17 for module inventory and the currently configured memory clock/voltage values that Windows exposes. Treat raw SPD, JEDEC timing tables, Intel XMP profiles and AMD EXPO profiles as a separate vendor/firmware data tier.
 
 ### Tecnologias utilizadas
 - [x] .NET API
@@ -117,26 +118,23 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] PowerShell
 - [ ] CMD / executable
 - [x] WMI / CIM
-- [ ] Vendor API
+- [x] Vendor API (optional, adapter-specific)
 - [ ] File modification
 - [ ] Service Control Manager
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+- `Win32_PhysicalMemory` (`Speed`, `ConfiguredClockSpeed`, `ConfiguredVoltage`, manufacturer/part/serial, width/type fields)
+- SMBIOS Type 17 via the system firmware table when lower-level normalization is needed
+- Optional vendor/motherboard adapter only when a documented/safely testable SPD/profile source exists
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Direct SMBus/SMBus-controller access from a generic app: rejected as universal contract because controller/firmware ownership and safe access are platform-specific.
+- Interpreting `ConfiguredClockSpeed` as proof of XMP/EXPO profile identity: rejected; it only proves the configured speed Windows reports.
+- Automatically enabling XMP/EXPO or changing memory timing/voltage: rejected from this capability; vendors classify these profiles as memory overclocking and warn about stability/warranty risk.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Provide strong basic module/configured-state diagnostics everywhere Windows exposes them, and return `ProfileDataUnavailable` rather than fabricating XMP/EXPO details on unsupported platforms.
 
 ## 10. Permissões
 
@@ -216,16 +214,10 @@ Yes — ausência é parte do snapshot e rollback deve restaurar ausência quand
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+N/A — read-only diagnostic/guidance capability. It must not enable XMP/EXPO, write SPD, or change BIOS memory timings/voltages.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+N/A.
 
 ## 16. Verify
 
@@ -241,16 +233,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+N/A
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+N/A — no persistent change.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+N/A.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+N/A.
 
 ## 18. Verify Rollback
 
@@ -263,10 +255,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Not Required
 
 ### Motivo
-A capability possui caminho mutável. A necessidade de System Restore deve ser decidida somente após o mecanismo concreto, risco e capacidade de rollback específico serem comprovados; ele não substitui snapshot/rollback determinístico.
+Read-only diagnostics; firmware memory-profile changes are outside this capability.
 
 ## 20. Risco
 
@@ -432,12 +424,16 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-physicalmemory
+- Vendor behavior — https://www.intel.com/content/www/us/en/gaming/extreme-memory-profile-xmp.html
+- Vendor behavior — https://www.amd.com/en/products/processors/technologies/expo.html
 
 ## 32. Benefício real
 Situational
@@ -476,9 +472,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Prototype `Win32_PhysicalMemory`/SMBIOS normalization on DDR4 and DDR5 systems and compare configured clock/voltage/module identity with firmware/vendor tooling before `PROVEN`.
+- Define optional vendor adapters only where a documented/safe SPD/profile source exists; unsupported systems must remain `ProfileDataUnavailable`.
+- Do not infer active XMP/EXPO solely from clock speed. A profile identity requires explicit source evidence.
+- Keep any future memory-overclocking Apply capability separate and subject to its own risk/proof gate.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

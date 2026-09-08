@@ -10,7 +10,7 @@ Primary Product Area: Repair
 Also Used By: Repair, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -308,28 +308,22 @@ Device class: conforme a capability.
 ## 22. Dependências
 
 ### Outras features
-Usar outputs de capabilities relacionadas por ID quando definidos no Discovery; não duplicar detectores apenas por existirem múltiplos consumidores.
+- Drivers owns package install/update/rollback.
+- USB/Audio/Network owners fornecem device-specific diagnosis.
+- Repair apenas orquestra restart/re-scan suportado e delega driver actions.
 
 ### Serviços
-Somente serviços nativos necessários às APIs escolhidas; detectar indisponibilidade e retornar estado estruturado.
+PnP infrastructure.
 
 ### APIs
-DISM /Online /Cleanup-Image /CheckHealth|ScanHealth|RestoreHealth, sfc /verifyonly /scannow, reagentc, BCDBoot/BCD APIs or bcdedit only for explicit boot-repair workflows, SetupAPI/CfgMgr32/PnPUtil, AppX PowerShell APIs when package repair is in scope
+PnPUtil/SetupAPI/PnP state conforme suportado.
 
 ### Componentes do Windows
-Componentes do subsistema REPAIR e infraestrutura comum de Event Log/ETW/CIM quando aplicável.
-
-### Drivers
-Conditional — necessários apenas quando a fonte/ação depende de dispositivo ou vendor.
-
-### Internet
-Conditional — somente para catálogo/lifecycle/vendor/update externo explicitamente previsto; detecção local não deve depender da Internet sem necessidade.
-
-### Aplicações externas
-N/A por padrão; ferramentas vendor/terceiros só entram como dependência explícita de prova/escalation.
+Plug and Play.
 
 ## 23. Conflitos
-Pode conflitar com política corporativa/MDM, software de fabricante, Windows Update, antivírus/security tooling, tuning software e personalizações do usuário. Antes de alterar, Detect deve identificar ownership/policy quando disponível; estado gerenciado não deve ser sobrescrito silenciosamente.
+
+Não duplicar driver rollback/update nem remover dispositivo/pacote como reparo automático. Resultado de owner domain prevalece; policy-managed devices não são contornados.
 
 ## 24. Idempotência
 
@@ -429,6 +423,7 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
@@ -473,10 +468,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Reparos genéricos suportados ficam limitados a reenumeração e reinício de dispositivo quando aplicável (`pnputil /scan-devices`, `/restart-device`) e a fluxos de driver pertencentes ao domínio Drivers.
+- Remover dispositivo/driver não é reparo default e exige operação separada com impacto explicitado.
+- Não prometer rollback de driver anterior nesta capability; esse ownership permanece em Drivers.
+- Verify deve reconsultar PnP problem status/device state após a operação.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

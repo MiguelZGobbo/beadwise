@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -79,28 +79,24 @@ High somente para estados diretamente retornados por fonte documentada e coerent
 ## 7. Estado atual
 
 ### O que precisa ser detectado?
-- physical and usable memory through Win32/Win32_ComputerSystem plus GlobalMemoryStatusEx/GetPerformanceInfo
-- module/topology metadata through SMBIOS-backed CIM classes where exposed
-- commit, working set, paging and pool state through documented performance counters/APIs
-- per-process memory through PROCESS_MEMORY_COUNTERS_EX
-- NUMA topology through GetLogicalProcessorInformationEx
-- crash dump/pagefile configuration through documented system configuration surfaces
-- N/A
+- Whether Windows is using automatic/system-managed pagefile policy (`Win32_ComputerSystem.AutomaticManagedPagefile`).
+- Configured pagefile definitions (`Win32_PageFileSetting`) and runtime usage (`Win32_PageFileUsage`), kept distinct because configured state can be deferred until startup.
+- Crash-dump configuration through `Win32_OSRecoveryConfiguration` (dump type/path/log/reboot flags).
+- Free space on the dump/pagefile volume and whether the chosen dump configuration can be satisfied.
 
 ### Como detectar?
-Coletar os sinais documentados acima, normalizar por identidade estável do objeto relevante, anexar `source/provenance`, timestamp e confidence, e correlacionar somente sinais temporal/semanticamente compatíveis.
+Read the supported CIM/WMI classes and normalize configured-vs-runtime state separately. Never infer pagefile sizing from RAM capacity alone.
 
 ### Fonte da verdade
-Primary truth is the documented Windows/API state closest to the subsystem being modeled for Pagefile & crash-dump configuration diagnostics; secondary sources may enrich context but must carry provenance/confidence. Vendor data is authoritative only for vendor-defined telemetry on explicitly supported hardware.
+The relevant CIMWin32 classes are primary for Windows configuration; runtime pagefile usage is not substituted for the configured setting. Microsoft dump guidance is used for recommendation context.
 
 ### Estados possíveis
-- Supported / normal
-- Supported / attention candidate
-- Supported / problem confirmed
-- Managed/policy-controlled
-- Partial data
-- Not Applicable / Unsupported
-- Unknown / Error
+- System managed
+- Custom configured / active
+- Custom configured / pending restart
+- No pagefile / constrained dump capability
+- Dump configured / storage insufficient
+- Partial / Unknown / Error
 
 ## 8. Estado alvo
 Only an explicitly selected, supported change for **Pagefile & crash-dump configuration diagnostics**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
@@ -108,11 +104,11 @@ Only an explicitly selected, supported change for **Pagefile & crash-dump config
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Treat pagefile and crash-dump settings as two related but separately mutable objects. Recommendations favor system-managed/automatic dump behavior unless a concrete diagnostic requirement justifies a custom configuration.
 
 ### Tecnologias utilizadas
 - [x] .NET API
-- [x] Win32
+- [ ] Win32
 - [ ] Registry
 - [ ] PowerShell
 - [ ] CMD / executable
@@ -123,20 +119,18 @@ Usar as interfaces documentadas do subsistema e manter detecção, interpretaç�
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+- `Win32_ComputerSystem.AutomaticManagedPagefile`
+- `Win32_PageFileSetting`
+- `Win32_PageFileUsage`
+- `Win32_OSRecoveryConfiguration`
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Writing `Memory Management`/`CrashControl` registry values directly: avoid when the supported WMI configuration class represents the same setting.
+- Hard-coded pagefile sizes based on RAM: rejected as magic values.
+- Disabling the pagefile as an optimization: rejected; it can reduce commit headroom and break dump requirements.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Use supported Windows configuration classes, preserve exact prior state, and treat Microsoft dump requirements as constraints rather than a universal sizing formula.
 
 ## 10. Permissões
 
@@ -157,32 +151,32 @@ Retornar erro estruturado (`ADMIN_REQUIRED`/`ACCESS_DENIED`) por operação/camp
 - [ ] Reinício de processo
 - [ ] Reinício de serviço
 - [ ] Logoff
-- [ ] Reboot do Windows
-- [x] Desconhecido
+- [x] Reboot do Windows (for pagefile configuration changes whose WMI state is deferred until startup)
+- [ ] Desconhecido
 
 ### A alteração só pode ser validada depois da reinicialização?
-Conditional — deve ser resolvido por operação concreta; não assumir reboot se a API permitir verificação imediata.
+Pagefile configuration: two-phase verify. First confirm the configured WMI object, then after reboot confirm runtime `Win32_PageFileUsage`/effective state. Crash-dump configuration fields can generally be read back immediately but are only behaviorally proven by a controlled crash test, which is not required for ordinary product verification.
 
 ### Rollback também exige reinicialização?
-Conditional — igual ao mecanismo revertido; registrar no ChangePlan.
+Yes when rollback changes pagefile configuration. Crash-dump-only rollback is read-back verifiable immediately.
 
 ## 12. Change Plan
 
 ```text
 Feature: C-RAM-005
-Current state: normalized Detect result + provenance
-Target state: Only an explicitly selected, supported change for **Pagefile & crash-dump configuration diagnostics**, built from current state and context, reaches its declared post-condition; otherwise no change is performed.
+Current state: automatic-managed flag + exact PageFileSetting instances + OSRecoveryConfiguration
+Target state: explicit user-selected supported pagefile/dump configuration
 Changes:
-1. Re-run Detect immediately before execution.
-2. Validate support/managed state/prerequisites.
-3. Capture exact snapshot.
-4. Execute only the user-selected supported operation.
-5. Re-detect and compare actual vs target.
-6. On partial failure, stop or rollback already-applied dependent changes according to the operation graph.
-Admin required: Conditional
-Restart required: Desconhecido
-Risk: Low
-Reversible: Unknown
+1. Re-read current state and free-space prerequisites.
+2. Snapshot automatic-managed flag, every pagefile setting object, and relevant OSRecoveryConfiguration fields.
+3. Apply only the selected configuration object(s).
+4. Read back configured state.
+5. If pagefile changes require reboot, persist snapshot/plan and mark VerifyPendingReboot.
+6. After reboot, verify effective pagefile state; rollback from snapshot on failure/user request.
+Admin required: Yes
+Restart required: Conditional (pagefile)
+Risk: Medium
+Reversible: Fully at configuration level; runtime rollback may require reboot
 ```
 
 ## 13. Dry-run
@@ -208,24 +202,27 @@ Efeitos de desempenho, estabilidade, hardware/vendor e operações que exigem re
 Yes
 
 ### O que precisa ser salvo antes da alteração?
-Estado efetivo completo dos objetos/propriedades que serão alterados; origem, tipo, existência/ausência, owner/policy, timestamp e qualquer relação necessária para restauração.
+- `AutomaticManagedPagefile` exact value;
+- complete set of `Win32_PageFileSetting` instances including paths and min/max sizes;
+- relevant `Win32_OSRecoveryConfiguration` fields and paths;
+- free-space/prerequisite assessment;
+- whether a setting object was absent.
 
 ### Estado inexistente também deve ser registrado
-Yes — ausência é parte do snapshot e rollback deve restaurar ausência quando esse era o estado original.
+Yes. Rollback recreates only objects that existed originally and deletes objects created solely by Apply.
 
 ## 15. Apply
 
 ### Sequência de execução
-1. Validate compatibility and managed state.
-2. Re-detect current state.
-3. Capture snapshot including absence/existence.
-4. Apply the minimal documented change only.
-5. Record return/result.
-6. Re-detect.
-7. If verify fails, enter rollback path when safe.
+1. Validate admin rights and target volume availability.
+2. Re-detect and snapshot exact configuration.
+3. Apply the minimum WMI configuration changes.
+4. Read back configured state.
+5. Mark reboot requirement for deferred pagefile changes.
+6. Post-reboot, read runtime/effective state and compare to target.
 
 ### Atomicidade
-Operações dependentes formam uma unidade lógica: ao falhar, parar e reverter mudanças já aplicadas quando seguro. Mudanças independentes só podem continuar se o ChangePlan as marcar explicitamente como independentes.
+Pagefile and dump changes are logically separate. If a combined plan fails, stop and restore already changed configuration objects from the snapshot. Never silently leave a custom pagefile size because a later dump-field change failed.
 
 ## 16. Verify
 
@@ -241,16 +238,16 @@ Yes — quando apenas parte independente do estado puder ser lida/validada. Nunc
 ## 17. Rollback
 
 ### É reversível?
-Unknown
+Fully at configuration level; effective pagefile restoration can require reboot.
 
 ### Método de rollback
-Restore the exact captured pre-change state using the same supported surface used for Apply where possible. If the original state was absent, remove the created state rather than writing an assumed default.
+Restore the exact automatic-managed flag, pagefile-setting object set, and crash-dump fields captured in the snapshot; remove objects that did not previously exist.
 
 ### O rollback restaura:
-`estado original capturado`, não valor default presumido.
+`estado original capturado`.
 
 ### Ordem de reversão
-Ordem inversa para mudanças dependentes quando tecnicamente apropriado; dependências externas devem ser respeitadas.
+Restore crash-dump fields and pagefile objects/automatic policy according to dependencies; then reboot if the restored pagefile policy is deferred.
 
 ## 18. Verify Rollback
 
@@ -263,10 +260,10 @@ Registrar `ROLLBACK_FAILED`, preservar snapshot/audit, bloquear repetição auto
 ## 19. System Restore
 
 ### A feature exige ponto de restauração?
-TBD
+Recommended only for broader repair sessions that combine this change with other risky system changes; not required for this configuration alone.
 
 ### Motivo
-A capability possui caminho mutável. A necessidade de System Restore deve ser decidida somente após o mecanismo concreto, risco e capacidade de rollback específico serem comprovados; ele não substitui snapshot/rollback determinístico.
+The settings have explicit WMI-readable snapshots and deterministic configuration rollback. System Restore does not replace that rollback.
 
 ## 20. Risco
 
@@ -432,12 +429,17 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-pagefilesetting
+- Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-pagefileusage
+- Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-osrecoveryconfiguration
+- Operational guidance — https://learn.microsoft.com/troubleshoot/windows-server/performance/troubleshoot-stop-errors-best-practices-dump-configuration-recommendations
 
 ## 32. Benefício real
 Situational
@@ -476,9 +478,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Prototype automatic-managed → custom → rollback and custom → automatic-managed on Windows 11, including configured-vs-runtime behavior across reboot.
+- Exercise crash-dump types/paths and insufficient-space cases without using destructive crash tests as a routine product test.
+- Confirm exact WMI write permissions/error codes on supported Windows editions.
+- Recommendations must remain constraint-based (dump requirement, commit pressure, storage availability); no fixed pagefile-size magic values.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

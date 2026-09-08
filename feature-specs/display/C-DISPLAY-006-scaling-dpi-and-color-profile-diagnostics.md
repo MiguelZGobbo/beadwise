@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Diagnostics, Gaming, Configuration  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -431,12 +431,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-querydisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdisplayconfig
 - Documented behavior — https://learn.microsoft.com/windows/win32/monitor/monitor-configuration
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows/win32/hidpi/high-dpi-desktop-application-development-on-windows
+- https://learn.microsoft.com/windows/win32/wcs/windows-color-system
 
 ## 32. Benefício real
 Situational
@@ -475,9 +478,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Diagnóstico deve separar DPI/scaling por monitor, resolution mode e color profile; essas dimensões não são equivalentes.
+- A feature permanece read-only por padrão: não força scaling/ICC como otimização.
+- Perfil de cor só pode ser interpretado via Windows Color System/Color Management APIs suportadas.
+- `PROVEN` exige monitores com DPI distintos e perfis presentes/ausentes.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

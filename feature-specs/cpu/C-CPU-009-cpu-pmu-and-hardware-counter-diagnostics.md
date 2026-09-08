@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -410,12 +410,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimes
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/whea/whea-hardware-error-events
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-server/administration/performance-tuning/in-depth-hardware-counter-profiling
+- https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-recorder
 
 ## 32. Benefício real
 Reasonable
@@ -454,9 +457,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- PMU é capability avançada e optional: enumerar/usar somente counters expostos por mecanismo suportado no hardware/OS; eventos são arquitetura/model-specific.
+- IPC só é válido quando instructions-retired e cycle event semantics são compatíveis e amostrados no mesmo contexto.
+- Não comparar raw event codes entre microarquiteturas.
+- `PROVEN` exige validação contra profiler/vendor em pelo menos uma plataforma e `Unsupported` em plataforma sem acesso.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

@@ -429,12 +429,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/repair-a-windows-image
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/windows-hardware/manufacture/desktop/reagentc-command-line-options
+- https://learn.microsoft.com/windows-server/administration/windows-commands/bcdedit
 
 ## 32. Benefício real
 Situational
@@ -473,10 +476,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais fontes técnicas, limitações de compatibilidade e condições de aplicabilidade precisam ser confirmadas na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Continuar em `RESEARCH`: BCDBoot/BCD e WinRE possuem ferramentas oficiais, porém o plano de Apply/rollback precisa ser separado por cenário UEFI/BIOS, layout de partição e estado de BitLocker/Secure Boot.
+- Não usar BCDEdit/BCDBoot como reparo genérico sem diagnóstico do cenário; documentação da Microsoft alerta que alterações de BCD podem tornar o computador inoperável.
+- Definir snapshot restaurável de BCD/ESP/WinRE e provar recuperação em VM antes de `SPECIFIED`.
+- Confirmar comportamento quando WinRE está desabilitado, ausente, movido ou protegido por BitLocker.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

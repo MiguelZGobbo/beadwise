@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -108,35 +108,31 @@ A normalized, provenance-aware assessment of **Memory-controller, voltage & trai
 ## 9. Implementação técnica
 
 ### Método principal
-Usar as interfaces documentadas do subsistema e manter detecção, interpretação e alteração separadas. PowerShell/CLI pode ser usado em protótipo ou como backend suportado quando for a interface documentada mais adequada, mas parsing textual localizado não deve ser a única fonte se existir API estruturada.
+Separate **module-reported/configured voltage** from **memory-controller/SoC/training telemetry**. Windows SMBIOS/WMI may expose `Win32_PhysicalMemory.ConfiguredVoltage`, but that value must not be labeled IMC/SoC voltage. Controller voltage/training details are vendor/firmware-specific and optional.
 
 ### Tecnologias utilizadas
 - [x] .NET API
-- [x] Win32
+- [ ] Win32
 - [ ] Registry
 - [ ] PowerShell
 - [ ] CMD / executable
 - [x] WMI / CIM
-- [ ] Vendor API
+- [x] Vendor API (optional)
 - [ ] File modification
 - [ ] Service Control Manager
 - [ ] Other
 
 ### Comandos / APIs / chaves
-- GlobalMemoryStatusEx
-- GetPerformanceInfo
-- GetProcessMemoryInfo
-- Performance Counters / PDH
-- GetLogicalProcessorInformationEx
-- Win32_PhysicalMemory / Win32_PageFileSetting
+- `Win32_PhysicalMemory.ConfiguredVoltage` only for the module/configured-memory field defined by SMBIOS
+- vendor/firmware telemetry adapter only when documented and explicitly supported
 
 ### Alternativas avaliadas
-- Registry/CLI não documentado: rejeitado como fonte principal quando API suportada existe.
-- Ferramenta de terceiros/vendor: somente complemento quando expõe dado que o Windows não oferece e com adapter explícito de compatibilidade.
-- Inferência por nome/default: rejeitada como prova técnica.
+- Infer IMC/SoC voltage from DIMM voltage: rejected.
+- Read arbitrary motherboard EC/SMBus registers generically: rejected as unsafe/nonportable.
+- Recommend voltage changes/memory training values: rejected from BeadWise automatic optimization; vendor overclocking guidance explicitly carries hardware/stability risk.
 
 ### Abordagem escolhida
-Prioriza superfícies documentadas, estado efetivo e provenance. Isto reduz dependência de tweak myths e permite distinguir `Unsupported/Unknown` de configuração problemática.
+Expose trustworthy context where available and `VendorDataUnavailable` otherwise; no tuning Apply.
 
 ## 10. Permissões
 
@@ -411,12 +407,16 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/memory-performance-information
 - Documented behavior — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/troubleshoot
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-physicalmemory
+- Vendor risk context — https://www.amd.com/en/products/processors/technologies/expo.html
+- Vendor behavior — https://www.intel.com/content/www/us/en/gaming/extreme-memory-profile-xmp.html
 
 ## 32. Benefício real
 Reasonable
@@ -455,9 +455,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Run the prototype/test matrix required to validate the central technical premise on supported Windows/hardware variants.
-- Quais estados são apenas informativos e quais alterações, se alguma, têm benefício contextual suficiente para serem investigadas tecnicamente na Feature Spec?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Validate module `ConfiguredVoltage` labeling against SMBIOS/WMI on target systems.
+- Define optional AMD/Intel/motherboard adapters only where an official or safely supportable telemetry contract exists.
+- No controller-voltage/training recommendation may be introduced without vendor-specific limits, hardware support detection and a separate high-risk proof process.
+- Current capability is sufficiently defined for a read-only prototype; `PROVEN` still requires hardware validation.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada

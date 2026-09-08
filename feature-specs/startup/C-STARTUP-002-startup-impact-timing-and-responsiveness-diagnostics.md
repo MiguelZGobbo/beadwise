@@ -10,7 +10,7 @@ Primary Product Area: TBD
 Also Used By: Optimization, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -391,6 +391,7 @@ Date: TBD
 ```
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/win32/w8cookbook/startup-apps
 - Documented behavior — https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-recorder
 - Documented behavior — https://learn.microsoft.com/windows-hardware/test/wpt/introduction-to-wpr
@@ -425,8 +426,11 @@ Details sempre. Apply/Skip/Rollback apenas em C-STARTUP-004/008 quando o source-
 Raw source identity, registry/task/file/package identifiers, signer verification details, measurement/session IDs, provenance, policy/dependency flags, ChangePlan/snapshot references. Redact secrets from command lines.
 
 ## 36. Questões em aberto
-- Prototype ETL parsing/aggregation and establish stable event fields across Windows 11 24H2/25H2/26H1.
-- Define the exact lightweight measurement window used when WPR boot trace is not collected.
+
+- A Microsoft documenta impacto de Startup Apps com CPU e disk I/O; essa classificação pode ser exibida quando a fonte está disponível, sem reinterpretar limites como score universal do BeadWise.
+- Boot/logon timing avançado deve usar ETW/WPA-style evidence quando necessário; Fast Startup e full boot precisam ser diferenciados.
+- Não inferir causalidade de uma única inicialização; exigir repetição/variância para benchmark próprio.
+- `PROVEN` requer comparar medição do app com traces/observação em boots controlados.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado em todas as sources declaradas supported

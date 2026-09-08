@@ -10,7 +10,7 @@ Primary Product Area: Security
 Also Used By: Security, Diagnostics  
 Shared Capability: No  
 Final UI Placement: TBD  
-Status: RESEARCH  
+Status: SPECIFIED  
 Prioridade: TBD  
 Responsável: TBD  
 Última revisão: 2026-09-08
@@ -430,12 +430,15 @@ Date: TBD
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
 
 ## 31. Evidências
+
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/secure-the-windows-10-boot-process
 - Documented behavior — https://learn.microsoft.com/windows/security/hardware-security/tpm/trusted-platform-module-overview
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/system-security/credential-guard/
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
 **Observed behavior:** N/A nesta revisão documental; nenhuma execução real foi alegada.
+- https://learn.microsoft.com/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection
+- https://learn.microsoft.com/windows/client-management/mdm/policy-configuration-service-provider
 
 ## 32. Benefício real
 Situational
@@ -474,9 +477,11 @@ Details sempre; Apply/Skip/Rollback somente quando houver ChangePlan mutável su
 Source/provenance IDs, raw technical identifiers needed for correlation/apply/verify, compatibility flags, policy owner, timestamps, ChangePlan/snapshot handles. Raw sensitive data must not be exposed without need.
 
 ## 36. Questões em aberto
-- Resolver por operação mutável o mecanismo exato de Apply, atomicidade, reboot, rollback e Verify Rollback antes de `SPECIFIED`.
-- Quais estados e compatibilidades serão confirmados tecnicamente na Feature Spec? Como garantir que nenhuma recomendação reduza proteção apenas por desempenho marginal?
-- Confirm the minimum supported Windows build/edition for every API or property used before APPROVED.
+
+- Capability de segurança/read-only: detectar sinais de política/tamper/provider conflict e bloquear recomendações que reduzam proteção sem justificativa explícita.
+- Nunca tentar contornar Tamper Protection, política MDM/GPO ou proteção do provedor.
+- O guard deve trabalhar com allowlist de operações suportadas; ausência de evidência = `UNKNOWN/DO_NOT_RECOMMEND`.
+- `PROVEN` requer matriz com máquina pessoal, policy-managed e provider de terceiros.
 
 ## 37. Critério para PROVEN
 - [ ] Detect validado contra fonte nativa/documentada
