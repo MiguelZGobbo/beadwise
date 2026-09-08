@@ -1,0 +1,32 @@
+{
+  "capturedAt": "2026-09-08T20:30:04.2692437-03:00",
+  "windowsEdition": "Microsoft Windows 11 Pro",
+  "windowsVersion": "10.0.26200",
+  "windowsBuild": "26200",
+  "architecture": "64 bits",
+  "cpu": [
+    {
+      "name": "AMD Ryzen 7 5700",
+      "manufacturer": "AuthenticAMD",
+      "cores": 8,
+      "logicalProcessors": 16
+    }
+  ],
+  "gpu": [
+    {
+      "name": "Radeon RX 570 Series",
+      "driverVersion": "31.0.21925.1001"
+    }
+  ],
+  "motherboard": [
+    {
+      "manufacturer": "ASUSTeK COMPUTER INC.",
+      "product": "PRIME B450M-GAMING/BR",
+      "version": "Rev X.0x"
+    }
+  ],
+  "formFactor": "Desktop",
+  "isAdministrator": false,
+  "hasBattery": false,
+  "hypervisorPresent": false
+}
