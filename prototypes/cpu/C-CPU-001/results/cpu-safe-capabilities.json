@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T22:52:05.9096282-03:00",
+  "generatedAt": "2026-09-08T22:59:05.4176000-03:00",
   "host": {
     "os": "Microsoft Windows NT 10.0.26200.0",
     "architecture": "X64",
@@ -40,21 +40,21 @@
         "iterations": 3000000,
         "repetitions": 5,
         "singleThreadMs": [
-          25.3406,
-          21.1402,
-          20.7459,
-          20.8281,
-          20.7915
+          20.3795,
+          27.478,
+          21.3144,
+          21.52,
+          20.3364
         ],
         "multiThreadMs": [
-          9.4688,
-          5.4597,
-          5.5879,
-          5.6189,
-          5.4927
+          26.9284,
+          6.1314,
+          5.365,
+          5.8681,
+          5.8728
         ],
-        "singleCoefficientOfVariation": 0.08227413732000434,
-        "multiCoefficientOfVariation": 0.24862374367859566,
+        "singleCoefficientOfVariation": 0.12065471873530637,
+        "multiCoefficientOfVariation": 0.8423367745614068,
         "checksumMatched": true
       },
       "limitations": [
@@ -67,15 +67,15 @@
       "mechanism": "Controlled CPU and temporary-file I/O fixtures with process CPU-time correlation",
       "evidence": {
         "cpuFixture": {
-          "wallMs": 182.1067,
-          "cpuMs": 218.75,
-          "cpuRatio": 1.2012188458744242,
+          "wallMs": 172.9981,
+          "cpuMs": 234.375,
+          "cpuRatio": 1.3547836652541272,
           "classification": "CPU_BOUND"
         },
         "ioFixture": {
-          "wallMs": 146.207,
+          "wallMs": 140.65,
           "cpuMs": 15.625,
-          "cpuRatio": 0.1068690281587065,
+          "cpuRatio": 0.11109136153572698,
           "bytesWritten": 16777216,
           "controlledWaitMs": 120,
           "classification": "IO_BOUND_OR_WAITING"
@@ -138,12 +138,12 @@
         "sampleCount": 30,
         "intervalMs": 20,
         "sampleFailures": 0,
-        "baselineWallMs": 941.0905,
-        "monitoredWallMs": 943.8854,
-        "baselineCpuMs": 515.625,
-        "monitoredCpuMs": 546.875,
-        "extraCpuMs": 31,
-        "overheadPercentOfOneCore": 3.2842970131755402,
+        "baselineWallMs": 975.0227,
+        "monitoredWallMs": 942.6561,
+        "baselineCpuMs": 546.875,
+        "monitoredCpuMs": 531.25,
+        "extraCpuMs": 0,
+        "overheadPercentOfOneCore": 0.0,
         "safeguardLimitPercent": 5,
         "limitExceeded": false
       },

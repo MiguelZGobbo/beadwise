@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "capturedAt": "2026-09-08T22:52:10.9117729-03:00",
+  "capturedAt": "2026-09-08T22:59:10.5505803-03:00",
   "featureId": "C-CPU-003",
   "englishPath": {
     "status": "FAIL",
@@ -11,7 +11,7 @@
   "sample": {
     "path": "\\\\pcdomiguel\\processador(_total)\\% tempo de processador",
     "instanceName": "_total",
-    "cookedValue": 24.973948638847897
+    "cookedValue": 30.04920084491296
   },
   "steps": [
     {
@@ -27,7 +27,7 @@
     {
       "name": "SAMPLE",
       "status": "PASS",
-      "detail": "Collected CPU counter sample: 24.97"
+      "detail": "Collected CPU counter sample: 30.05"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-08T22:52:37.8631871-03:00",
+  "generatedAt": "2026-09-08T22:59:39.3290594-03:00",
   "safety": {
     "userProcessMutation": false,
     "onlyOwnedChildProcesses": true,
@@ -11,9 +11,9 @@
       "status": "PASS",
       "mechanism": "Win32_Process CIM PID/PPID correlation over prototype-owned child",
       "evidence": {
-        "pid": 17012,
-        "parentPid": 4120,
-        "expectedParentPid": 4120,
+        "pid": 16896,
+        "parentPid": 9840,
+        "expectedParentPid": 9840,
         "parentMatched": true,
         "exitObserved": true,
         "executableName": "pwsh.exe"
@@ -27,48 +27,48 @@
       "status": "PASS",
       "mechanism": "Get-Process temporal CPU/working-set deltas on bounded owned workload",
       "evidence": {
-        "pid": 3300,
+        "pid": 14064,
         "logicalProcessorCount": 16,
         "samples": [
           {
-            "sampledAt": "2026-09-08T22:52:35.4725506-03:00",
-            "cpuSeconds": 0.546875,
-            "workingSetBytes": 87433216,
+            "sampledAt": "2026-09-08T22:59:36.9625832-03:00",
+            "cpuSeconds": 0.53125,
+            "workingSetBytes": 87293952,
             "cpuDeltaSeconds": null,
             "wallDeltaSeconds": null,
             "normalizedCpuPercent": null
           },
           {
-            "sampledAt": "2026-09-08T22:52:35.8017632-03:00",
-            "cpuSeconds": 0.875,
-            "workingSetBytes": 88203264,
+            "sampledAt": "2026-09-08T22:59:37.2917685-03:00",
+            "cpuSeconds": 0.859375,
+            "workingSetBytes": 88121344,
             "cpuDeltaSeconds": 0.328125,
-            "wallDeltaSeconds": 0.3292126,
-            "normalizedCpuPercent": 6.229352248364734
+            "wallDeltaSeconds": 0.3291853,
+            "normalizedCpuPercent": 6.229868861094344
           },
           {
-            "sampledAt": "2026-09-08T22:52:36.1272217-03:00",
-            "cpuSeconds": 1.265625,
-            "workingSetBytes": 89714688,
+            "sampledAt": "2026-09-08T22:59:37.6174008-03:00",
+            "cpuSeconds": 1.25,
+            "workingSetBytes": 89747456,
             "cpuDeltaSeconds": 0.390625,
-            "wallDeltaSeconds": 0.3254585,
-            "normalizedCpuPercent": 7.501436435060077
+            "wallDeltaSeconds": 0.3256323,
+            "normalizedCpuPercent": 7.497432687113656
           },
           {
-            "sampledAt": "2026-09-08T22:52:36.4514096-03:00",
-            "cpuSeconds": 1.59375,
-            "workingSetBytes": 89714688,
-            "cpuDeltaSeconds": 0.328125,
-            "wallDeltaSeconds": 0.3241879,
-            "normalizedCpuPercent": 6.325903125934065
+            "sampledAt": "2026-09-08T22:59:37.9293381-03:00",
+            "cpuSeconds": 1.5625,
+            "workingSetBytes": 89747456,
+            "cpuDeltaSeconds": 0.3125,
+            "wallDeltaSeconds": 0.3119373,
+            "normalizedCpuPercent": 6.261274300957276
           },
           {
-            "sampledAt": "2026-09-08T22:52:36.7785705-03:00",
-            "cpuSeconds": 1.921875,
-            "workingSetBytes": 89714688,
-            "cpuDeltaSeconds": 0.328125,
-            "wallDeltaSeconds": 0.3271609,
-            "normalizedCpuPercent": 6.26841792524718
+            "sampledAt": "2026-09-08T22:59:38.2424689-03:00",
+            "cpuSeconds": 1.875,
+            "workingSetBytes": 89747456,
+            "cpuDeltaSeconds": 0.3125,
+            "wallDeltaSeconds": 0.3131308,
+            "normalizedCpuPercent": 6.237409414851557
           }
         ]
       },
@@ -81,7 +81,7 @@
       "status": "PASS",
       "mechanism": "Prototype-owned child start/detect/exit lifecycle",
       "evidence": {
-        "pid": 22608,
+        "pid": 11832,
         "detectedRunning": true,
         "exitObserved": true,
         "exitCode": 23,
@@ -96,7 +96,7 @@
       "status": "PASS",
       "mechanism": "System.Diagnostics.Process priority/affinity on prototype-owned child with restoration",
       "evidence": {
-        "pid": 16084,
+        "pid": 18684,
         "originalPriority": "Normal",
         "requestedPriority": "BelowNormal",
         "originalAffinity": 65535,
@@ -114,15 +114,15 @@
       "status": "PARTIAL",
       "mechanism": "Get-Process thread/handle inspection on owned child + read-only protected-process outcome",
       "evidence": {
-        "pid": 16084,
+        "pid": 18684,
         "threadCount": 25,
         "handleCount": 488,
         "protectedProcessQuery": {
           "pid": 4,
           "status": "READABLE",
           "detail": {
-            "threadCount": 401,
-            "handleCount": 6231
+            "threadCount": 402,
+            "handleCount": 6218
           }
         }
       },
