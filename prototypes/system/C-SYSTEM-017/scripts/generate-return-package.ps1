@@ -294,6 +294,14 @@ Add-Line '- O bundle comum registra provenance por probe, mas não foi usado com
 Add-Line '- Permanecem abertos: ownership de inventários compartilhados fora do domínio System; fonte autoritativa por campo; semântica uniforme de Admin/Restart/System Restore; sobreposições Gaming↔Display/Audio/Network, GPU↔Processes/RAM e Network↔Security/Energy.'
 Add-Line '- As mutações destrutivas/alto risco não foram improvisadas no Windows real; seus resultados permanecem NOT_TESTED/RESEARCH conforme a spec.'
 Add-Line '- Nenhum código do prototype foi promovido para backend final, solution, UI, DI, IPC ou contratos finais.'
+if ($finalVerification -and $finalVerification.status -eq 'PASS') {
+    Add-Line
+    Add-Line '## Conclusão da etapa'
+    Add-Line
+    Add-Line 'Todas as provas essenciais que eram seguras e executáveis neste host foram executadas. As provas restantes dependem de hardware, autoridade, consentimento, incidente real, reboot/logoff ou ambiente externo e estão classificadas/limitadas nas próprias specs e nas seções H, J e K; não foram convertidas em PASS por inferência.'
+    Add-Line
+    Add-Line 'FASE 2 PRONTA PARA AUDITORIA FINAL'
+}
 
 $packageContent = $builder.ToString()
 $matrixSection = [regex]::Match($packageContent, '(?s)## G\. Matriz de prova por Feature ID\n\n(.*?)(?=\n## H\.)')

@@ -21,6 +21,7 @@ try {
     if ($matrix -notmatch '(?m)^\| C-SYSTEM-018 \| SPECIFIED .*\| PASS \|') { throw 'Restart Manager safe proof is absent from matrix' }
     if ($package -match '\$\(System\.Collections') { throw 'Package contains broken OrderedDictionary interpolation' }
     if ($package -notmatch 'inconsistência C-SYSTEM-007/C-SYSTEM-017 foi corrigida: C-SYSTEM-017 continua sendo o bundle compartilhado de coleta/export e não é prova de C-SYSTEM-007; C-SYSTEM-007 agora possui prototype próprio') { throw '007/017 conclusion missing' }
+    if ($package -notmatch '(?m)^FASE 2 PRONTA PARA AUDITORIA FINAL$') { throw 'Final readiness declaration missing after successful verification' }
     Write-Output 'PASS: return package and 234-row proof matrix are structurally coherent'
 }
 finally {
