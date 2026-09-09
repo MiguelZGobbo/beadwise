@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Storage Spaces, pools, virtual disks & tiers  
-ID: C-STORAGE-014  
-Tipo: Diagnostic, Maintenance, Repair Guidance  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Storage Spaces, pools, virtual disks & tiers
+ID: C-STORAGE-014
+Tipo: Diagnostic, Maintenance, Repair Guidance
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -397,6 +397,15 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `storage.inventory-and-health`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — Storage Spaces/pools/tiers states.
+- Evidência realmente executada: E:storage.inventory-and-health PASS (não prova Storage Spaces).
+- Execução segura neste host / teste: Sim para ausência — `Get-StoragePool/Get-VirtualDisk` e `Unsupported/NotApplicable`.
+- Impedimento ou limitação restante: Não há pool/tier/repair fixture; não criar pool neste host.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Proven

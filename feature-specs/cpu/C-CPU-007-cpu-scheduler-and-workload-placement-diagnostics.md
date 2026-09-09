@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU scheduler & workload placement diagnostics  
-ID: C-CPU-007  
-Tipo: Advanced Diagnostic, Configuration, Configuration / Optimization, Diagnostic, Product Behavior, Safety  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU scheduler & workload placement diagnostics
+ID: C-CPU-007
+Tipo: Advanced Diagnostic, Configuration, Configuration / Optimization, Diagnostic, Product Behavior, Safety
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -434,6 +434,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - https://learn.microsoft.com/windows/win32/procthread/cpu-sets
 - https://learn.microsoft.com/windows/win32/procthread/processor-groups
 - https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocessaffinitymask
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — processor groups/CPU Sets/affinity/ETW under and without restrictions, plus hybrid/multi-group handling.
+- Evidência realmente executada: No scheduler probe; identity only reports 16 logical processors.
+- Execução segura neste host / teste: Basic read-only topology/process-query is safe; changing affinity/priority is not justified. Teste recomendado: Use a child workload in an isolated process to observe CPU Sets/groups and ETW placement without persistent mutation; verify unsupported on non-hybrid/single-group host.
+- Impedimento ou limitação restante: Current host lacks a hybrid/multi-group matrix; no safe feature prototype and restart/affinity mutation must not touch user processes.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

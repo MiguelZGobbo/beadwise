@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Game discovery, identity & session context  
-ID: C-GAMING-001  
-Tipo: Diagnostic  
-Technical Domain: GAMING  
-Primary Product Area: Gaming  
-Also Used By: Gaming, Monitoring, Optimization, Benchmark  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Game discovery, identity & session context
+ID: C-GAMING-001
+Tipo: Diagnostic
+Technical Domain: GAMING
+Primary Product Area: Gaming
+Also Used By: Gaming, Monitoring, Optimization, Benchmark
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -414,6 +414,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/gaming/gdk/_content/gc/system/overviews/directstorage/directstorage-overview
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `gaming.running-process-context`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — actual game discovery/identity and foreground/session context.
+- Evidência realmente executada: `gaming.running-process-context` PASS only confirms a foreground process and process count; no game identity/session was present.
+- Execução segura neste host / teste: Generic process inspection is safe; the essential game fixture is absent. Teste recomendado: Use a known installed/controlled game or launcher session; resolve executable/package/launcher identity, foreground ownership and absent/ambiguous state without launching unknown games.
+- Impedimento ou limitação restante: No game session was running or validated; process presence alone cannot prove game discovery.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

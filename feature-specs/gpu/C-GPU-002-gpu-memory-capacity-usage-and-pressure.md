@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: GPU memory capacity, usage & pressure  
-ID: C-GPU-002  
-Tipo: Diagnostic, Monitoring  
-Technical Domain: GPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: GPU memory capacity, usage & pressure
+ID: C-GPU-002
+Tipo: Diagnostic, Monitoring
+Technical Domain: GPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -290,9 +290,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/direct3ddxgi/dx-graphics-dxgi
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `gpu.identity-and-memory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-GPU-002=PASS` para consulta instantânea em `/prototypes/gpu/C-GPU-001/results/gpu-dxgi-proof.json`. `IDXGIAdapter3::QueryVideoMemoryInfo` retornou budget, uso corrente e reservation para os adapters enumerados. O resultado não prova pressão sustentada, eviction ou comportamento sob workload e não é promoção para `PROVEN`.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — orçamento/uso de memória, não somente `AdapterRAM`.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-GPU-002=PASS` para consulta instantânea em `/prototypes/gpu/C-GPU-001/results/gpu-dxgi-proof.json`. `IDXGIAdapter3::QueryVideoMemoryInfo` retornou budget, uso corrente e reservation para os adapters enumerados. O resultado não prova pressão sustentada, eviction ou comportamento sob workload e não é promoção para `PROVEN`. Evidência: `/prototypes/gpu/C-GPU-001/results/gpu-dxgi-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — `IDXGIAdapter3::QueryVideoMemoryInfo` para adapter atual e tratamento de `DXGI_ERROR_UNSUPPORTED`.
+- Impedimento ou limitação restante: CIM não prova uso/pressão nem budget.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

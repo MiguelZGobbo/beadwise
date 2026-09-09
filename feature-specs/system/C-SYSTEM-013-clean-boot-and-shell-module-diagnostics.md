@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Clean-boot & shell/module diagnostics  
-ID: C-SYSTEM-013  
-Tipo: Diagnostic, Diagnostic / Tool, Shared Diagnostic Capability  
-Technical Domain: SYSTEM  
-Primary Product Area: TBD  
-Also Used By: Diagnostics, Optimization, My PC  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Clean-boot & shell/module diagnostics
+ID: C-SYSTEM-013
+Tipo: Diagnostic, Diagnostic / Tool, Shared Diagnostic Capability
+Technical Domain: SYSTEM
+Primary Product Area: TBD
+Also Used By: Diagnostics, Optimization, My PC
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -290,9 +290,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -418,6 +418,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — clean boot/shell diagnostics e reboot Verify.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Não — apenas detect/read config é seguro.
+- Impedimento ou limitação restante: Clean boot altera services/startup e requer reboot; não testar em estação de trabalho.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

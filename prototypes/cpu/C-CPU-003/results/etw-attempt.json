@@ -1,0 +1,10 @@
+{
+  "featureId": "C-CPU-003",
+  "mechanism": "ETW_WPR_CPU",
+  "status": "BLOCKED_ADMIN",
+  "capturedAt": "2026-09-08T21:24:35.8915412-03:00",
+  "etlBytes": 0,
+  "failure": "WPR start failed with exit code -984068079",
+  "startOutput": "Failed to enable the policy to profile system performance.\r\n\r\n\r\n\tProfile Id: CPU.Verbose.File\r\n\t\r\n\tError code: 0xc5585011\r\n\t\r\n\tFailed to enable the policy to profile system performance.",
+  "stopOutput": ""
+}

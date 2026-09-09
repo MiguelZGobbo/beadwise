@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: SPD, JEDEC, XMP/EXPO profile diagnostics  
-ID: C-RAM-002  
-Tipo: Benchmark / Stability, Configuration Guidance, Diagnostic, Diagnostic / Recommendation, Product Infrastructure, Safety, Shared Diagnostic Capability  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: SPD, JEDEC, XMP/EXPO profile diagnostics
+ID: C-RAM-002
+Tipo: Benchmark / Stability, Configuration Guidance, Diagnostic, Diagnostic / Recommendation, Product Infrastructure, Safety, Shared Diagnostic Capability
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -295,9 +295,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -434,6 +434,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-physicalmemory
 - Vendor behavior — https://www.intel.com/content/www/us/en/gaming/extreme-memory-profile-xmp.html
 - Vendor behavior — https://www.amd.com/en/products/processors/technologies/expo.html
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — SPD versus clock configurado, sem inferir XMP/EXPO.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Parcial — coletar SMBIOS/WMI e retornar `ProfileDataUnavailable` se não há fonte explícita.
+- Impedimento ou limitação restante: Não há fonte vendor/firmware documentada nem DDR5 para validar perfil.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

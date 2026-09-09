@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Bluetooth adapter, device & coexistence diagnostics  
-ID: C-USB-010  
-Tipo: Diagnostic, Diagnostic / Monitoring  
-Technical Domain: USB  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Bluetooth adapter, device & coexistence diagnostics
+ID: C-USB-010
+Tipo: Diagnostic, Diagnostic / Monitoring
+Technical Domain: USB
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -418,6 +418,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `usb.present-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/drivers/hid/
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Bluetooth presence is reported separately from pairing/coexistence claims.
+- Resultado observado deste probe: `PARTIAL`.
+- Evidência reproduzível: `/prototypes/usb/C-USB-001/results/usb-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: no controlled Wi-Fi coexistence or pairing scenario
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — Bluetooth adapter/device/coexistence states.
+- Evidência realmente executada: Prototype seguro adicional executado: Bluetooth presence is reported separately from pairing/coexistence claims. Resultado observado: `PARTIAL`. Evidência: `/prototypes/usb/C-USB-001/results/usb-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — `Get-PnpDevice`/Bluetooth enumerator and `Unsupported` for no paired device.
+- Impedimento ou limitação restante: Sem cenário de rádio coexistindo/Wi-Fi/pareamento.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Storage benchmark suite & methodology  
-ID: C-STORAGE-010  
-Tipo: Benchmark, Benchmark / Diagnostic, Benchmark Infrastructure, Benchmark Safeguard, Diagnostic, Product Behavior, Safety, Validation  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Storage benchmark suite & methodology
+ID: C-STORAGE-010
+Tipo: Benchmark, Benchmark / Diagnostic, Benchmark Infrastructure, Benchmark Safeguard, Diagnostic, Product Behavior, Safety, Validation
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -402,6 +402,15 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — benchmark calibrado em HDD/SATA/NVMe.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Não integralmente — somente validar pré-requisitos ou smoke com arquivo temporário pequeno.
+- Impedimento ou limitação restante: Benchmark precisa calibração/matriz e gera I/O/escrita; não criar carga por conveniência.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Proven

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: System event, crash & incident correlation  
-ID: C-SYSTEM-011  
-Tipo: Advanced Diagnostic Tool, Diagnostic  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: System event, crash & incident correlation
+ID: C-SYSTEM-011
+Tipo: Advanced Diagnostic Tool, Diagnostic
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -292,9 +292,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -420,6 +420,24 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: System Event Log metadata can be queried while correlation stays distinct from causation.
+- Resultado observado deste probe: `PASS`
+- Evidência reproduzível: `/prototypes/system/C-SYSTEM-011/results/system-safe-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: no controlled crash/incident; messages omitted for privacy
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — Event Log/crash correlation, absence and false correlation.
+- Evidência realmente executada: Prototype seguro adicional executado: System Event Log metadata can be queried while correlation stays distinct from causation. Resultado observado: `PASS`. Evidência: `/prototypes/system/C-SYSTEM-011/results/system-safe-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — query Windows Event Log atual + fixtures com timestamps/provider/duplicate; output deve separar correlation de causation.
+- Impedimento ou limitação restante: Não há crash/incident real controlado e logs podem ter acesso parcial.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "featureId": "C-SYSTEM-007",
+  "comparedAt": "2026-09-08T21:16:01.0319434-03:00",
+  "source": "Registry",
+  "registryPath": "HKCU:\\Software\\BeadWise\\Phase2Proof\\C-SYSTEM-007",
+  "changed": true,
+  "changes": [
+    {
+      "kind": "KeyExistenceChanged",
+      "before": false,
+      "after": true
+    },
+    {
+      "kind": "ValuesChanged",
+      "before": [],
+      "after": [
+        {
+          "name": "ProofValue",
+          "kind": "String",
+          "value": "after"
+        }
+      ]
+    }
+  ]
+}

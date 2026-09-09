@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver installation policy awareness  
-ID: C-DRIVERS-009  
-Tipo: Diagnostic / Safeguard  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver installation policy awareness
+ID: C-DRIVERS-009
+Tipo: Diagnostic / Safeguard
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -300,9 +300,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -437,6 +437,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/client-management/manage-device-installation-with-group-policy
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — managed/unmanaged policy and install restriction states.
+- Evidência realmente executada: No policy/install-gate probe.
+- Execução segura neste host / teste: Read-only policy query is safe; forcing GPO/MDM restriction is not. Teste recomendado: Detect device-install policy/effective result, exercise unmanaged and policy-blocked fixtures, return `POLICY_BLOCKED/MANAGED` without bypass.
+- Impedimento ou limitação restante: No managed policy test environment; current non-admin state is not equivalent to policy blocking.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

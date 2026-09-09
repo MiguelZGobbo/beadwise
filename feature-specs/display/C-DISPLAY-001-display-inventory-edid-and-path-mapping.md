@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Display inventory, EDID & path mapping  
-ID: C-DISPLAY-001  
-Tipo: Diagnostic  
-Technical Domain: DISPLAY  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Display inventory, EDID & path mapping
+ID: C-DISPLAY-001
+Tipo: Diagnostic
+Technical Domain: DISPLAY
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -386,25 +386,27 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/display/c-display-001/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/display/C-DISPLAY-002/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
+DETECT: PASS (native active-path count, display identity and current mode slice)
 PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DRY-RUN: N/A for inventory
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: PASS (structured constraints in native result)
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
+EDID REGISTRY READ: PASS (raw EDID not persisted)
+TARGET-NAME CCD MAPPING: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -415,7 +417,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/monitor/monitor-configuration
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `display.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `display.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Prototype Win32/PInvoke executado com `GetDisplayConfigBufferSizes`, `EnumDisplayDevices` e `EnumDisplaySettings`: 2 active paths, 2 displays attached e modos atuais coerentes foram observados. O mesmo artifact leu EDID em HKLM read-only, persistiu somente hashes/metadados mínimos, validou header e não gravou bytes EDID ou PnP IDs brutos. A prova não materializou os arrays completos de CCD nem target names; esses gates continuam `NOT_TESTED`.
+
+Evidência: /prototypes/display/C-DISPLAY-002/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — EDID/path mapping through display APIs and stable identity.
+- Evidência realmente executada: Prototype seguro adicional executado: Prototype Win32/PInvoke executado com `GetDisplayConfigBufferSizes`, `EnumDisplayDevices` e `EnumDisplaySettings`: 2 active paths, 2 displays attached e modos atuais coerentes foram observados. O mesmo artifact leu EDID em HKLM read-only, persistiu somente hashes/metadados mínimos, validou header e não gravou bytes EDID ou PnP IDs brutos. A prova não materializou os arrays completos de CCD nem target names; esses gates continuam `NOT_TESTED`. Evidência: `/prototypes/display/C-DISPLAY-002/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes, read-only `QueryDisplayConfig`/EDID/PnP inspection. Teste recomendado: Correlate CCD paths/targets, EDID identity and PnP monitor; exercise missing/invalid EDID and duplicate/unknown fields.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

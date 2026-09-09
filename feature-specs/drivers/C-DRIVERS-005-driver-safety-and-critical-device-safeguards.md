@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver safety & critical-device safeguards  
-ID: C-DRIVERS-005  
-Tipo: Safeguard  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver safety & critical-device safeguards
+ID: C-DRIVERS-005
+Tipo: Safeguard
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -384,25 +384,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/drivers/c-drivers-005/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/drivers/C-DRIVERS-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: N/A
-VERIFY: NOT_TESTED
+DETECT: PASS (present devices in conservative critical-class set)
+PLAN: PASS (100 current critical devices classified BLOCK)
+DRY-RUN: PASS (no executable action; no /force)
+APPLY: NOT_TESTED / intentionally prohibited
+VERIFY: PASS (all planned critical actions blocked)
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -413,7 +413,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-driver-servicing-command-line-options-s14
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-deviceinstallation
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha inicial 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Guard conservador de prototype classificou 100 devices presentes em classes system/boot/connectivity/display como `BLOCK`; teste confirmou nenhum action executável e ausência de `/force`. Esta é prova da política de recusa em dry-run, não validação de remoção/restore ou taxonomia final.
+
+Evidência: /prototypes/drivers/C-DRIVERS-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — critical/current/boot device safeguard classification and refusal.
+- Evidência realmente executada: Prototype seguro adicional executado: Guard conservador de prototype classificou 100 devices presentes em classes system/boot/connectivity/display como `BLOCK`; teste confirmou nenhum action executável e ausência de `/force`. Esta é prova da política de recusa em dry-run, não validação de remoção/restore ou taxonomia final. Evidência: `/prototypes/drivers/C-DRIVERS-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Read-only classification and dry-run refusal are safe. Teste recomendado: Identify current/boot-critical devices; feed removal/update plans and assert block for critical/in-use devices, with no `/force`.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

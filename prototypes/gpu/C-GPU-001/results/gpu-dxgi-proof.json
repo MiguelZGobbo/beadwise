@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-09-08T22:52:21.6311185-03:00",
+  "safety": {
+    "persistentMutation": false
+  },
+  "probes": [
+    {
+      "featureId": "C-GPU-001",
+      "status": "PASS",
+      "mechanism": "DXGI CreateDXGIFactory1/EnumAdapters1/GetDesc1",
+      "evidence": {
+        "dxgiAdapters": [
+          {
+            "index": 0,
+            "status": "PASS",
+            "description": "Radeon RX 570 Series",
+            "vendorId": "0x1002",
+            "deviceId": "0x67DF",
+            "subsystemId": "0x8A931462",
+            "revision": 239,
+            "dedicatedVideoMemoryBytes": 8567902208,
+            "dedicatedSystemMemoryBytes": 0,
+            "sharedSystemMemoryBytes": 17071343616,
+            "flags": 0
+          },
+          {
+            "index": 1,
+            "status": "PASS",
+            "description": "Microsoft Basic Render Driver",
+            "vendorId": "0x1414",
+            "deviceId": "0x008C",
+            "subsystemId": "0x00000000",
+            "revision": 0,
+            "dedicatedVideoMemoryBytes": 0,
+            "dedicatedSystemMemoryBytes": 0,
+            "sharedSystemMemoryBytes": 17071343616,
+            "flags": 2
+          }
+        ],
+        "factoryError": null,
+        "cimControllers": [
+          {
+            "name": "Radeon RX 570 Series",
+            "pnpDeviceId": "PCI\\VEN_1002&DEV_67DF&SUBSYS_8A931462&REV_EF\\4&7D659FE&0&0009",
+            "adapterRam": 4293918720,
+            "driverVersion": "31.0.21925.1001"
+          }
+        ],
+        "correlation": {
+          "dxgiCount": 2,
+          "cimCount": 1,
+          "exactNameMatches": 1
+        }
+      },
+      "limitations": [
+        "Current host only; no absent, multi-GPU, or ARM64 fixture."
+      ]
+    },
+    {
+      "featureId": "C-GPU-002",
+      "status": "PASS",
+      "mechanism": "IDXGIAdapter3::QueryVideoMemoryInfo",
+      "evidence": {
+        "memoryQueries": [
+          {
+            "index": 0,
+            "status": "PASS",
+            "hresult": "0x00000000",
+            "budgetBytes": 7762595840,
+            "currentUsageBytes": 0,
+            "availableForReservationBytes": 4015515648,
+            "currentReservationBytes": 0
+          },
+          {
+            "index": 1,
+            "status": "PASS",
+            "hresult": "0x00000000",
+            "budgetBytes": 16266037248,
+            "currentUsageBytes": 0,
+            "availableForReservationBytes": 8267236352,
+            "currentReservationBytes": 0
+          }
+        ]
+      },
+      "limitations": [
+        "One instantaneous budget/usage query; no sustained pressure workload."
+      ]
+    },
+    {
+      "featureId": "C-GPU-006",
+      "status": "PASS",
+      "mechanism": "D3D11CreateDevice feature-level negotiation",
+      "evidence": {
+        "d3d11": {
+          "hresult": "0x00000000",
+          "featureLevel": "12_0"
+        }
+      },
+      "limitations": [
+        "D3D11 hardware path only; Vulkan/OpenGL and missing-runtime fixtures remain untested."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:49:50.6811090-03:00",
+  "mutationPolicy": "prototype-owned temp file only",
+  "probes": [
+    {
+      "featureId": "C-STARTUP-003",
+      "premise": "Identity role remains Unknown at low confidence instead of using a rigid vendor allowlist.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "publisher": "SIGNED_OS",
+            "location": "MachineRun",
+            "role": "SYSTEM_COMPONENT",
+            "confidence": "HIGH"
+          },
+          {
+            "publisher": "SIGNED_VENDOR",
+            "location": "UserRun",
+            "role": "VENDOR_AGENT",
+            "confidence": "MEDIUM"
+          },
+          {
+            "publisher": "UNKNOWN",
+            "location": "UserRun",
+            "role": "UNKNOWN",
+            "confidence": "LOW"
+          }
+        ]
+      },
+      "limitations": [
+        "synthetic publisher/role corpus"
+      ]
+    },
+    {
+      "featureId": "C-STARTUP-005",
+      "premise": "Snapshot comparison detects enablement change and treats identical capture as no drift.",
+      "status": "PASS",
+      "evidence": {
+        "noChangeIgnored": true,
+        "semanticChangeDetected": true
+      },
+      "limitations": [
+        "fixture drift; no boot-impact measurement"
+      ]
+    },
+    {
+      "featureId": "C-STARTUP-006",
+      "premise": "Quoted, environment, indirect DLL and protocol command kinds retain explicit resolution state without execution.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "inputKind": "quoted executable",
+            "resolvedKind": "EXECUTABLE",
+            "argumentsPreserved": true
+          },
+          {
+            "inputKind": "environment variable",
+            "resolvedKind": "EXECUTABLE_WITH_ENV",
+            "argumentsPreserved": true
+          },
+          {
+            "inputKind": "rundll32",
+            "resolvedKind": "INDIRECT_DLL_ENTRY",
+            "argumentsPreserved": true
+          },
+          {
+            "inputKind": "custom protocol",
+            "resolvedKind": "UNRESOLVED_PROTOCOL",
+            "argumentsPreserved": true
+          }
+        ],
+        "targetsExecuted": 0
+      },
+      "limitations": [
+        "contract fixture; no external recreation event"
+      ]
+    },
+    {
+      "featureId": "C-STARTUP-007",
+      "premise": "Security ownership, unknown role or inaccessible target block automatic action.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "owner": "SECURITY",
+            "accessible": true,
+            "role": "security",
+            "decision": "BLOCK"
+          },
+          {
+            "owner": "UNKNOWN",
+            "accessible": true,
+            "role": "unknown",
+            "decision": "MANUAL_ONLY"
+          },
+          {
+            "owner": "USER",
+            "accessible": false,
+            "role": "app",
+            "decision": "BLOCK"
+          }
+        ],
+        "applyCount": 0
+      },
+      "limitations": [
+        "fixture guards; consumer contracts remain future work"
+      ]
+    },
+    {
+      "featureId": "C-STARTUP-008",
+      "premise": "A prototype-owned startup artifact can be snapshotted, changed, restored and hash-verified.",
+      "status": "PASS",
+      "evidence": {
+        "rollbackVerified": true,
+        "scope": "prototype-owned-temp-file",
+        "registryChanged": false
+      },
+      "limitations": [
+        "does not prove registry/startup-folder rollback"
+      ]
+    }
+  ]
+}

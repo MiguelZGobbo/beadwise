@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Filesystem health, CHKDSK & allocation diagnostics  
-ID: C-STORAGE-005  
-Tipo: Configuration, Diagnostic, Diagnostic / Repair, Repair, Safety / Diagnostic  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Filesystem health, CHKDSK & allocation diagnostics
+ID: C-STORAGE-005
+Tipo: Configuration, Diagnostic, Diagnostic / Repair, Repair, Safety / Diagnostic
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -398,6 +398,23 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Online filesystem scan preserves its real exit code and permission failure without invoking repair.
+- Resultado observado deste probe: `FAIL`.
+- Evidência reproduzível: `/prototypes/storage/C-STORAGE-001/results/storage-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: single NTFS system volume; no ReFS or corrupt filesystem
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — a semântica de scan online precisa ser observada em chamada real, preservando permissão e exit code.
+- Evidência realmente executada: Prototype seguro adicional executado: Online filesystem scan preserves its real exit code and permission failure without invoking repair. Resultado observado: `FAIL`. Evidência: `/prototypes/storage/C-STORAGE-001/results/storage-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: O preflight e a tentativa de scan foram seguros; repetir exige autoridade diferente e não autoriza modos de reparo.
+- Impedimento ou limitação restante: Acesso negado impede observar o scan NTFS completo; ReFS e filesystem com erro também não estão disponíveis.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Proven

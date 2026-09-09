@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUtc": "2026-09-09T01:52:13.6012457+00:00",
+  "capabilities": [
+    "C-DISPLAY-001",
+    "C-DISPLAY-002"
+  ],
+  "api": [
+    "GetDisplayConfigBufferSizes",
+    "EnumDisplayDevices",
+    "EnumDisplaySettings",
+    "ChangeDisplaySettingsEx(CDS_TEST)",
+    "HKLM SYSTEM CurrentControlSet Enum DISPLAY EDID read"
+  ],
+  "mutation": "NONE: CDS_TEST requests validation without applying a display change.",
+  "ccdResultCode": 0,
+  "activePathCount": 2,
+  "activeModeCount": 4,
+  "displays": [
+    {
+      "deviceName": "\\\\.\\DISPLAY1",
+      "description": "Radeon RX 570 Series",
+      "deviceIdHash": "AB0712E6C6A7DB90910E071B8013F312",
+      "deviceIdPersisted": false,
+      "primary": false,
+      "currentMode": {
+        "width": 1366,
+        "height": 768,
+        "bitsPerPixel": 32,
+        "frequencyHz": 60
+      },
+      "enumeratedModeCount": 31,
+      "currentValidationCode": 0,
+      "invalidValidationCode": -2,
+      "validationFlags": "CDS_TEST",
+      "stateUnchanged": true
+    },
+    {
+      "deviceName": "\\\\.\\DISPLAY2",
+      "description": "Radeon RX 570 Series",
+      "deviceIdHash": "AB0712E6C6A7DB90910E071B8013F312",
+      "deviceIdPersisted": false,
+      "primary": true,
+      "currentMode": {
+        "width": 1920,
+        "height": 1080,
+        "bitsPerPixel": 32,
+        "frequencyHz": 180
+      },
+      "enumeratedModeCount": 262,
+      "currentValidationCode": 0,
+      "invalidValidationCode": -2,
+      "validationFlags": "CDS_TEST",
+      "stateUnchanged": true
+    }
+  ],
+  "edidSummary": {
+    "queried": true,
+    "rawEdidPersisted": false,
+    "keyAvailable": true,
+    "count": 4,
+    "displays": [
+      {
+        "displayKeyHash": "CF2EA0E11BF2862393CFC50363054D9B",
+        "edidHash": "FB64F14D9F396B1D0A1674CE5577F41B",
+        "byteLength": 256,
+        "headerValid": true,
+        "hasExtensionBlock": true
+      },
+      {
+        "displayKeyHash": "70C9E333765C6F6494CF7D871261D77A",
+        "edidHash": "C0D4FF6C6399196009E49414764D018C",
+        "byteLength": 128,
+        "headerValid": true,
+        "hasExtensionBlock": true
+      },
+      {
+        "displayKeyHash": "9DB674DD8DB308F592315660F24B1FEB",
+        "edidHash": "C0D4FF6C6399196009E49414764D018C",
+        "byteLength": 128,
+        "headerValid": true,
+        "hasExtensionBlock": true
+      },
+      {
+        "displayKeyHash": "B10DCA67D9385F79C4696108FF3516AD",
+        "edidHash": "DCA3C08BDA9E373D59B5C5BB67A4FDD5",
+        "byteLength": 256,
+        "headerValid": true,
+        "hasExtensionBlock": true
+      }
+    ]
+  }
+}

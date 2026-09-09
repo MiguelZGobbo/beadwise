@@ -1,0 +1,502 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUtc": "2026-09-09T01:52:17.6473140Z",
+  "capabilities": [
+    "C-DRIVERS-001",
+    "C-DRIVERS-002",
+    "C-DRIVERS-005",
+    "C-DRIVERS-007",
+    "C-DRIVERS-008"
+  ],
+  "mutation": "NONE",
+  "environment": {
+    "os": "Microsoft Windows 11 Pro",
+    "version": "10.0.26200",
+    "build": "26200",
+    "administrator": false
+  },
+  "inventory": {
+    "source": "Win32_PnPSignedDriver + Get-PnpDevice",
+    "signedDriverCount": 191,
+    "presentDeviceCount": 190,
+    "recordsWithInfProviderVersion": 188,
+    "canonicalRecordsSha256": "D17D1125A065680C7282CC5AFBCA78487355B1FEBA5D47A35042BFE41A2B1936",
+    "providerCounts": [
+      {
+        "provider": "<UNAVAILABLE>",
+        "count": 3
+      },
+      {
+        "provider": "Advanced Micro Devices",
+        "count": 3
+      },
+      {
+        "provider": "Advanced Micro Devices Inc.",
+        "count": 1
+      },
+      {
+        "provider": "Advanced Micro Devices, Inc",
+        "count": 2
+      },
+      {
+        "provider": "Advanced Micro Devices, Inc.",
+        "count": 4
+      },
+      {
+        "provider": "AMD",
+        "count": 6
+      },
+      {
+        "provider": "Barrot Technology Co.,Ltd.",
+        "count": 1
+      },
+      {
+        "provider": "Microsoft",
+        "count": 161
+      },
+      {
+        "provider": "Microsoft Corporation",
+        "count": 1
+      },
+      {
+        "provider": "Realtek",
+        "count": 5
+      },
+      {
+        "provider": "Realtek Semiconductor Corp.",
+        "count": 1
+      },
+      {
+        "provider": "SteelSeries",
+        "count": 1
+      },
+      {
+        "provider": "SteelSeries ApS",
+        "count": 2
+      }
+    ],
+    "classCounts": [
+      {
+        "class": "<UNAVAILABLE>",
+        "count": 3
+      },
+      {
+        "class": "AUDIOENDPOINT",
+        "count": 9
+      },
+      {
+        "class": "AUDIOPROCESSINGOBJECT",
+        "count": 3
+      },
+      {
+        "class": "BLUETOOTH",
+        "count": 7
+      },
+      {
+        "class": "COMPUTER",
+        "count": 2
+      },
+      {
+        "class": "DISKDRIVE",
+        "count": 2
+      },
+      {
+        "class": "DISPLAY",
+        "count": 1
+      },
+      {
+        "class": "FIRMWARE",
+        "count": 1
+      },
+      {
+        "class": "HDC",
+        "count": 2
+      },
+      {
+        "class": "HIDCLASS",
+        "count": 13
+      },
+      {
+        "class": "KEYBOARD",
+        "count": 5
+      },
+      {
+        "class": "MEDIA",
+        "count": 7
+      },
+      {
+        "class": "MONITOR",
+        "count": 2
+      },
+      {
+        "class": "MOUSE",
+        "count": 1
+      },
+      {
+        "class": "NET",
+        "count": 11
+      },
+      {
+        "class": "PORTS",
+        "count": 3
+      },
+      {
+        "class": "PRINTQUEUE",
+        "count": 2
+      },
+      {
+        "class": "PROCESSOR",
+        "count": 16
+      },
+      {
+        "class": "SCSIADAPTER",
+        "count": 2
+      },
+      {
+        "class": "SECURITYDEVICES",
+        "count": 2
+      },
+      {
+        "class": "SOFTWARECOMPONENT",
+        "count": 5
+      },
+      {
+        "class": "SOFTWAREDEVICE",
+        "count": 5
+      },
+      {
+        "class": "SYSTEM",
+        "count": 66
+      },
+      {
+        "class": "USB",
+        "count": 8
+      },
+      {
+        "class": "VOLUME",
+        "count": 5
+      },
+      {
+        "class": "VOLUMESNAPSHOT",
+        "count": 8
+      }
+    ],
+    "rawIdentifiersPersisted": false
+  },
+  "deviceHealth": {
+    "source": "Get-PnpDevice",
+    "healthyCount": 190,
+    "problemCount": 0,
+    "observedProblemSummary": [],
+    "actualProblemFixtureAvailable": false,
+    "interpretationFixtures": [
+      {
+        "input": "CM_PROB_NONE",
+        "normalized": "HEALTHY",
+        "provenance": "synthetic-rule-fixture"
+      },
+      {
+        "input": "CM_PROB_DISABLED",
+        "normalized": "PROBLEM",
+        "provenance": "synthetic-rule-fixture"
+      },
+      {
+        "input": null,
+        "normalized": "UNKNOWN",
+        "provenance": "synthetic-rule-fixture"
+      }
+    ]
+  },
+  "pnputil": {
+    "command": "pnputil.exe /enum-drivers",
+    "mode": "read-only",
+    "exitCode": 0,
+    "outputLineCount": 435,
+    "outputSha256": "1752150AA523AABBD2F97B49475B440C86B0C45FF6A6DC6A9F73C9F5B8629A57",
+    "parsed": false,
+    "limitation": "Localized CLI text was not treated as the structured source of truth."
+  },
+  "safeguards": {
+    "policy": "Conservative dry-run: every present device in a boot/connectivity/display/system class is blocked.",
+    "criticalClasses": [
+      "Computer",
+      "System",
+      "Processor",
+      "Display",
+      "Net",
+      "HDC",
+      "SCSIAdapter"
+    ],
+    "criticalDeviceCount": 100,
+    "criticalClassCounts": [
+      {
+        "class": "Computer",
+        "count": 2,
+        "action": "BLOCK"
+      },
+      {
+        "class": "Display",
+        "count": 1,
+        "action": "BLOCK"
+      },
+      {
+        "class": "HDC",
+        "count": 2,
+        "action": "BLOCK"
+      },
+      {
+        "class": "Net",
+        "count": 11,
+        "action": "BLOCK"
+      },
+      {
+        "class": "Processor",
+        "count": 16,
+        "action": "BLOCK"
+      },
+      {
+        "class": "SCSIAdapter",
+        "count": 2,
+        "action": "BLOCK"
+      },
+      {
+        "class": "System",
+        "count": 66,
+        "action": "BLOCK"
+      }
+    ],
+    "nonBlockedCriticalCount": 0,
+    "forceFlagPresent": false,
+    "executableActionAttempted": false
+  },
+  "history": {
+    "causalityClaimed": false,
+    "statement": "Timestamps are correlation context only; no driver regression was inferred from temporal proximity.",
+    "setupApiLog": {
+      "path": "C:\\WINDOWS\\INF\\setupapi.dev.log",
+      "exists": true,
+      "lengthBytes": 907775,
+      "lastWriteUtc": "2026-09-06T22:33:40.5555106Z",
+      "sha256": "A02D624171EA67685B14D163D62A62115649DD105B9FB7B57FB510B835A089FB"
+    },
+    "eventLog": {
+      "status": "PASS",
+      "error": null,
+      "recordCount": 30,
+      "records": [
+        {
+          "timeCreatedUtc": "2026-09-05T22:34:50.2030826Z",
+          "provider": "Microsoft-Windows-UserPnp",
+          "eventId": 20003,
+          "level": "Informações",
+          "recordId": 1698
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T22:34:50.0890814Z",
+          "provider": "Microsoft-Windows-UserPnp",
+          "eventId": 20003,
+          "level": "Informações",
+          "recordId": 1697
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T17:52:10.1408885Z",
+          "provider": "Microsoft-Windows-UserPnp",
+          "eventId": 20003,
+          "level": "Informações",
+          "recordId": 1578
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T17:52:09.9346868Z",
+          "provider": "Microsoft-Windows-UserPnp",
+          "eventId": 20003,
+          "level": "Informações",
+          "recordId": 1577
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188374Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 668
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188334Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 667
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188265Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 666
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188229Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 665
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188193Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 664
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188157Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 663
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188112Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 662
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188078Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 661
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188042Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 660
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0188006Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 659
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187968Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 658
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187932Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 657
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187891Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 656
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187857Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 655
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187820Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 654
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187779Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 653
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187745Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 652
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187705Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 651
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187667Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 650
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187628Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 649
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187586Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 648
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187547Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 647
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187509Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 646
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187472Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 645
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187426Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 644
+        },
+        {
+          "timeCreatedUtc": "2026-09-05T01:41:31.0187384Z",
+          "provider": "Microsoft-Windows-Kernel-PnP",
+          "eventId": 225,
+          "level": "Aviso",
+          "recordId": 643
+        }
+      ]
+    },
+    "exportManifestOnly": true,
+    "rollbackProven": false
+  }
+}

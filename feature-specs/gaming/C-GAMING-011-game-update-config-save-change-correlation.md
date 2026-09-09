@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Game update/config/save change correlation  
-ID: C-GAMING-011  
-Tipo: Diagnostic, Diagnostic / Tool  
-Technical Domain: GAMING  
-Primary Product Area: Gaming  
-Also Used By: Gaming, Monitoring, Optimization, Benchmark  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Game update/config/save change correlation
+ID: C-GAMING-011
+Tipo: Diagnostic, Diagnostic / Tool
+Technical Domain: GAMING
+Primary Product Area: Gaming
+Also Used By: Gaming, Monitoring, Optimization, Benchmark
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -414,6 +414,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/gaming/gdk/_content/gc/system/overviews/directstorage/directstorage-overview
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — game update/config/save change correlation with provenance and no silent data mutation.
+- Evidência realmente executada: No direct probe.
+- Execução segura neste host / teste: Read-only file/launcher/history inspection is safe; editing game configs/saves is not. Teste recomendado: Use a disposable test game/profile; snapshot metadata, perform a known update/config change, correlate timeline and verify save integrity/rollback boundaries.
+- Impedimento ou limitação restante: No disposable game install/profile and no approved save mutation fixture.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

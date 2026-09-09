@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Reserved storage awareness  
-ID: C-STORAGE-021  
-Tipo: Diagnostic, Explainability  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Reserved storage awareness
+ID: C-STORAGE-021
+Tipo: Diagnostic, Explainability
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -378,6 +378,15 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — Reserved Storage effective state e permissions.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Parcial — tentar `DISM /Online /Get-ReservedStorageState` e preservar 740/AccessDenied.
+- Impedimento ou limitação restante: DISM já exigiu admin nesta sessão; backend DISM API versus wrapper não decidido.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Proven

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Platform boot & hardware-backed security  
-ID: C-SECURITY-003  
-Tipo: Diagnostic  
-Technical Domain: SECURITY  
-Primary Product Area: Security  
-Also Used By: Security, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Platform boot & hardware-backed security
+ID: C-SECURITY-003
+Tipo: Diagnostic
+Technical Domain: SECURITY
+Primary Product Area: Security
+Also Used By: Security, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -288,9 +288,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -415,6 +415,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-SECURITY-003=PARTIAL` em `/prototypes/security/C-SECURITY-001/results/security-readonly.json`. `Win32_DeviceGuard` retornou estado; `Confirm-SecureBootUEFI` e `Get-Tpm` produziram `FAIL` real por acesso/admin e os FAILs foram preservados. Não houve tentativa de alterar firmware, TPM ou VBS, e não há fixture BIOS/TPM alternativa.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — Secure Boot/TPM/VBS states e Unsupported.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-SECURITY-003=PARTIAL` em `/prototypes/security/C-SECURITY-001/results/security-readonly.json`. `Win32_DeviceGuard` retornou estado; `Confirm-SecureBootUEFI` e `Get-Tpm` produziram `FAIL` real por acesso/admin e os FAILs foram preservados. Não houve tentativa de alterar firmware, TPM ou VBS, e não há fixture BIOS/TPM alternativa. Evidência: `/prototypes/security/C-SECURITY-001/results/security-readonly.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — `Confirm-SecureBootUEFI`, `Get-Tpm`, DeviceGuard CIM/registry documentado read-only.
+- Impedimento ou limitação restante: Sem BIOS/TPM desabilitado e sem outro hardware.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

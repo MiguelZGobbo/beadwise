@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Display power & brightness behavior  
-ID: C-DISPLAY-009  
-Tipo: Diagnostic, Diagnostic / Configuration, Diagnostic / Safeguard  
-Technical Domain: DISPLAY  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Display power & brightness behavior
+ID: C-DISPLAY-009
+Tipo: Diagnostic, Diagnostic / Configuration, Diagnostic / Safeguard
+Technical Domain: DISPLAY
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -432,6 +432,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows-hardware/design/device-experiences/powercfg-command-line-options
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — display power/brightness state and unsupported external-desktop path.
+- Evidência realmente executada: No direct display power/brightness probe.
+- Execução segura neste host / teste: Read-only state query is safe; forcing brightness/display-off/wake is disruptive. Teste recomendado: Query supported brightness/power paths; record external-monitor `Unsupported`; validate detection against existing event history, not by forcing sleep/off.
+- Impedimento ou limitação restante: Desktop has no battery and external display control support is unknown; no safe wake/brightness fixture.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Graphics API & rendering capability inventory  
-ID: C-GPU-006  
-Tipo: Diagnostic  
-Technical Domain: GPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Graphics API & rendering capability inventory
+ID: C-GPU-006
+Tipo: Diagnostic
+Technical Domain: GPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -290,9 +290,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/direct3ddxgi/dx-graphics-dxgi
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-GPU-006=PASS` para o caminho D3D11 em `/prototypes/gpu/C-GPU-001/results/gpu-dxgi-proof.json`. `D3D11CreateDevice` negociou hardware feature level `12_0` com HRESULT `0x00000000`. Vulkan/OpenGL, runtime ausente e matriz de adapters permanecem explicitamente fora desta prova.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — inventário de APIs/adapters e casos sem runtime.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-GPU-006=PASS` para o caminho D3D11 em `/prototypes/gpu/C-GPU-001/results/gpu-dxgi-proof.json`. `D3D11CreateDevice` negociou hardware feature level `12_0` com HRESULT `0x00000000`. Vulkan/OpenGL, runtime ausente e matriz de adapters permanecem explicitamente fora desta prova. Evidência: `/prototypes/gpu/C-GPU-001/results/gpu-dxgi-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — enumeração DXGI/D3D feature levels por P/Invoke/.NET, comparada com `dxdiag` sem parsing como truth.
+- Impedimento ou limitação restante: Falta cenário sem API/driver.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Audio device & endpoint inventory  
-ID: C-AUDIO-001  
-Tipo: Diagnostic, Diagnostic / Configuration  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Audio device & endpoint inventory
+ID: C-AUDIO-001
+Tipo: Diagnostic, Diagnostic / Configuration
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -304,9 +304,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -409,25 +409,26 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/audio/c-audio-001/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/audio/C-AUDIO-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS (Core Audio endpoint identity hashes, flows, MMDevice states, property availability and default roles)
+PLAN: PASS (read-only; Changes = [])
+DRY-RUN: PASS (no mutation surface invoked)
+APPLY: N/A
+VERIFY: PASS (59 endpoints; 6 default flow/role mappings)
+ROLLBACK: N/A
+RESTORE VERIFY: N/A
+HOTPLUG/PNP CORRELATION: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -439,9 +440,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/audio-sessions
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `audio.devices.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `audio.devices.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
 - https://learn.microsoft.com/windows/win32/coreaudio/core-audio-interfaces
 - https://learn.microsoft.com/windows/win32/coreaudio/audio-endpoint-properties
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Prova Core Audio COM real enumerou 59 endpoints (39 render, 20 capture), hashes de IDs estáveis, disponibilidade da propriedade de nome, state masks e 6 defaults flow/role. O runner também consultou PnP `AudioEndpoint`/`Media` read-only e persistiu somente contagens, enumerator prefixes e hashes. Nomes, endpoint IDs e device instance IDs brutos foram descartados do artifact. Foram observados estados active/disabled/unplugged naturalmente presentes. Nenhum endpoint, default, volume, mute, route, service ou driver foi alterado. Hotplug e correlação exata endpoint-to-parent permanecem `NOT_TESTED`.
+
+Evidência: /prototypes/audio/C-AUDIO-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — Core Audio endpoint inventory, roles/states, provenance, hotplug/multiple endpoints.
+- Evidência realmente executada: Prototype seguro adicional executado: Prova Core Audio COM real enumerou 59 endpoints (39 render, 20 capture), hashes de IDs estáveis, disponibilidade da propriedade de nome, state masks e 6 defaults flow/role. O runner também consultou PnP `AudioEndpoint`/`Media` read-only e persistiu somente contagens, enumerator prefixes e hashes. Nomes, endpoint IDs e device instance IDs brutos foram descartados do artifact. Foram observados estados active/disabled/unplugged naturalmente presentes. Nenhum endpoint, default, volume, mute, route, service ou driver foi alterado. Hotplug e correlação exata endpoint-to-parent permanecem `NOT_TESTED`. Evidência: `/prototypes/audio/C-AUDIO-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes for a read-only Core Audio/PnP prototype; hotplug must be observed only if a real endpoint is safely available. Teste recomendado: Enumerate render/capture endpoints with `IMMDeviceEnumerator`, roles, state masks and stable IDs; compare with PnP/CIM; record multiple endpoints and `Unknown`/not-present handling.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

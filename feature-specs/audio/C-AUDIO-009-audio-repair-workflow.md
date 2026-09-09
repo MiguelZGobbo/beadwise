@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Audio repair workflow  
-ID: C-AUDIO-009  
-Tipo: Repair, Repair / Safeguard  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Audio repair workflow
+ID: C-AUDIO-009
+Tipo: Repair, Repair / Safeguard
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -304,9 +304,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -441,6 +441,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `audio.services`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — supported PnP/service repair plan, explicit impact, re-enumeration and verification.
+- Evidência realmente executada: `audio.services` PASS only proves current `AudioSrv`/`AudioEndpointBuilder` state; no repair was run and the spec is all `NOT_TESTED`.
+- Execução segura neste host / teste: Detect/dry-run is safe; restarting audio services/devices in the shared desktop is disruptive and has no feature-level rollback proof. Teste recomendado: Build an isolated repair prototype that does Detect → dry-run → explicit restart/re-scan only in a controlled fixture → verify endpoint/session state; stop on no improvement.
+- Impedimento ou limitação restante: Live session ownership and user audio make Apply unsafe here; no VM/sacrificial audio fixture exists.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

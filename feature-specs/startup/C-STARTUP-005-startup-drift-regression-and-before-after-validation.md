@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Startup drift, regression & before/after validation  
-ID: C-STARTUP-005  
-Tipo: Benchmark, Diagnostic  
-Technical Domain: STARTUP  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Startup drift, regression & before/after validation
+ID: C-STARTUP-005
+Tipo: Benchmark, Diagnostic
+Technical Domain: STARTUP
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -271,8 +271,8 @@ N/A.
 - Windows 11 26H1: Target condicional; não presumir equivalência de build/event schema.
 
 ### Arquitetura
-x64: target principal.  
-ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.  
+x64: target principal.
+ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.
 Other: TBD.
 
 ### Hardware
@@ -395,6 +395,24 @@ Date: TBD
 Observed behavior: N/A nesta revisão; nenhuma execução real foi alegada.
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Snapshot comparison detects enablement change and treats identical capture as no drift.
+- Resultado observado deste probe: `PASS`
+- Evidência reproduzível: `/prototypes/startup/C-STARTUP-006/results/startup-contract.json` (script e teste no mesmo prototype).
+- Limites preservados: fixture drift; no boot-impact measurement
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — snapshots/diff/before-after e confidence.
+- Evidência realmente executada: Prototype seguro adicional executado: Snapshot comparison detects enablement change and treats identical capture as no drift. Resultado observado: `PASS`. Evidência: `/prototypes/startup/C-STARTUP-006/results/startup-contract.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — duas capturas + entrada temporária em HKCU/Startup folder owned by prototype; Verify e rollback serializados.
+- Impedimento ou limitação restante: Não mede boot impact real.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

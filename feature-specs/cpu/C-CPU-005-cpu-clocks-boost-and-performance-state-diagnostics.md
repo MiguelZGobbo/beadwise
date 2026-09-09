@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU clocks, boost & performance-state diagnostics  
-ID: C-CPU-005  
-Tipo: Advanced Diagnostic, Diagnostic, Monitoring, Monitoring / Diagnostic  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU clocks, boost & performance-state diagnostics
+ID: C-CPU-005
+Tipo: Advanced Diagnostic, Diagnostic, Monitoring, Monitoring / Diagnostic
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — clock/boost/performance-state behavior with authoritative OS/vendor telemetry.
+- Evidência realmente executada: No direct clock/boost probe; identity/utilization probes do not prove it.
+- Execução segura neste host / teste: Read-only OS/perf query is safe. Teste recomendado: Sample effective clock, requested/max state, utilization and power scheme over idle/bounded load; label vendor fields unavailable rather than infer.
+- Impedimento ou limitação restante: No AMD vendor telemetry adapter/second vendor matrix; `amd-smi`/`rocm-smi` are absent.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

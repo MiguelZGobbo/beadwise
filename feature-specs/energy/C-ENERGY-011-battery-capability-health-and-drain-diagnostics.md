@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Battery capability, health & drain diagnostics  
-ID: C-ENERGY-011  
-Tipo: Diagnostic, Monitoring  
-Technical Domain: ENERGY  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics, My PC  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Battery capability, health & drain diagnostics
+ID: C-ENERGY-011
+Tipo: Diagnostic, Monitoring
+Technical Domain: ENERGY
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics, My PC
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -285,9 +285,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -412,6 +412,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/device-experiences/modern-standby-sleepstudy
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `energy.available-sleep-states`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — battery capability/health/drain behavior.
+- Evidência realmente executada: `energy.available-sleep-states` PASS is unrelated to battery health; environment evidence explicitly says `hasBattery: false`.
+- Execução segura neste host / teste: No meaningful battery proof on this desktop; read-only no-battery classification is safe. Teste recomendado: Run on a battery-equipped laptop with health/cycle/charge/drain sources; verify absent-battery `Not Applicable` on this host.
+- Impedimento ou limitação restante: Objective hardware absence: desktop has no battery; the current sleep-state probe must not be counted as battery evidence.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

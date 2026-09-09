@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Standby/cache/compression diagnostics  
-ID: C-RAM-008  
-Tipo: Advanced Diagnostic, Configuration, Diagnostic, Optimization, Product Behavior  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Standby/cache/compression diagnostics
+ID: C-RAM-008
+Tipo: Advanced Diagnostic, Configuration, Diagnostic, Optimization, Product Behavior
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: RESEARCH
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -295,9 +295,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -433,6 +433,22 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - Documented behavior — https://learn.microsoft.com/powershell/module/mmagent/get-mmagent
 - Documented behavior — https://learn.microsoft.com/powershell/module/mmagent/enable-mmagent
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — estado de compression/cache e counter mapping.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Sim — `Get-MMAgent`/counters read-only e registrar `Unsupported`.
+- Impedimento ou limitação restante: A própria spec não fixa fonte efetiva/correlação com Task Manager; não usar registry privado.
+- Disposição: `RESEARCH`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
+
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:START -->
+**Reavaliação final de RESEARCH (2026-09-08):**
+- O status `RESEARCH` foi revisto e preservado porque ainda há incerteza técnica solucionável descrita nas seções 30, 31 e 36; documentação ou probe compartilhado parcial não foi convertido em `PASS`.
+- Nenhuma prova prática isolada nesta máquina elimina essa incerteza sem antes definir fonte, contrato, fixture, hardware ou dependência indicada pela própria spec.
+- Próximo gate: concluir a investigação registrada, então decidir se cabe prototype seguro, `SPECIFIED`, `BLOCKED`, `DEFERRED` ou `REJECTED`; não promover diretamente a `PROVEN`/`APPROVED`.
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

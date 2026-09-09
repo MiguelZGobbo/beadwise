@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Gaming benchmark & before/after validation  
-ID: C-GAMING-009  
-Tipo: Benchmark, Benchmark / Safeguard, Diagnostic / Benchmark  
-Technical Domain: GAMING  
-Primary Product Area: Gaming  
-Also Used By: Gaming, Monitoring, Optimization, Benchmark  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Gaming benchmark & before/after validation
+ID: C-GAMING-009
+Tipo: Benchmark, Benchmark / Safeguard, Diagnostic / Benchmark
+Technical Domain: GAMING
+Primary Product Area: Gaming
+Also Used By: Gaming, Monitoring, Optimization, Benchmark
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://github.com/GameTechDev/PresentMon
 - https://learn.microsoft.com/windows/win32/direct3ddxgi/variable-refresh-rate-displays
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — real frame-presentation/frametime benchmark with repeatability and before/after validity.
+- Evidência realmente executada: No direct probe; spec is `NOT_TESTED`.
+- Execução segura neste host / teste: Only with a known game/benchmark and bounded capture; not executable meaningfully on current evidence. Teste recomendado: Capture warm-up/stable windows and percentiles for identical scene/mode/refresh/power/driver state; invalidate incomplete/noisy runs and report variance.
+- Impedimento ou limitação restante: No controlled game workload or capture pipeline; no claim can be made from generic process/CPU probes.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

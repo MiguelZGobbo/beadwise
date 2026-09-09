@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: File/resource lock diagnosis & cleanup  
-ID: C-SYSTEM-018  
-Tipo: Diagnostic Tool, Repair / Tool  
-Technical Domain: SYSTEM  
-Primary Product Area: TBD  
-Also Used By: Diagnostics, Optimization, My PC  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: File/resource lock diagnosis & cleanup
+ID: C-SYSTEM-018
+Tipo: Diagnostic Tool, Repair / Tool
+Technical Domain: SYSTEM
+Primary Product Area: TBD
+Also Used By: Diagnostics, Optimization, My PC
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -303,9 +303,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -441,6 +441,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmregisterresources
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Restart Manager identifies the owner of a prototype-owned file lock; cleanup and restart target only that child process.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/system/C-SYSTEM-018/results/restart-manager-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: does not exercise services, critical processes, kernel or antivirus locks; RmShutdown/RmRestart intentionally not invoked
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — Restart Manager lock ownership, consent and safe cleanup.
+- Evidência realmente executada: Prototype seguro adicional executado: Restart Manager identifies the owner of a prototype-owned file lock; cleanup and restart target only that child process. Resultado observado: `PASS`. Evidência: `/prototypes/system/C-SYSTEM-018/results/restart-manager-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim, serial — arquivo temp + processo filho próprio que mantém lock; `RmRegisterResources/RmGetList`, terminar somente filho, Verify/restart.
+- Impedimento ou limitação restante: Não testar process/service critical ou lock kernel/antivírus.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: USB audio, webcam & capture-device awareness  
-ID: C-USB-009  
-Tipo: Diagnostic  
-Technical Domain: USB  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: USB audio, webcam & capture-device awareness
+ID: C-USB-009
+Tipo: Diagnostic
+Technical Domain: USB
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/usbcon/
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `usb.present-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — USB audio/webcam/capture path.
+- Evidência realmente executada: E:usb.present-devices.pnp PASS (parcial).
+- Execução segura neste host / teste: Sim apenas para inventory/Unsupported.
+- Impedimento ou limitação restante: Não há webcam/capture/USB audio conhecido para path/stream validation.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

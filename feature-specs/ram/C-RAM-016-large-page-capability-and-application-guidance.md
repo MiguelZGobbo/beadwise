@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Large-page capability & application guidance  
-ID: C-RAM-016  
-Tipo: Diagnostic, Diagnostic / Configuration Guidance  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Large-page capability & application guidance
+ID: C-RAM-016
+Tipo: Diagnostic, Diagnostic / Configuration Guidance
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -294,9 +294,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -432,6 +432,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getlargepageminimum
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Large-page capability can be detected without changing SeLockMemoryPrivilege or allocating a large page.
+- Resultado observado deste probe: `PARTIAL`.
+- Evidência reproduzível: `/prototypes/ram/C-RAM-004/results/ram-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: privileged allocation intentionally not attempted
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — grande página/privilege e falha explícita.
+- Evidência realmente executada: Prototype seguro adicional executado: Large-page capability can be detected without changing SeLockMemoryPrivilege or allocating a large page. Resultado observado: `PARTIAL`. Evidência: `/prototypes/ram/C-RAM-004/results/ram-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — P/Invoke `GetLargePageMinimum`; tentativa limitada `VirtualAlloc(MEM_LARGE_PAGES)` deve retornar falta de privilege sem mudar policy.
+- Impedimento ou limitação restante: Não há `SeLockMemoryPrivilege`; sucesso precisa ambiente privilegiado.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

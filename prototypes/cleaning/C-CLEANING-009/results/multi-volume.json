@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "featureId": "C-CLEANING-009",
+  "capturedAt": "2026-09-08T22:11:56.0762407-03:00",
+  "status": "PASS",
+  "mutationCount": 0,
+  "source": "Get-Volume read-only",
+  "actualVolumes": [
+    {
+      "root": "C:\\",
+      "driveType": "Fixed",
+      "fileSystem": "NTFS",
+      "health": "Healthy",
+      "operational": [
+        "OK"
+      ],
+      "sizeBytes": 999064334336,
+      "freeBytes": 710100439040,
+      "candidateLabels": [
+        "SYSTEM_TEMP"
+      ]
+    },
+    {
+      "root": "D:\\",
+      "driveType": "Fixed",
+      "fileSystem": "NTFS",
+      "health": "Healthy",
+      "operational": [
+        "OK"
+      ],
+      "sizeBytes": 1000203087872,
+      "freeBytes": 1000046268416,
+      "candidateLabels": [
+        "PROTOTYPE_ROOT"
+      ]
+    }
+  ],
+  "normalizationFixtures": [
+    {
+      "input": "fixed-online",
+      "classification": "FIXED",
+      "eligibleForAutomaticCleanup": false
+    },
+    {
+      "input": "removable-present",
+      "classification": "REMOVABLE",
+      "eligibleForAutomaticCleanup": false
+    },
+    {
+      "input": "network-path",
+      "classification": "NETWORK",
+      "eligibleForAutomaticCleanup": false
+    },
+    {
+      "input": "known-volume-not-mounted",
+      "classification": "OFFLINE",
+      "eligibleForAutomaticCleanup": false
+    }
+  ],
+  "limitations": [
+    "No cleanup Apply was performed.",
+    "Offline, removable and network states are normalization fixtures, not claims about attached hardware.",
+    "Mount-point and reparse traversal remain outside this bounded proof."
+  ]
+}

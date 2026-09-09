@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: TRIM, ReTRIM & media-aware optimization  
-ID: C-STORAGE-006  
-Tipo: Diagnostic, Maintenance, Safety  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: TRIM, ReTRIM & media-aware optimization
+ID: C-STORAGE-006
+Tipo: Diagnostic, Maintenance, Safety
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -395,6 +395,23 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: TRIM policy capability can be queried without issuing retrim.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/storage/C-STORAGE-001/results/storage-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: does not prove end-to-end TRIM through RAID/USB
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — TRIM capability/analysis sem retrim.
+- Evidência realmente executada: Prototype seguro adicional executado: TRIM policy capability can be queried without issuing retrim. Resultado observado: `PASS`. Evidência: `/prototypes/storage/C-STORAGE-001/results/storage-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — `fsutil behavior query DisableDeleteNotify` e `Optimize-Volume -Analyze` onde suportado; não `-ReTrim`.
+- Impedimento ou limitação restante: End-to-end TRIM sob RAID/USB não é verificável neste host.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

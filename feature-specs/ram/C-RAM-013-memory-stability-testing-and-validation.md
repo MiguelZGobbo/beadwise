@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Memory stability testing & validation  
-ID: C-RAM-013  
-Tipo: Benchmark / Product Logic, Diagnostic / Benchmark, Diagnostic Guidance, Product Behavior, Safety, Tool / Diagnostic Guidance, Validation  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Memory stability testing & validation
+ID: C-RAM-013
+Tipo: Benchmark / Product Logic, Diagnostic / Benchmark, Diagnostic Guidance, Product Behavior, Safety, Tool / Diagnostic Guidance, Validation
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -290,9 +290,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — estabilidade requer erro real/controlado.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Não integralmente — leitura de WHEA é segura.
+- Impedimento ou limitação restante: Memory stress/erro deliberado não é seguro nesta máquina de trabalho.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

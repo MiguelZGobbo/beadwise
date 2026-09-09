@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Security policy, tamper & unsafe-tweak diagnostics  
-ID: C-SECURITY-008  
-Tipo: Diagnostic, Diagnostic / Recommendation  
-Technical Domain: SECURITY  
-Primary Product Area: Security  
-Also Used By: Security, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Security policy, tamper & unsafe-tweak diagnostics
+ID: C-SECURITY-008
+Tipo: Diagnostic, Diagnostic / Recommendation
+Technical Domain: SECURITY
+Primary Product Area: Security
+Also Used By: Security, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -301,9 +301,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -439,6 +439,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/defender-endpoint/prevent-changes-to-security-settings-with-tamper-protection
 - https://learn.microsoft.com/windows/client-management/mdm/policy-configuration-service-provider
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — policy/tamper/provider guard e matriz managed.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Parcial — leitura GPO/Defender policy e fixtures `DO_NOT_RECOMMEND`.
+- Impedimento ou limitação restante: Não há máquina MDM, tamper enabled scenario ou antivírus terceiro; nunca tentar contornar.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

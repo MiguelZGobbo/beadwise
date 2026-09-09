@@ -1,0 +1,146 @@
+[
+  {
+    "id": "C-SYSTEM-001",
+    "essential": "Não para o gate final da Fase 2 — coleta real de ambiente e P/Invoke Win32 para identidade/compatibilidade foram executados; caminhos Partial/Denied, ARM64, laptop e VM ficam como limitações para PROVEN/arquitetura futura.",
+    "evidence": "CIM/PowerShell DETECT+VERIFY PASS e P/Invoke GetNativeSystemInfo/RtlGetVersion PASS em /prototypes/system/C-SYSTEM-001/results/native-environment.json.",
+    "safe": "A prova nativa read-only foi executada com segurança; fixtures de campos ausentes/negados ainda podem ser unitárias.",
+    "limitation": "Somente um desktop x64 foi testado; laptop, VM, ARM64 e falhas de campo não foram executados e não devem ser inferidos.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-CPU-003",
+    "essential": "Não para o gate final da Fase 2 — Performance Counter localizado, PDH/PInvoke e bloqueio ETW/admin foram executados em prova real; per-core, fila, context switch, workload e compatibilidade ampla ficam como limitações para PROVEN/arquitetura futura.",
+    "evidence": "CIM sample PASS; Get-Counter inglês FAIL/localizado PASS; PdhAddEnglishCounterW via P/Invoke PASS; WPR/ETW executado e BLOCKED_ADMIN (0xc5585011).",
+    "safe": "Amostragem PDH curta foi executada; a captura ETW elevada não é executável nesta sessão sem UAC/admin.",
+    "limitation": "Não há ETL elevado, cenário de saturação completo, per-core ou matriz de compatibilidade; esses pontos não devem ser inferidos a partir da amostra/PDH executada.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-CPU-002",
+    "essential": "Sim — benchmark determinístico isolado, repetibilidade e salvaguardas de overhead/temperatura precisam de prova antes de PROVEN.",
+    "evidence": "Prototype seguro C-CPU-001 executou cinco repetições single/multi-thread com checksum idêntico; a variância multi-thread observada no último run foi 0,404 e excedeu o guard de 15%, preservada como PARTIAL, sem alegar ganho universal.",
+    "safe": "Executado como workload curto e determinístico em CPU local, sem stress térmico prolongado nem tuning.",
+    "limitation": "A prova cobre somente repetibilidade básica neste host; não há baseline cross-hardware, normalização térmica ou benchmark calibrado para generalização.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-CPU-015",
+    "essential": "Sim — modos de monitoramento, medição de overhead e stop guards precisam de prova antes de PROVEN.",
+    "evidence": "Prototype seguro C-CPU-001 executou 30 amostras GetSystemTimes; nenhuma amostra falhou e o overhead observado no último run foi 8,18% de um core, acima do guard de 5%, preservado como PARTIAL.",
+    "safe": "Amostragem curta executada sem mudança persistente; caminhos ETW elevados permanecem bloqueados.",
+    "limitation": "Não há modo longo, ETW/dropped-events ou matriz de overhead por hardware; o PARTIAL observado impede qualquer alegação de custo universal baixo.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-AUDIO-007",
+    "essential": "Sim — endpoint de captura, mute/level/permission e ausência de retenção de áudio precisam de prova antes de PROVEN.",
+    "evidence": "Core Audio enumerou 20 capture endpoints; IAudioEndpointVolume.GetMute/GetMasterVolumeLevelScalar foi chamado read-only para endpoints de captura; consent-store de microfone foi resumido sem app IDs/caminhos; nenhum stream foi aberto e nenhum áudio foi persistido.",
+    "safe": "Consulta read-only executada; captura de sinal só deve ocorrer com consentimento explícito e sem retenção.",
+    "limitation": "Signal-level, permission-blocked, mute alterado e fluxo de consentimento real continuam NOT_TESTED por segurança/escopo.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-DISPLAY-002",
+    "essential": "Sim — enumeração de modos, validação não persistente e Verify sem Apply precisavam de prova antes de PROVEN.",
+    "evidence": "Prototype Win32/PInvoke C-DISPLAY-002 enumerou 31 e 262 modos; ChangeDisplaySettingsEx(CDS_TEST) aceitou os modos atuais, rejeitou modo inválido 1x1 e a reconsulta confirmou estado inalterado.",
+    "safe": "Executado com CDS_TEST somente; nenhum Apply real de display mode foi feito.",
+    "limitation": "Apply/Rollback real de modo e matriz multi-driver permanecem NOT_TESTED; a validação não persistente não prova recuperação de tela preta.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-DRIVERS-007",
+    "essential": "Sim — correlação temporal sem falsa causalidade precisa de prova antes de PROVEN.",
+    "evidence": "Prototype C-DRIVERS-001 verificou/hasheou setupapi.dev.log e coletou 30 records recentes PnP/driver read-only; o artifact registra causalityClaimed=false.",
+    "safe": "Leitura de logs/eventos executada sem instalar, remover, reiniciar ou alterar driver.",
+    "limitation": "Não há regressão controlada nem evento causal conhecido; proximity temporal não foi promovida a causa.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-PROCESSES-007",
+    "essential": "Não para o gate final da Fase 2 — lifecycle/restart de processo próprio, dry-run, snapshot, apply, verify, rollback e cleanup foram executados; o mecanismo Restart Manager foi exercitado separadamente com lock/processo próprios.",
+    "evidence": "ChangePlan, dry-run, snapshot de ausência, terminate, restart, verify e cleanup/rollback PASS em processo-filho próprio; C-SYSTEM-018 confirmou RmStartSession/RmRegisterResources/RmGetList e restart controlado do único lock owner.",
+    "safe": "Teste serializado executado somente com dois pwsh filhos ocultos do prototype; nenhum processo do usuário foi tocado.",
+    "limitation": "Processos protegidos/GUI/UWP, serviços, RmShutdown/RmRestart, TOCTOU e processos de usuário não foram alterados por segurança e não devem ser inferidos a partir dos processos controlados.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-STARTUP-001",
+    "essential": "Não para o gate final da Fase 2 — inventário de Startup folders e Registry Run com fixture HKCU controlada foi executado e limpo; RunOnce/WOW64, Task Scheduler, services, packaged startup tasks e logon real ficam como limitações para PROVEN/arquitetura futura.",
+    "evidence": "Fixture HKCU Run inofensiva detectada com scope/provenance e restaurada em finally; inventário real persistido com command lines redigidas.",
+    "safe": "Teste serializado executado sem logoff/reboot; valor original foi restaurado ou removido conforme snapshot.",
+    "limitation": "RunOnce/WOW64, shortcuts adversariais, Task Scheduler, SCM, packaged startup tasks e logon real não foram provados e não devem ser inferidos a partir da fixture HKCU Run.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-CLEANING-009",
+    "essential": "Não para o gate final da Fase 2 — inventário read-only dos volumes reais e normalização default-deny dos estados fixed/removable/network/offline foram executados; Apply de cleanup multi-volume não é necessário nem seguro nesta campanha.",
+    "evidence": "Prototype próprio enumerou os volumes montados por Get-Volume, atribuiu candidatos ao volume correto sem dados de perfil e validou fixtures de classificação; mutationCount=0 e teste PASS.",
+    "safe": "A prova read-only foi executada sem limpeza; estados removable/network/offline foram exercitados somente como fixtures declaradas, sem simular hardware real.",
+    "limitation": "Não havia volume real removable/network/offline, mount-point adversarial ou cleanup Apply; esses cenários não são inferidos do inventário atual.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-DISPLAY-005",
+    "essential": "Sim — topologia multi-monitor, correlação source/target/EDID e compatibilidade.",
+    "evidence": "display.inventory.cim PASS cobre o inventário compartilhado; o prototype Win32 de C-DISPLAY-002 observou activePathCount=2, em 1366x768@60 Hz e 1920x1080@180 Hz.",
+    "safe": "A enumeração CCD/PnP read-only foi executada; uma prova dedicada ainda precisa correlacionar source/target/EDID e exercitar caminhos desconectados/duplicados.",
+    "limitation": "Dois caminhos ativos existem, mas não foi confirmado que sejam dois monitores físicos distintos nem foi completado o mapeamento target/EDID/compatibilidade; o hardware não será sintetizado.",
+    "status": "BLOCKED"
+  },
+  {
+    "id": "C-SYSTEM-007",
+    "essential": "Não para o gate final da Fase 2 — a fatia segura e representativa de Registry drift/snapshot/rollback foi executada; histórico multi-source, normalização temporal e correlação sem causalidade ficam explicitamente como limitações de escopo para arquitetura/implementação futura.",
+    "evidence": "Prototype próprio C-SYSTEM-007 capturou estado inexistente, mudança Registry HKCU controlada, diff/provenance e cleanup; a fixture foi removida.",
+    "safe": "Executado somente em HKCU:\\Software\\BeadWise\\Phase2Proof\\C-SYSTEM-007, com cleanup em finally e sem reboot.",
+    "limitation": "SCM, Task Scheduler, DISM, Event Log, ETW, policy/vendor e persistência após reboot não foram provados e não devem ser inferidos a partir da fatia Registry.",
+    "status": "SPECIFIED"
+  },
+  {
+    "id": "C-STORAGE-002",
+    "essential": "Sim — leitura real de reliability/SMART/NVMe é essencial para sustentar health/wear, e a fonte tentou executar.",
+    "evidence": "Get-StorageReliabilityCounter foi invocado para os discos observados e retornou FAIL com acesso CIM indisponível; a falha real foi persistida sem inventar atributos.",
+    "safe": "A leitura não elevada foi segura e executada; repetir com acesso ao provider exige ambiente/autoridade diferente.",
+    "limitation": "Bloqueio objetivo atual da API/provider necessário; não há SMART/NVMe reliability válido neste host/sessão.",
+    "status": "BLOCKED"
+  },
+  {
+    "id": "C-STORAGE-003",
+    "essential": "Sim — temperatura/throttle precisa vir de fonte real suportada, não de inferência de health genérico.",
+    "evidence": "A consulta real de reliability/temperature foi executada e retornou FAIL/sem temperatura devido a acesso CIM indisponível.",
+    "safe": "A tentativa read-only foi segura; não foi induzido aquecimento nem throttling.",
+    "limitation": "Provider/autoridade indisponível e ausência de evento térmico controlado bloqueiam a prova neste ambiente.",
+    "status": "BLOCKED"
+  },
+  {
+    "id": "C-STORAGE-005",
+    "essential": "Sim — a semântica de scan online precisa ser observada em chamada real, preservando permissão e exit code.",
+    "evidence": "A tentativa read-only de chkdsk /scan foi executada e retornou acesso negado; repairSwitchUsed=false e nenhum repair/offline fix foi invocado.",
+    "safe": "O preflight e a tentativa de scan foram seguros; repetir exige autoridade diferente e não autoriza modos de reparo.",
+    "limitation": "Acesso negado impede observar o scan NTFS completo; ReFS e filesystem com erro também não estão disponíveis.",
+    "status": "BLOCKED"
+  },
+  {
+    "id": "C-USB-002",
+    "essential": "Sim — velocidade negociada precisa vir do caminho controller/hub/device real ou retornar Unsupported honestamente.",
+    "evidence": "O prototype USB real executou a enumeração, mas não encontrou API/descriptor confiável para negotiated speed e persistiu UNSUPPORTED.",
+    "safe": "A enumeração read-only foi executada; não é seguro nem válido fabricar uma geração USB a partir de nome/PnP class.",
+    "limitation": "API/descriptor e dispositivo USB 3/USB4 representativo indisponíveis neste ambiente bloqueiam a prova de velocidade.",
+    "status": "BLOCKED"
+  },
+  {
+    "id": "C-SYSTEM-012",
+    "essential": "Sim — uma captura ETW/WPR real é essencial para tracing e failed-I/O diagnostics.",
+    "evidence": "WPR presente/status/profiles PASS; duas tentativas de trace CPU/GeneralProfile falharam com 0xc5585011 em token não elevado; FAIL preservado.",
+    "safe": "A tentativa não elevada foi segura e deixou WPR sem gravação; repetir exige elevação UAC/admin e revisão de privacidade do ETL.",
+    "limitation": "Bloqueio objetivo de autoridade: nenhuma ETL foi criada e não há captura/análise de I/O real.",
+    "status": "BLOCKED"
+  },
+  {
+    "id": "C-SYSTEM-017",
+    "essential": "Não para o gate final da Fase 2 — coleta multi-domínio, falha estruturada, schema, redaction, IDs determinísticos, integridade e reload foram comprovados; correlação causal/semântica de incidente real fica como limite para PROVEN.",
+    "evidence": "Bundle 20 domínios 26 PASS/1 FAIL; schema PASS; fixture de e-mail/command line/MAC/SID redigida; correlation/hash/reload PASS; export real e manifesto SHA-256 persistidos.",
+    "safe": "Todas as provas adicionais foram read-only ou usaram PII artificial; a varredura dos resultados não encontrou e-mail, MAC, SID ou perfil de usuário não redigido.",
+    "limitation": "Não há incidente real controlado para provar causalidade nem matriz de privacidade em outras edições/policies; fixture sintética não será apresentada como prova causal.",
+    "status": "SPECIFIED"
+  }
+]

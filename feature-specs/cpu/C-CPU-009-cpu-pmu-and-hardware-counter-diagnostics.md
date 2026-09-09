@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU PMU & hardware-counter diagnostics  
-ID: C-CPU-009  
-Tipo: Advanced Diagnostic, Advanced Diagnostic / Benchmark, Advanced Diagnostic Tool, Safety / Architecture, Shared Capability  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU PMU & hardware-counter diagnostics
+ID: C-CPU-009
+Tipo: Advanced Diagnostic, Advanced Diagnostic / Benchmark, Advanced Diagnostic Tool, Safety / Architecture, Shared Capability
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -419,6 +419,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows-server/administration/performance-tuning/in-depth-hardware-counter-profiling
 - https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-recorder
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — PMU availability/semantics and validation against an independent profiler.
+- Evidência realmente executada: No PMU/counter probe.
+- Execução segura neste host / teste: A read-only availability query is safe, but raw PMU access may require a kernel driver/admin. Teste recomendado: Detect supported counters; sample a bounded known workload; compare instructions/cycles semantics with an independent profiler and return Unsupported when unavailable.
+- Impedimento ou limitação restante: No profiler/vendor PMU adapter and no elevated counter path; architecture-specific proof is unavailable here.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

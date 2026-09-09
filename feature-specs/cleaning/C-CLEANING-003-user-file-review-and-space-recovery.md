@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: User file review & space recovery  
-ID: C-CLEANING-003  
-Tipo: Configuration / Optimization, Diagnostic / Tool, Recommendation / Tool  
-Technical Domain: CLEANING  
-Primary Product Area: Cleaning  
-Also Used By: Cleaning, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: User file review & space recovery
+ID: C-CLEANING-003
+Tipo: Configuration / Optimization, Diagnostic / Tool, Recommendation / Tool
+Technical Domain: CLEANING
+Primary Product Area: Cleaning
+Also Used By: Cleaning, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -298,9 +298,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -434,6 +434,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/shell/knownfolderid
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — safe review plus explicit user-choice boundary for file data/duplicates/cloud placeholders.
+- Evidência realmente executada: No direct probe; spec is all `NOT_TESTED`.
+- Execução segura neste host / teste: Read-only inventory is safe; move/delete of user data is not safe for this campaign. Teste recomendado: Scan a fixture with duplicate content, large/old files and cloud/reparse placeholders; verify content identity and that no action is automatic.
+- Impedimento ou limitação restante: No user-approved fixture and no reversible product-owned backup; data deletion must not be improvised.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

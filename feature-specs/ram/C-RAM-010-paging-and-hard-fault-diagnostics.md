@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Paging & hard-fault diagnostics  
-ID: C-RAM-010  
-Tipo: Advanced Diagnostic, Diagnostic, Safety / Diagnostic Logic  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Paging & hard-fault diagnostics
+ID: C-RAM-010
+Tipo: Advanced Diagnostic, Diagnostic, Safety / Diagnostic Logic
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -290,9 +290,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/memory/large-page-support
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `ram.inventory-and-pressure`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: A localized PDH-backed page-fault counter can be sampled temporally.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/ram/C-RAM-004/results/ram-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: aggregate page faults are not per-process hard faults
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — page faults/hard faults e janela temporal.
+- Evidência realmente executada: Prototype seguro adicional executado: A localized PDH-backed page-fault counter can be sampled temporally. Resultado observado: `PASS`. Evidência: `/prototypes/ram/C-RAM-004/results/ram-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — PDH `Memory\\Page Faults/sec` + carga própria limitada; comparar amostras e cleanup.
+- Impedimento ou limitação restante: Sem pressão real/ETW para hard faults por processo.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

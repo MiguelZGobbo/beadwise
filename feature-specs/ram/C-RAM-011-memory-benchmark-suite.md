@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Memory benchmark suite  
-ID: C-RAM-011  
-Tipo: Benchmark, Benchmark Safeguard  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Memory benchmark suite
+ID: C-RAM-011
+Tipo: Benchmark, Benchmark Safeguard
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -296,9 +296,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -426,6 +426,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — benchmark repetível/calibrado.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Não integralmente — só smoke de buffer limitado/timing.
+- Impedimento ou limitação restante: Precisa calibração, repetição e outra configuração de memória; não transformar em stress térmico.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

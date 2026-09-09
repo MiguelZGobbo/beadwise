@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:53:32.0975721-03:00",
+  "status": "PASS",
+  "conditions": {
+    "specCount": true,
+    "uniqueIds": true,
+    "specifiedAudited": true,
+    "specifiedSafeProofCovered": true,
+    "matrixRows": true,
+    "noProvenOrApproved": true,
+    "noPrivacyMatches": true,
+    "testsExecuted": true,
+    "testsPassed": true
+  },
+  "specCount": 234,
+  "statusDistribution": {
+    "RESEARCH": 73,
+    "SPECIFIED": 90,
+    "PROTOTYPING": 0,
+    "PROVEN": 0,
+    "APPROVED": 0,
+    "BLOCKED": 55,
+    "DEFERRED": 16,
+    "REJECTED": 0
+  },
+  "testCount": 40,
+  "failedTests": [],
+  "resultFileCount": 43,
+  "privacyMatches": []
+}

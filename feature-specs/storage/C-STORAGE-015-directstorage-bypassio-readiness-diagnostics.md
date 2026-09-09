@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: DirectStorage & BypassIO readiness diagnostics  
-ID: C-STORAGE-015  
-Tipo: Diagnostic, Diagnostic / Product Behavior, Diagnostic / Recommendation, Safety / Explainability  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: DirectStorage & BypassIO readiness diagnostics
+ID: C-STORAGE-015
+Tipo: Diagnostic, Diagnostic / Product Behavior, Diagnostic / Recommendation, Safety / Explainability
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -386,6 +386,15 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — DirectStorage/BypassIO readiness e uso real.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Parcial — detectar OS/NVMe prerequisites; não inferir uso.
+- Impedimento ou limitação restante: Falta jogo/arquivo BypassIO/telemetria de uso real.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

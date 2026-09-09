@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Process scheduling, priority & policy diagnostics  
-ID: C-PROCESSES-005  
-Tipo: Configuration / Safeguard, Diagnostic  
-Technical Domain: PROCESSES  
-Primary Product Area: TBD  
-Also Used By: Monitoring, Diagnostics, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Process scheduling, priority & policy diagnostics
+ID: C-PROCESSES-005
+Tipo: Configuration / Safeguard, Diagnostic
+Technical Domain: PROCESSES
+Primary Product Area: TBD
+Also Used By: Monitoring, Diagnostics, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -316,9 +316,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -458,6 +458,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setprocessinformation
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprocessaffinitymask
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setprocessaffinitymask
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-PROCESSES-005=PASS` em `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. Somente no filho próprio, priority `Normal→BelowNormal` e affinity `65535→1` foram aplicadas, reconsultadas e restauradas; `restored=true`. Nenhum processo do usuário/serviço/protegido foi mutado. PowerThrottling, memory priority e CPU Sets não foram exercitados.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — prioridade/affinity/PowerThrottling e negação de acesso.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-PROCESSES-005=PASS` em `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. Somente no filho próprio, priority `Normal→BelowNormal` e affinity `65535→1` foram aplicadas, reconsultadas e restauradas; `restored=true`. Nenhum processo do usuário/serviço/protegido foi mutado. PowerThrottling, memory priority e CPU Sets não foram exercitados. Evidência: `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim, serial — aplicar/restaurar prioridade e affinity apenas em processo filho próprio; reconsultar via APIs públicas.
+- Impedimento ou limitação restante: Memory priority/CPU sets variam por build; não testar outros processos.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

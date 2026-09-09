@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Storage health, SMART/NVMe & wear diagnostics  
-ID: C-STORAGE-002  
-Tipo: Diagnostic, Monitoring, Safety  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Storage health, SMART/NVMe & wear diagnostics
+ID: C-STORAGE-002
+Tipo: Diagnostic, Monitoring, Safety
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -389,6 +389,23 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `storage.inventory-and-health`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Reliability counters return measured fields or preserve access/unsupported failure per disk.
+- Resultado observado deste probe: `FAIL`.
+- Evidência reproduzível: `/prototypes/storage/C-STORAGE-001/results/storage-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: no time series or vendor ATA attribute map
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — leitura real de reliability/SMART/NVMe é essencial para sustentar health/wear, e a fonte tentou executar.
+- Evidência realmente executada: Prototype seguro adicional executado: Reliability counters return measured fields or preserve access/unsupported failure per disk. Resultado observado: `FAIL`. Evidência: `/prototypes/storage/C-STORAGE-001/results/storage-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: A leitura não elevada foi segura e executada; repetir com acesso ao provider exige ambiente/autoridade diferente.
+- Impedimento ou limitação restante: Bloqueio objetivo atual da API/provider necessário; não há SMART/NVMe reliability válido neste host/sessão.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Proven

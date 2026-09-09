@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:40:12.2394574-03:00",
+  "mutationPolicy": "read-only-real-storage; owned-temp-file-only",
+  "realDiskMutation": false,
+  "probes": [
+    {
+      "featureId": "C-STORAGE-001",
+      "premise": "Storage hardware, media, bus and volume identity are available from structured Storage cmdlets.",
+      "status": "PASS",
+      "evidence": {
+        "physicalDiskCount": 2,
+        "diskCount": 2,
+        "volumeCount": 3,
+        "mediaTypes": [
+          "HDD",
+          "SSD"
+        ],
+        "busTypes": [
+          "NVMe",
+          "SATA"
+        ]
+      },
+      "limitations": [
+        "no negotiated PCIe speed or cross-vendor firmware catalogue"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-002",
+      "premise": "Reliability counters return measured fields or preserve access/unsupported failure per disk.",
+      "status": "FAIL",
+      "evidence": {
+        "devices": [
+          {
+            "name": "CT1000P3SSD8",
+            "status": "FAIL",
+            "error": "Acesso a um recurso CIM não estava disponível para o cliente."
+          },
+          {
+            "name": "WDC WD10EZEX-08WN4A0",
+            "status": "FAIL",
+            "error": "Acesso a um recurso CIM não estava disponível para o cliente."
+          }
+        ]
+      },
+      "limitations": [
+        "no time series or vendor ATA attribute map"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-003",
+      "premise": "Temperature is reported only when the reliability provider exposes it.",
+      "status": "FAIL",
+      "evidence": {
+        "temperatureSources": [
+          {
+            "name": "CT1000P3SSD8",
+            "status": "FAIL",
+            "temperature": null
+          },
+          {
+            "name": "WDC WD10EZEX-08WN4A0",
+            "status": "FAIL",
+            "temperature": null
+          }
+        ]
+      },
+      "limitations": [
+        "no controlled thermal event"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-004",
+      "premise": "Volume capacity/free space can be read without hydrating cloud placeholders.",
+      "status": "PASS",
+      "evidence": {
+        "volumeCount": 3,
+        "filesystems": [
+          "NTFS"
+        ],
+        "placeholderFilesOpened": 0
+      },
+      "limitations": [
+        "no cloud-provider placeholder fixture"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-005",
+      "premise": "Online filesystem scan preserves its real exit code and permission failure without invoking repair.",
+      "status": "FAIL",
+      "evidence": {
+        "command": "chkdsk <system-drive> /scan",
+        "exitCode": -2146233087,
+        "repairSwitchUsed": false,
+        "outputTail": [
+          "ADMIN_REQUIRED_OR_ACCESS_DENIED: Exception calling \"Start\" with \"0\" argument(s): \"An error occurred trying to start process 'chkdsk.exe' with working directory 'D:\\dev\\Projetos\\beadwise'. Acesso negado.\""
+        ]
+      },
+      "limitations": [
+        "single NTFS system volume; no ReFS or corrupt filesystem"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-006",
+      "premise": "TRIM policy capability can be queried without issuing retrim.",
+      "status": "PASS",
+      "evidence": {
+        "command": "fsutil behavior query DisableDeleteNotify",
+        "exitCode": 0,
+        "retrimInvoked": false,
+        "lines": [
+          "NTFS DisableDeleteNotify = 0  (Permite que operações TRIM sejam enviadas ao dispositivo de armazenamento)",
+          "ReFS DisableDeleteNotify = 0  (Permite que operações TRIM sejam enviadas ao dispositivo de armazenamento)"
+        ]
+      },
+      "limitations": [
+        "does not prove end-to-end TRIM through RAID/USB"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-009",
+      "premise": "A localized PDH-backed physical-disk throughput counter can be sampled temporally.",
+      "status": "PASS",
+      "evidence": {
+        "path": [
+          "\\PhysicalDisk(*)\\Bytes de disco/s"
+        ],
+        "sampleCount": 9,
+        "maximumBytesPerSecond": 187384.82132823073
+      },
+      "limitations": [
+        "three read-only samples; no controlled I/O saturation"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-011",
+      "premise": "An owned temporary artifact can be snapshotted, quarantined, verified and rolled back byte-for-byte.",
+      "status": "PASS",
+      "evidence": {
+        "snapshotSha256": "BCAA152A3DAB74C8C5C713D0A7172448DA3B99C4A92F4D4316E3CFAF15B046F1",
+        "restoredSha256": "BCAA152A3DAB74C8C5C713D0A7172448DA3B99C4A92F4D4316E3CFAF15B046F1",
+        "rollbackVerified": true,
+        "scope": "prototype-owned-temp-directory"
+      },
+      "limitations": [
+        "does not authorize cleanup of any real user/system artifact"
+      ]
+    },
+    {
+      "featureId": "C-STORAGE-020",
+      "premise": "Low-value or unsafe optimization claims are blocked while read-only analysis remains permitted.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "claim": "disable write-cache flushing",
+            "documentedBenefit": false,
+            "safeRollback": false,
+            "decision": "BLOCK"
+          },
+          {
+            "claim": "disable last-access updates universally",
+            "documentedBenefit": false,
+            "safeRollback": true,
+            "decision": "BLOCK"
+          },
+          {
+            "claim": "analyze current media",
+            "documentedBenefit": true,
+            "safeRollback": true,
+            "decision": "READ_ONLY_ANALYZE"
+          }
+        ],
+        "applyCount": 0
+      },
+      "limitations": [
+        "contract fixture only"
+      ]
+    }
+  ]
+}

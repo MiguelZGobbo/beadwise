@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "featureId": "C-STARTUP-001",
+  "capturedAt": "2026-09-08T21:24:35.9726174-03:00",
+  "mutationPolicy": "read-only",
+  "sources": [
+    {
+      "name": "RegistryRun",
+      "status": "PASS",
+      "error": null
+    },
+    {
+      "name": "StartupFolder",
+      "status": "PASS",
+      "error": null
+    }
+  ],
+  "entries": [
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "CurrentUser",
+      "name": "Steam",
+      "command": null,
+      "commandSha256": "42df7238b77fdc41c853287568f4c2ca93a09db8a0d033af4f2745527c398963",
+      "transient": false,
+      "provenance": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "CurrentUser",
+      "name": "AMDNoiseSuppression",
+      "command": null,
+      "commandSha256": "fece3449089ab1ca70cab00f062b364719f3a10558c8c8f6d60e5ea436f5e43b",
+      "transient": false,
+      "provenance": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "CurrentUser",
+      "name": "EADM",
+      "command": null,
+      "commandSha256": "920010a1f9dda90987af56d58d490988a67683928dde72c97eb4a23f6e348473",
+      "transient": false,
+      "provenance": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "CurrentUser",
+      "name": "RiotClient",
+      "command": null,
+      "commandSha256": "992d2d904f59d655f25aa6df19189652bdc27516df84c234dcd3d3cb6a2f7caf",
+      "transient": false,
+      "provenance": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "CurrentUser",
+      "name": "GoogleDriveFS",
+      "command": null,
+      "commandSha256": "f9e61ce4e31a9ce57bd0fbc2ec4deb05920dc2eda6360ed56d5f122c7060a718",
+      "transient": false,
+      "provenance": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "CurrentUser",
+      "name": "MicrosoftEdgeAutoLaunch_5666A462036E2F613B2A4ABFF757D927",
+      "command": null,
+      "commandSha256": "6448590a4a9a79bb5f8bb3b47010c7926ee18a2e007c2c863ea5c0d72829f094",
+      "transient": false,
+      "provenance": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "LocalMachine",
+      "name": "SecurityHealth",
+      "command": null,
+      "commandSha256": "faeb27ed7b34a82db4f9796ea3846935f0e160f048efe033b5d5e3441bb8dbc9",
+      "transient": false,
+      "provenance": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "LocalMachine",
+      "name": "RtkAudUService",
+      "command": null,
+      "commandSha256": "b9c434b0d95d3204f509005c1d1e2df2a34736a12adebe0091837d7fe8260b3c",
+      "transient": false,
+      "provenance": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "LocalMachine",
+      "name": "Riot Vanguard",
+      "command": null,
+      "commandSha256": "6c7ceea3241d59ba8a5504471c1f89f0c2806a2e40c4793270c38318111f18fd",
+      "transient": false,
+      "provenance": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    },
+    {
+      "sourceKind": "RegistryRun",
+      "scope": "LocalMachine",
+      "name": "SteelSeriesGG",
+      "command": null,
+      "commandSha256": "b73eb238b1705d9bb18c31b53aef7d9b93c73fc6431249e30a07d05c447fae99",
+      "transient": false,
+      "provenance": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    }
+  ]
+}

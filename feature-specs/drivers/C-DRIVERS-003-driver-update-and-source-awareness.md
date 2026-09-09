@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver update & source awareness  
-ID: C-DRIVERS-003  
-Tipo: Diagnostic, Diagnostic / Recommendation  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver update & source awareness
+ID: C-DRIVERS-003
+Tipo: Diagnostic, Diagnostic / Recommendation
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -300,9 +300,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -436,6 +436,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-deviceinstallation
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — source awareness/ranking across inbox/OEM/vendor/Windows Update and unknown source.
+- Evidência realmente executada: No source-awareness probe; current PnP PASS lacks source fields.
+- Execução segura neste host / teste: Read-only inventory is safe. Teste recomendado: Resolve provider/version/date/INF and source/ranking for representative devices; verify “newer” is not automatically “better”.
+- Impedimento ou limitação restante: Current host lacks a controlled driver-source matrix and no feature prototype; installation is not safe.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

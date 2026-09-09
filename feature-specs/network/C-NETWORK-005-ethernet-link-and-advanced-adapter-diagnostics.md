@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Ethernet link & advanced adapter diagnostics  
-ID: C-NETWORK-005  
-Tipo: Diagnostic  
-Technical Domain: NETWORK  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Ethernet link & advanced adapter diagnostics
+ID: C-NETWORK-005
+Tipo: Diagnostic
+Technical Domain: NETWORK
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -290,9 +290,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/fwp/windows-filtering-platform-start-page
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `network.adapters-and-path`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Ethernet advanced properties can be read without invoking a setter.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/network/C-NETWORK-001/results/network-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: no cable fault or alternate negotiation
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — link Ethernet/propriedades avançadas e `AccessDenied`.
+- Evidência realmente executada: Prototype seguro adicional executado: Ethernet advanced properties can be read without invoking a setter. Resultado observado: `PASS`. Evidência: `/prototypes/network/C-NETWORK-001/results/network-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — consultar `Get-NetAdapterAdvancedProperty`/`Get-NetAdapterHardwareInfo` na Realtek, sem Set.
+- Impedimento ou limitação restante: Não testa negociação diferente, cabo defeituoso nem setter/admin.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

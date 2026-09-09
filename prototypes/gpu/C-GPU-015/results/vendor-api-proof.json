@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:52:24.1932314-03:00",
+  "featureId": "C-GPU-015",
+  "gpus": [
+    {
+      "Name": "Radeon RX 570 Series",
+      "AdapterCompatibility": "Advanced Micro Devices, Inc.",
+      "DriverVersion": "31.0.21925.1001",
+      "PNPDeviceID": "PCI\\VEN_1002&DEV_67DF&SUBSYS_8A931462&REV_EF\\4&7D659FE&0&0009"
+    }
+  ],
+  "commands": [
+    {
+      "name": "nvidia-smi",
+      "found": false,
+      "source": null
+    },
+    {
+      "name": "amd-smi",
+      "found": false,
+      "source": null
+    },
+    {
+      "name": "rocm-smi",
+      "found": false,
+      "source": null
+    },
+    {
+      "name": "PresentMon.exe",
+      "found": false,
+      "source": null
+    }
+  ],
+  "dllCandidates": [
+    {
+      "path": "C:\\Windows\\System32\\atiadlxx.dll",
+      "exists": true
+    },
+    {
+      "path": "C:\\Windows\\SysWOW64\\atiadlxy.dll",
+      "exists": true
+    },
+    {
+      "path": "C:\\Program Files\\AMD\\CNext\\CNext\\atiadlxx.dll",
+      "exists": false
+    },
+    {
+      "path": "C:\\Program Files\\AMD\\CNext\\CNext\\ADLX.dll",
+      "exists": false
+    },
+    {
+      "path": "C:\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe",
+      "exists": false
+    },
+    {
+      "path": "C:\\Windows\\System32\\nvml.dll",
+      "exists": false
+    }
+  ],
+  "adlExportProbe": {
+    "attempted": true,
+    "library": "C:\\Windows\\System32\\atiadlxx.dll",
+    "loaded": true,
+    "exports": [
+      {
+        "name": "ADL_Main_Control_Create",
+        "found": true
+      },
+      {
+        "name": "ADL_Adapter_NumberOfAdapters_Get",
+        "found": true
+      }
+    ],
+    "error": null
+  },
+  "sources": [
+    "https://gpuopen.com/adlx/",
+    "https://docs.nvidia.com/deploy/nvml-api/nvml-api-reference.html",
+    "https://game.intel.com/story/intel-presentmon/"
+  ],
+  "steps": [
+    {
+      "name": "GPU_DETECT",
+      "status": "PASS",
+      "detail": "Radeon RX 570 Series"
+    },
+    {
+      "name": "VENDOR_API_ACCESS",
+      "status": "PASS",
+      "detail": "atiadlxx.dll loaded and ADL entrypoint exports were found."
+    }
+  ]
+}

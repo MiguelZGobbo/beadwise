@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Device & driver repair path  
-ID: C-REPAIR-007  
-Tipo: Repair  
-Technical Domain: REPAIR  
-Primary Product Area: Repair  
-Also Used By: Repair, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Device & driver repair path
+ID: C-REPAIR-007
+Tipo: Repair
+Technical Domain: REPAIR
+Primary Product Area: Repair
+Also Used By: Repair, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -300,9 +300,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -430,6 +430,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/drivers/devtest/pnputil-command-syntax
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — PnP restart/re-scan com Verify.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Não integralmente — apenas inventário/`pnputil` help/dry-run.
+- Impedimento ou limitação restante: Restart de dispositivo real pode cortar rede/entrada; não há dispositivo sacrificável.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

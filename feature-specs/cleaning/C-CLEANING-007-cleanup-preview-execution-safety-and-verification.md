@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Cleanup preview, execution safety & verification  
-ID: C-CLEANING-007  
-Tipo: Measurement / Diagnostic, Safety / Reliability, Safety / Tool  
-Technical Domain: CLEANING  
-Primary Product Area: Cleaning  
-Also Used By: Cleaning, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Cleanup preview, execution safety & verification
+ID: C-CLEANING-007
+Tipo: Measurement / Diagnostic, Safety / Reliability, Safety / Tool
+Technical Domain: CLEANING
+Primary Product Area: Cleaning
+Also Used By: Cleaning, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -285,9 +285,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -382,25 +382,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/cleaning/c-cleaning-007/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/cleaning/C-CLEANING-007/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: N/A
-VERIFY: NOT_TESTED
-ROLLBACK: N/A
+DETECT: PASS (isolated fixture)
+PLAN: PASS (same allowlisted candidates consumed by Apply)
+DRY-RUN: PASS (before/after fingerprint identical)
+APPLY: PASS (prototype-owned temp sandbox only)
+VERIFY: PASS (count, bytes, retained exclusions and external sentinel)
+ROLLBACK: N/A (deletion is not reversible)
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -411,7 +411,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows/win32/shell/knownfolderid
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha inicial 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Contrato preview → plan → dry-run → apply → verify executado de ponta a ponta em sandbox temporário próprio. Hash de árvore confirmou dry-run sem mutação; Apply consumiu os mesmos 2 paths do plano; Verify confirmou contagem/bytes e todas as exclusões; `finally` removeu a fixture.
+
+Evidência: /prototypes/cleaning/C-CLEANING-007/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — preview/ChangePlan/dry-run/apply/verify contract in an isolated sandbox.
+- Evidência realmente executada: Prototype seguro adicional executado: Contrato preview → plan → dry-run → apply → verify executado de ponta a ponta em sandbox temporário próprio. Hash de árvore confirmou dry-run sem mutação; Apply consumiu os mesmos 2 paths do plano; Verify confirmou contagem/bytes e todas as exclusões; `finally` removeu a fixture. Evidência: `/prototypes/cleaning/C-CLEANING-007/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes only with prototype-owned temporary data; never expose live cleanup Apply. Teste recomendado: Generate preview and ChangePlan; hash tree before/after dry-run; apply only allowlisted fixture deletion; verify expected state and refusal cases.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

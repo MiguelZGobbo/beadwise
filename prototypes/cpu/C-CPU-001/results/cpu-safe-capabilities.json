@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-09-08T22:52:05.9096282-03:00",
+  "host": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "architecture": "X64",
+    "administrator": false
+  },
+  "safety": {
+    "persistentMutation": false,
+    "temporaryOwnedDirectoryRemoved": true
+  },
+  "probes": [
+    {
+      "featureId": "C-CPU-001",
+      "status": "PASS",
+      "mechanism": "Win32 GetLogicalProcessorInformationEx + CIM correlation",
+      "evidence": {
+        "nativeCallSucceeded": true,
+        "logicalProcessorCount": 16,
+        "cimLogicalProcessorCount": 16,
+        "cores": 8,
+        "relationshipRecords": {
+          "ProcessorPackage": 1,
+          "ProcessorCore": 8,
+          "ProcessorModule": 8,
+          "Cache": 25,
+          "NumaNode": 1,
+          "Group": 1
+        }
+      },
+      "limitations": [
+        "Single AMD/single-group host; no hybrid or multi-group fixture."
+      ]
+    },
+    {
+      "featureId": "C-CPU-002",
+      "status": "PARTIAL",
+      "mechanism": "Bounded deterministic .NET single/multi-thread workload",
+      "evidence": {
+        "iterations": 3000000,
+        "repetitions": 5,
+        "singleThreadMs": [
+          25.3406,
+          21.1402,
+          20.7459,
+          20.8281,
+          20.7915
+        ],
+        "multiThreadMs": [
+          9.4688,
+          5.4597,
+          5.5879,
+          5.6189,
+          5.4927
+        ],
+        "singleCoefficientOfVariation": 0.08227413732000434,
+        "multiCoefficientOfVariation": 0.24862374367859566,
+        "checksumMatched": true
+      },
+      "limitations": [
+        "Short capability proof only; no thermal telemetry or cross-hardware normalization."
+      ]
+    },
+    {
+      "featureId": "C-CPU-004",
+      "status": "PASS",
+      "mechanism": "Controlled CPU and temporary-file I/O fixtures with process CPU-time correlation",
+      "evidence": {
+        "cpuFixture": {
+          "wallMs": 182.1067,
+          "cpuMs": 218.75,
+          "cpuRatio": 1.2012188458744242,
+          "classification": "CPU_BOUND"
+        },
+        "ioFixture": {
+          "wallMs": 146.207,
+          "cpuMs": 15.625,
+          "cpuRatio": 0.1068690281587065,
+          "bytesWritten": 16777216,
+          "controlledWaitMs": 120,
+          "classification": "IO_BOUND_OR_WAITING"
+        },
+        "unknownFixture": {
+          "classification": "UNKNOWN",
+          "reason": "Conflicting synthetic signals are default-deny."
+        },
+        "scratchRemoved": true
+      },
+      "limitations": [
+        "Does not establish universal bottleneck thresholds or ETW wait attribution."
+      ]
+    },
+    {
+      "featureId": "C-CPU-011",
+      "status": "PASS",
+      "mechanism": "Pure safety-rule fixture + before/after OS-state fingerprint",
+      "evidence": {
+        "decisions": [
+          {
+            "candidate": "use-all-cores-boot-tweak",
+            "decision": "DENY",
+            "reason": "No documented benefit; global boot mutation."
+          },
+          {
+            "candidate": "scheduler-registry-pack",
+            "decision": "DENY",
+            "reason": "Undocumented bundle and no workload-specific evidence."
+          },
+          {
+            "candidate": "force-realtime-priority",
+            "decision": "DENY",
+            "reason": "Starvation risk and no bounded target."
+          },
+          {
+            "candidate": "global-affinity-pack",
+            "decision": "DENY",
+            "reason": "Global policy without measured workload evidence."
+          },
+          {
+            "candidate": "unknown-evidence",
+            "decision": "DENY",
+            "reason": "Unknown evidence cannot become a positive recommendation."
+          }
+        ],
+        "beforeFingerprint": "7F35814189B7ECEC08EE0E337A0DB02455F12643B85C629EADDCBEF68DDC5EB5",
+        "afterFingerprint": "7F35814189B7ECEC08EE0E337A0DB02455F12643B85C629EADDCBEF68DDC5EB5",
+        "mutationAttempted": false
+      },
+      "limitations": [
+        "Positive tuning recommendations remain outside this proof."
+      ]
+    },
+    {
+      "featureId": "C-CPU-015",
+      "status": "PASS",
+      "mechanism": "Win32 GetSystemTimes bounded sampling overhead comparison",
+      "evidence": {
+        "sampleCount": 30,
+        "intervalMs": 20,
+        "sampleFailures": 0,
+        "baselineWallMs": 941.0905,
+        "monitoredWallMs": 943.8854,
+        "baselineCpuMs": 515.625,
+        "monitoredCpuMs": 546.875,
+        "extraCpuMs": 31,
+        "overheadPercentOfOneCore": 3.2842970131755402,
+        "safeguardLimitPercent": 5,
+        "limitExceeded": false
+      },
+      "limitations": [
+        "Short foreground sample; no long-duration ETW mode or dropped-event analysis."
+      ]
+    }
+  ]
+}

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Multi-monitor topology & compatibility  
-ID: C-DISPLAY-005  
-Tipo: Diagnostic  
-Technical Domain: DISPLAY  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Multi-monitor topology & compatibility
+ID: C-DISPLAY-005
+Tipo: Diagnostic
+Technical Domain: DISPLAY
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `display.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — topologia multi-monitor, correlação source/target/EDID e compatibilidade.
+- Evidência realmente executada: display.inventory.cim PASS cobre o inventário compartilhado; o prototype Win32 de C-DISPLAY-002 observou activePathCount=2, em 1366x768@60 Hz e 1920x1080@180 Hz.
+- Execução segura neste host / teste: A enumeração CCD/PnP read-only foi executada; uma prova dedicada ainda precisa correlacionar source/target/EDID e exercitar caminhos desconectados/duplicados.
+- Impedimento ou limitação restante: Dois caminhos ativos existem, mas não foi confirmado que sejam dois monitores físicos distintos nem foi completado o mapeamento target/EDID/compatibilidade; o hardware não será sintetizado.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

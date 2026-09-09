@@ -64,10 +64,10 @@ $domains.audio = New-DomainEvidence @(
 
 $domains.cleaning = New-DomainEvidence @(
     Invoke-EvidenceProbe 'cleaning.rebuildable-roots' @('C-CLEANING-001', 'C-CLEANING-002', 'C-CLEANING-006', 'C-CLEANING-009') {
-        $roots = @($env:TEMP, "$env:WINDIR\Temp") | Select-Object -Unique
-        @($roots | ForEach-Object {
-            [ordered]@{ path = $_; exists = Test-Path -LiteralPath $_ }
-        })
+        @(
+            [ordered]@{ kind = 'USER_TEMP'; exists = Test-Path -LiteralPath $env:TEMP }
+            [ordered]@{ kind = 'WINDOWS_TEMP'; exists = Test-Path -LiteralPath "$env:WINDIR\Temp" }
+        )
     }
 )
 
@@ -198,7 +198,12 @@ $domains.security = New-DomainEvidence @(
 $domains.startup = New-DomainEvidence @(
     Invoke-EvidenceProbe 'startup.inventory.cim' @('C-STARTUP-001', 'C-STARTUP-003', 'C-STARTUP-006') {
         $entries = @(Get-CimInstance Win32_StartupCommand)
-        [ordered]@{ count = $entries.Count; locations = @($entries.Location | Sort-Object -Unique) }
+        [ordered]@{
+            count = $entries.Count
+            locations = @($entries.Location | ForEach-Object {
+                $_ -replace '(?i)\bS-1-5-21-(?:\d+-){3}\d+\b', '[REDACTED_SID]'
+            } | Sort-Object -Unique)
+        }
     }
 )
 

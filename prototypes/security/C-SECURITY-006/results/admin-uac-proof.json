@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:52:50.2805546-03:00",
+  "featureId": "C-SECURITY-006",
+  "isAdministrator": false,
+  "identityPersisted": false,
+  "adminProbe": {
+    "command": "net session",
+    "exitCode": 2,
+    "output": "Erro de sistema 5.\r\n\r\nAcesso negado."
+  },
+  "steps": [
+    {
+      "name": "TOKEN_DETECT",
+      "status": "PASS",
+      "detail": "IsAdministrator=False"
+    },
+    {
+      "name": "ADMIN_REQUIRED_SIGNAL",
+      "status": "PASS",
+      "detail": "Non-elevated token received admin-required/access-denied signal from net session: exit code 2."
+    }
+  ]
+}

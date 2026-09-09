@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Multi-drive cleanup awareness  
-ID: C-CLEANING-009  
-Tipo: Diagnostic / Tool  
-Technical Domain: CLEANING  
-Primary Product Area: Cleaning  
-Also Used By: Cleaning, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Multi-drive cleanup awareness
+ID: C-CLEANING-009
+Tipo: Diagnostic / Tool
+Technical Domain: CLEANING
+Primary Product Area: Cleaning
+Also Used By: Cleaning, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -298,9 +298,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -436,6 +436,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `cleaning.rebuildable-roots`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows/win32/fileio/naming-a-volume
 - https://learn.microsoft.com/windows/win32/fileio/displaying-volume-paths
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Prova segura adicional observada (2026-09-08):** `Get-Volume` enumerou read-only os volumes reais montados, atribuiu apenas rótulos não sensíveis aos roots candidatos e exercitou normalização default-deny para estados fixed, removable, network e offline. Nenhuma limpeza ou outra mutação foi executada.
+
+Evidência: `/prototypes/cleaning/C-CLEANING-009/results/multi-volume.json`; teste: `/prototypes/cleaning/C-CLEANING-009/tests/multi-volume.tests.ps1` (`PASS`).
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — inventário read-only dos volumes reais e normalização default-deny dos estados fixed/removable/network/offline foram executados; Apply de cleanup multi-volume não é necessário nem seguro nesta campanha.
+- Evidência realmente executada: Prototype seguro adicional executado: `Get-Volume` enumerou read-only os volumes reais montados, atribuiu apenas rótulos não sensíveis aos roots candidatos e exercitou normalização default-deny para estados fixed, removable, network e offline. Nenhuma limpeza ou outra mutação foi executada. Evidência: `/prototypes/cleaning/C-CLEANING-009/results/multi-volume.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: A prova read-only foi executada sem limpeza; estados removable/network/offline foram exercitados somente como fixtures declaradas, sem simular hardware real.
+- Impedimento ou limitação restante: Não havia volume real removable/network/offline, mount-point adversarial ou cleanup Apply; esses cenários não são inferidos do inventário atual.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

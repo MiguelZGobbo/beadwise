@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Startup disable scoring & control  
-ID: C-STARTUP-004  
-Tipo: Configuration, Diagnostic / Recommendation  
-Technical Domain: STARTUP  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: RESEARCH  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Startup disable scoring & control
+ID: C-STARTUP-004
+Tipo: Configuration, Diagnostic / Recommendation
+Technical Domain: STARTUP
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: RESEARCH
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -284,8 +284,8 @@ Restaurar snapshot/source original ou reabilitar pela superfície oficial do own
 - Windows 11 26H1: Target condicional; não presumir equivalência de build/event schema.
 
 ### Arquitetura
-x64: target principal.  
-ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.  
+x64: target principal.
+ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.
 Other: TBD.
 
 ### Hardware
@@ -418,6 +418,13 @@ Date: TBD
 Observed behavior: N/A nesta revisão; nenhuma execução real foi alegada.
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `RESEARCH` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:START -->
+**Reavaliação final de RESEARCH (2026-09-08):**
+- O status `RESEARCH` foi revisto e preservado porque ainda há incerteza técnica solucionável descrita nas seções 30, 31 e 36; documentação ou probe compartilhado parcial não foi convertido em `PASS`.
+- Nenhuma prova prática isolada nesta máquina elimina essa incerteza sem antes definir fonte, contrato, fixture, hardware ou dependência indicada pela própria spec.
+- Próximo gate: concluir a investigação registrada, então decidir se cabe prototype seguro, `SPECIFIED`, `BLOCKED`, `DEFERRED` ou `REJECTED`; não promover diretamente a `PROVEN`/`APPROVED`.
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: GPU vendor capability & profile layer  
-ID: C-GPU-015  
-Tipo: Diagnostic, Diagnostic / Configuration, Infrastructure, Shared Capability  
-Technical Domain: GPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: RESEARCH  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: GPU vendor capability & profile layer
+ID: C-GPU-015
+Tipo: Diagnostic, Diagnostic / Configuration, Infrastructure, Shared Capability
+Technical Domain: GPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: RESEARCH
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -303,9 +303,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -408,25 +408,25 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/gpu/c-gpu-015/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/gpu/C-GPU-015/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
+APPLY: N/A
+VERIFY: PASS
+ROLLBACK: N/A
+RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -439,7 +439,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/direct3ddxgi/dx-graphics-dxgi
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `gpu.identity-and-memory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (auditoria final 2026-09-08):** o prototype próprio `C-GPU-015` detectou Radeon RX 570 via CIM e confirmou que `nvidia-smi`, `amd-smi`, `rocm-smi` e `PresentMon.exe` não estão no PATH. A primeira prova carregou `C:\Windows\System32\atiadlxx.dll` e confirmou exports `ADL_Main_Control_Create` e `ADL_Adapter_NumberOfAdapters_Get`. A prova adicional realmente criou o contexto ADL, enumerou adapters e destruiu o contexto (`createStatus=0`, `enumerationStatus=0`, `adapterCount=7`, `destroyStatus=0`; `PASS` read-only). Evidências: `/prototypes/gpu/C-GPU-015/results/vendor-api-proof.json` e `/prototypes/gpu/C-GPU-015/results/amd-adl.json`. Isto prova a fatia AMD ADL classic neste host, mas não define ainda o contrato cross-vendor, ADLX moderno, Intel/NVIDIA, telemetria, escrita de perfis ou rollback de tuning; status permanece `RESEARCH`.
 - https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-query-video-memory-info
+
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:START -->
+**Reavaliação final de RESEARCH (2026-09-08):**
+- O status `RESEARCH` foi revisto e preservado porque ainda há incerteza técnica solucionável descrita nas seções 30, 31 e 36; documentação ou probe compartilhado parcial não foi convertido em `PASS`.
+- Nenhuma prova prática isolada nesta máquina elimina essa incerteza sem antes definir fonte, contrato, fixture, hardware ou dependência indicada pela própria spec.
+- Próximo gate: concluir a investigação registrada, então decidir se cabe prototype seguro, `SPECIFIED`, `BLOCKED`, `DEFERRED` ou `REJECTED`; não promover diretamente a `PROVEN`/`APPROVED`.
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

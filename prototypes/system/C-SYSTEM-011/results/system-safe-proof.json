@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:49:51.4924670-03:00",
+  "mutationPolicy": "read-only",
+  "probes": [
+    {
+      "featureId": "C-SYSTEM-003",
+      "premise": "Recommendation output supports no-op, evidence-owned diagnostic and conflict explanation without fabricating an action.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "evidence": [],
+            "confidence": "NONE",
+            "decision": "NOTHING_TO_OPTIMIZE",
+            "owner": null
+          },
+          {
+            "evidence": [
+              "measured-pressure"
+            ],
+            "confidence": "MEDIUM",
+            "decision": "SHOW_DIAGNOSTIC",
+            "owner": "C-RAM-004"
+          },
+          {
+            "evidence": [
+              "conflict-a",
+              "conflict-b"
+            ],
+            "confidence": "LOW",
+            "decision": "EXPLAIN_CONFLICT",
+            "owner": "C-SYSTEM-003"
+          }
+        ],
+        "applyCount": 0
+      },
+      "limitations": [
+        "fixture contract; no frontend consumer"
+      ]
+    },
+    {
+      "featureId": "C-SYSTEM-011",
+      "premise": "System Event Log metadata can be queried while correlation stays distinct from causation.",
+      "status": "PASS",
+      "evidence": {
+        "eventCount": 50,
+        "eventError": null,
+        "events": [
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-09T00:15:06.0948919Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-09T00:12:29.9003683Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-09T00:09:13.0443108Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-09T00:08:00.5404861Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-09T00:05:36.6890535Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-09T00:00:22.6426724Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-08T23:17:29.7295373Z"
+          },
+          {
+            "provider": "googledrivefs31931",
+            "id": 1,
+            "level": "Informações",
+            "time": "2026-09-08T23:17:01.9396173Z"
+          },
+          {
+            "provider": "Microsoft-Windows-TPM-WMI",
+            "id": 1025,
+            "level": "Informações",
+            "time": "2026-09-08T22:03:24.4449815Z"
+          },
+          {
+            "provider": "Microsoft-Windows-TPM-WMI",
+            "id": 1282,
+            "level": "Informações",
+            "time": "2026-09-08T22:03:23.9769378Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T21:23:35.6234964Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-08T21:23:35.6172970Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T21:21:20.3371648Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T21:21:20.3302907Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T21:21:15.6641171Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-08T21:21:11.2963705Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T20:09:50.4336451Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-08T20:09:50.4276754Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:46.4857425Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:46.4804995Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:46.4727294Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:46.4668982Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:26.8784577Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:26.8727477Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:22.1298660Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-08T20:07:17.8268592Z"
+          },
+          {
+            "provider": "Microsoft-Windows-Kernel-General",
+            "id": 1,
+            "level": "Informações",
+            "time": "2026-09-08T19:05:01.6162436Z"
+          },
+          {
+            "provider": "Microsoft-Windows-Kernel-General",
+            "id": 24,
+            "level": "Informações",
+            "time": "2026-09-08T19:05:01.6162111Z"
+          },
+          {
+            "provider": "Microsoft-Windows-Time-Service",
+            "id": 35,
+            "level": "Informações",
+            "time": "2026-09-08T19:05:01.6150127Z"
+          },
+          {
+            "provider": "Microsoft-Windows-Time-Service",
+            "id": 37,
+            "level": "Informações",
+            "time": "2026-09-08T19:04:45.6584721Z"
+          },
+          {
+            "provider": "Microsoft-Windows-TPM-WMI",
+            "id": 1025,
+            "level": "Informações",
+            "time": "2026-09-08T17:47:23.5344606Z"
+          },
+          {
+            "provider": "Microsoft-Windows-TPM-WMI",
+            "id": 1282,
+            "level": "Informações",
+            "time": "2026-09-08T17:47:23.0375367Z"
+          },
+          {
+            "provider": "Service Control Manager",
+            "id": 7040,
+            "level": "Informações",
+            "time": "2026-09-08T17:43:54.7830733Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:42:05.5025145Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:50.8454642Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:50.8385075Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:50.8188886Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:50.8119355Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:01.6275606Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:01.6200169Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:01.6101162Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:41:01.5931420Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:40:16.6134702Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:40:16.6082067Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:40:16.6002316Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:40:16.5941507Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:39:35.6265981Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:39:35.6213093Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 113,
+            "level": "Informações",
+            "time": "2026-09-08T17:39:35.6133395Z"
+          },
+          {
+            "provider": "Microsoft-Windows-HttpService",
+            "id": 114,
+            "level": "Informações",
+            "time": "2026-09-08T17:39:35.6072686Z"
+          }
+        ],
+        "nearCorrelationCandidate": true,
+        "falseCorrelationRejected": true,
+        "causationClaimed": false
+      },
+      "limitations": [
+        "no controlled crash/incident; messages omitted for privacy"
+      ]
+    },
+    {
+      "featureId": "C-SYSTEM-015",
+      "premise": "Benchmark readiness can expose pending-reboot, power-source availability and background process count as reasons without optimizing.",
+      "status": "PARTIAL",
+      "evidence": {
+        "pendingRebootSources": {
+          "cbs": false,
+          "windowsUpdate": false
+        },
+        "activePowerSchemeQueryExit": 0,
+        "processCount": 284,
+        "benchmarkStarted": false
+      },
+      "limitations": [
+        "no benchmark consumer/workload; power output omitted"
+      ]
+    },
+    {
+      "featureId": "C-SYSTEM-016",
+      "premise": "Accessibility source presence can be read without exporting values or changing assistive settings.",
+      "status": "PARTIAL",
+      "evidence": {
+        "sources": [
+          {
+            "name": "StickyKeys",
+            "sourcePresent": true,
+            "valueExported": false
+          },
+          {
+            "name": "ToggleKeys",
+            "sourcePresent": true,
+            "valueExported": false
+          },
+          {
+            "name": "KeyboardResponse",
+            "sourcePresent": true,
+            "valueExported": false
+          }
+        ],
+        "valuesExported": false,
+        "settingsChanged": false
+      },
+      "limitations": [
+        "does not prove active assistive technology or managed policy"
+      ]
+    }
+  ]
+}

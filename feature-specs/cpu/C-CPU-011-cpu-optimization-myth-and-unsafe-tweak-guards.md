@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU optimization myth & unsafe-tweak guards  
-ID: C-CPU-011  
-Tipo: Safety, Safety / Product Behavior, Safety / Research  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU optimization myth & unsafe-tweak guards
+ID: C-CPU-011
+Tipo: Safety, Safety / Product Behavior, Safety / Research
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -440,6 +440,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/win32/procthread/scheduling-priorities
 - https://learn.microsoft.com/windows-hardware/design/device-experiences/processor-power-management
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-CPU-011=PASS` em `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. O gate negou os cinco candidatos inseguros/sem evidência (`use all cores`, registry pack de scheduler, realtime, affinity global e evidência unknown); o fingerprint de power scheme/estado observado permaneceu idêntico antes/depois e `mutationAttempted=false`. Nenhum tweak foi aplicado.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — rule/fixture proof that unsafe or undocumented tweaks are rejected and no system mutation occurs.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-CPU-011=PASS` em `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. O gate negou os cinco candidatos inseguros/sem evidência (`use all cores`, registry pack de scheduler, realtime, affinity global e evidência unknown); o fingerprint de power scheme/estado observado permaneceu idêntico antes/depois e `mutationAttempted=false`. Nenhum tweak foi aplicado. Evidência: `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes, pure fixture/rule and dry-run proof is safe; do not apply tweaks. Teste recomendado: Feed documented/undocumented/default-difference/tuning candidates into the safety gate; assert deny/Unknown, provenance and zero registry/power-plan changes.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

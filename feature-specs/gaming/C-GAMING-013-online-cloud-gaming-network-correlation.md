@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Online/cloud gaming network correlation  
-ID: C-GAMING-013  
-Tipo: Diagnostic  
-Technical Domain: GAMING  
-Primary Product Area: Gaming  
-Also Used By: Gaming, Monitoring, Optimization, Benchmark  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Online/cloud gaming network correlation
+ID: C-GAMING-013
+Tipo: Diagnostic
+Technical Domain: GAMING
+Primary Product Area: Gaming
+Also Used By: Gaming, Monitoring, Optimization, Benchmark
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -414,6 +414,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/gaming/gdk/_content/gc/system/overviews/directstorage/directstorage-overview
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — game/cloud network path and latency/loss correlation.
+- Evidência realmente executada: No direct probe; `gaming.running-process-context` does not provide game network identity.
+- Execução segura neste host / teste: Read-only network/process correlation is safe; cloud-game session is absent. Teste recomendado: Use a controlled cloud/game session; correlate per-process endpoints, DNS/path/latency/loss and distinguish local/network/service causes.
+- Impedimento ou limitação restante: No cloud gaming/game session or approved external service fixture; loopback/Ethernet evidence is insufficient.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

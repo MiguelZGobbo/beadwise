@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU vendor-specific capability abstraction  
-ID: C-CPU-013  
-Tipo: Diagnostic, Shared Capability  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU vendor-specific capability abstraction
+ID: C-CPU-013
+Tipo: Diagnostic, Shared Capability
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `cpu.identity.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — abstraction contract on AMD plus explicit unsupported vendor path.
+- Evidência realmente executada: `cpu.identity.cim` PASS includes AMD identity only; no vendor adapter or Intel comparison.
+- Execução segura neste host / teste: AMD read-only baseline is safe; no vendor tuning. Teste recomendado: Execute adapter discovery, AMD field normalization and unsupported Intel/unknown adapter fixture; ensure no field is inferred from generic clocks.
+- Impedimento ou limitação restante: No Intel hardware and no AMD vendor SDK/tool in PATH; cross-vendor compatibility is unproven.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

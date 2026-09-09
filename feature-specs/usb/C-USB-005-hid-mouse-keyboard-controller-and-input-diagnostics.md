@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: HID, mouse, keyboard, controller & input diagnostics  
-ID: C-USB-005  
-Tipo: Diagnostic, Diagnostic / Benchmark  
-Technical Domain: USB  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: HID, mouse, keyboard, controller & input diagnostics
+ID: C-USB-005
+Tipo: Diagnostic, Diagnostic / Benchmark
+Technical Domain: USB
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -439,6 +439,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `usb.present-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/drivers/hid/
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Present HID devices can be enumerated without opening handles or injecting input.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/usb/C-USB-001/results/usb-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: no vendor-specific controller diagnostics
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — HID PnP/input context and Unsupported.
+- Evidência realmente executada: Prototype seguro adicional executado: Present HID devices can be enumerated without opening handles or injecting input. Resultado observado: `PASS`. Evidência: `/prototypes/usb/C-USB-001/results/usb-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — enumerate HID via SetupAPI/PnP, validate present/Unknown without injecting input.
+- Impedimento ou limitação restante: Sem variedade de HID/vendor diagnostics.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

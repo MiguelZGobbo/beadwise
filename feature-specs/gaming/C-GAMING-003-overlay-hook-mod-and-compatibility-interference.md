@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Overlay, hook, mod & compatibility interference  
-ID: C-GAMING-003  
-Tipo: Diagnostic, Diagnostic / Safeguard  
-Technical Domain: GAMING  
-Primary Product Area: Gaming  
-Also Used By: Gaming, Monitoring, Optimization, Benchmark  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Overlay, hook, mod & compatibility interference
+ID: C-GAMING-003
+Tipo: Diagnostic, Diagnostic / Safeguard
+Technical Domain: GAMING
+Primary Product Area: Gaming
+Also Used By: Gaming, Monitoring, Optimization, Benchmark
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -414,6 +414,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/gaming/gdk/_content/gc/system/overviews/directstorage/directstorage-overview
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — overlay/hook/mod interference with an actual game and explicit non-causal reporting.
+- Evidência realmente executada: No direct probe.
+- Execução segura neste host / teste: Read-only module/process inspection is safe; injecting/removing overlays/mods is not. Teste recomendado: Inspect a controlled game process/module set and overlay configuration; compare clean vs known overlay fixture and return Unknown where ownership is unclear.
+- Impedimento ou limitação restante: No game/overlay fixture; inducing hooks or disabling overlays on the live host is unsafe.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

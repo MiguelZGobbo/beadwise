@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Privacy change history & drift awareness  
-ID: C-PRIVACY-006  
-Tipo: Diagnostic / Safety, Recommendation  
-Technical Domain: PRIVACY  
-Primary Product Area: Privacy  
-Also Used By: Privacy, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Privacy change history & drift awareness
+ID: C-PRIVACY-006
+Tipo: Diagnostic / Safety, Recommendation
+Technical Domain: PRIVACY
+Primary Product Area: Privacy
+Also Used By: Privacy, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -283,9 +283,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -410,6 +410,24 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-search
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Privacy drift ignores capture time while detecting a semantic managed-state change without sensitive values.
+- Resultado observado deste probe: `PASS`
+- Evidência reproduzível: `/prototypes/privacy/C-PRIVACY-001/results/privacy-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: synthetic transition; real registry remains read-only
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — snapshot, diff, provenance e histórico sem vazar dados.
+- Evidência realmente executada: Prototype seguro adicional executado: Privacy drift ignores capture time while detecting a semantic managed-state change without sensitive values. Resultado observado: `PASS`. Evidência: `/prototypes/privacy/C-PRIVACY-001/results/privacy-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — usar chave HKCU temporária do prototype para testar inexistente→valor→diff→rollback; fontes reais ficam read-only.
+- Impedimento ou limitação restante: Sem transição real de policy/MDM para validar ownership.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

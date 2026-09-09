@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Microphone diagnostics & validation  
-ID: C-AUDIO-007  
-Tipo: Diagnostic, Diagnostic / Configuration, Tool / Diagnostic  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Microphone diagnostics & validation
+ID: C-AUDIO-007
+Tipo: Diagnostic, Diagnostic / Configuration, Tool / Diagnostic
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -304,9 +304,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -409,25 +409,26 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/audio/c-audio-007/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/audio/C-AUDIO-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
+DETECT: PASS (capture endpoint presence/state/identity slice only)
 PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DRY-RUN: PASS (no capture stream or mutation)
+APPLY: N/A
+VERIFY: PASS (20 capture endpoints enumerated)
+ROLLBACK: N/A
+RESTORE VERIFY: N/A
+PRIVACY/MUTE/LEVEL/CAPTURE: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -439,9 +440,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/audio-sessions
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha inicial 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
 - https://learn.microsoft.com/windows/win32/coreaudio/capturing-a-stream
 - https://learn.microsoft.com/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Core Audio enumerou 20 capture endpoints com IDs, nomes e states sem abrir stream; `IAudioEndpointVolume.GetMute/GetMasterVolumeLevelScalar` foi chamado read-only para endpoints de captura e o consent-store de microfone foi resumido sem app IDs/caminhos. PnP `AudioEndpoint`/`Media` foi sumarizado apenas por status/problem/enumerator/hash. Nenhum áudio foi capturado ou persistido e nenhuma permissão/mute/volume foi alterada. Signal-level e permission-blocked continuam `NOT_TESTED`.
+
+Evidência: /prototypes/audio/C-AUDIO-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — endpoint de captura, mute/level/permission e ausência de retenção de áudio precisam de prova antes de PROVEN.
+- Evidência realmente executada: Prototype seguro adicional executado: Core Audio enumerou 20 capture endpoints com IDs, nomes e states sem abrir stream; `IAudioEndpointVolume.GetMute/GetMasterVolumeLevelScalar` foi chamado read-only para endpoints de captura e o consent-store de microfone foi resumido sem app IDs/caminhos. PnP `AudioEndpoint`/`Media` foi sumarizado apenas por status/problem/enumerator/hash. Nenhum áudio foi capturado ou persistido e nenhuma permissão/mute/volume foi alterada. Signal-level e permission-blocked continuam `NOT_TESTED`. Evidência: `/prototypes/audio/C-AUDIO-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Consulta read-only executada; captura de sinal só deve ocorrer com consentimento explícito e sem retenção.
+- Impedimento ou limitação restante: Signal-level, permission-blocked, mute alterado e fluxo de consentimento real continuam NOT_TESTED por segurança/escopo.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

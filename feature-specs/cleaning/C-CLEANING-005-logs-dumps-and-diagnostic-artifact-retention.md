@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Logs, dumps & diagnostic artifact retention  
-ID: C-CLEANING-005  
-Tipo: Diagnostic / Configuration  
-Technical Domain: CLEANING  
-Primary Product Area: Cleaning  
-Also Used By: Cleaning, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Logs, dumps & diagnostic artifact retention
+ID: C-CLEANING-005
+Tipo: Diagnostic / Configuration
+Technical Domain: CLEANING
+Primary Product Area: Cleaning
+Also Used By: Cleaning, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -298,9 +298,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -403,25 +403,25 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/cleaning/c-cleaning-005/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/cleaning/C-CLEANING-007/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS (synthetic diagnostic-artifact fixture)
+PLAN: PASS (expired dump eligible; active/locked dump excluded)
+DRY-RUN: PASS
+APPLY: PASS (prototype-owned fixture only)
+VERIFY: PASS (retention and lock boundary)
+ROLLBACK: N/A (deletion is not reversible)
+RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -433,7 +433,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows/win32/shell/knownfolderid
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha inicial 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Fixture de artefatos diagnósticos executada: dump expirado allowlisted foi removido e dump ativo com lock exclusivo foi preservado. Event Logs, dumps reais e políticas reais de retenção não foram alterados nem considerados aprovados.
+
+Evidência: /prototypes/cleaning/C-CLEANING-007/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — retention boundary, active/locked artifact behavior and exact bytes freed.
+- Evidência realmente executada: Prototype seguro adicional executado: Fixture de artefatos diagnósticos executada: dump expirado allowlisted foi removido e dump ativo com lock exclusivo foi preservado. Event Logs, dumps reais e políticas reais de retenção não foram alterados nem considerados aprovados. Evidência: `/prototypes/cleaning/C-CLEANING-007/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes in an isolated temp artifact fixture; do not delete real Event Logs/dumps. Teste recomendado: Create synthetic log/dump artifacts with retention ages and a locked artifact; preview; delete only eligible fixture files; verify bytes and active-artifact exclusion.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

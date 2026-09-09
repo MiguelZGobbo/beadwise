@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: System change history, drift & anomaly detection  
-ID: C-SYSTEM-007  
-Tipo: Diagnostic, Diagnostic / Cleanup, Diagnostic / Safety  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: System change history, drift & anomaly detection
+ID: C-SYSTEM-007
+Tipo: Diagnostic, Diagnostic / Cleanup, Diagnostic / Safety
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -292,9 +292,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -389,25 +389,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/system/c-system-007/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/system/C-SYSTEM-007/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
+DETECT: PASS
 PLAN: NOT_TESTED
 DRY-RUN: NOT_TESTED
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: PASS
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -419,7 +419,18 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/rstmgr/about-restart-manager
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha 2026-09-08):** a primeira rodada confundiu a evidência compartilhada de `C-SYSTEM-017` com prova suficiente para esta capability; a auditoria final corrigiu essa lacuna com prototype próprio.
+
+**Observed behavior (auditoria final 2026-09-08):** criado prototype próprio em `/prototypes/system/C-SYSTEM-007/`. O coletor read-only capturou baseline de chave inexistente e uma segunda captura após mudança controlada, e o comparador emitiu drift normalizado com provenance (`DETECT/VERIFY: PASS` para a fatia Registry). O harness usou somente `HKCU:\Software\BeadWise\Phase2Proof\C-SYSTEM-007`, exercitou ChangePlan/dry-run/apply/idempotência/rollback da **fixture** e removeu a chave em `finally`; esses passos comprovam segurança do harness e o mecanismo compartilhável de snapshot/rollback para a prova técnica da Fase 2. Evidências: `/prototypes/system/C-SYSTEM-007/results/drift.json` e `/prototypes/system/C-SYSTEM-007/results/registry-drift-proof.json`. Isto resolve a inconsistência: `C-SYSTEM-017` continua sendo apenas o bundle compartilhado de coleta/export; ele nunca foi prova de `C-SYSTEM-007`. Histórico/correlação multi-source fica como limitação de escopo para arquitetura/implementação futura, não como `PASS` inferido.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — a fatia segura e representativa de Registry drift/snapshot/rollback foi executada; histórico multi-source, normalização temporal e correlação sem causalidade ficam explicitamente como limitações de escopo para arquitetura/implementação futura.
+- Evidência realmente executada: Prototype próprio C-SYSTEM-007 capturou estado inexistente, mudança Registry HKCU controlada, diff/provenance e cleanup; a fixture foi removida.
+- Execução segura neste host / teste: Executado somente em HKCU:\Software\BeadWise\Phase2Proof\C-SYSTEM-007, com cleanup em finally e sem reboot.
+- Impedimento ou limitação restante: SCM, Task Scheduler, DISM, Event Log, ETW, policy/vendor e persistência após reboot não foram provados e não devem ser inferidos a partir da fatia Registry.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

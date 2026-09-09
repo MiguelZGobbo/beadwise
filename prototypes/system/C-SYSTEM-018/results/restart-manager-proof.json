@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "featureId": "C-SYSTEM-018",
+  "premise": "Restart Manager identifies the owner of a prototype-owned file lock; cleanup and restart target only that child process.",
+  "status": "PASS",
+  "capturedAt": "2026-09-08T21:43:19.6271363-03:00",
+  "mutationPolicy": "prototype-owned temp file and child processes only",
+  "evidence": {
+    "lockOwnerMatched": true,
+    "unlockVerified": true,
+    "restartVerified": true,
+    "ownerCount": 1,
+    "externalProcessTerminated": false,
+    "api": "RmStartSession/RmRegisterResources/RmGetList/RmEndSession",
+    "error": null
+  },
+  "limitations": [
+    "does not exercise services, critical processes, kernel or antivirus locks; RmShutdown/RmRestart intentionally not invoked"
+  ]
+}

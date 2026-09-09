@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Peripheral driver, firmware & software-conflict diagnostics  
-ID: C-USB-006  
-Tipo: Diagnostic, Diagnostic / Manual Guidance  
-Technical Domain: USB  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Peripheral driver, firmware & software-conflict diagnostics
+ID: C-USB-006
+Tipo: Diagnostic, Diagnostic / Manual Guidance
+Technical Domain: USB
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -418,6 +418,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `usb.present-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/drivers/hid/
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — driver/firmware/vendor conflict distinction.
+- Evidência realmente executada: E:usb.present-devices.pnp PASS (parcial).
+- Execução segura neste host / teste: Parcial — PnP driver metadata and `VendorTelemetryUnavailable`.
+- Impedimento ou limitação restante: Sem firmware/vendor API/device conflict; não inferir conflito.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

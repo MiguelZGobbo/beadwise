@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Audio sleep/resume diagnostics  
-ID: C-AUDIO-013  
-Tipo: Diagnostic  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Audio sleep/resume diagnostics
+ID: C-AUDIO-013
+Tipo: Diagnostic
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -291,9 +291,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -418,6 +418,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `audio.services`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — endpoint/session/format/topology correlation across an actual sleep/resume transition.
+- Evidência realmente executada: `audio.services` PASS proves only that `AudioSrv`/`AudioEndpointBuilder` are currently running; no sleep/resume or Core Audio API trace was executed.
+- Execução segura neste host / teste: Baseline read-only detection is safe; inducing sleep/resume/reboot in the live session is disruptive. Teste recomendado: Persist pre-state, execute one controlled sleep/resume in a dedicated session, re-enumerate MMDevice/WASAPI/session/topology state, correlate events/ETW and verify endpoint recovery; exercise partial/unsupported paths.
+- Impedimento ou limitação restante: No safe sleep/resume orchestration fixture; campaign did not execute reboot/logoff/resume and no feature prototype exists.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

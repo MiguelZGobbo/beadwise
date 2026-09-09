@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: System identity, baseline & compatibility context  
-ID: C-SYSTEM-001  
-Tipo: Diagnostic, Shared Capability  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: System identity, baseline & compatibility context
+ID: C-SYSTEM-001
+Tipo: Diagnostic, Shared Capability
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -292,9 +292,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -420,6 +420,17 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** o prototype próprio coletou OS/build/arquitetura, CPU/topologia, GPU/driver/PNP ID, placa-mãe, form factor, admin, bateria e hypervisor em JSON. O teste automatizado do contrato falhou antes da implementação e passou depois (`PASS: environment evidence contract is complete`). Evidências: `/prototypes/system/C-SYSTEM-001/results/environment.json` e `/prototypes/system/C-SYSTEM-001/tests/collect-environment.tests.ps1`. Esta execução comprova o caminho neste host; cenários de campo ausente, acesso negado, ARM64, laptop e VM continuam `NOT_TESTED`, portanto o status permanece `SPECIFIED`.
+
+**Observed behavior (auditoria final 2026-09-08):** o subprototype .NET/Win32 `NativeEnvironmentProbe` chamou `GetNativeSystemInfo` e `RtlGetVersion` via P/Invoke e retornou `processorCount=16`, `processorArchitecture=9`, `windowsBuild=26200`, `rtlStatus=0` (`PASS: native Win32/PInvoke environment probe returned coherent data`). Evidência: `/prototypes/system/C-SYSTEM-001/results/native-environment.json`. Isto confirma que P/Invoke é viável para identidade/compatibilidade neste host, sem transformar a escolha em arquitetura final.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — coleta real de ambiente e P/Invoke Win32 para identidade/compatibilidade foram executados; caminhos Partial/Denied, ARM64, laptop e VM ficam como limitações para PROVEN/arquitetura futura.
+- Evidência realmente executada: CIM/PowerShell DETECT+VERIFY PASS e P/Invoke GetNativeSystemInfo/RtlGetVersion PASS em /prototypes/system/C-SYSTEM-001/results/native-environment.json.
+- Execução segura neste host / teste: A prova nativa read-only foi executada com segurança; fixtures de campos ausentes/negados ainda podem ser unitárias.
+- Impedimento ou limitação restante: Somente um desktop x64 foi testado; laptop, VM, ARM64 e falhas de campo não foram executados e não devem ser inferidos.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

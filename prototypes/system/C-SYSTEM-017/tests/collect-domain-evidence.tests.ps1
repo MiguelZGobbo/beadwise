@@ -11,7 +11,14 @@ $expectedDomains = @(
 
 try {
     & $collector -OutputPath $testOutput -Fast
-    $result = Get-Content -Raw -LiteralPath $testOutput | ConvertFrom-Json
+    $rawResult = Get-Content -Raw -LiteralPath $testOutput
+    if ($rawResult -match 'S-1-5-21-(?:\d+-){3}\d+') {
+        throw 'Domain evidence persisted a raw user SID'
+    }
+    if ($rawResult -match '(?i)[A-Z]:\\\\Users\\\\(?!\[REDACTED\])[^\\"]+') {
+        throw 'Domain evidence persisted a raw user profile path'
+    }
+    $result = $rawResult | ConvertFrom-Json
 
     if ($result.schemaVersion -ne 1) {
         throw "Unexpected schemaVersion: $($result.schemaVersion)"

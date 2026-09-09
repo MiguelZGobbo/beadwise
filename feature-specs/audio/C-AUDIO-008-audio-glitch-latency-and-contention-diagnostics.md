@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Audio glitch, latency & contention diagnostics  
-ID: C-AUDIO-008  
-Tipo: Diagnostic, Diagnostic / Monitoring  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Audio glitch, latency & contention diagnostics
+ID: C-AUDIO-008
+Tipo: Diagnostic, Diagnostic / Monitoring
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -291,9 +291,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -418,6 +418,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — glitch/latency/contending-process diagnosis with a real measurement path.
+- Evidência realmente executada: No direct probe; spec is `NOT_TESTED`.
+- Execução segura neste host / teste: A short read-only measurement is possible, but a contention workload must not disturb the user's audio; ETW/WPR availability alone is not proof. Teste recomendado: Capture a bounded Core Audio/ETW timing trace while a controlled audio workload runs; measure glitches/latency and correlate process contention, then repeat idle.
+- Impedimento ou limitação restante: No controlled playback/capture workload or ETW trace result; full gate needs a dedicated, non-disruptive fixture.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

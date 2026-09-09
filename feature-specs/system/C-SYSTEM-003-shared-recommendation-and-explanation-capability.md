@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Shared recommendation & explanation capability  
-ID: C-SYSTEM-003  
-Tipo: Diagnostic / Optimization, Diagnostic / Product Behavior  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: Optimization, Diagnostics, Repair, My PC, Gaming  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Shared recommendation & explanation capability
+ID: C-SYSTEM-003
+Tipo: Diagnostic / Optimization, Diagnostic / Product Behavior
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: Optimization, Diagnostics, Repair, My PC, Gaming
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -305,9 +305,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -442,6 +442,24 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Recommendation output supports no-op, evidence-owned diagnostic and conflict explanation without fabricating an action.
+- Resultado observado deste probe: `PASS`
+- Evidência reproduzível: `/prototypes/system/C-SYSTEM-011/results/system-safe-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: fixture contract; no frontend consumer
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — regras, explicação, conflitos e no-op.
+- Evidência realmente executada: Prototype seguro adicional executado: Recommendation output supports no-op, evidence-owned diagnostic and conflict explanation without fabricating an action. Resultado observado: `PASS`. Evidência: `/prototypes/system/C-SYSTEM-011/results/system-safe-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — fixtures versionadas de recommendation/evidence/confidence/owner e `nothing-to-optimize`.
+- Impedimento ou limitação restante: Precisa consumidores reais para compatibilidade, não impede prova do contrato próprio.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

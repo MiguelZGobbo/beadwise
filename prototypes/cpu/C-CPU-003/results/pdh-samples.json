@@ -1,0 +1,22 @@
+{
+  "featureId": "C-CPU-003",
+  "mechanism": "PDH_PdhAddEnglishCounterW",
+  "counterPath": "\\Processor(_Total)\\% Processor Time",
+  "samples": [
+    {
+      "capturedAt": "2026-09-08T21:24:36.4883260-03:00",
+      "status": 0,
+      "value": 20.42835909099049
+    },
+    {
+      "capturedAt": "2026-09-08T21:24:36.6050925-03:00",
+      "status": 0,
+      "value": 21.11125382603912
+    },
+    {
+      "capturedAt": "2026-09-08T21:24:36.7137986-03:00",
+      "status": 0,
+      "value": 27.3917804648123
+    }
+  ]
+}

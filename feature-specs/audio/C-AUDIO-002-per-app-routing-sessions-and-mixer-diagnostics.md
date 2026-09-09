@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Per-app routing, sessions & mixer diagnostics  
-ID: C-AUDIO-002  
-Tipo: Diagnostic, Diagnostic / Configuration  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Per-app routing, sessions & mixer diagnostics
+ID: C-AUDIO-002
+Tipo: Diagnostic, Diagnostic / Configuration
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -304,9 +304,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -441,6 +441,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/win32/coreaudio/core-audio-interfaces
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — session enumeration and any supported volume/mute snapshot/apply/verify/rollback semantics.
+- Evidência realmente executada: No direct probe; spec has `DETECT/PLAN/DRY-RUN/APPLY/VERIFY/ROLLBACK: NOT_TESTED`.
+- Execução segura neste host / teste: Baseline session enumeration is safe; session mutation and session-close rollback are not safe in the user's live audio session. Teste recomendado: Use `IAudioSessionManager2`/enumerator with two controlled benign audio sessions; prove read-only routing limits; if mutation is retained, snapshot volume/mute, apply, verify, restore and verify rollback.
+- Impedimento ou limitação restante: No controlled app/session fixture and no feature prototype; persistent per-app routing must not be inferred from current sessions.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

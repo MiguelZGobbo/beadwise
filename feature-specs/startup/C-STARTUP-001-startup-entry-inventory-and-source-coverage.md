@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Startup entry inventory & source coverage  
-ID: C-STARTUP-001  
-Tipo: Diagnostic, Diagnostic / Safeguard  
-Technical Domain: STARTUP  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Startup entry inventory & source coverage
+ID: C-STARTUP-001
+Tipo: Diagnostic, Diagnostic / Safeguard
+Technical Domain: STARTUP
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -276,8 +276,8 @@ N/A.
 - Windows 11 26H1: Target condicional; não presumir equivalência de build/event schema.
 
 ### Arquitetura
-x64: target principal.  
-ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.  
+x64: target principal.
+ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.
 Other: TBD.
 
 ### Hardware
@@ -372,25 +372,25 @@ No
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/startup/c-startup-001/` — TBD.
+Local: `/prototypes/startup/C-STARTUP-001/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: PASS
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 ## 31. Evidências
@@ -403,9 +403,18 @@ Date: TBD
 - Documented behavior — https://learn.microsoft.com/uwp/api/windows.applicationmodel.startuptask?view=winrt-28000
 - Documented behavior — https://learn.microsoft.com/sysinternals/downloads/autoruns
 
-Observed behavior: N/A nesta revisão; nenhuma execução real foi alegada.
-
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `startup.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+**Observed behavior (auditoria final 2026-09-08):** o prototype próprio `C-STARTUP-001` criou uma entrada controlada `HKCU\...\Run\BeadWisePhase2Proof`, executou inventário Registry Run + Startup folders, confirmou detecção exata, escopo `CurrentUser`, preservação de comando quando solicitada e restaurou/removou a entrada em `finally` (`PASS: controlled startup fixture was detected and normalized`). Evidência: `/prototypes/startup/C-STARTUP-001/results/startup-inventory.json`. A prova cobre HKCU/HKLM Run e Startup folders; RunOnce/WOW64, Task Scheduler, services, packaged startup tasks e logon real continuam `NOT_TESTED`, portanto o status permanece `SPECIFIED`.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — inventário de Startup folders e Registry Run com fixture HKCU controlada foi executado e limpo; RunOnce/WOW64, Task Scheduler, services, packaged startup tasks e logon real ficam como limitações para PROVEN/arquitetura futura.
+- Evidência realmente executada: Fixture HKCU Run inofensiva detectada com scope/provenance e restaurada em finally; inventário real persistido com command lines redigidas.
+- Execução segura neste host / teste: Teste serializado executado sem logoff/reboot; valor original foi restaurado ou removido conforme snapshot.
+- Impedimento ou limitação restante: RunOnce/WOW64, shortcuts adversariais, Task Scheduler, SCM, packaged startup tasks e logon real não foram provados e não devem ser inferidos a partir da fixture HKCU Run.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU thermal, power & limiter diagnostics  
-ID: C-CPU-006  
-Tipo: Benchmark, Diagnostic, Monitoring  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU thermal, power & limiter diagnostics
+ID: C-CPU-006
+Tipo: Benchmark, Diagnostic, Monitoring
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -419,6 +419,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows-hardware/design/device-experiences/processor-power-management
 - https://www.amd.com/en/developer/resources/ryzen-master-monitoring-sdk.html
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — temperature/package power/limiter source semantics and unsupported vendor path.
+- Evidência realmente executada: No direct thermal/power probe; shared CPU samples do not contain sensor semantics.
+- Execução segura neste host / teste: Read-only OS/vendor query is safe; no tuning. Teste recomendado: Query supported temperature/power sources, record sensor semantics and `UNAVAILABLE`; exercise no-sensor path and correlate bounded load without overheat.
+- Impedimento ou limitação restante: No supported AMD telemetry tool/API was available and no Intel platform exists; cross-vendor gate cannot be met on this host.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

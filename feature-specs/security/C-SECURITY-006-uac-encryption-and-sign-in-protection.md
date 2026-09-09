@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: UAC, encryption & sign-in protection  
-ID: C-SECURITY-006  
-Tipo: Diagnostic, Diagnostic / Configuration  
-Technical Domain: SECURITY  
-Primary Product Area: Security  
-Also Used By: Security, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: RESEARCH  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: UAC, encryption & sign-in protection
+ID: C-SECURITY-006
+Tipo: Diagnostic, Diagnostic / Configuration
+Technical Domain: SECURITY
+Primary Product Area: Security
+Also Used By: Security, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: RESEARCH
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -301,9 +301,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -406,25 +406,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/security/c-security-006/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/security/C-SECURITY-006/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
+APPLY: N/A
+VERIFY: PASS
+ROLLBACK: N/A
+RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -437,7 +437,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/security/operating-system-security/data-protection/bitlocker/
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `RESEARCH` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (auditoria final 2026-09-08):** o prototype próprio `C-SECURITY-006` confirmou token não elevado (`IsAdministrator=False`) e `net session` retornando `Erro de sistema 5 / Acesso negado` com exit code 2 (`ADMIN_REQUIRED_SIGNAL: PASS`). Após revisão de privacidade, a evidência persistida foi regenerada sem nome de identidade, e-mail, SID ou lista de grupos (`identityPersisted=false`). Evidência: `/prototypes/security/C-SECURITY-006/results/admin-uac-proof.json`. Isto prova modelagem de falta de privilégio/admin-required sem prompt UAC; não prova elevação sob demanda, helper elevado, IPC, BitLocker/sign-in/encryption nem continuidade após consentimento; status permanece `RESEARCH`.
 - https://learn.microsoft.com/windows/security/operating-system-security/system-security/user-account-control/
+
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:START -->
+**Reavaliação final de RESEARCH (2026-09-08):**
+- O status `RESEARCH` foi revisto e preservado porque ainda há incerteza técnica solucionável descrita nas seções 30, 31 e 36; documentação ou probe compartilhado parcial não foi convertido em `PASS`.
+- Nenhuma prova prática isolada nesta máquina elimina essa incerteza sem antes definir fonte, contrato, fixture, hardware ou dependência indicada pela própria spec.
+- Próximo gate: concluir a investigação registrada, então decidir se cabe prototype seguro, `SPECIFIED`, `BLOCKED`, `DEFERRED` ou `REJECTED`; não promover diretamente a `PROVEN`/`APPROVED`.
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

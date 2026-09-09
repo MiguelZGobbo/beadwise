@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Display link, connection & hotplug diagnostics  
-ID: C-DISPLAY-007  
-Tipo: Diagnostic, Diagnostic / Monitoring  
-Technical Domain: DISPLAY  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Display link, connection & hotplug diagnostics
+ID: C-DISPLAY-007
+Tipo: Diagnostic, Diagnostic / Monitoring
+Technical Domain: DISPLAY
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `display.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — link identity, hotplug and disappearance/reappearance correlation.
+- Evidência realmente executada: `display.inventory.cim` PASS is a static inventory; no hotplug event was tested.
+- Execução segura neste host / teste: Static detection is safe; unplugging the active display is disruptive and not safe as an automated proof. Teste recomendado: Observe a safely removable secondary display/dock if available; otherwise implement event/state parser with fixtures and verify disappearance/return.
+- Impedimento ou limitação restante: No safe secondary/hotplug fixture; live active monitor must not be removed during campaign.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

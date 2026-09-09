@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Process action workflow & safeguards  
-ID: C-PROCESSES-007  
-Tipo: Diagnostic / Configuration, Diagnostic / Safeguard, Repair / Tool, Safeguard  
-Technical Domain: PROCESSES  
-Primary Product Area: TBD  
-Also Used By: Monitoring, Diagnostics, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Process action workflow & safeguards
+ID: C-PROCESSES-007
+Tipo: Diagnostic / Configuration, Diagnostic / Safeguard, Repair / Tool, Safeguard
+Technical Domain: PROCESSES
+Primary Product Area: TBD
+Also Used By: Monitoring, Diagnostics, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -310,9 +310,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -415,25 +415,25 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/processes/c-processes-007/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/processes/C-PROCESSES-007/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS
+PLAN: PASS
+DRY-RUN: PASS
+APPLY: PASS
+VERIFY: PASS
+ROLLBACK: PASS
+RESTORE VERIFY: PASS
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -446,11 +446,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/wer/windows-error-reporting
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (auditoria final 2026-09-08):** o prototype próprio `C-PROCESSES-007` iniciou um processo filho `pwsh` controlado, detectou PID real, gerou plano limitado ao processo controlado, executou terminate, confirmou ausência, iniciou replacement e confirmou running (`PASS: controlled process restart workflow works`). A prova complementar `restart-owned-process.ps1` registrou dry-run sem mutação, snapshot de ausência original, Apply, Verify, rollback terminando o replacement e restauração da ausência original. Evidências: `/prototypes/processes/C-PROCESSES-007/results/process-restart-proof.json` e `/prototypes/processes/C-PROCESSES-007/results/process-restart.json`. Isto prova restart seguro de processo controlado neste host, mas não prova processos protegidos/críticos, apps com estado de usuário, serviços, drivers, UAC ou Restart Manager; status permanece `SPECIFIED`.
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-isprocesscritical
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/restartmanager/
 - Documented behavior — https://learn.microsoft.com/windows/win32/api/restartmanager/ns-restartmanager-rm_process_info
 - Documented behavior — https://learn.microsoft.com/windows/win32/rstmgr/critical-system-services
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — lifecycle/restart de processo próprio, dry-run, snapshot, apply, verify, rollback e cleanup foram executados; o mecanismo Restart Manager foi exercitado separadamente com lock/processo próprios.
+- Evidência realmente executada: ChangePlan, dry-run, snapshot de ausência, terminate, restart, verify e cleanup/rollback PASS em processo-filho próprio; C-SYSTEM-018 confirmou RmStartSession/RmRegisterResources/RmGetList e restart controlado do único lock owner.
+- Execução segura neste host / teste: Teste serializado executado somente com dois pwsh filhos ocultos do prototype; nenhum processo do usuário foi tocado.
+- Impedimento ou limitação restante: Processos protegidos/GUI/UWP, serviços, RmShutdown/RmRestart, TOCTOU e processos de usuário não foram alterados por segurança e não devem ser inferidos a partir dos processos controlados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

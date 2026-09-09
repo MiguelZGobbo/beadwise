@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Update rollback & regression correlation  
-ID: C-UPDATE-008  
-Tipo: Diagnostic, Diagnostic / Recovery, Measurement  
-Technical Domain: UPDATE  
-Primary Product Area: Update  
-Also Used By: Update, Diagnostics, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Update rollback & regression correlation
+ID: C-UPDATE-008
+Tipo: Diagnostic, Diagnostic / Recovery, Measurement
+Technical Domain: UPDATE
+Primary Product Area: Update
+Also Used By: Update, Diagnostics, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -300,9 +300,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -437,6 +437,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - https://learn.microsoft.com/windows/deployment/update/windows-update-logs
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Temporal proximity may be correlated but a far incident must be rejected and neither establishes causation.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/update/C-UPDATE-001/results/update-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: no real regression or rollback operation
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — correlation true/false between update and regression.
+- Evidência realmente executada: Prototype seguro adicional executado: Temporal proximity may be correlated but a far incident must be rejected and neither establishes causation. Resultado observado: `PASS`. Evidência: `/prototypes/update/C-UPDATE-001/results/update-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — parse WindowsUpdate logs/hotfix timeline + fixtures verdadeiro/falso; não uninstall update.
+- Impedimento ou limitação restante: Sem rollback/regressão real para validar operação.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver regression correlation & validation  
-ID: C-DRIVERS-007  
-Tipo: Diagnostic, Diagnostic / Validation  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver regression correlation & validation
+ID: C-DRIVERS-007
+Tipo: Diagnostic, Diagnostic / Validation
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -288,9 +288,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -385,25 +385,26 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/drivers/c-drivers-007/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/drivers/C-DRIVERS-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DETECT: PASS (SetupAPI log metadata + 30 PnP/driver Event Log records)
+PLAN: N/A
+DRY-RUN: N/A
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: PASS (timestamp/provenance bundle; causality explicitly false)
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
+CONTROLLED REGRESSION FIXTURE: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -414,7 +415,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-driver-servicing-command-line-options-s14
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-deviceinstallation
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `drivers.problem-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `drivers.problem-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** `setupapi.dev.log` foi verificado/hasheado e 30 records recentes dos providers PnP/driver foram coletados read-only. O artifact registra explicitamente `causalityClaimed=false`; nenhuma regressão foi inferida por proximidade temporal. Falta um evento de regressão controlado para o gate completo.
+
+Evidência: /prototypes/drivers/C-DRIVERS-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — correlação temporal sem falsa causalidade precisa de prova antes de PROVEN.
+- Evidência realmente executada: Prototype seguro adicional executado: `setupapi.dev.log` foi verificado/hasheado e 30 records recentes dos providers PnP/driver foram coletados read-only. O artifact registra explicitamente `causalityClaimed=false`; nenhuma regressão foi inferida por proximidade temporal. Falta um evento de regressão controlado para o gate completo. Evidência: `/prototypes/drivers/C-DRIVERS-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Leitura de logs/eventos executada sem instalar, remover, reiniciar ou alterar driver.
+- Impedimento ou limitação restante: Não há regressão controlada nem evento causal conhecido; proximity temporal não foi promovida a causa.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

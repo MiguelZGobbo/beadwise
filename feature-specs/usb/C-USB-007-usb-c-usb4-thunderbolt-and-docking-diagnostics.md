@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: USB-C, USB4, Thunderbolt & docking diagnostics  
-ID: C-USB-007  
-Tipo: Diagnostic, Diagnostic / Repair Guidance  
-Technical Domain: USB  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: USB-C, USB4, Thunderbolt & docking diagnostics
+ID: C-USB-007
+Tipo: Diagnostic, Diagnostic / Repair Guidance
+Technical Domain: USB
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -439,6 +439,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `usb.present-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/drivers/hid/
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — USB-C/USB4/Thunderbolt/dock path.
+- Evidência realmente executada: E:usb.present-devices.pnp PASS (não prova essas classes).
+- Execução segura neste host / teste: Sim só para `NotApplicable` detection.
+- Impedimento ou limitação restante: Não há hardware USB-C/USB4/Thunderbolt/dock.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

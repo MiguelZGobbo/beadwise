@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:40:06.1609590-03:00",
+  "mutationPolicy": "ephemeral-process-memory-only",
+  "probes": [
+    {
+      "featureId": "C-RAM-001",
+      "premise": "CIM module/array inventory can be reconciled with native physical-memory total.",
+      "status": "PASS",
+      "evidence": {
+        "moduleCount": 2,
+        "arrayCount": 1,
+        "nativeTotalBytes": 34142687232,
+        "cimModuleBytes": 34359738368.0,
+        "sources": [
+          "GlobalMemoryStatusEx",
+          "Win32_PhysicalMemory",
+          "Win32_PhysicalMemoryArray"
+        ]
+      },
+      "limitations": [
+        "single desktop; no ECC or empty-slot matrix"
+      ]
+    },
+    {
+      "featureId": "C-RAM-004",
+      "premise": "A bounded allocation is visible in a before/during/after memory window and is cleaned up.",
+      "status": "PASS",
+      "evidence": {
+        "allocatedBytes": 67108864,
+        "workingSetBefore": 161116160,
+        "workingSetDuring": 232456192,
+        "workingSetAfterCleanup": 299966464,
+        "nativeLoadPercent": 46
+      },
+      "limitations": [
+        "64 MiB allocation does not prove OOM behavior"
+      ]
+    },
+    {
+      "featureId": "C-RAM-006",
+      "premise": "Per-process growth and release can be sampled without classifying every retained working-set page as a leak.",
+      "status": "PARTIAL",
+      "evidence": {
+        "workingSetGrowthBytes": 71340032,
+        "workingSetAfterCleanup": 299966464,
+        "classification": "BOUNDED_FIXTURE_RELEASED"
+      },
+      "limitations": [
+        "allocator may retain pages; no real leaking process"
+      ]
+    },
+    {
+      "featureId": "C-RAM-009",
+      "premise": "An unsafe tweak guard blocks absent evidence or absent rollback and never emits Apply.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "evidence": false,
+            "documented": false,
+            "rollback": false,
+            "decision": "BLOCK"
+          },
+          {
+            "evidence": true,
+            "documented": true,
+            "rollback": false,
+            "decision": "BLOCK"
+          },
+          {
+            "evidence": true,
+            "documented": true,
+            "rollback": true,
+            "decision": "REVIEW"
+          }
+        ],
+        "applyCount": 0
+      },
+      "limitations": [
+        "contract fixture only"
+      ]
+    },
+    {
+      "featureId": "C-RAM-010",
+      "premise": "A localized PDH-backed page-fault counter can be sampled temporally.",
+      "status": "PASS",
+      "evidence": {
+        "path": [
+          "\\Memória\\Falhas de páginas/s"
+        ],
+        "sampleCount": 3,
+        "minimum": 4960.086325132221,
+        "maximum": 54648.67747153529
+      },
+      "limitations": [
+        "aggregate page faults are not per-process hard faults"
+      ]
+    },
+    {
+      "featureId": "C-RAM-012",
+      "premise": "Native NUMA topology reports a one-node or multi-node result without inferring unsupported topology.",
+      "status": "PASS",
+      "evidence": {
+        "highestNode": 0,
+        "nodeCount": 1,
+        "source": "GetNumaHighestNodeNumber"
+      },
+      "limitations": [
+        "single UMA/NUMA topology; no ARM64"
+      ]
+    },
+    {
+      "featureId": "C-RAM-014",
+      "premise": "Capacity guidance depends on measured pressure context rather than a magic capacity threshold.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "capacityGb": 4,
+            "commitRatio": 0.95,
+            "sustainedPressure": true,
+            "classification": "CONSTRAINED"
+          },
+          {
+            "capacityGb": 32,
+            "commitRatio": 0.35,
+            "sustainedPressure": false,
+            "classification": "NO_EVIDENCE_OF_CAPACITY_LIMIT"
+          }
+        ],
+        "currentCapacityGb": 31.8
+      },
+      "limitations": [
+        "fixture rule not validated against diverse workloads"
+      ]
+    },
+    {
+      "featureId": "C-RAM-016",
+      "premise": "Large-page capability can be detected without changing SeLockMemoryPrivilege or allocating a large page.",
+      "status": "PARTIAL",
+      "evidence": {
+        "minimumBytes": 2097152,
+        "allocationAttempted": false,
+        "privilegeChanged": false,
+        "source": "GetLargePageMinimum"
+      },
+      "limitations": [
+        "privileged allocation intentionally not attempted"
+      ]
+    },
+    {
+      "featureId": "C-RAM-017",
+      "premise": "A bounded memory-copy workload records bytes and duration without turning one sample into a universal recommendation.",
+      "status": "PARTIAL",
+      "evidence": {
+        "bytesCopied": 67108864,
+        "durationMs": 11.837,
+        "recommendation": "NONE_FROM_SINGLE_SAMPLE"
+      },
+      "limitations": [
+        "synthetic single-host workload"
+      ]
+    }
+  ]
+}

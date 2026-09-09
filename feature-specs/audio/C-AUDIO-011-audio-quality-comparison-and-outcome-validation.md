@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Audio quality comparison & outcome validation  
-ID: C-AUDIO-011  
-Tipo: Diagnostic / Validation, Tool / Benchmark  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Audio quality comparison & outcome validation
+ID: C-AUDIO-011
+Tipo: Diagnostic / Validation, Tool / Benchmark
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -291,9 +291,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -418,6 +418,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — controlled quality comparison and outcome validation; no universal subjective/quality claim.
+- Evidência realmente executada: No direct probe; spec is `NOT_TESTED`.
+- Execução segura neste host / teste: A reference playback measurement can be safe only with a dedicated audio fixture and user consent; not safe to improvise in the live session. Teste recomendado: Run identical reference signal through two paths with repeatable capture/latency/level metrics; report variance and limitations, never infer quality from endpoint names.
+- Impedimento ou limitação restante: No controlled reference signal/capture chain and no objective acceptance baseline; subjective comparison is not executable safely now.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

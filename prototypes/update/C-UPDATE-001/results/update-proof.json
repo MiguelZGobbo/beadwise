@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:41:08.6684733-03:00",
+  "mutationPolicy": "read-only",
+  "probes": [
+    {
+      "featureId": "C-UPDATE-001",
+      "premise": "Update Agent history and pending-restart sources are reported independently.",
+      "status": "PASS",
+      "evidence": {
+        "historyCount": 20,
+        "historyError": null,
+        "pendingSources": {
+          "componentBasedServicing": false,
+          "windowsUpdate": false,
+          "pendingFileRename": false
+        },
+        "searchInvoked": false
+      },
+      "limitations": [
+        "no currently pending update/restart scenario"
+      ]
+    },
+    {
+      "featureId": "C-UPDATE-003",
+      "premise": "Servicing readiness preserves build, service state and source availability without running repair or scan.",
+      "status": "PASS",
+      "evidence": {
+        "build": "26200",
+        "edition": "Microsoft Windows 11 Pro",
+        "services": [
+          {
+            "Name": "bits",
+            "Status": 4,
+            "StartType": 2
+          },
+          {
+            "Name": "usosvc",
+            "Status": 4,
+            "StartType": 2
+          },
+          {
+            "Name": "wuauserv",
+            "Status": 4,
+            "StartType": 3
+          }
+        ],
+        "updateAgentHistoryAvailable": true
+      },
+      "limitations": [
+        "no managed or failed servicing fixture on this host"
+      ]
+    },
+    {
+      "featureId": "C-UPDATE-006",
+      "premise": "System-volume free space can be represented separately from an unknown update payload requirement.",
+      "status": "PARTIAL",
+      "evidence": {
+        "freeBytes": 710229266432,
+        "sizeBytes": 999064334336,
+        "payloadRequirementBytes": null,
+        "classification": "UNKNOWN_REQUIREMENT"
+      },
+      "limitations": [
+        "no pending payload metadata; low-space case is fixture-only"
+      ]
+    },
+    {
+      "featureId": "C-UPDATE-008",
+      "premise": "Temporal proximity may be correlated but a far incident must be rejected and neither establishes causation.",
+      "status": "PASS",
+      "evidence": {
+        "nearCorrelationCandidate": true,
+        "falseCorrelationRejected": true,
+        "causationClaimed": false,
+        "actualHistoryEntries": 20
+      },
+      "limitations": [
+        "no real regression or rollback operation"
+      ]
+    },
+    {
+      "featureId": "C-UPDATE-010",
+      "premise": "Managed policy presence is reported separately from effective Update Agent behavior.",
+      "status": "PARTIAL",
+      "evidence": {
+        "policySources": [
+          {
+            "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+            "present": false,
+            "propertyNames": []
+          },
+          {
+            "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsUpdate",
+            "present": true,
+            "propertyNames": [
+              "LastDownloadsPurgeTime",
+              "SusClientIdValidation",
+              "SusClientId",
+              "TraceId",
+              "LastTaskOperationHandle"
+            ]
+          }
+        ],
+        "effectiveOwner": "UNKNOWN_WITHOUT_MDM_OR_WSUS",
+        "updateAgentReachable": true
+      },
+      "limitations": [
+        "no WSUS/MDM managed host"
+      ]
+    }
+  ]
+}

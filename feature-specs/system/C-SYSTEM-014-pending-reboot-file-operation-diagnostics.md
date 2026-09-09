@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Pending reboot/file-operation diagnostics  
-ID: C-SYSTEM-014  
-Tipo: Diagnostic  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Pending reboot/file-operation diagnostics
+ID: C-SYSTEM-014
+Tipo: Diagnostic
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -292,9 +292,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -420,6 +420,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `system.pending-reboot-signals`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — pending markers, reboot e Verify pós-reboot.
+- Evidência realmente executada: E:system.pending-reboot-signals PASS (todos false).
+- Execução segura neste host / teste: Parcial — read detector + fixtures de estados; não criar markers HKLM.
+- Impedimento ou limitação restante: Cenário essencial pending/reboot não existe e induzi-lo/realizar reboot não é seguro.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

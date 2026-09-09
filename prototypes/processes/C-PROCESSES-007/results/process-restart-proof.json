@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:09:51.1752422-03:00",
+  "featureId": "C-PROCESSES-007",
+  "marker": "BeadWisePhase2-b534b892181c4d4fa2021d88f467f13f",
+  "steps": [
+    {
+      "name": "DETECT",
+      "status": "PASS",
+      "detail": "Controlled process is running with PID 15728."
+    },
+    {
+      "name": "PLAN",
+      "status": "PASS",
+      "detail": "Plan targets only a controlled child process."
+    },
+    {
+      "name": "APPLY_TERMINATE",
+      "status": "PASS",
+      "detail": "Stopped controlled process PID 15728."
+    },
+    {
+      "name": "VERIFY_STOPPED",
+      "status": "PASS",
+      "detail": "Controlled process is no longer running."
+    },
+    {
+      "name": "RESTART",
+      "status": "PASS",
+      "detail": "Started replacement process PID 24264."
+    },
+    {
+      "name": "VERIFY_RUNNING",
+      "status": "PASS",
+      "detail": "Replacement process is running."
+    }
+  ]
+}

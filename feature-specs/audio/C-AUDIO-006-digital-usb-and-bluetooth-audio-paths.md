@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Digital, USB & Bluetooth audio paths  
-ID: C-AUDIO-006  
-Tipo: Diagnostic  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Digital, USB & Bluetooth audio paths
+ID: C-AUDIO-006
+Tipo: Diagnostic
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -291,9 +291,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -388,11 +388,11 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/audio/c-audio-006/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/audio/C-AUDIO-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
+DETECT: PARTIAL (Core Audio endpoint identity plus PnP AudioEndpoint/Media transport prefixes were collected; exact endpoint-to-parent path remains NOT_TESTED)
 PLAN: NOT_TESTED
 DRY-RUN: NOT_TESTED
 APPLY: N/A
@@ -403,10 +403,10 @@ RESTORE VERIFY: N/A
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -417,7 +417,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/audio-sessions
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `audio.devices.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `audio.devices.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Core Audio endpoint identity hash/property-availability/state foi coletado como input real para correlação posterior. O runner consultou PnP `AudioEndpoint` e `Media` read-only, registrou enumerator prefixes observados e flags de candidatos USB/Bluetooth/Root/virtual com IDs brutos descartados. A prova não faz correlação exata endpoint-to-parent nem classifica digital path por nome; portanto o gate é `PARTIAL`, não PASS.
+
+Evidência: /prototypes/audio/C-AUDIO-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — digital USB/Bluetooth path identity and endpoint classification.
+- Evidência realmente executada: Prototype seguro adicional executado: Core Audio endpoint identity hash/property-availability/state foi coletado como input real para correlação posterior. O runner consultou PnP `AudioEndpoint` e `Media` read-only, registrou enumerator prefixes observados e flags de candidatos USB/Bluetooth/Root/virtual com IDs brutos descartados. A prova não faz correlação exata endpoint-to-parent nem classifica digital path por nome; portanto o gate é `PARTIAL`, não PASS. Evidência: `/prototypes/audio/C-AUDIO-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes for read-only endpoint/PnP path mapping; no mutation needed. Teste recomendado: Correlate Core Audio endpoint, PnP parent/transport, Bluetooth/USB identity and digital path; exercise Bluetooth present and absent/unsupported states without changing settings.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

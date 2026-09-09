@@ -10,6 +10,7 @@ Risco: Baixo; somente leitura. O modo completo executa `DISM /CheckHealth`, que 
 Método: Executar probes independentes por domínio, capturar resultado ou erro estruturado e gravar JSON UTF-8.
 Como executar: `pwsh -NoProfile -File .\scripts\collect-domain-evidence.ps1`
 Como testar: `pwsh -NoProfile -File .\tests\collect-domain-evidence.tests.ps1`
+Como testar export: `pwsh -NoProfile -File .\tests\export-evidence.tests.ps1`; a fixture comprova redaction, correlation ID determinístico, SHA-256 e reload do JSON.
 Resultado esperado: Vinte domínios, pelo menos um probe por domínio e status explícito por probe.
 Resultado observado: `results/domain-evidence.json`; consultar cada probe. PASS significa que aquele probe executou, não que todas as Feature Specs mapeadas estejam PROVEN.
 Limitações: Não exercita Apply, rollback, falhas artificiais, reboot, hardware ausente, vendors ausentes, VM, ARM64 nem política corporativa. Dados de CIM podem ser incompletos ou específicos do driver. O resultado persistido omite MAC, PnP instance IDs e nomes/IDs de processos.

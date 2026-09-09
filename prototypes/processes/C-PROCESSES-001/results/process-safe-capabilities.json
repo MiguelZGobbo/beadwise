@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-09-08T22:52:37.8631871-03:00",
+  "safety": {
+    "userProcessMutation": false,
+    "onlyOwnedChildProcesses": true,
+    "temporaryDirectoryRemoved": true
+  },
+  "probes": [
+    {
+      "featureId": "C-PROCESSES-001",
+      "status": "PASS",
+      "mechanism": "Win32_Process CIM PID/PPID correlation over prototype-owned child",
+      "evidence": {
+        "pid": 17012,
+        "parentPid": 4120,
+        "expectedParentPid": 4120,
+        "parentMatched": true,
+        "exitObserved": true,
+        "executableName": "pwsh.exe"
+      },
+      "limitations": [
+        "Protected-process full metadata and packaged-app grouping remain untested."
+      ]
+    },
+    {
+      "featureId": "C-PROCESSES-002",
+      "status": "PASS",
+      "mechanism": "Get-Process temporal CPU/working-set deltas on bounded owned workload",
+      "evidence": {
+        "pid": 3300,
+        "logicalProcessorCount": 16,
+        "samples": [
+          {
+            "sampledAt": "2026-09-08T22:52:35.4725506-03:00",
+            "cpuSeconds": 0.546875,
+            "workingSetBytes": 87433216,
+            "cpuDeltaSeconds": null,
+            "wallDeltaSeconds": null,
+            "normalizedCpuPercent": null
+          },
+          {
+            "sampledAt": "2026-09-08T22:52:35.8017632-03:00",
+            "cpuSeconds": 0.875,
+            "workingSetBytes": 88203264,
+            "cpuDeltaSeconds": 0.328125,
+            "wallDeltaSeconds": 0.3292126,
+            "normalizedCpuPercent": 6.229352248364734
+          },
+          {
+            "sampledAt": "2026-09-08T22:52:36.1272217-03:00",
+            "cpuSeconds": 1.265625,
+            "workingSetBytes": 89714688,
+            "cpuDeltaSeconds": 0.390625,
+            "wallDeltaSeconds": 0.3254585,
+            "normalizedCpuPercent": 7.501436435060077
+          },
+          {
+            "sampledAt": "2026-09-08T22:52:36.4514096-03:00",
+            "cpuSeconds": 1.59375,
+            "workingSetBytes": 89714688,
+            "cpuDeltaSeconds": 0.328125,
+            "wallDeltaSeconds": 0.3241879,
+            "normalizedCpuPercent": 6.325903125934065
+          },
+          {
+            "sampledAt": "2026-09-08T22:52:36.7785705-03:00",
+            "cpuSeconds": 1.921875,
+            "workingSetBytes": 89714688,
+            "cpuDeltaSeconds": 0.328125,
+            "wallDeltaSeconds": 0.3271609,
+            "normalizedCpuPercent": 6.26841792524718
+          }
+        ]
+      },
+      "limitations": [
+        "Five short samples; no sustained load, GPU attribution, or long-duration ETW session."
+      ]
+    },
+    {
+      "featureId": "C-PROCESSES-004",
+      "status": "PASS",
+      "mechanism": "Prototype-owned child start/detect/exit lifecycle",
+      "evidence": {
+        "pid": 22608,
+        "detectedRunning": true,
+        "exitObserved": true,
+        "exitCode": 23,
+        "expectedExitCode": 23
+      },
+      "limitations": [
+        "Console lifecycle only; GUI responsiveness, crash dumps, and protected apps remain untested."
+      ]
+    },
+    {
+      "featureId": "C-PROCESSES-005",
+      "status": "PASS",
+      "mechanism": "System.Diagnostics.Process priority/affinity on prototype-owned child with restoration",
+      "evidence": {
+        "pid": 16084,
+        "originalPriority": "Normal",
+        "requestedPriority": "BelowNormal",
+        "originalAffinity": 65535,
+        "requestedAffinity": 1,
+        "applied": true,
+        "restored": true,
+        "error": null
+      },
+      "limitations": [
+        "No mutation of user/protected processes; PowerThrottling, memory priority, and CPU Sets remain untested."
+      ]
+    },
+    {
+      "featureId": "C-PROCESSES-006",
+      "status": "PARTIAL",
+      "mechanism": "Get-Process thread/handle inspection on owned child + read-only protected-process outcome",
+      "evidence": {
+        "pid": 16084,
+        "threadCount": 25,
+        "handleCount": 488,
+        "protectedProcessQuery": {
+          "pid": 4,
+          "status": "READABLE",
+          "detail": {
+            "threadCount": 401,
+            "handleCount": 6231
+          }
+        }
+      },
+      "limitations": [
+        "No induced contention, deadlock, or kernel handle leak; no AccessDenied claim unless observed."
+      ]
+    }
+  ]
+}

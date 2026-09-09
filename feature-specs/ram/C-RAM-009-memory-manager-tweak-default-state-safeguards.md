@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Memory-manager tweak/default-state safeguards  
-ID: C-RAM-009  
-Tipo: Diagnostic, Repair / Diagnostic, Safety, Safety / Product Principle  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Memory-manager tweak/default-state safeguards
+ID: C-RAM-009
+Tipo: Diagnostic, Repair / Diagnostic, Safety, Safety / Product Principle
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -293,9 +293,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -430,6 +430,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
 - Documented context — https://learn.microsoft.com/windows-server/administration/performance-tuning/subsystem/cache-memory-management/
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: An unsafe tweak guard blocks absent evidence or absent rollback and never emits Apply.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/ram/C-RAM-004/results/ram-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: contract fixture only
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — guard rejeita tweak não documentado/sem rollback.
+- Evidência realmente executada: Prototype seguro adicional executado: An unsafe tweak guard blocks absent evidence or absent rollback and never emits Apply. Resultado observado: `PASS`. Evidência: `/prototypes/ram/C-RAM-004/results/ram-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — fixtures unitárias de allowlist/reason codes, incluindo ausência de evidência.
+- Impedimento ou limitação restante: Não há Apply permitido; isso é intencional.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

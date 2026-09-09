@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Cleanup safety, provenance & exclusions  
-ID: C-CLEANING-006  
-Tipo: Diagnostic / Safety, Safety / Configuration, Safety / Diagnostic  
-Technical Domain: CLEANING  
-Primary Product Area: Cleaning  
-Also Used By: Cleaning, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Cleanup safety, provenance & exclusions
+ID: C-CLEANING-006
+Tipo: Diagnostic / Safety, Safety / Configuration, Safety / Diagnostic
+Technical Domain: CLEANING
+Primary Product Area: Cleaning
+Also Used By: Cleaning, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -298,9 +298,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -403,25 +403,26 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/cleaning/c-cleaning-006/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/cleaning/C-CLEANING-007/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS (protected/unknown/locked/reparse fixture cases)
+PLAN: PASS (default-deny exclusions)
+DRY-RUN: PASS (zero mutation)
+APPLY: PASS (only authorized fixture paths)
+VERIFY: PASS (outside sentinel intact)
+ROLLBACK: N/A (deletion is not reversible)
+RESTORE VERIFY: N/A
+HARDLINK/SPARSE/MULTI-PROFILE: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -433,9 +434,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-operating-system-package-servicing-command-line-options
 - Documented behavior — https://learn.microsoft.com/windows/win32/shell/knownfolderid
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `cleaning.rebuildable-roots`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `cleaning.rebuildable-roots`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
 - https://learn.microsoft.com/windows/win32/fileio/hard-links-and-junctions
 - https://learn.microsoft.com/windows/win32/fileio/reparse-points
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Árvore adversarial temporária comprovou default-deny para unknown/protected, skip de arquivo locked, não travessia de junction/reparse e sentinel externo intacto após Apply. Hardlink, sparse file, ACL negada e multi-profile não foram exercitados e permanecem `NOT_TESTED`.
+
+Evidência: /prototypes/cleaning/C-CLEANING-007/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — canonicalization, junction/symlink/hardlink/sparse/locked/protected and multi-profile exclusions.
+- Evidência realmente executada: Prototype seguro adicional executado: Árvore adversarial temporária comprovou default-deny para unknown/protected, skip de arquivo locked, não travessia de junction/reparse e sentinel externo intacto após Apply. Hardlink, sparse file, ACL negada e multi-profile não foram exercitados e permanecem `NOT_TESTED`. Evidência: `/prototypes/cleaning/C-CLEANING-007/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes in a prototype-owned temporary tree. Teste recomendado: Build an isolated adversarial file tree; assert no traversal outside authorized root, correct hardlink byte accounting, locked-file skip and default-deny unknown ownership.
+- Impedimento ou limitação restante: No feature-specific safety prototype; live filesystem must not be used to induce cleanup hazards.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

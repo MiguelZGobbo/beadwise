@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Timer-resolution energy diagnostics  
-ID: C-ENERGY-013  
-Tipo: Diagnostic, Diagnostic / Benchmark, Product Behavior / Safety  
-Technical Domain: ENERGY  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics, My PC  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Timer-resolution energy diagnostics
+ID: C-ENERGY-013
+Tipo: Diagnostic, Diagnostic / Benchmark, Product Behavior / Safety
+Technical Domain: ENERGY
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics, My PC
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -285,9 +285,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -412,6 +412,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/device-experiences/modern-standby-sleepstudy
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-ENERGY-013=PARTIAL` em `/prototypes/energy/C-ENERGY-013/results/timer-resolution-proof.json`. Vinte chamadas `NtQueryTimerResolution` passaram e observaram resolução corrente de 1 ms. `powercfg /requests` e `/energy` falharam com exit code 1 por exigência de admin; atribuição per-processo permanece `UNSUPPORTED`. Nenhum `timeBeginPeriod` ou power-plan change foi executado, o relatório temporário foi limpo e nenhum impacto energético foi inferido.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — timer-resolution detection, attribution and overhead/energy interpretation.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-ENERGY-013=PARTIAL` em `/prototypes/energy/C-ENERGY-013/results/timer-resolution-proof.json`. Vinte chamadas `NtQueryTimerResolution` passaram e observaram resolução corrente de 1 ms. `powercfg /requests` e `/energy` falharam com exit code 1 por exigência de admin; atribuição per-processo permanece `UNSUPPORTED`. Nenhum `timeBeginPeriod` ou power-plan change foi executado, o relatório temporário foi limpo e nenhum impacto energético foi inferido. Evidência: `/prototypes/energy/C-ENERGY-013/results/timer-resolution-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Read-only query and bounded child-process measurement are safe. Teste recomendado: Query effective timer resolution, attribute active requests to a controlled child, compare idle/bounded workload and report unsupported attribution without changing global timer policy.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Process responsiveness, crash & lifecycle diagnostics  
-ID: C-PROCESSES-004  
-Tipo: Diagnostic, Diagnostic / Monitoring, Safeguard  
-Technical Domain: PROCESSES  
-Primary Product Area: TBD  
-Also Used By: Monitoring, Diagnostics, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Process responsiveness, crash & lifecycle diagnostics
+ID: C-PROCESSES-004
+Tipo: Diagnostic, Diagnostic / Monitoring, Safeguard
+Technical Domain: PROCESSES
+Primary Product Area: TBD
+Also Used By: Monitoring, Diagnostics, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -414,6 +414,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/wer/windows-error-reporting
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `processes.inventory`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-PROCESSES-004=PASS` no lifecycle controlado de `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`: o filho próprio foi iniciado, detectado, encerrou com código deliberado `23` e deixou de existir. Responsividade GUI, crash dump e processos protegidos permanecem não testados.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — lifecycle/responsividade/crash com alvo controlado.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-PROCESSES-004=PASS` no lifecycle controlado de `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`: o filho próprio foi iniciado, detectado, encerrou com código deliberado `23` e deixou de existir. Responsividade GUI, crash dump e processos protegidos permanecem não testados. Evidência: `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — iniciar, detectar, encerrar e confirmar exit de processo filho próprio; simular resposta timeout sem matar processo de usuário.
+- Impedimento ou limitação restante: Não cobre crash de app real/protegido.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Security update & support exposure  
-ID: C-SECURITY-007  
-Tipo: Diagnostic, Diagnostic / Recommendation  
-Technical Domain: SECURITY  
-Primary Product Area: Security  
-Also Used By: Security, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Security update & support exposure
+ID: C-SECURITY-007
+Tipo: Diagnostic, Diagnostic / Recommendation
+Technical Domain: SECURITY
+Primary Product Area: Security
+Also Used By: Security, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -301,9 +301,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -439,6 +439,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `security.defender-status`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/lifecycle/products/windows-11-home-and-pro
 - https://learn.microsoft.com/lifecycle/products/windows-10-home-and-pro
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-SECURITY-007=PARTIAL` em `/prototypes/security/C-SECURITY-001/results/security-readonly.json`. O prototype consultou build/edição no Registry, hotfixes e histórico do Windows Update. A classificação de lifecycle ficou `UNSUPPORTED` porque não existe dataset oficial versionado empacotado; nenhum estado de suporte foi inferido localmente.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — lifecycle/update state, fonte oficial ausente e build boundary.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-SECURITY-007=PARTIAL` em `/prototypes/security/C-SECURITY-001/results/security-readonly.json`. O prototype consultou build/edição no Registry, hotfixes e histórico do Windows Update. A classificação de lifecycle ficou `UNSUPPORTED` porque não existe dataset oficial versionado empacotado; nenhum estado de suporte foi inferido localmente. Evidência: `/prototypes/security/C-SECURITY-001/results/security-readonly.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — leitura OS/update + fixtures de lifecycle oficial versionado/indisponível.
+- Impedimento ou limitação restante: Não há máquina fora de suporte; fonte lifecycle ainda precisa atualização versionada.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

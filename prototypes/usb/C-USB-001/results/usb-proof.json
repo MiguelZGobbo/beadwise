@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:40:19.5497716-03:00",
+  "mutationPolicy": "read-only",
+  "rawInstanceIds": [],
+  "probes": [
+    {
+      "featureId": "C-USB-001",
+      "premise": "Present USB devices and controller/hub candidates can be inventoried with stable hashed PnP provenance.",
+      "status": "PASS",
+      "evidence": {
+        "presentDeviceCount": 12,
+        "controllerOrHubCount": 6,
+        "devices": [
+          {
+            "class": "HIDClass",
+            "friendlyName": "Dispositivo de Entrada USB",
+            "status": "OK",
+            "instanceIdSha256": "393b4f22ba2b056736735b25c14916dd5d3a4eb7af81afbebd29b0bf112610a1"
+          },
+          {
+            "class": "HIDClass",
+            "friendlyName": "Dispositivo de Entrada USB",
+            "status": "OK",
+            "instanceIdSha256": "f79abb8b67a08cdcac53b66bf9cd9b8fc11d8578bb932f0331d59a6597fe0bcb"
+          },
+          {
+            "class": "USB",
+            "friendlyName": "USB Composite Device",
+            "status": "OK",
+            "instanceIdSha256": "6994d17dfb470afbc2087efc4e4dd9dc516b364ac9a974060de52f54e4d0c5cd"
+          },
+          {
+            "class": "HIDClass",
+            "friendlyName": "Dispositivo de Entrada USB",
+            "status": "OK",
+            "instanceIdSha256": "278a683e593c2294dbb30af2bc7d6d6fe93fdd03b55cc64fdec259f59b72ffa6"
+          },
+          {
+            "class": "USB",
+            "friendlyName": "USB Composite Device",
+            "status": "OK",
+            "instanceIdSha256": "f240be6d420deb13ec34b4f644848339f1b3f22bf9296b6cc47a0ea3e75d2972"
+          },
+          {
+            "class": "HIDClass",
+            "friendlyName": "Dispositivo de Entrada USB",
+            "status": "OK",
+            "instanceIdSha256": "6afe2fc6f0e89da8b3f5f9d952b35f99d9d647dc2e6b7dd1d1fffa8aa1fd60de"
+          },
+          {
+            "class": "HIDClass",
+            "friendlyName": "Dispositivo de Entrada USB",
+            "status": "OK",
+            "instanceIdSha256": "59a86ae5fd507ebae31fbe4c4d5d76a2a9f7e88cd05c58547fe76bd652d0d14a"
+          },
+          {
+            "class": "USB",
+            "friendlyName": "USB Root Hub (USB 3.0)",
+            "status": "OK",
+            "instanceIdSha256": "167d06982b96a003168372edf6d8a83e4b91e07e4d80f1f446c6cb14c69d1f79"
+          },
+          {
+            "class": "USB",
+            "friendlyName": "USB Root Hub (USB 3.0)",
+            "status": "OK",
+            "instanceIdSha256": "eaba15b715fc27f4d28a8cda31057ee1d92292675715e42bddbd7ff272ac575a"
+          },
+          {
+            "class": "Bluetooth",
+            "friendlyName": "BARROT Bluetooth 5.4 Adapter",
+            "status": "OK",
+            "instanceIdSha256": "d3b5ad8210946c4b3dbaf9d3eb52fb2a495fa7e67a9dd7cc2284222502a61b91"
+          },
+          {
+            "class": "HIDClass",
+            "friendlyName": "Dispositivo de Entrada USB",
+            "status": "OK",
+            "instanceIdSha256": "7cb9cbd60c35856a3e9d762c641dea67fd7575afccdd5413c85f9af4e70016a5"
+          },
+          {
+            "class": "USB",
+            "friendlyName": "USB Root Hub (USB 3.0)",
+            "status": "OK",
+            "instanceIdSha256": "0a3bd46287844490b973f360f2521f4b7e15796b1054c9e98ce1de0a521676a2"
+          }
+        ]
+      },
+      "limitations": [
+        "PnP relation data does not fully prove physical port topology"
+      ]
+    },
+    {
+      "featureId": "C-USB-002",
+      "premise": "Negotiated USB speed remains Unknown when documented properties do not expose it.",
+      "status": "UNSUPPORTED",
+      "evidence": {
+        "queriedDeviceCount": 12,
+        "deviceProperties": [
+          {
+            "deviceSha256": "393b4f22ba2b056736735b25c14916dd5d3a4eb7af81afbebd29b0bf112610a1",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "f79abb8b67a08cdcac53b66bf9cd9b8fc11d8578bb932f0331d59a6597fe0bcb",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "6994d17dfb470afbc2087efc4e4dd9dc516b364ac9a974060de52f54e4d0c5cd",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "278a683e593c2294dbb30af2bc7d6d6fe93fdd03b55cc64fdec259f59b72ffa6",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "f240be6d420deb13ec34b4f644848339f1b3f22bf9296b6cc47a0ea3e75d2972",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "6afe2fc6f0e89da8b3f5f9d952b35f99d9d647dc2e6b7dd1d1fffa8aa1fd60de",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "59a86ae5fd507ebae31fbe4c4d5d76a2a9f7e88cd05c58547fe76bd652d0d14a",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "167d06982b96a003168372edf6d8a83e4b91e07e4d80f1f446c6cb14c69d1f79",
+            "propertyNames": [
+              "DEVPKEY_Device_Address"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "eaba15b715fc27f4d28a8cda31057ee1d92292675715e42bddbd7ff272ac575a",
+            "propertyNames": [
+              "DEVPKEY_Device_Address"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "d3b5ad8210946c4b3dbaf9d3eb52fb2a495fa7e67a9dd7cc2284222502a61b91",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "7cb9cbd60c35856a3e9d762c641dea67fd7575afccdd5413c85f9af4e70016a5",
+            "propertyNames": [
+              "DEVPKEY_Device_LocationInfo",
+              "DEVPKEY_Device_Address",
+              "DEVPKEY_Device_BusReportedDeviceDesc"
+            ],
+            "negotiatedSpeed": null
+          },
+          {
+            "deviceSha256": "0a3bd46287844490b973f360f2521f4b7e15796b1054c9e98ce1de0a521676a2",
+            "propertyNames": [
+              "DEVPKEY_Device_Address"
+            ],
+            "negotiatedSpeed": null
+          }
+        ],
+        "negotiatedSpeedAvailable": false
+      },
+      "limitations": [
+        "no hub IOCTL/USBView-equivalent negotiated-speed result on this host"
+      ]
+    },
+    {
+      "featureId": "C-USB-005",
+      "premise": "Present HID devices can be enumerated without opening handles or injecting input.",
+      "status": "PASS",
+      "evidence": {
+        "hidCount": 19,
+        "nonOkCount": 0,
+        "inputInjected": false
+      },
+      "limitations": [
+        "no vendor-specific controller diagnostics"
+      ]
+    },
+    {
+      "featureId": "C-USB-010",
+      "premise": "Bluetooth presence is reported separately from pairing/coexistence claims.",
+      "status": "PARTIAL",
+      "evidence": {
+        "presentBluetoothCount": 14,
+        "coexistenceMeasured": false
+      },
+      "limitations": [
+        "no controlled Wi-Fi coexistence or pairing scenario"
+      ]
+    },
+    {
+      "featureId": "C-USB-015",
+      "premise": "Peripheral safeguard decisions preserve unknown and managed states without classifying by vendor name alone.",
+      "status": "PASS",
+      "evidence": {
+        "cases": [
+          {
+            "trust": "known",
+            "managed": false,
+            "maliciousEvidence": false,
+            "decision": "ALLOW_INVENTORY_ONLY"
+          },
+          {
+            "trust": "unknown",
+            "managed": false,
+            "maliciousEvidence": false,
+            "decision": "MANUAL_REVIEW"
+          },
+          {
+            "trust": "unknown",
+            "managed": true,
+            "maliciousEvidence": false,
+            "decision": "POLICY_OWNER"
+          },
+          {
+            "trust": "unknown",
+            "managed": false,
+            "maliciousEvidence": true,
+            "decision": "BLOCK_RECOMMENDATION"
+          }
+        ],
+        "devicePolicyChanged": false
+      },
+      "limitations": [
+        "fixture rules; no malicious device or managed policy matrix"
+      ]
+    }
+  ]
+}

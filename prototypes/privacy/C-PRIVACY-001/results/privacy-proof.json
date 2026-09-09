@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:49:49.5213043-03:00",
+  "mutationPolicy": "read-only",
+  "probes": [
+    {
+      "featureId": "C-PRIVACY-001",
+      "premise": "Policy presence, scope and effective-state uncertainty can be reported without exporting values or identity.",
+      "status": "PARTIAL",
+      "evidence": {
+        "sources": [
+          {
+            "name": "TelemetryPolicy",
+            "scope": "MachinePolicy",
+            "keyPresent": true,
+            "valuePresent": false,
+            "effectiveState": "NO_POLICY_VALUE_OBSERVED"
+          },
+          {
+            "name": "AdvertisingPolicy",
+            "scope": "UserPolicy",
+            "keyPresent": true,
+            "valuePresent": false,
+            "effectiveState": "NO_POLICY_VALUE_OBSERVED"
+          },
+          {
+            "name": "AppPrivacyPolicy",
+            "scope": "MachinePolicy",
+            "keyPresent": false,
+            "valuePresent": false,
+            "effectiveState": "NO_POLICY_VALUE_OBSERVED"
+          }
+        ],
+        "rawValuesExported": false,
+        "accountExported": false
+      },
+      "limitations": [
+        "no MDM/GPO conflict host; effective runtime behavior not independently queried"
+      ]
+    },
+    {
+      "featureId": "C-PRIVACY-006",
+      "premise": "Privacy drift ignores capture time while detecting a semantic managed-state change without sensitive values.",
+      "status": "PASS",
+      "evidence": {
+        "volatileOnlyIgnored": true,
+        "semanticChangeDetected": true,
+        "fixtureContainsIdentity": false
+      },
+      "limitations": [
+        "synthetic transition; real registry remains read-only"
+      ]
+    }
+  ]
+}

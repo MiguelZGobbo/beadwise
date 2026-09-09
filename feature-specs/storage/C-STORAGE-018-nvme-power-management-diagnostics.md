@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: NVMe power-management diagnostics  
-ID: C-STORAGE-018  
-Tipo: Advanced Configuration, Diagnostic, Diagnostic / Benchmark, Safety  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: NVMe power-management diagnostics
+ID: C-STORAGE-018
+Tipo: Advanced Configuration, Diagnostic, Diagnostic / Benchmark, Safety
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: RESEARCH
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -382,6 +382,22 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — NVMe power/APST capability/runtime.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Parcial — feature/protocol query read-only e configuração de energia atual; retornar Unknown.
+- Impedimento ou limitação restante: Não há API pública confiável para APST runtime confirmada pela spec.
+- Disposição: `RESEARCH`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
+
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:START -->
+**Reavaliação final de RESEARCH (2026-09-08):**
+- O status `RESEARCH` foi revisto e preservado porque ainda há incerteza técnica solucionável descrita nas seções 30, 31 e 36; documentação ou probe compartilhado parcial não foi convertido em `PASS`.
+- Nenhuma prova prática isolada nesta máquina elimina essa incerteza sem antes definir fonte, contrato, fixture, hardware ou dependência indicada pela própria spec.
+- Próximo gate: concluir a investigação registrada, então decidir se cabe prototype seguro, `SPECIFIED`, `BLOCKED`, `DEFERRED` ou `REJECTED`; não promover diretamente a `PROVEN`/`APPROVED`.
+<!-- PHASE2-FINAL-RESEARCH-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

@@ -1,0 +1,11 @@
+{
+  "featureId": "C-GPU-015",
+  "mechanism": "AMD_ADL_classic",
+  "capturedAt": "2026-09-08T21:17:49.5667225-03:00",
+  "libraryAvailable": true,
+  "createStatus": 0,
+  "enumerationStatus": 0,
+  "adapterCount": 7,
+  "destroyStatus": 0,
+  "mutationPolicy": "read-only"
+}

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:45:35.0601253-03:00",
+  "mutationPolicy": "read-only",
+  "probes": [
+    {
+      "featureId": "C-HARDWARE-001",
+      "premise": "Raw SMBIOS is available through GetSystemFirmwareTable and can be cross-checked with CIM BIOS/baseboard data.",
+      "status": "PASS",
+      "evidence": {
+        "nativeFirmwareBytes": 2754,
+        "cimBiosVersion": "4631",
+        "baseboardManufacturer": "ASUSTeK COMPUTER INC.",
+        "nativeSource": "GetSystemFirmwareTable(RSMB)",
+        "secondarySource": "Win32_BIOS/Win32_BaseBoard"
+      },
+      "limitations": [
+        "single x64 desktop; no malformed or missing SMBIOS fixture"
+      ]
+    },
+    {
+      "featureId": "C-HARDWARE-004",
+      "premise": "Cross-component topology can preserve per-source counts and explicit Unknown fields.",
+      "status": "PASS",
+      "evidence": {
+        "topology": {
+          "disks": 2,
+          "displayControllers": 1,
+          "networkAdapters": 1,
+          "presentUsbDevices": 12
+        },
+        "unsupportedFields": [
+          "dockPath",
+          "pcieNegotiatedWidth"
+        ]
+      },
+      "limitations": [
+        "no dock, VM, laptop, or multi-controller matrix"
+      ]
+    },
+    {
+      "featureId": "C-HARDWARE-009",
+      "premise": "A hardware evidence package can hash direct identifiers and retain integrity without exporting raw values.",
+      "status": "PASS",
+      "evidence": {
+        "redactedFields": [
+          "serialSha256",
+          "pnpSha256",
+          "macSha256"
+        ],
+        "payloadSha256": "3289827f6df2635d7ae80c62a66af88b3db3eaadf0cf27da247942a0e48d133d",
+        "rawIdentifiersPresent": false,
+        "fixtureOnly": true
+      },
+      "limitations": [
+        "redaction proved with fully synthetic identifiers; no failed hardware session"
+      ]
+    }
+  ]
+}

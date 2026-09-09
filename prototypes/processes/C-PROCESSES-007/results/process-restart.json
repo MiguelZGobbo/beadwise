@@ -1,0 +1,34 @@
+{
+  "featureId": "C-PROCESSES-007",
+  "capturedAt": "2026-09-08T21:24:13.0539648-03:00",
+  "scope": "prototype-owned-process-only",
+  "plan": {
+    "target": "prototype-owned pwsh child process",
+    "changes": [
+      "Terminate owned fixture",
+      "Start equivalent owned fixture"
+    ],
+    "adminRequired": false,
+    "restartRequired": "Process",
+    "reversible": true
+  },
+  "dryRun": {
+    "mutated": false,
+    "targetExistsBeforeApply": false
+  },
+  "snapshot": {
+    "originalProcessAbsent": true
+  },
+  "apply": {
+    "firstPid": 20080,
+    "secondPid": 19828
+  },
+  "verify": {
+    "firstStopped": true,
+    "secondRunning": true
+  },
+  "rollback": {
+    "secondStopped": true,
+    "restoredOriginalAbsence": true
+  }
+}

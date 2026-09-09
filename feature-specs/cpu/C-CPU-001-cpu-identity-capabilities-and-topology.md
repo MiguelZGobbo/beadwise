@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU identity, capabilities & topology  
-ID: C-CPU-001  
-Tipo: Diagnostic  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU identity, capabilities & topology
+ID: C-CPU-001
+Tipo: Diagnostic
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `cpu.identity.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-CPU-001=PASS` em `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. O prototype chamou `GetLogicalProcessorInformationEx`, observou 16 processadores lógicos, 8 cores, 1 package, 1 grupo e correlacionou os 16 lógicos com `Win32_Processor`. A prova é válida para este host AMD/single-group; hybrid e multi-group continuam sem fixture e este PASS do probe não promove a Feature Spec para `PROVEN`.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — exact topology/identity/capability API and unsupported/partial behavior.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-CPU-001=PASS` em `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. O prototype chamou `GetLogicalProcessorInformationEx`, observou 16 processadores lógicos, 8 cores, 1 package, 1 grupo e correlacionou os 16 lógicos com `Win32_Processor`. A prova é válida para este host AMD/single-group; hybrid e multi-group continuam sem fixture e este PASS do probe não promove a Feature Spec para `PROVEN`. Evidência: `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes, read-only Win32/.NET/CIM calls are safe. Teste recomendado: P/Invoke `GetLogicalProcessorInformationEx`, correlate processor groups/NUMA/cache with CIM identity, record unsupported/partial path and repeat for stable output.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

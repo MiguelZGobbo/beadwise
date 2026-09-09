@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Shared diagnostic evidence correlation & export  
-ID: C-SYSTEM-017  
-Tipo: Diagnostic, Diagnostic Tool, Tool  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Shared diagnostic evidence correlation & export
+ID: C-SYSTEM-017
+Tipo: Diagnostic, Diagnostic Tool, Tool
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -292,9 +292,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -420,6 +420,17 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** o bundle completo produziu JSON para os 20 domínios: 26 probes `PASS` e 1 `FAIL`. A falha foi preservada de forma estruturada: `DISM /Online /Cleanup-Image /CheckHealth` retornou exit code 740 em sessão não elevada. O teste do schema confirmou domínio/probe/status obrigatórios (`PASS: domain evidence bundle contract is complete`). Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. O prototype prova coleta/export e modelagem de falha neste host, mas não prova correlação semântica completa, privacidade do pacote em todos os cenários nem compatibilidade ampla; status permanece `SPECIFIED`.
+
+**Observed behavior (auditoria final 2026-09-08):** o exportador foi testado primeiro contra fixture contendo e-mail, command line e MAC artificiais; redigiu os campos, preservou dado não sensível, gerou `correlationId` determinístico por domain/probe/feature IDs, gravou SHA-256 dos bytes e reabriu o JSON (`PASS: export redaction, correlation ID, integrity and reload verified`). O bundle real foi exportado em `/prototypes/system/C-SYSTEM-017/results/domain-evidence-export.json`, com manifesto `/prototypes/system/C-SYSTEM-017/results/domain-evidence-export.manifest.json` (`reloadVerified=true`). A varredura por e-mail, MAC e `C:\Users\...` não redigido não encontrou ocorrências. Correlação causal/semântica entre incidentes reais e matriz ampla de privacidade continuam não provadas; status permanece `SPECIFIED`.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — coleta multi-domínio, falha estruturada, schema, redaction, IDs determinísticos, integridade e reload foram comprovados; correlação causal/semântica de incidente real fica como limite para PROVEN.
+- Evidência realmente executada: Bundle 20 domínios 26 PASS/1 FAIL; schema PASS; fixture de e-mail/command line/MAC/SID redigida; correlation/hash/reload PASS; export real e manifesto SHA-256 persistidos.
+- Execução segura neste host / teste: Todas as provas adicionais foram read-only ou usaram PII artificial; a varredura dos resultados não encontrou e-mail, MAC, SID ou perfil de usuário não redigido.
+- Impedimento ou limitação restante: Não há incidente real controlado para provar causalidade nem matriz de privacidade em outras edições/policies; fixture sintética não será apresentada como prova causal.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

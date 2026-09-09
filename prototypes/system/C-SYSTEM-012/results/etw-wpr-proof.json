@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:53:06.1957732-03:00",
+  "featureId": "C-SYSTEM-012",
+  "wprPath": "C:\\WINDOWS\\system32\\wpr.exe",
+  "statusOutput": "Microsoft Windows Performance Recorder Version 10.0.26100 (CoreSystem)\r\nCopyright (c) 2024 Microsoft Corporation. All rights reserved.\r\n\r\nWPR is not recording",
+  "profilesOutput": "Microsoft Windows Performance Recorder Version 10.0.26100 (CoreSystem)\r\nCopyright (c) 2024 Microsoft Corporation. All rights reserved.\r\n\r\n\tGeneralProfile              First level triage\r\n\tCPU                         CPU usage\r\n\tDiskIO                      Disk I/O activity\r\n\tFileIO                      File I/O activity\r\n\tRegistry                    Registry I/O activity\r\n\tNetwork                     Networking I/O activity\r\n\tHeap                        Heap usage\r\n\tPool                        Pool usage\r\n\tVirtualAllocation           VirtualAlloc usage\r\n\tAudio                       Audio glitches\r\n\tVideo                       Video glitches\r\n\tPower                       Power usage\r\n\tInternetExplorer            Internet Explorer\r\n\tEdgeBrowser                 Microsoft Edge Browser\r\n\tMinifilter                  Minifilter I/O activity\r\n\tGPU                         GPU activity\r\n\tHandle                      Handle usage\r\n\tXAMLActivity                XAML activity\r\n\tHTMLActivity                HTML activity\r\n\tDesktopComposition          Desktop composition activity\r\n\tXAMLAppResponsiveness       XAML App Responsiveness analysis\r\n\tHTMLResponsiveness          HTML Responsiveness analysis\r\n\tReferenceSet                Reference Set analysis\r\n\tResidentSet                 Resident Set analysis\r\n\tXAMLHTMLAppMemoryAnalysis   XAML/HTML application memory analysis\r\n\tUTC                         UTC Scenarios\r\n\tDotNET                      .NET Activity\r\n\tWdfTraceLoggingProvider     WDF Driver Activity\r\n\tHeapSnapshot                Heap snapshot\r\n\tNeuralProcessing            Neural Processing Activity\r\n\tThermal                     Thermal Status",
+  "tracePath": null,
+  "steps": [
+    {
+      "name": "WPR_PRESENT",
+      "status": "PASS",
+      "detail": "C:\\WINDOWS\\system32\\wpr.exe"
+    },
+    {
+      "name": "WPR_STATUS",
+      "status": "PASS",
+      "detail": "Microsoft Windows Performance Recorder Version 10.0.26100 (CoreSystem)\r\nCopyright (c) 2024 Microsoft Corporation. All rights reserved.\r\n\r\nWPR is not recording"
+    },
+    {
+      "name": "WPR_PROFILES",
+      "status": "PASS",
+      "detail": "GeneralProfile is listed."
+    },
+    {
+      "name": "TRACE_START_STOP",
+      "status": "FAIL",
+      "detail": "wpr -start exit code -984068079; output: Failed to enable the policy to profile system performance.\r\n\r\n\r\n\tProfile Id: GeneralProfile.Verbose.File\r\n\t\r\n\tError code: 0xc5585011\r\n\t\r\n\tFailed to enable the policy to profile system performance."
+    }
+  ]
+}

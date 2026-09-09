@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver/device problem diagnostics  
-ID: C-DRIVERS-002  
-Tipo: Diagnostic, Diagnostic / Manual Guidance  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver/device problem diagnostics
+ID: C-DRIVERS-002
+Tipo: Diagnostic, Diagnostic / Manual Guidance
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -384,25 +384,26 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/drivers/c-drivers-002/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/drivers/C-DRIVERS-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DETECT: PASS (healthy present-device baseline: 190 CM_PROB_NONE)
+PLAN: PASS (read-only; Changes = [])
+DRY-RUN: PASS (no device action)
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: PASS (healthy count and provenance)
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
+REAL PROBLEM/ACCESS-DENIED FIXTURE: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -413,7 +414,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-driver-servicing-command-line-options-s14
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-deviceinstallation
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `drivers.problem-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `drivers.problem-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Consulta real encontrou 190 devices presentes com `CM_PROB_NONE` e 0 problemas. Regras sintéticas cobriram normalização `CM_PROB_DISABLED`/missing somente como fixture, não como ocorrência real. Nenhum device foi desabilitado para fabricar falha; problem/access-denied continuam `NOT_TESTED`.
+
+Evidência: /prototypes/drivers/C-DRIVERS-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — problem-code diagnostics including healthy, problem and access-denied/unknown interpretation.
+- Evidência realmente executada: Prototype seguro adicional executado: Consulta real encontrou 190 devices presentes com `CM_PROB_NONE` e 0 problemas. Regras sintéticas cobriram normalização `CM_PROB_DISABLED`/missing somente como fixture, não como ocorrência real. Nenhum device foi desabilitado para fabricar falha; problem/access-denied continuam `NOT_TESTED`. Evidência: `/prototypes/drivers/C-DRIVERS-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Healthy read-only detection is safe; inducing a device problem is not. Teste recomendado: Correlate PnP problem codes, status and events; use an isolated/synthetic fixture for problem and inaccessible states; never disable a live device.
+- Impedimento ou limitação restante: No safe problem-device fixture; current PASS cannot establish diagnosis behavior.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

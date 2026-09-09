@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Hardware diagnostic session evidence bundle  
-ID: C-HARDWARE-009  
-Tipo: Diagnostic / Measurement, Tool / Diagnostic  
-Technical Domain: HARDWARE  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Monitoring, Benchmark, Optimization  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Hardware diagnostic session evidence bundle
+ID: C-HARDWARE-009
+Tipo: Diagnostic / Measurement, Tool / Diagnostic
+Technical Domain: HARDWARE
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Monitoring, Benchmark, Optimization
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -288,9 +288,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -415,6 +415,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/etw/about-event-tracing
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `hardware.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: A hardware evidence package can hash direct identifiers and retain integrity without exporting raw values.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/hardware/C-HARDWARE-001/results/hardware-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: redaction proved with fixture; no failed hardware session
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — pacote de sessão, minimização/redação e integridade.
+- Evidência realmente executada: Prototype seguro adicional executado: A hardware evidence package can hash direct identifiers and retain integrity without exporting raw values. Resultado observado: `PASS`. Evidência: `/prototypes/hardware/C-HARDWARE-001/results/hardware-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — gerar pacote sintético+real mínimo, testar schema, hash e exclusão de PnP IDs/MAC.
+- Impedimento ou limitação restante: Ainda não há sessão de hardware com falha nem matriz de privacidade.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

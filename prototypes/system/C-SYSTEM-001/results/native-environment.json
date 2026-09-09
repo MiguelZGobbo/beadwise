@@ -1,0 +1,17 @@
+{
+  "capturedAt": "2026-09-08T22:53:02.0521310-03:00",
+  "api": "GetNativeSystemInfo/RtlGetVersion",
+  "architecture": "X64",
+  "processorArchitecture": 9,
+  "processorLevel": 25,
+  "processorRevision": 20480,
+  "processorCount": 16,
+  "pageSize": 4096,
+  "minimumApplicationAddress": "10000",
+  "maximumApplicationAddress": "7FFFFFFEFFFF",
+  "allocationGranularity": 65536,
+  "windowsMajor": 10,
+  "windowsMinor": 0,
+  "windowsBuild": 26200,
+  "rtlStatus": 0
+}

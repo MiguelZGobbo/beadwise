@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Performance/file-registry tracing & failed-I/O diagnostics  
-ID: C-SYSTEM-012  
-Tipo: Diagnostic, Diagnostic Tool  
-Technical Domain: SYSTEM  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Performance/file-registry tracing & failed-I/O diagnostics
+ID: C-SYSTEM-012
+Tipo: Diagnostic, Diagnostic Tool
+Technical Domain: SYSTEM
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Optimization, Monitoring, Repair
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -292,9 +292,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -389,25 +389,25 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/system/c-system-012/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/system/C-SYSTEM-012/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: FAIL
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -420,6 +420,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/powershell/module/dism/get-windowsoptionalfeature
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+**Observed behavior (auditoria final 2026-09-08):** o prototype próprio `C-SYSTEM-012` confirmou `wpr.exe` presente, `wpr -status` funcional e `GeneralProfile` listado (`PASS`). A tentativa real de iniciar uma sessão curta com `wpr -start GeneralProfile -filemode` falhou neste host não elevado com exit code `-984068079` e erro `0xc5585011` (`Failed to enable the policy to profile system performance`). Evidência: `/prototypes/system/C-SYSTEM-012/results/etw-wpr-proof.json`. O FAIL é preservado: ETW/WPR existe, mas captura real fica bloqueada nesta sessão; não marcar `PROVEN` até testar caminho elevado/controlado e análise de ETL.
+
+**Documented behavior confirmado após o FAIL:** a documentação Microsoft de captura WPR registra que uma sessão não administrativa pode receber exatamente `0xc5585011`/`Failed to enable the policy to profile system performance`: https://learn.microsoft.com/windows/apps/develop/performance/disk-memory. A classificação correta neste host é `BLOCKED` por autoridade para a captura real, não incompatibilidade da ferramenta e não `PASS` inferido.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — uma captura ETW/WPR real é essencial para tracing e failed-I/O diagnostics.
+- Evidência realmente executada: WPR presente/status/profiles PASS; duas tentativas de trace CPU/GeneralProfile falharam com 0xc5585011 em token não elevado; FAIL preservado.
+- Execução segura neste host / teste: A tentativa não elevada foi segura e deixou WPR sem gravação; repetir exige elevação UAC/admin e revisão de privacidade do ETL.
+- Impedimento ou limitação restante: Bloqueio objetivo de autoridade: nenhuma ETL foi criada e não há captura/análise de I/O real.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

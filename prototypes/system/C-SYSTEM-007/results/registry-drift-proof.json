@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:53:04.2962054-03:00",
+  "featureId": "C-SYSTEM-007",
+  "mutationScope": "HKCU:\\Software\\BeadWise\\Phase2Proof\\C-SYSTEM-007",
+  "initial": {
+    "exists": false,
+    "valueExists": false,
+    "value": null
+  },
+  "plan": {
+    "featureId": "C-SYSTEM-007",
+    "path": "HKCU:\\Software\\BeadWise\\Phase2Proof\\C-SYSTEM-007",
+    "valueName": "ObservedState",
+    "initial": {
+      "exists": false,
+      "valueExists": false,
+      "value": null
+    },
+    "target": {
+      "exists": true,
+      "valueExists": true,
+      "value": "phase2-proof"
+    },
+    "changes": [
+      "Create HKCU sandbox key when absent",
+      "Set ObservedState to phase2-proof"
+    ],
+    "reversible": true,
+    "restartRequired": false,
+    "adminRequired": false
+  },
+  "afterDryRun": {
+    "exists": false,
+    "valueExists": false,
+    "value": null
+  },
+  "afterApply": {
+    "exists": true,
+    "valueExists": true,
+    "value": "phase2-proof"
+  },
+  "afterSecondApply": {
+    "exists": true,
+    "valueExists": true,
+    "value": "phase2-proof"
+  },
+  "afterRollback": {
+    "exists": false,
+    "valueExists": false,
+    "value": null
+  },
+  "steps": [
+    {
+      "name": "DETECT",
+      "status": "PASS",
+      "detail": "Sandbox key was absent before apply."
+    },
+    {
+      "name": "PLAN",
+      "status": "PASS",
+      "detail": "ChangePlan captures absent original state and target registry value."
+    },
+    {
+      "name": "DRY_RUN",
+      "status": "PASS",
+      "detail": "Dry-run built the plan without persisting the sandbox key."
+    },
+    {
+      "name": "APPLY",
+      "status": "PASS",
+      "detail": "Sandbox key/value written."
+    },
+    {
+      "name": "VERIFY",
+      "status": "PASS",
+      "detail": "Detected target value after apply."
+    },
+    {
+      "name": "IDEMPOTENCE",
+      "status": "PASS",
+      "detail": "Second apply preserved the same target state."
+    },
+    {
+      "name": "ROLLBACK",
+      "status": "PASS",
+      "detail": "Rollback restored the original absent/existing snapshot rule."
+    },
+    {
+      "name": "VERIFY_ROLLBACK",
+      "status": "PASS",
+      "detail": "Post-rollback state equals the original snapshot."
+    }
+  ]
+}

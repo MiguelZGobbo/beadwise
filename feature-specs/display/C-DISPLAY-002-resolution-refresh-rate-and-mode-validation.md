@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Resolution, refresh rate & mode validation  
-ID: C-DISPLAY-002  
-Tipo: Configuration / Diagnostic, Diagnostic, Diagnostic / Benchmark, Diagnostic / Configuration, Diagnostic / Recommendation  
-Technical Domain: DISPLAY  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Resolution, refresh rate & mode validation
+ID: C-DISPLAY-002
+Tipo: Configuration / Diagnostic, Diagnostic, Diagnostic / Benchmark, Diagnostic / Configuration, Diagnostic / Recommendation
+Technical Domain: DISPLAY
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -407,25 +407,25 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/display/c-display-002/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/display/C-DISPLAY-002/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
+DETECT: PASS (current and supported mode enumeration)
 PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
+DRY-RUN: PASS (`CDS_TEST`; no mode Apply)
+APPLY: NOT_TESTED (intentionally not executed on live displays)
+VERIFY: PASS (current modes unchanged after valid and invalid validation)
 ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -437,7 +437,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/monitor/monitor-configuration
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `display.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `display.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Prova Win32/PInvoke real: 31 e 262 modos enumerados para os dois displays; `ChangeDisplaySettingsEx(CDS_TEST)` aceitou ambos os modos atuais (`0`) e rejeitou o modo deliberadamente inválido 1x1 (`-2`). Reconsulta confirmou largura, altura, frequência e bit depth inalterados. Nenhuma mudança de modo foi aplicada.
+
+Evidência: /prototypes/display/C-DISPLAY-002/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — enumeração de modos, validação não persistente e Verify sem Apply precisavam de prova antes de PROVEN.
+- Evidência realmente executada: Prototype seguro adicional executado: Prova Win32/PInvoke real: 31 e 262 modos enumerados para os dois displays; `ChangeDisplaySettingsEx(CDS_TEST)` aceitou ambos os modos atuais (`0`) e rejeitou o modo deliberadamente inválido 1x1 (`-2`). Reconsulta confirmou largura, altura, frequência e bit depth inalterados. Nenhuma mudança de modo foi aplicada. Evidência: `/prototypes/display/C-DISPLAY-002/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Executado com CDS_TEST somente; nenhum Apply real de display mode foi feito.
+- Impedimento ou limitação restante: Apply/Rollback real de modo e matriz multi-driver permanecem NOT_TESTED; a validação não persistente não prova recuperação de tela preta.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

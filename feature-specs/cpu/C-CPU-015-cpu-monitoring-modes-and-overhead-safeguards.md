@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU monitoring modes & overhead safeguards  
-ID: C-CPU-015  
-Tipo: Advanced Diagnostic, Diagnostic Infrastructure, Monitoring  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU monitoring modes & overhead safeguards
+ID: C-CPU-015
+Tipo: Advanced Diagnostic, Diagnostic Infrastructure, Monitoring
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -416,6 +416,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `cpu.utilization.sample`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-CPU-015=PARTIAL` para o modo curto `GetSystemTimes` em `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`: 30 amostras, nenhuma falha e overhead observado no último run de 8,18% de um core, acima do guard de 5% do prototype. O resultado real foi preservado; monitoramento longo, dropped events e modo ETW continuam sem cobertura.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — modos de monitoramento, medição de overhead e stop guards precisam de prova antes de PROVEN.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-CPU-015=PARTIAL` para o modo curto `GetSystemTimes` em `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`: 30 amostras, nenhuma falha e overhead observado no último run de 8,18% de um core, acima do guard de 5% do prototype. O resultado real foi preservado; monitoramento longo, dropped events e modo ETW continuam sem cobertura. Evidência: `/prototypes/cpu/C-CPU-001/results/cpu-safe-capabilities.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Amostragem curta executada sem mudança persistente; caminhos ETW elevados permanecem bloqueados.
+- Impedimento ou limitação restante: Não há modo longo, ETW/dropped-events ou matriz de overhead por hardware; o PARTIAL observado impede qualquer alegação de custo universal baixo.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

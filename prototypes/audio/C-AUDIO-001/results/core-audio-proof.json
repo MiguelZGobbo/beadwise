@@ -1,0 +1,1124 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUtc": "2026-09-08T22:51:56.9359476-03:00",
+  "capabilities": [
+    "C-AUDIO-001",
+    "C-AUDIO-003",
+    "C-AUDIO-006",
+    "C-AUDIO-007",
+    "C-AUDIO-010"
+  ],
+  "api": [
+    "IMMDeviceEnumerator.EnumAudioEndpoints",
+    "IMMDeviceEnumerator.GetDefaultAudioEndpoint",
+    "IMMDevice.GetId/GetState",
+    "IPropertyStore.GetValue(PKEY_Device_FriendlyName)",
+    "IAudioEndpointVolume.GetMute/GetMasterVolumeLevelScalar",
+    "Get-PnpDevice -Class AudioEndpoint",
+    "Get-PnpDevice -Class Media"
+  ],
+  "mutation": "NONE",
+  "summary": {
+    "endpointCount": 59,
+    "renderCount": 39,
+    "captureCount": 20,
+    "activeCount": 8,
+    "disabledCount": 6,
+    "unpluggedCount": 3
+  },
+  "endpoints": [
+    {
+      "EndpointIdHash": "9E4877E340641510A1A8D898E9815CB7",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "9BFEFC0FD442166610C3A129876540E1",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0AC6F46C89615ACF3FDAC7014658D345",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "88BBCD09717657212937D3C57732B80C",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "BD07B0381DDFA7BDF005AE8FCCE91DFE",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 2,
+      "States": [
+        "DISABLED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "92B109130B4134E52571F8F35BD3B48B",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0052E45F5E957103E9E9C841DC27C064",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 8,
+      "States": [
+        "UNPLUGGED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "6FDB09CA79A4729408F6386A12E218B9",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "3A515BE5EFC5FCD2FDCFC08F5422636D",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "2757FBBA50DB593AC2AA3885B6228F09",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0A074AF24E45DB0432BFC800DAB60EF5",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "A72B48417D43856F61508D05231A8FCD",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "F735B797320C0D22B01A0131112030C4",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "1A458AA7CCDDD88777DEA3142F507C2C",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 2,
+      "States": [
+        "DISABLED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0DAE66E783614BA119917540BAE79EC4",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "110A2D015208AE5E90BAF7F2126A1D6F",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "3464B228EF3F10A9A51F8AAE01AC68D2",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "38E54398CD6F8D262C7DBA8F38641E74",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 2,
+      "States": [
+        "DISABLED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "37DFB69FE4B76055C40DD354DC3D4833",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "23FA47F2D68F2DB0B68F7DA5A529D04B",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "15391CC4D1614D3166D0B332102D3765",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "94723FF6E19C047296695391971562D2",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0F2B1A68A30EB949F778819A57C7A78C",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "A3562D781F3935EB1D9BDF1F79D228AF",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "27E11185CA3238800520CB141A0FB4F8",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "BF9153B24A6442C4C01091BD39196B20",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "EBFA57D0E91920FFFA90F89866729214",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "7685A21508C04B622BD6E280AB01020C",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "4EA6DB2EA78BB5BA7805349A7B86D0AB",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "EF08378E83C615225100B9D6FDA34629",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "F099B9F68DA1A72D35C4DF632F142D2A",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "2E4E4B44A8E6ADD4396E8EA097D75F6A",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "7D7E8A47FED2D95996145033B44A5972",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "8CC4CD2302C82E9DC461D9FDD54AE5F1",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "8D1E2E33F1C43C74765A12F438F40F55",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "BDB770752786A543EC0C319A8B20AAC3",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "2FF6424312C95C2AD21B94F0F5DFB010",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "B12BA6B3BD97BCA73B6461E0A787DD27",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "5D3C50480AA373C2CE97F2350AAB3605",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "RENDER",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "F8090144BF7A5EFAD8FE977B80854904",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 2,
+      "States": [
+        "DISABLED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0A306F25877C3BBB60DFE5C5D4F4247E",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "0874734AAE7884AEC076D585C0B8991E",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "6C0D02CEF4E487F6A5F23756BD650856",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "F04D73D286BFD51B0F4C4346F1A6B1CB",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "B11A130762CA67D633E71DFA605BBACA",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "A67BF8505D06B4BE0B0836E4E19C37E5",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "BC99FC9C0FA0D8F83F5CE68470814CF9",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 2,
+      "States": [
+        "DISABLED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "87A1095A8BABFAD88E6FCED417F34C33",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "D29C863A8F8E7AA3C17BC705A89517A1",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "BFA28F7CF2E805BB854F7FD4E3CCBE6A",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 8,
+      "States": [
+        "UNPLUGGED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "4BE0D4BD736B202C258007316DD7EED4",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "DAF8A68A169AF780EED6A019040BE4C1",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "293637A79E7CE9238849028C4B789BF7",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "2DD8A5F74F0D7EC58CF123FBFFBC5A60",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "BC108F74CF2DFD4B8E3972B14E9856BE",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 1,
+      "States": [
+        "ACTIVE"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "CF193BB58A407D44D385722E1104CC08",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "B3F16286A016D66D01776F36C7670F09",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 8,
+      "States": [
+        "UNPLUGGED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "575162B3F2593CAD39E9CD54DB2352E3",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 2,
+      "States": [
+        "DISABLED"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    },
+    {
+      "EndpointIdHash": "89EFE983F0D1C47B84B39F971695CF0F",
+      "FriendlyNameStatus": "PASS",
+      "Flow": "CAPTURE",
+      "StateMask": 4,
+      "States": [
+        "NOT_PRESENT"
+      ],
+      "Transport": "UNKNOWN_NOT_QUERIED"
+    }
+  ],
+  "defaultEndpoints": [
+    {
+      "flow": "RENDER",
+      "role": "CONSOLE",
+      "endpointIdHash": "F099B9F68DA1A72D35C4DF632F142D2A",
+      "status": "PASS"
+    },
+    {
+      "flow": "RENDER",
+      "role": "MULTIMEDIA",
+      "endpointIdHash": "F099B9F68DA1A72D35C4DF632F142D2A",
+      "status": "PASS"
+    },
+    {
+      "flow": "RENDER",
+      "role": "COMMUNICATIONS",
+      "endpointIdHash": "0DAE66E783614BA119917540BAE79EC4",
+      "status": "PASS"
+    },
+    {
+      "flow": "CAPTURE",
+      "role": "CONSOLE",
+      "endpointIdHash": "BC108F74CF2DFD4B8E3972B14E9856BE",
+      "status": "PASS"
+    },
+    {
+      "flow": "CAPTURE",
+      "role": "MULTIMEDIA",
+      "endpointIdHash": "BC108F74CF2DFD4B8E3972B14E9856BE",
+      "status": "PASS"
+    },
+    {
+      "flow": "CAPTURE",
+      "role": "COMMUNICATIONS",
+      "endpointIdHash": "BC108F74CF2DFD4B8E3972B14E9856BE",
+      "status": "PASS"
+    }
+  ],
+  "captureDiagnostics": [
+    {
+      "endpointIdHash": "F8090144BF7A5EFAD8FE977B80854904",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "HIGH"
+    },
+    {
+      "endpointIdHash": "0A306F25877C3BBB60DFE5C5D4F4247E",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "0874734AAE7884AEC076D585C0B8991E",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "MEDIUM"
+    },
+    {
+      "endpointIdHash": "6C0D02CEF4E487F6A5F23756BD650856",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "F04D73D286BFD51B0F4C4346F1A6B1CB",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "B11A130762CA67D633E71DFA605BBACA",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "A67BF8505D06B4BE0B0836E4E19C37E5",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "BC99FC9C0FA0D8F83F5CE68470814CF9",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "MEDIUM"
+    },
+    {
+      "endpointIdHash": "87A1095A8BABFAD88E6FCED417F34C33",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "D29C863A8F8E7AA3C17BC705A89517A1",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "BFA28F7CF2E805BB854F7FD4E3CCBE6A",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "MEDIUM"
+    },
+    {
+      "endpointIdHash": "4BE0D4BD736B202C258007316DD7EED4",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "DAF8A68A169AF780EED6A019040BE4C1",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "293637A79E7CE9238849028C4B789BF7",
+      "activationStatus": "0x80070003",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "2DD8A5F74F0D7EC58CF123FBFFBC5A60",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "BC108F74CF2DFD4B8E3972B14E9856BE",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "HIGH"
+    },
+    {
+      "endpointIdHash": "CF193BB58A407D44D385722E1104CC08",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    },
+    {
+      "endpointIdHash": "B3F16286A016D66D01776F36C7670F09",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "MEDIUM"
+    },
+    {
+      "endpointIdHash": "575162B3F2593CAD39E9CD54DB2352E3",
+      "activationStatus": "PASS",
+      "muteQueryStatus": "PASS",
+      "volumeQueryStatus": "PASS",
+      "muted": false,
+      "volumeBucket": "HIGH"
+    },
+    {
+      "endpointIdHash": "89EFE983F0D1C47B84B39F971695CF0F",
+      "activationStatus": "0x88890004",
+      "muteQueryStatus": "NOT_RUN",
+      "volumeQueryStatus": "NOT_RUN",
+      "muted": null,
+      "volumeBucket": null
+    }
+  ],
+  "rawEndpointMetadataPersisted": false,
+  "limitations": [
+    "No endpoint state, role, volume, mute, route, service, device, or privacy setting was changed.",
+    "Capture endpoint mute/volume were queried read-only; no capture stream was opened and no user audio was retained.",
+    "Microphone consent-store values were summarized without app IDs or paths.",
+    "PnP transport classes were queried read-only and stored as counts/hashes; exact endpoint-to-parent correlation remains NOT_TESTED.",
+    "Hotplug, permission-blocked, disabled, sleep/resume, and session fixtures remain untested unless naturally present."
+  ],
+  "pnpTransportSummary": {
+    "queried": true,
+    "rawInstanceIdsPersisted": false,
+    "audioEndpoint": {
+      "count": 14,
+      "byClass": [
+        {
+          "name": "AudioEndpoint",
+          "count": 14
+        }
+      ],
+      "byStatus": [
+        {
+          "name": "OK",
+          "count": 9
+        },
+        {
+          "name": "Unknown",
+          "count": 5
+        }
+      ],
+      "byProblem": [
+        {
+          "name": "CM_PROB_NONE",
+          "count": 9
+        },
+        {
+          "name": "CM_PROB_PHANTOM",
+          "count": 5
+        }
+      ],
+      "byEnumerator": [
+        {
+          "name": "SWD",
+          "count": 14
+        }
+      ],
+      "hashedRows": [
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "8808399A34361DA39517B2E0A2224D02"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "208744F517FA7456C5DA549AFAE4C03A"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "6DCAB88EF1AD46105368AC74E1474AC5"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "3D23FB7497715F27E6DA5BB50C3C0572"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "SWD",
+          "instanceIdHash": "C3CAF390531A04F24089293190F47381"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "SWD",
+          "instanceIdHash": "23A93CA0A58609F9594A961A95D54516"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "6E3B05DAB28535FD2917DDD34816289B"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "SWD",
+          "instanceIdHash": "EB94ECB0D8703F4311D10F66694E4311"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "0F377D3D835462A4758E8411D2161D4F"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "F3A217C2F5272E91C7F4822EBB6AC6E5"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "SWD",
+          "instanceIdHash": "279A405FE5850DB618803076810F3934"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "SWD",
+          "instanceIdHash": "7428090B45944FFD932A7E70DB3D0A4F"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "546A3A897EF593215C44E1D63EF8B810"
+        },
+        {
+          "class": "AudioEndpoint",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "SWD",
+          "instanceIdHash": "9C9885C8E09D5BF7487AD0666C112BC4"
+        }
+      ]
+    },
+    "media": {
+      "count": 10,
+      "byClass": [
+        {
+          "name": "MEDIA",
+          "count": 10
+        }
+      ],
+      "byStatus": [
+        {
+          "name": "OK",
+          "count": 7
+        },
+        {
+          "name": "Unknown",
+          "count": 3
+        }
+      ],
+      "byProblem": [
+        {
+          "name": "CM_PROB_NONE",
+          "count": 7
+        },
+        {
+          "name": "CM_PROB_PHANTOM",
+          "count": 3
+        }
+      ],
+      "byEnumerator": [
+        {
+          "name": "BTHENUM",
+          "count": 2
+        },
+        {
+          "name": "BTHHFENUM",
+          "count": 2
+        },
+        {
+          "name": "HDAUDIO",
+          "count": 3
+        },
+        {
+          "name": "ROOT",
+          "count": 2
+        },
+        {
+          "name": "USB",
+          "count": 1
+        }
+      ],
+      "hashedRows": [
+        {
+          "class": "MEDIA",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "BTHENUM",
+          "instanceIdHash": "F7F29A531C5448683883D97991028800"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "HDAUDIO",
+          "instanceIdHash": "DF9D5C17DC1959FA692B7BBE99BBB255"
+        },
+        {
+          "class": "MEDIA",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "BTHHFENUM",
+          "instanceIdHash": "6FD4561E8698EB8A03A550F5A418669F"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "ROOT",
+          "instanceIdHash": "463A7D0C288D6BFF1E39E17C46624A28"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "HDAUDIO",
+          "instanceIdHash": "13EC6E9FA107566661614F740437CA47"
+        },
+        {
+          "class": "MEDIA",
+          "status": "Unknown",
+          "problem": "CM_PROB_PHANTOM",
+          "enumerator": "USB",
+          "instanceIdHash": "E8F97BC38CC4A1B17B5230AAAD5B8A54"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "BTHENUM",
+          "instanceIdHash": "764ECF7E64E426C46654DA4B817B4333"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "BTHHFENUM",
+          "instanceIdHash": "D2961C4401B844EA05D793DEE54F182E"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "HDAUDIO",
+          "instanceIdHash": "287BA479FC89F2457B64A4349A61E802"
+        },
+        {
+          "class": "MEDIA",
+          "status": "OK",
+          "problem": "CM_PROB_NONE",
+          "enumerator": "ROOT",
+          "instanceIdHash": "6A4B3D72EB31FF6F5F448FBDB0FB61A2"
+        }
+      ]
+    }
+  },
+  "transportCoverage": {
+    "queried": true,
+    "enumeratorsObserved": [
+      "BTHENUM",
+      "BTHHFENUM",
+      "HDAUDIO",
+      "ROOT",
+      "SWD",
+      "USB"
+    ],
+    "hasUsbCandidate": true,
+    "hasBluetoothCandidate": true,
+    "hasRootOrVirtualCandidate": true,
+    "endpointToParentExactCorrelation": "NOT_TESTED"
+  },
+  "microphonePrivacySummary": {
+    "queried": true,
+    "rawAppOrPathPersisted": false,
+    "valueCounts": [
+      {
+        "value": "Allow",
+        "count": 1
+      },
+      {
+        "value": "Prompt",
+        "count": 8
+      },
+      {
+        "value": "UNSPECIFIED",
+        "count": 1
+      }
+    ]
+  }
+}

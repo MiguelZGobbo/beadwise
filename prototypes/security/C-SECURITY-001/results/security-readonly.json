@@ -1,0 +1,345 @@
+{
+  "generatedAt": "2026-09-08T22:52:49.5187687-03:00",
+  "safety": {
+    "persistentMutation": false,
+    "readOnlyCommandsOnly": true
+  },
+  "probes": [
+    {
+      "featureId": "C-SECURITY-001",
+      "status": "PASS",
+      "mechanism": "Defender cmdlet + Firewall cmdlet + SecurityCenter2 CIM + policy Registry presence",
+      "evidence": {
+        "defender": {
+          "name": "Get-MpComputerStatus",
+          "status": "PASS",
+          "value": {
+            "AMServiceEnabled": true,
+            "AntivirusEnabled": true,
+            "AntispywareEnabled": true,
+            "BehaviorMonitorEnabled": true,
+            "IoavProtectionEnabled": true,
+            "NISEnabled": true,
+            "OnAccessProtectionEnabled": true,
+            "RealTimeProtectionEnabled": true,
+            "IsTamperProtected": true,
+            "AntivirusSignatureVersion": "1.459.111.0",
+            "AntivirusSignatureLastUpdated": "2026-09-08T03:47:52-03:00"
+          },
+          "error": null
+        },
+        "firewallSource": {
+          "name": "Get-NetFirewallProfile",
+          "status": "PASS",
+          "value": [
+            {
+              "Name": "Domain",
+              "Enabled": 1,
+              "DefaultInboundAction": 0,
+              "DefaultOutboundAction": 0
+            },
+            {
+              "Name": "Private",
+              "Enabled": 1,
+              "DefaultInboundAction": 0,
+              "DefaultOutboundAction": 0
+            },
+            {
+              "Name": "Public",
+              "Enabled": 1,
+              "DefaultInboundAction": 0,
+              "DefaultOutboundAction": 0
+            }
+          ],
+          "error": null
+        },
+        "firewallProfiles": [
+          {
+            "Name": "Domain",
+            "Enabled": 1,
+            "DefaultInboundAction": 0,
+            "DefaultOutboundAction": 0
+          },
+          {
+            "Name": "Private",
+            "Enabled": 1,
+            "DefaultInboundAction": 0,
+            "DefaultOutboundAction": 0
+          },
+          {
+            "Name": "Public",
+            "Enabled": 1,
+            "DefaultInboundAction": 0,
+            "DefaultOutboundAction": 0
+          }
+        ],
+        "antivirusProviders": {
+          "name": "SecurityCenter2 AntiVirusProduct",
+          "status": "PASS",
+          "value": {
+            "displayName": "Windows Defender",
+            "instanceGuid": "{D68DDC3A-831F-4fae-9E44-DA132C1ACF46}",
+            "pathToSignedProductExe": "windowsdefender://",
+            "productState": 397568
+          },
+          "error": null
+        },
+        "managedPolicyPresence": {
+          "defenderPolicyPresent": true,
+          "firewallPolicyPresent": false,
+          "policyManagerDefenderPresent": false
+        },
+        "mutationAttempted": false
+      },
+      "limitations": [
+        "Current host only; no third-party AV, MDM, or alternate tamper-state fixture was induced."
+      ]
+    },
+    {
+      "featureId": "C-SECURITY-003",
+      "status": "PARTIAL",
+      "mechanism": "Confirm-SecureBootUEFI + Get-Tpm + Win32_DeviceGuard CIM",
+      "evidence": {
+        "sources": {
+          "secureBoot": {
+            "name": "Confirm-SecureBootUEFI",
+            "status": "FAIL",
+            "value": null,
+            "error": "Não é possível definir privilégios apropriados. Acesso negado."
+          },
+          "tpm": {
+            "name": "Get-Tpm",
+            "status": "FAIL",
+            "value": null,
+            "error": "Get-Tpm returned no structured state; this host requires administrator rights."
+          },
+          "deviceGuard": {
+            "name": "Win32_DeviceGuard",
+            "status": "PASS",
+            "value": {
+              "AvailableSecurityProperties": [
+                2,
+                3,
+                5,
+                7,
+                8
+              ],
+              "CodeIntegrityPolicyEnforcementStatus": 2,
+              "InstanceIdentifier": "4ff40742-2649-41b8-bdd1-e80fad1cce80",
+              "RequiredSecurityProperties": [
+                0
+              ],
+              "SecurityFeaturesEnabled": [
+                0
+              ],
+              "SecurityServicesConfigured": [
+                0
+              ],
+              "SecurityServicesRunning": [
+                0
+              ],
+              "UsermodeCodeIntegrityPolicyEnforcementStatus": 1,
+              "Version": "1.0",
+              "VirtualizationBasedSecurityStatus": 0
+            },
+            "error": null
+          }
+        },
+        "successfulSourceCount": 1,
+        "mutationAttempted": false
+      },
+      "limitations": [
+        "No BIOS-disabled, TPM-absent, or alternate-hardware fixture; observed errors remain explicit."
+      ]
+    },
+    {
+      "featureId": "C-SECURITY-007",
+      "status": "PARTIAL",
+      "mechanism": "CurrentVersion Registry + hotfix inventory + Windows Update COM history",
+      "evidence": {
+        "osBuild": "26200.9168",
+        "osVersion": {
+          "name": "CurrentVersion registry",
+          "status": "PASS",
+          "value": {
+            "ProductName": "Windows 10 Pro",
+            "DisplayVersion": "25H2",
+            "EditionID": "Professional",
+            "InstallationType": "Client",
+            "CurrentBuildNumber": "26200",
+            "UBR": 9168
+          },
+          "error": null
+        },
+        "hotfixes": {
+          "name": "Get-HotFix",
+          "status": "PASS",
+          "value": [
+            {
+              "HotFixID": "KB5095189",
+              "Description": "Update",
+              "InstalledOn": "2026-09-05T00:00:00"
+            },
+            {
+              "HotFixID": "KB5120708",
+              "Description": "Update",
+              "InstalledOn": "2026-08-09T00:00:00"
+            },
+            {
+              "HotFixID": "KB5054156",
+              "Description": "Update",
+              "InstalledOn": "2026-08-09T00:00:00"
+            },
+            {
+              "HotFixID": "KB5121003",
+              "Description": "Security Update",
+              "InstalledOn": "2026-08-09T00:00:00"
+            },
+            {
+              "HotFixID": "KB5123304",
+              "Description": "Security Update",
+              "InstalledOn": "2026-08-09T00:00:00"
+            }
+          ],
+          "error": null
+        },
+        "updateHistory": {
+          "name": "Windows Update COM history",
+          "status": "PASS",
+          "value": [
+            {
+              "Date": "2026-09-08T13:41:36",
+              "Title": "Atualização de inteligência de segurança para Microsoft Defender Antivirus - KB2267602 (versão 1.459.111.0) - Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-07T16:48:34",
+              "Title": "Atualização de inteligência de segurança para Microsoft Defender Antivirus - KB2267602 (versão 1.459.97.0) - Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-06T23:15:02",
+              "Title": "Atualização de inteligência de segurança para Microsoft Defender Antivirus - KB2267602 (versão 1.459.84.0) - Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T22:45:01",
+              "Title": "Atualização de inteligência de segurança para Microsoft Defender Antivirus - KB2267602 (versão 1.459.68.0) - Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T15:46:29",
+              "Title": "Atualização para Microsoft Defender Antivirus plataforma de antimalware – KB4052623 (versão 4.18.26080.3) – Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T15:46:13",
+              "Title": "Atualização de inteligência de segurança para Microsoft Defender Antivirus - KB2267602 (versão 1.459.63.0) - Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T15:45:54",
+              "Title": "Atualização para Windows Security platform - KB5007651 (Versão 10.0.29628.1000)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T03:31:33",
+              "Title": "9P2B8MCSVPLN-RealtekSemiconductorCorp.RealtekAudioControl",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T03:22:17",
+              "Title": "Barrot Technology Co.,Ltd. - Bluetooth - 17.55.6.566",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T02:00:36",
+              "Title": "9NRZT3Q9R3DL-Microsoft.WindowsAppRuntime.2",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:59:16",
+              "Title": "Atualização de inteligência de segurança para Microsoft Defender Antivirus - KB2267602 (versão 1.459.55.0) - Canal atual (amplo)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:42:24",
+              "Title": "Advanced Micro Devices, Inc driver update for AMD SMBus",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:41:49",
+              "Title": "Advanced Micro Devices - System - 1.0.0.83",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:41:49",
+              "Title": "Advanced Micro Devices, Inc driver update for AMD SMBus",
+              "ResultCode": 4,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:41:07",
+              "Title": "Advanced Micro Devices, Inc. - Display - 31.0.12027.9001",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:40:08",
+              "Title": "Microsoft Corporation AudioProcessingObject Driver Update (1.0.4.7057)",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:40:05",
+              "Title": "Advanced Micro Devices Inc. - SecurityDevices - 6/2/2017 12:00:00 AM - 4.4.0.0",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:40:03",
+              "Title": "Advanced Micro Devices, Inc. - System - 3/14/2016 12:00:00 AM - 2.0.1.0",
+              "ResultCode": 2,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:40:03",
+              "Title": "Advanced Micro Devices - System - 1.0.0.83",
+              "ResultCode": 4,
+              "Operation": 1
+            },
+            {
+              "Date": "2026-09-05T01:40:03",
+              "Title": "Advanced Micro Devices, Inc driver update for AMD SMBus",
+              "ResultCode": 4,
+              "Operation": 1
+            }
+          ],
+          "error": null
+        },
+        "lifecycle": {
+          "status": "UNSUPPORTED",
+          "reason": "No versioned official lifecycle dataset is bundled with this prototype; local OS state cannot establish support dates.",
+          "inferredSupportState": null
+        },
+        "mutationAttempted": false
+      },
+      "limitations": [
+        "Lifecycle exposure is deliberately UNSUPPORTED without versioned official metadata; no out-of-support host fixture."
+      ]
+    }
+  ]
+}

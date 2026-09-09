@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Hardware inventory & firmware context  
-ID: C-HARDWARE-001  
-Tipo: Diagnostic  
-Technical Domain: HARDWARE  
-Primary Product Area: Shared  
-Also Used By: My PC, Diagnostics, Monitoring, Benchmark, Optimization  
-Shared Capability: Yes  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Hardware inventory & firmware context
+ID: C-HARDWARE-001
+Tipo: Diagnostic
+Technical Domain: HARDWARE
+Primary Product Area: Shared
+Also Used By: My PC, Diagnostics, Monitoring, Benchmark, Optimization
+Shared Capability: Yes
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -288,9 +288,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `hardware.inventory.cim`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Raw SMBIOS is available through GetSystemFirmwareTable and can be cross-checked with CIM BIOS/baseboard data.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/hardware/C-HARDWARE-001/results/hardware-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: single x64 desktop; no malformed or missing SMBIOS fixture
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — SMBIOS/firmware/PnP com provenance.
+- Evidência realmente executada: Prototype seguro adicional executado: Raw SMBIOS is available through GetSystemFirmwareTable and can be cross-checked with CIM BIOS/baseboard data. Resultado observado: `PASS`. Evidência: `/prototypes/hardware/C-HARDWARE-001/results/hardware-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — P/Invoke `GetSystemFirmwareTable` + SetupAPI/CIM, comparar BIOS/baseboard observados.
+- Impedimento ou limitação restante: Só um desktop; sem firmware ausente e sem validação vendor.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

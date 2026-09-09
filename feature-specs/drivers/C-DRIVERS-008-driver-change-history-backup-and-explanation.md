@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver change history, backup & explanation  
-ID: C-DRIVERS-008  
-Tipo: Diagnostic / Quality of Life, Diagnostic / Recommendation Infrastructure, Safeguard  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver change history, backup & explanation
+ID: C-DRIVERS-008
+Tipo: Diagnostic / Quality of Life, Diagnostic / Recommendation Infrastructure, Safeguard
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -386,25 +386,26 @@ Optional
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/drivers/c-drivers-008/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/drivers/C-DRIVERS-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DETECT: PASS (current metadata + SetupAPI/Event Log manifest)
+PLAN: N/A
+DRY-RUN: PASS (manifest-only; no driver action)
 APPLY: N/A
-VERIFY: NOT_TESTED
-ROLLBACK: N/A
-RESTORE VERIFY: N/A
+VERIFY: PASS (source hash/timestamps persisted)
+ROLLBACK: NOT_TESTED
+RESTORE VERIFY: NOT_TESTED
+DRIVER PACKAGE EXPORT/BACKUP: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -415,7 +416,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/manufacture/desktop/dism-driver-servicing-command-line-options-s14
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-deviceinstallation
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha inicial 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Artifact persistiu manifest read-only de metadata atual, hash/timestamp/tamanho de `setupapi.dev.log` e records PnP/driver. O JSON declara `exportManifestOnly=true` e `rollbackProven=false`; não chama manifest de backup nem rollback. Export/restore de package real permanece `NOT_TESTED`.
+
+Evidência: /prototypes/drivers/C-DRIVERS-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — driver change history, backup/export and explanation provenance.
+- Evidência realmente executada: Prototype seguro adicional executado: Artifact persistiu manifest read-only de metadata atual, hash/timestamp/tamanho de `setupapi.dev.log` e records PnP/driver. O JSON declara `exportManifestOnly=true` e `rollbackProven=false`; não chama manifest de backup nem rollback. Export/restore de package real permanece `NOT_TESTED`. Evidência: `/prototypes/drivers/C-DRIVERS-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Read-only history and export to a prototype-owned artifact are safe; changing drivers is not. Teste recomendado: Collect current driver/INF metadata, create verified export/manifest, compare with history and report gaps; never call it rollback unless restore is proven.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

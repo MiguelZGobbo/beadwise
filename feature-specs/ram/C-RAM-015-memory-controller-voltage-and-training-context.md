@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Memory-controller, voltage & training context  
-ID: C-RAM-015  
-Tipo: Advanced Tuning, Diagnostic, Diagnostic / Benchmark  
-Technical Domain: RAM  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Memory-controller, voltage & training context
+ID: C-RAM-015
+Tipo: Advanced Tuning, Diagnostic, Diagnostic / Benchmark
+Technical Domain: RAM
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -286,9 +286,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -417,6 +417,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/cimwin32prov/win32-physicalmemory
 - Vendor risk context — https://www.amd.com/en/products/processors/technologies/expo.html
 - Vendor behavior — https://www.intel.com/content/www/us/en/gaming/extreme-memory-profile-xmp.html
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — voltage/training com telemetry vendor/firmware.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Parcial — WMI/SMBIOS read-only e `Unknown`; nenhuma recomendação.
+- Impedimento ou limitação restante: Sem contrato vendor e sem acesso seguro a firmware/training.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

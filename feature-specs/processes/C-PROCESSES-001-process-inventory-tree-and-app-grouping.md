@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Process inventory, tree & app grouping  
-ID: C-PROCESSES-001  
-Tipo: Diagnostic  
-Technical Domain: PROCESSES  
-Primary Product Area: TBD  
-Also Used By: Monitoring, Diagnostics, Optimization  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Process inventory, tree & app grouping
+ID: C-PROCESSES-001
+Tipo: Diagnostic
+Technical Domain: PROCESSES
+Primary Product Area: TBD
+Also Used By: Monitoring, Diagnostics, Optimization
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -287,9 +287,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -414,6 +414,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/wer/windows-error-reporting
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `processes.inventory`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+<!-- PHASE2-SAFE-PROOF:START -->
+**Prova prática segura executada (2026-09-08):** `C-PROCESSES-001=PASS` em `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. `Win32_Process` correlacionou PID/PPID de um filho criado pelo prototype e o desaparecimento após exit foi observado. App grouping e metadados integrais de processos protegidos continuam sem fixture.
+<!-- PHASE2-SAFE-PROOF:END -->
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — árvore/agrupamento, parent ausente e access denied.
+- Evidência realmente executada: Prototype seguro adicional executado: `C-PROCESSES-001=PASS` em `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. `Win32_Process` correlacionou PID/PPID de um filho criado pelo prototype e o desaparecimento após exit foi observado. App grouping e metadados integrais de processos protegidos continuam sem fixture. Evidência: `/prototypes/processes/C-PROCESSES-001/results/process-safe-capabilities.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — Toolhelp/PInvoke ou CIM+`Get-Process`; comparar PID/PPID, processo filho próprio e processo encerrado.
+- Impedimento ou limitação restante: Não cobre processos protegidos completos.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

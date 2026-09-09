@@ -1,0 +1,870 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:47:10.1557825-03:00",
+  "mode": "fast",
+  "mutationPolicy": "read-only",
+  "domains": {
+    "audio": {
+      "probes": [
+        {
+          "id": "audio.devices.cim",
+          "featureIds": [
+            "C-AUDIO-001",
+            "C-AUDIO-003",
+            "C-AUDIO-006"
+          ],
+          "status": "PASS",
+          "durationMs": 73,
+          "data": [
+            {
+              "Name": "AMD High Definition Audio Device",
+              "Manufacturer": "Advanced Micro Devices",
+              "Status": "OK",
+              "StatusInfo": 3
+            },
+            {
+              "Name": "AMD Streaming Audio Device",
+              "Manufacturer": "AMD",
+              "Status": "OK",
+              "StatusInfo": 3
+            },
+            {
+              "Name": "AMD High Definition Audio Device",
+              "Manufacturer": "Advanced Micro Devices",
+              "Status": "OK",
+              "StatusInfo": 3
+            },
+            {
+              "Name": "Realtek High Definition Audio",
+              "Manufacturer": "Realtek",
+              "Status": "OK",
+              "StatusInfo": 3
+            },
+            {
+              "Name": "SteelSeries Sonar Virtual Audio Device",
+              "Manufacturer": "SteelSeries ApS",
+              "Status": "OK",
+              "StatusInfo": 3
+            }
+          ],
+          "error": null,
+          "correlationId": "5a9231972edbbe43eab407ae"
+        },
+        {
+          "id": "audio.services",
+          "featureIds": [
+            "C-AUDIO-003",
+            "C-AUDIO-009",
+            "C-AUDIO-013"
+          ],
+          "status": "PASS",
+          "durationMs": 21,
+          "data": [
+            {
+              "Name": "AudioEndpointBuilder",
+              "Status": 4,
+              "StartType": 2
+            },
+            {
+              "Name": "AudioSrv",
+              "Status": 4,
+              "StartType": 2
+            }
+          ],
+          "error": null,
+          "correlationId": "19c2fda9f91fc1ed73d76573"
+        }
+      ]
+    },
+    "cleaning": {
+      "probes": {
+        "id": "cleaning.rebuildable-roots",
+        "featureIds": [
+          "C-CLEANING-001",
+          "C-CLEANING-002",
+          "C-CLEANING-006",
+          "C-CLEANING-009"
+        ],
+        "status": "PASS",
+        "durationMs": 6,
+        "data": [
+          {
+            "kind": "USER_TEMP",
+            "exists": true
+          },
+          {
+            "kind": "WINDOWS_TEMP",
+            "exists": true
+          }
+        ],
+        "error": null,
+        "correlationId": "b726c3acfa76dc6fa9c54e0b"
+      }
+    },
+    "cpu": {
+      "probes": [
+        {
+          "id": "cpu.identity.cim",
+          "featureIds": [
+            "C-CPU-001",
+            "C-CPU-013"
+          ],
+          "status": "PASS",
+          "durationMs": 1079,
+          "data": {
+            "Name": "AMD Ryzen 7 5700                               ",
+            "Manufacturer": "AuthenticAMD",
+            "Architecture": 9,
+            "NumberOfCores": 8,
+            "NumberOfLogicalProcessors": 16,
+            "MaxClockSpeed": 3701,
+            "VirtualizationFirmwareEnabled": false
+          },
+          "error": null,
+          "correlationId": "e0b953f3bddb7f325720fe5c"
+        },
+        {
+          "id": "cpu.utilization.sample",
+          "featureIds": [
+            "C-CPU-003",
+            "C-CPU-015"
+          ],
+          "status": "PASS",
+          "durationMs": 278,
+          "data": {
+            "PercentProcessorTime": 12,
+            "PercentUserTime": "[REDACTED]",
+            "PercentPrivilegedTime": 4
+          },
+          "error": null,
+          "correlationId": "9ac75eb95b5506fcf1024a86"
+        }
+      ]
+    },
+    "display": {
+      "probes": {
+        "id": "display.inventory.cim",
+        "featureIds": [
+          "C-DISPLAY-001",
+          "C-DISPLAY-002",
+          "C-DISPLAY-005",
+          "C-DISPLAY-007",
+          "C-DISPLAY-013"
+        ],
+        "status": "PASS",
+        "durationMs": 38,
+        "data": {
+          "controllers": {
+            "Name": "Radeon RX 570 Series",
+            "CurrentHorizontalResolution": 1366,
+            "CurrentVerticalResolution": 768,
+            "CurrentRefreshRate": 60,
+            "DriverVersion": "31.0.21925.1001"
+          },
+          "monitors": {
+            "Name": "Monitor Genérico PnP",
+            "Status": "OK",
+            "ScreenWidth": null,
+            "ScreenHeight": null
+          }
+        },
+        "error": null,
+        "correlationId": "34a7ec3ff04b098d0ca625fc"
+      }
+    },
+    "drivers": {
+      "probes": {
+        "id": "drivers.problem-devices.pnp",
+        "featureIds": [
+          "C-DRIVERS-001",
+          "C-DRIVERS-002",
+          "C-DRIVERS-007"
+        ],
+        "status": "PASS",
+        "durationMs": 451,
+        "data": {
+          "presentCount": 190,
+          "problemDevices": null
+        },
+        "error": null,
+        "correlationId": "076010e502bf424d0dded74f"
+      }
+    },
+    "energy": {
+      "probes": [
+        {
+          "id": "energy.active-scheme",
+          "featureIds": [
+            "C-ENERGY-001",
+            "C-ENERGY-003",
+            "C-ENERGY-007"
+          ],
+          "status": "PASS",
+          "durationMs": 25,
+          "data": {
+            "activeScheme": "GUID do Esquema de Energia: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c  (Alto desempenho)",
+            "exitCode": 0
+          },
+          "error": null,
+          "correlationId": "6ff2301b13248ecb8eeea0f7"
+        },
+        {
+          "id": "energy.available-sleep-states",
+          "featureIds": [
+            "C-ENERGY-005",
+            "C-ENERGY-011",
+            "C-ENERGY-012"
+          ],
+          "status": "PASS",
+          "durationMs": 18,
+          "data": {
+            "output": "Os seguintes estados de suspensão estão disponíveis neste sistema:\r\n    Espera (S3)\r\n    Hibernar\r\n    Suspensão Híbrida\r\n    Inicialização Rápida\r\n\r\nOs seguintes estados de suspensão não estão disponíveis neste sistema:\r\n    Modo de espera (S1)\r\n\tO firmware do sistema não oferece suporte a este estado de espera.\r\n\r\n    Modo de espera (S2)\r\n\tO firmware do sistema não oferece suporte a este estado de espera.\r\n\r\n    Em Espera (S0 Ocioso com Baixo Consumo de Energia)\r\n\tO firmware do sistema não dá suporte a este estado de espera.",
+            "exitCode": 0
+          },
+          "error": null,
+          "correlationId": "1e1c89a61c865b23becb9e81"
+        }
+      ]
+    },
+    "gaming": {
+      "probes": {
+        "id": "gaming.running-process-context",
+        "featureIds": [
+          "C-GAMING-001",
+          "C-GAMING-006",
+          "C-GAMING-012"
+        ],
+        "status": "PASS",
+        "durationMs": 50,
+        "data": {
+          "foregroundProcessAvailable": true,
+          "processCount": 280
+        },
+        "error": null,
+        "correlationId": "f99a33ce890a4adba589c96a"
+      }
+    },
+    "gpu": {
+      "probes": {
+        "id": "gpu.identity-and-memory.cim",
+        "featureIds": [
+          "C-GPU-001",
+          "C-GPU-002",
+          "C-GPU-003",
+          "C-GPU-015"
+        ],
+        "status": "PASS",
+        "durationMs": 22,
+        "data": {
+          "Name": "Radeon RX 570 Series",
+          "AdapterRAM": 4293918720,
+          "DriverVersion": "31.0.21925.1001",
+          "VideoModeDescription": "1366 x 768 x 4294967296 cores",
+          "CurrentRefreshRate": 60
+        },
+        "error": null,
+        "correlationId": "24a9699a679eb39ae90dd1b3"
+      }
+    },
+    "hardware": {
+      "probes": {
+        "id": "hardware.inventory.cim",
+        "featureIds": [
+          "C-HARDWARE-001",
+          "C-HARDWARE-004",
+          "C-HARDWARE-009"
+        ],
+        "status": "PASS",
+        "durationMs": 39,
+        "data": {
+          "system": {
+            "Manufacturer": "System manufacturer",
+            "Model": "System Product Name",
+            "PCSystemType": 1,
+            "HypervisorPresent": false
+          },
+          "baseboard": {
+            "Manufacturer": "ASUSTeK COMPUTER INC.",
+            "Product": "PRIME B450M-GAMING/BR",
+            "Version": "Rev X.0x"
+          },
+          "bios": {
+            "Manufacturer": "American Megatrends Inc.",
+            "SMBIOSBIOSVersion": "4631",
+            "ReleaseDate": "2025-01-13T21:00:00-03:00"
+          }
+        },
+        "error": null,
+        "correlationId": "562b07d2628fd0cb9cac1b02"
+      }
+    },
+    "network": {
+      "probes": [
+        {
+          "id": "network.adapters-and-path",
+          "featureIds": [
+            "C-NETWORK-001",
+            "C-NETWORK-005",
+            "C-NETWORK-006",
+            "C-NETWORK-007",
+            "C-NETWORK-011",
+            "C-NETWORK-016"
+          ],
+          "status": "PASS",
+          "durationMs": 597,
+          "data": [
+            {
+              "Name": "Conexão Local* 3",
+              "InterfaceDescription": "WAN Miniport (L2TP)",
+              "Status": "Disconnected",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 16,
+              "Virtual": true
+            },
+            {
+              "Name": "Ethernet (Depurador de Kernel)",
+              "InterfaceDescription": "Microsoft Kernel Debug Network Adapter",
+              "Status": "Not Present",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 15,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 5",
+              "InterfaceDescription": "WAN Miniport (PPPOE)",
+              "Status": "Disconnected",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 14,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 7",
+              "InterfaceDescription": "WAN Miniport (IPv6)",
+              "Status": "Up",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 13,
+              "Virtual": true
+            },
+            {
+              "Name": "Ethernet",
+              "InterfaceDescription": "Realtek PCIe GbE Family Controller",
+              "Status": "Up",
+              "LinkSpeed": "1 Gbps",
+              "ifIndex": 12,
+              "Virtual": false
+            },
+            {
+              "Name": "Teredo Tunneling Pseudo-Interface",
+              "InterfaceDescription": "",
+              "Status": "Not Present",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 11,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 6",
+              "InterfaceDescription": "WAN Miniport (IP)",
+              "Status": "Up",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 10,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 8",
+              "InterfaceDescription": "WAN Miniport (Network Monitor)",
+              "Status": "Up",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 9,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 1",
+              "InterfaceDescription": "WAN Miniport (SSTP)",
+              "Status": "Disconnected",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 8,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 4",
+              "InterfaceDescription": "WAN Miniport (PPTP)",
+              "Status": "Disconnected",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 7,
+              "Virtual": true
+            },
+            {
+              "Name": "Microsoft IP-HTTPS Platform Interface",
+              "InterfaceDescription": "",
+              "Status": "Not Present",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 6,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão Local* 2",
+              "InterfaceDescription": "WAN Miniport (IKEv2)",
+              "Status": "Disconnected",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 5,
+              "Virtual": true
+            },
+            {
+              "Name": "Conexão de Rede Bluetooth",
+              "InterfaceDescription": "Bluetooth Device (Personal Area Network)",
+              "Status": "Disconnected",
+              "LinkSpeed": "3 Mbps",
+              "ifIndex": 3,
+              "Virtual": true
+            },
+            {
+              "Name": "6to4 Adapter",
+              "InterfaceDescription": "",
+              "Status": "Not Present",
+              "LinkSpeed": "0 bps",
+              "ifIndex": 2,
+              "Virtual": true
+            }
+          ],
+          "error": null,
+          "correlationId": "c607b7c173daa9dabd99b7c5"
+        },
+        {
+          "id": "network.loopback-reachability",
+          "featureIds": [
+            "C-NETWORK-002",
+            "C-NETWORK-003",
+            "C-NETWORK-008"
+          ],
+          "status": "PASS",
+          "durationMs": 1019,
+          "data": {
+            "success": true
+          },
+          "error": null,
+          "correlationId": "3b40814c9bd7210dc9ea2998"
+        },
+        {
+          "id": "network.dns-localhost",
+          "featureIds": "C-NETWORK-004",
+          "status": "PASS",
+          "durationMs": 316,
+          "data": [
+            {
+              "Name": "localhost",
+              "Type": 28,
+              "IPAddress": "::1"
+            },
+            {
+              "Name": "localhost",
+              "Type": 1,
+              "IPAddress": "127.0.0.1"
+            }
+          ],
+          "error": null,
+          "correlationId": "b5a4a5ac39fe74952779e1ba"
+        }
+      ]
+    },
+    "privacy": {
+      "probes": {
+        "id": "privacy.managed-policy-presence",
+        "featureIds": [
+          "C-PRIVACY-001",
+          "C-PRIVACY-002",
+          "C-PRIVACY-003",
+          "C-PRIVACY-004",
+          "C-PRIVACY-005"
+        ],
+        "status": "PASS",
+        "durationMs": 47,
+        "data": [
+          {
+            "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+            "exists": true
+          },
+          {
+            "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy",
+            "exists": false
+          },
+          {
+            "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LocationAndSensors",
+            "exists": false
+          }
+        ],
+        "error": null,
+        "correlationId": "889bd333a3b6d0a6009eb975"
+      }
+    },
+    "processes": {
+      "probes": {
+        "id": "processes.inventory",
+        "featureIds": [
+          "C-PROCESSES-001",
+          "C-PROCESSES-002",
+          "C-PROCESSES-004",
+          "C-PROCESSES-006"
+        ],
+        "status": "PASS",
+        "durationMs": 27,
+        "data": {
+          "count": 280,
+          "sampledProcessesWithCpuData": 165
+        },
+        "error": null,
+        "correlationId": "6806794e5d96501f6b491205"
+      }
+    },
+    "ram": {
+      "probes": {
+        "id": "ram.inventory-and-pressure",
+        "featureIds": [
+          "C-RAM-001",
+          "C-RAM-004",
+          "C-RAM-005",
+          "C-RAM-010",
+          "C-RAM-012",
+          "C-RAM-014"
+        ],
+        "status": "PASS",
+        "durationMs": 130,
+        "data": {
+          "modules": [
+            {
+              "Manufacturer": "Kingston",
+              "Capacity": 17179869184,
+              "Speed": 3200,
+              "ConfiguredClockSpeed": 3200,
+              "DeviceLocator": "DIMM_A2",
+              "PartNumber": "KF432C16BB/16-SP    "
+            },
+            {
+              "Manufacturer": "Kingston",
+              "Capacity": 17179869184,
+              "Speed": 3200,
+              "ConfiguredClockSpeed": 3200,
+              "DeviceLocator": "DIMM_B2",
+              "PartNumber": "KF432C16BB/16-SP    "
+            }
+          ],
+          "operatingSystem": {
+            "TotalVisibleMemorySize": 33342468,
+            "FreePhysicalMemory": 17944868,
+            "TotalVirtualMemorySize": 38585348,
+            "FreeVirtualMemory": 17933048
+          },
+          "pageFiles": {
+            "Name": "C:\\pagefile.sys",
+            "AllocatedBaseSize": 5120,
+            "CurrentUsage": 87,
+            "PeakUsage": 113
+          }
+        },
+        "error": null,
+        "correlationId": "3e422c1daa5531b995bb0205"
+      }
+    },
+    "repair": {
+      "probes": {
+        "id": "repair.component-store-check",
+        "featureIds": [
+          "C-REPAIR-001",
+          "C-REPAIR-002",
+          "C-REPAIR-010"
+        ],
+        "status": "PASS",
+        "durationMs": 3,
+        "data": {
+          "skippedInFastMode": true
+        },
+        "error": null,
+        "correlationId": "48fdfe684858142890b2f880"
+      }
+    },
+    "security": {
+      "probes": [
+        {
+          "id": "security.defender-status",
+          "featureIds": [
+            "C-SECURITY-001",
+            "C-SECURITY-002",
+            "C-SECURITY-007"
+          ],
+          "status": "PASS",
+          "durationMs": 1742,
+          "data": {
+            "AMServiceEnabled": true,
+            "AntivirusEnabled": true,
+            "AntispywareEnabled": true,
+            "BehaviorMonitorEnabled": true,
+            "RealTimeProtectionEnabled": true,
+            "AntivirusSignatureVersion": "1.459.111.0",
+            "AntivirusSignatureLastUpdated": "2026-09-08T03:47:52-03:00"
+          },
+          "error": null,
+          "correlationId": "135db9217b587b9cdf89a64d"
+        },
+        {
+          "id": "security.firewall-profiles",
+          "featureIds": [
+            "C-SECURITY-001",
+            "C-SECURITY-002"
+          ],
+          "status": "PASS",
+          "durationMs": 827,
+          "data": [
+            {
+              "Name": "Domain",
+              "Enabled": 1,
+              "DefaultInboundAction": 0,
+              "DefaultOutboundAction": 0
+            },
+            {
+              "Name": "Private",
+              "Enabled": 1,
+              "DefaultInboundAction": 0,
+              "DefaultOutboundAction": 0
+            },
+            {
+              "Name": "Public",
+              "Enabled": 1,
+              "DefaultInboundAction": 0,
+              "DefaultOutboundAction": 0
+            }
+          ],
+          "error": null,
+          "correlationId": "df68b3273a802b625b1e2a92"
+        }
+      ]
+    },
+    "startup": {
+      "probes": {
+        "id": "startup.inventory.cim",
+        "featureIds": [
+          "C-STARTUP-001",
+          "C-STARTUP-003",
+          "C-STARTUP-006"
+        ],
+        "status": "PASS",
+        "durationMs": 24,
+        "data": {
+          "count": 12,
+          "locations": [
+            "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "HKU\\.DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "HKU\\[REDACTED_SID]\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "HKU\\S-1-5-18\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+          ]
+        },
+        "error": null,
+        "correlationId": "21b76a8732e2f2e84993851f"
+      }
+    },
+    "storage": {
+      "probes": {
+        "id": "storage.inventory-and-health",
+        "featureIds": [
+          "C-STORAGE-001",
+          "C-STORAGE-002",
+          "C-STORAGE-004",
+          "C-STORAGE-008",
+          "C-STORAGE-014",
+          "C-STORAGE-019"
+        ],
+        "status": "PASS",
+        "durationMs": 1345,
+        "data": {
+          "physicalDisks": [
+            {
+              "FriendlyName": "CT1000P3SSD8",
+              "MediaType": "SSD",
+              "BusType": "NVMe",
+              "HealthStatus": "Healthy",
+              "OperationalStatus": "OK",
+              "Size": 1000204886016
+            },
+            {
+              "FriendlyName": "WDC WD10EZEX-08WN4A0",
+              "MediaType": "HDD",
+              "BusType": "SATA",
+              "HealthStatus": "Healthy",
+              "OperationalStatus": "OK",
+              "Size": 1000204886016
+            }
+          ],
+          "disks": [
+            {
+              "Number": 1,
+              "FriendlyName": "CT1000P3SSD8",
+              "BusType": "NVMe",
+              "PartitionStyle": "GPT",
+              "OperationalStatus": "Online",
+              "HealthStatus": "Healthy",
+              "Size": 1000204886016
+            },
+            {
+              "Number": 0,
+              "FriendlyName": "WDC WD10EZEX-08WN4A0",
+              "BusType": "SATA",
+              "PartitionStyle": "GPT",
+              "OperationalStatus": "Online",
+              "HealthStatus": "Healthy",
+              "Size": 1000204886016
+            }
+          ],
+          "volumes": [
+            {
+              "DriveLetter": null,
+              "FileSystemType": "NTFS",
+              "HealthStatus": "Healthy",
+              "OperationalStatus": "OK",
+              "Size": 911208448,
+              "SizeRemaining": 121090048
+            },
+            {
+              "DriveLetter": "D",
+              "FileSystemType": "NTFS",
+              "HealthStatus": "Healthy",
+              "OperationalStatus": "OK",
+              "Size": 1000203087872,
+              "SizeRemaining": 1000045666304
+            },
+            {
+              "DriveLetter": "C",
+              "FileSystemType": "NTFS",
+              "HealthStatus": "Healthy",
+              "OperationalStatus": "OK",
+              "Size": 999064334336,
+              "SizeRemaining": 709929431040
+            }
+          ]
+        },
+        "error": null,
+        "correlationId": "b70995debe41964bf99c6d16"
+      }
+    },
+    "system": {
+      "probes": [
+        {
+          "id": "system.identity.cim",
+          "featureIds": [
+            "C-SYSTEM-001",
+            "C-SYSTEM-015",
+            "C-SYSTEM-017"
+          ],
+          "status": "PASS",
+          "durationMs": 101,
+          "data": {
+            "caption": "Microsoft Windows 11 Pro",
+            "version": "10.0.26200",
+            "build": "26200",
+            "architecture": "64 bits"
+          },
+          "error": null,
+          "correlationId": "8d65a1b681db981056ee8f0c"
+        },
+        {
+          "id": "system.pending-reboot-signals",
+          "featureIds": [
+            "C-SYSTEM-014",
+            "C-UPDATE-001",
+            "C-REPAIR-004"
+          ],
+          "status": "PASS",
+          "durationMs": 133,
+          "data": {
+            "componentBasedServicing": false,
+            "windowsUpdate": false,
+            "pendingFileRenameOperations": false
+          },
+          "error": null,
+          "correlationId": "15aa4ab68d9fcf41ae0fb482"
+        }
+      ]
+    },
+    "update": {
+      "probes": {
+        "id": "update.services-and-history",
+        "featureIds": [
+          "C-UPDATE-001",
+          "C-UPDATE-002",
+          "C-UPDATE-003",
+          "C-UPDATE-009"
+        ],
+        "status": "PASS",
+        "durationMs": 1375,
+        "data": {
+          "services": [
+            {
+              "Name": "bits",
+              "Status": 4,
+              "StartType": 2
+            },
+            {
+              "Name": "usosvc",
+              "Status": 4,
+              "StartType": 2
+            },
+            {
+              "Name": "wuauserv",
+              "Status": 4,
+              "StartType": 3
+            }
+          ],
+          "hotfixCount": 5,
+          "newestHotfix": {
+            "HotFixID": "KB5095189",
+            "InstalledOn": "2026-09-05T00:00:00",
+            "Description": "Update"
+          }
+        },
+        "error": null,
+        "correlationId": "8e88b5a5ddeca7d18d6bfc9f"
+      }
+    },
+    "usb": {
+      "probes": {
+        "id": "usb.present-devices.pnp",
+        "featureIds": [
+          "C-USB-001",
+          "C-USB-002",
+          "C-USB-003",
+          "C-USB-005",
+          "C-USB-006",
+          "C-USB-007",
+          "C-USB-009",
+          "C-USB-010",
+          "C-USB-011",
+          "C-USB-015"
+        ],
+        "status": "PASS",
+        "durationMs": 326,
+        "data": {
+          "count": 12,
+          "byClass": [
+            {
+              "Name": "Bluetooth",
+              "Count": 1
+            },
+            {
+              "Name": "HIDClass",
+              "Count": 6
+            },
+            {
+              "Name": "USB",
+              "Count": 5
+            }
+          ],
+          "problems": null
+        },
+        "error": null,
+        "correlationId": "67fca6e9a56e4c1e6d6d1f2b"
+      }
+    }
+  },
+  "export": {
+    "redactionPolicy": "denylisted identifiers plus string patterns",
+    "correlationScheme": "sha256(domain|probe|sorted-featureIds), first 24 hex",
+    "sourceSchemaVersion": 1
+  }
+}

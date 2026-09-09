@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "capturedAtUtc": "2026-09-09T01:51:58.8578243Z",
+  "capabilities": [
+    "C-CLEANING-001",
+    "C-CLEANING-002",
+    "C-CLEANING-005",
+    "C-CLEANING-006",
+    "C-CLEANING-007"
+  ],
+  "environment": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "architecture": "X64",
+    "administrator": false
+  },
+  "safetyBoundary": "Only a unique directory below the current user temporary directory was mutated.",
+  "steps": [
+    {
+      "name": "FIXTURE",
+      "status": "PASS",
+      "detail": "Unique temp fixture includes eligible, fresh, unknown, protected, locked, and reparse cases."
+    },
+    {
+      "name": "DETECT",
+      "status": "PASS",
+      "detail": "Classified 7 candidates with provenance and exclusions."
+    },
+    {
+      "name": "PLAN",
+      "status": "PASS",
+      "detail": "Plan selected 2 allowlisted fixture files (40 bytes)."
+    },
+    {
+      "name": "DRY_RUN",
+      "status": "PASS",
+      "detail": "Repeated tree fingerprint proves preview did not mutate the fixture."
+    },
+    {
+      "name": "APPLY",
+      "status": "PASS",
+      "detail": "Deleted only the two allowlisted fixture files."
+    },
+    {
+      "name": "VERIFY",
+      "status": "PASS",
+      "detail": "Verified deletion count/bytes and every exclusion boundary."
+    },
+    {
+      "name": "CLEANUP",
+      "status": "PASS",
+      "detail": "Disposed lock and removed the complete prototype-owned fixture."
+    }
+  ],
+  "candidates": [
+    {
+      "path": "protected/keep.sys",
+      "bytes": 19,
+      "category": "protected",
+      "ageDays": 0.0,
+      "locked": false,
+      "eligible": false,
+      "reason": "PROTECTED_EXCLUDED"
+    },
+    {
+      "path": "logs/active.dmp",
+      "bytes": 13,
+      "category": "diagnostic-artifact",
+      "ageDays": 0.0,
+      "locked": true,
+      "eligible": false,
+      "reason": "LOCKED_EXCLUDED"
+    },
+    {
+      "path": "logs/expired.dmp",
+      "bytes": 23,
+      "category": "diagnostic-artifact",
+      "ageDays": 30.0,
+      "locked": false,
+      "eligible": true,
+      "reason": "ALLOWLISTED_AND_EXPIRED"
+    },
+    {
+      "path": "candidates/eligible.tmp",
+      "bytes": 17,
+      "category": "rebuildable-temp",
+      "ageDays": 30.0,
+      "locked": false,
+      "eligible": true,
+      "reason": "ALLOWLISTED_AND_EXPIRED"
+    },
+    {
+      "path": "candidates/fresh.tmp",
+      "bytes": 11,
+      "category": "rebuildable-temp",
+      "ageDays": 0.0,
+      "locked": false,
+      "eligible": false,
+      "reason": "RETENTION_NOT_MET"
+    },
+    {
+      "path": "candidates/outside-link",
+      "bytes": 0,
+      "category": "reparse-point",
+      "eligible": false,
+      "reason": "REPARSE_POINT_EXCLUDED"
+    },
+    {
+      "path": "candidates/unknown.bin",
+      "bytes": 7,
+      "category": "rebuildable-temp",
+      "ageDays": 0.0,
+      "locked": false,
+      "eligible": false,
+      "reason": "UNKNOWN_DEFAULT_DENY"
+    }
+  ],
+  "plan": {
+    "eligiblePaths": [
+      "logs/expired.dmp",
+      "candidates/eligible.tmp"
+    ],
+    "eligibleCount": 2,
+    "eligibleBytes": 40,
+    "reversible": false,
+    "authorizationRootKind": "prototype-owned-user-temp"
+  },
+  "dryRun": {
+    "hashBefore": "29D48C40E6ECDEDF02B47A813E2C790CB5B3AFD4473AC24AC34BDCF65307E0E0",
+    "hashAfter": "29D48C40E6ECDEDF02B47A813E2C790CB5B3AFD4473AC24AC34BDCF65307E0E0",
+    "mutated": false
+  },
+  "verify": {
+    "deletedCount": 2,
+    "actualFreedBytes": 40,
+    "retainedLocked": true,
+    "retainedProtected": true,
+    "retainedReparse": true,
+    "retainedFresh": true,
+    "retainedUnknown": true,
+    "outsideSentinelIntact": true
+  },
+  "sandbox": {
+    "pathKind": "unique-user-temp",
+    "existsAfterCleanup": false
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T22:52:10.9117729-03:00",
+  "featureId": "C-CPU-003",
+  "englishPath": {
+    "status": "FAIL",
+    "path": "\\Processor(_Total)\\% Processor Time",
+    "error": "O objeto especificado não foi encontrado no computador."
+  },
+  "selectedPath": "\\Processador(_Total)\\% tempo de processador",
+  "sample": {
+    "path": "\\\\pcdomiguel\\processador(_total)\\% tempo de processador",
+    "instanceName": "_total",
+    "cookedValue": 24.973948638847897
+  },
+  "steps": [
+    {
+      "name": "ENGLISH_PATH",
+      "status": "FAIL",
+      "detail": "English counter path was not available on this localized Windows installation."
+    },
+    {
+      "name": "DISCOVER",
+      "status": "PASS",
+      "detail": "Discovered localized counter path: \\Processador(_Total)\\% tempo de processador"
+    },
+    {
+      "name": "SAMPLE",
+      "status": "PASS",
+      "detail": "Collected CPU counter sample: 24.97"
+    }
+  ]
+}

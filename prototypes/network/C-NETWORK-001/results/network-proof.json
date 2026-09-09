@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-08T21:40:00.8049734-03:00",
+  "mutationPolicy": "read-only",
+  "probes": [
+    {
+      "featureId": "C-NETWORK-001",
+      "premise": "Active adapter, IP configuration and default route can be correlated without exposing addresses.",
+      "status": "PASS",
+      "evidence": {
+        "adapterCount": 2,
+        "activeAdapterCount": 1,
+        "defaultRouteCount": 1,
+        "configurationCount": 2,
+        "sources": [
+          "NetAdapter",
+          "NetTCPIP"
+        ]
+      },
+      "limitations": [
+        "no Wi-Fi/VPN transition"
+      ]
+    },
+    {
+      "featureId": "C-NETWORK-002",
+      "premise": "Loopback and current gateway reachability return separate structured outcomes.",
+      "status": "PASS",
+      "evidence": {
+        "loopbackSamples": 10,
+        "gatewayPresent": true,
+        "gatewayReachable": true
+      },
+      "limitations": [
+        "no external target or captive portal"
+      ]
+    },
+    {
+      "featureId": "C-NETWORK-003",
+      "premise": "A temporal sample reports jitter separately from TCP statistics and does not pretend loopback is WAN.",
+      "status": "PARTIAL",
+      "evidence": {
+        "sampleCount": 10,
+        "meanAbsoluteJitterMs": 6.492,
+        "segmentsRetransmitted": 648,
+        "scope": "loopback-only",
+        "statisticsSource": ".NET IPGlobalProperties/TcpStatistics"
+      },
+      "limitations": [
+        "no controlled WAN target or impairment"
+      ]
+    },
+    {
+      "featureId": "C-NETWORK-005",
+      "premise": "Ethernet advanced properties can be read without invoking a setter.",
+      "status": "PASS",
+      "evidence": {
+        "propertyCount": 29,
+        "setterInvoked": false
+      },
+      "limitations": [
+        "no cable fault or alternate negotiation"
+      ]
+    },
+    {
+      "featureId": "C-NETWORK-007",
+      "premise": "Adapter identity can be correlated with signed driver and PnP problem state.",
+      "status": "PASS",
+      "evidence": {
+        "physicalAdapterCount": 2,
+        "signedDriverCount": 11,
+        "nonzeroConfigManagerCodes": 0
+      },
+      "limitations": [
+        "no driver fault/rollback fixture"
+      ]
+    },
+    {
+      "featureId": "C-NETWORK-013",
+      "premise": "Drift comparison ignores timestamps and DHCP lease churn but detects identity/route changes.",
+      "status": "PASS",
+      "evidence": {
+        "stableKeys": [
+          "name",
+          "interfaceGuid",
+          "route"
+        ],
+        "volatileOnlyIgnored": true,
+        "semanticChangeDetected": true
+      },
+      "limitations": [
+        "fixture-based drift; no real network transition"
+      ]
+    }
+  ]
+}

@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Storage optimization outcome validation & risk guard  
-ID: C-STORAGE-017  
-Tipo: Diagnostic / Product Behavior, Product Behavior, Safety, Shared Capability, Validation  
-Technical Domain: STORAGE  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Storage optimization outcome validation & risk guard
+ID: C-STORAGE-017
+Tipo: Diagnostic / Product Behavior, Product Behavior, Safety, Shared Capability, Validation
+Technical Domain: STORAGE
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Cleaning, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -381,6 +381,15 @@ TBD até execução da prova: Windows version, hardware/storage topology, driver
 Classificação atual:
 - **Documented behavior:** itens sustentados pelas referências oficiais acima.
 - **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — outcome/risk guard com operações reais e reason codes.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Sim para fixtures de baseline/after/unknown e bloqueio; sem Apply storage real.
+- Impedimento ou limitação restante: Taxonomia global de risco/razões ainda depende da fase arquitetural posterior.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Proven

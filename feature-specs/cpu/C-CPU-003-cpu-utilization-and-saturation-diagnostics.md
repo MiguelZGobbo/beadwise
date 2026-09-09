@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: CPU utilization & saturation diagnostics  
-ID: C-CPU-003  
-Tipo: Diagnostic, Monitoring  
-Technical Domain: CPU  
-Primary Product Area: TBD  
-Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: CPU utilization & saturation diagnostics
+ID: C-CPU-003
+Tipo: Diagnostic, Monitoring
+Technical Domain: CPU
+Primary Product Area: TBD
+Also Used By: My PC, Monitoring, Optimization, Benchmark, Gaming
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -289,9 +289,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -386,25 +386,25 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/cpu/c-cpu-003/` — **TBD / ainda não executado nesta fase documental**.
+Local: `/prototypes/cpu/C-CPU-003/` — executado na auditoria final da Fase 2.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
+DETECT: PASS
+PLAN: N/A
+DRY-RUN: N/A
 APPLY: N/A
-VERIFY: NOT_TESTED
+VERIFY: PASS
 ROLLBACK: N/A
 RESTORE VERIFY: N/A
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 (build 26200), x64
+Hardware: Desktop; AMD Ryzen 7 5700; Radeon RX 570 Series; ASUS PRIME B450M-GAMING/BR
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -416,6 +416,19 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/customize/power-settings/configure-processor-power-management-options
 
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `cpu.utilization.sample`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+
+**Observed behavior (auditoria final 2026-09-08):** o prototype próprio `C-CPU-003` confirmou que o caminho inglês `\Processor(_Total)\% Processor Time` falha neste Windows localizado (`O objeto especificado não foi encontrado no computador.`), descobriu o caminho efetivo `\Processador(_Total)\% tempo de processador` e coletou uma amostra real de CPU (`SAMPLE: PASS`). Evidência: `/prototypes/cpu/C-CPU-003/results/performance-counter-proof.json`. Isto prova descoberta/amostra de Performance Counter neste host, mas não prova thresholds de saturação, PMU/hardware counters, correlação com workload nem overhead de monitoramento contínuo; status permanece `SPECIFIED`.
+
+**Observed behavior (auditoria final adicional 2026-09-08):** uma prova PDH/PInvoke com `PdhAddEnglishCounterW` coletou amostras usando o caminho inglês independentemente do idioma da UI (`PASS: PDH English counter sampling works independently of OS display language`). A tentativa ETW/WPR CPU também foi executada e classificada como `BLOCKED_ADMIN` com erro `0xc5585011`. Evidências: `/prototypes/cpu/C-CPU-003/results/pdh-samples.json` e `/prototypes/cpu/C-CPU-003/results/etw-attempt.json`. A spec deve preferir API/counter estruturado com fallback localizado/PDH em vez de parsing frágil de texto.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Não para o gate final da Fase 2 — Performance Counter localizado, PDH/PInvoke e bloqueio ETW/admin foram executados em prova real; per-core, fila, context switch, workload e compatibilidade ampla ficam como limitações para PROVEN/arquitetura futura.
+- Evidência realmente executada: CIM sample PASS; Get-Counter inglês FAIL/localizado PASS; PdhAddEnglishCounterW via P/Invoke PASS; WPR/ETW executado e BLOCKED_ADMIN (0xc5585011).
+- Execução segura neste host / teste: Amostragem PDH curta foi executada; a captura ETW elevada não é executável nesta sessão sem UAC/admin.
+- Impedimento ou limitação restante: Não há ETL elevado, cenário de saturação completo, per-core ou matriz de compatibilidade; esses pontos não devem ser inferidos a partir da amostra/PDH executada.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

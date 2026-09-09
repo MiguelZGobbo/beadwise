@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: USB controller, topology & device inventory  
-ID: C-USB-001  
-Tipo: Diagnostic  
-Technical Domain: USB  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: USB controller, topology & device inventory
+ID: C-USB-001
+Tipo: Diagnostic
+Technical Domain: USB
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -440,6 +440,23 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 **Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `usb.present-devices.pnp`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
 - https://learn.microsoft.com/windows-hardware/drivers/usbcon/usbview
 - https://learn.microsoft.com/windows-hardware/drivers/ddi/usbioctl/
+
+<!-- PHASE2-SAFE-PROOF-20260908:START -->
+**Observed safe proof (auditoria final, 2026-09-08):**
+- Capability/premissa exercitada: Present USB devices and controller/hub candidates can be inventoried with stable hashed PnP provenance.
+- Resultado observado deste probe: `PASS`.
+- Evidência reproduzível: `/prototypes/usb/C-USB-001/results/usb-proof.json` (script e teste no mesmo prototype).
+- Limites preservados: PnP relation data does not fully prove physical port topology
+- Este resultado substitui `NOT_TESTED` somente para a premissa acima; não satisfaz por si só todos os cenários mínimos nem promove a Feature Spec a `PROVEN`/`APPROVED`.
+<!-- PHASE2-SAFE-PROOF-20260908:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — controller/hub/port/device topology e Unknown.
+- Evidência realmente executada: Prototype seguro adicional executado: Present USB devices and controller/hub candidates can be inventoried with stable hashed PnP provenance. Resultado observado: `PASS`. Evidência: `/prototypes/usb/C-USB-001/results/usb-proof.json`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Sim — SetupAPI/USB hub IOCTL read-only on present devices; preserve stable PnP provenance.
+- Impedimento ou limitação restante: Sem hubs/múltiplos controllers/dispositivo composto conhecido.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

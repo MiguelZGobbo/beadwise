@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Energy efficiency & performance-per-watt analysis  
-ID: C-ENERGY-004  
-Tipo: Benchmark, Benchmark / Diagnostic, Diagnostic  
-Technical Domain: ENERGY  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics, My PC  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Energy efficiency & performance-per-watt analysis
+ID: C-ENERGY-004
+Tipo: Benchmark, Benchmark / Diagnostic, Diagnostic
+Technical Domain: ENERGY
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics, My PC
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -285,9 +285,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -412,6 +412,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows-hardware/design/device-experiences/modern-standby-sleepstudy
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — controlled energy/performance-per-watt measurement with valid power source.
+- Evidência realmente executada: No direct probe; `energy.active-scheme` is in a different/research feature and does not measure energy.
+- Execução segura neste host / teste: On this desktop, OS state read is safe; meaningful package/system power measurement is not available. Teste recomendado: Measure identical bounded workload with authoritative power/energy telemetry, repeat and report uncertainty; explicitly mark unsupported without a sensor.
+- Impedimento ou limitação restante: Desktop has no battery and no vendor power telemetry adapter; no cross-platform energy source is present.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

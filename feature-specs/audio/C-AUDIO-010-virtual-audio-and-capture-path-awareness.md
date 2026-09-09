@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Virtual audio & capture path awareness  
-ID: C-AUDIO-010  
-Tipo: Diagnostic  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Virtual audio & capture path awareness
+ID: C-AUDIO-010
+Tipo: Diagnostic
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -291,9 +291,9 @@ N/A.
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -388,11 +388,11 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/audio/c-audio-010/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/audio/C-AUDIO-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
+DETECT: PARTIAL (Core Audio identity and PnP transport prefixes collected; virtual/physical and capture-path classification intentionally not inferred)
 PLAN: NOT_TESTED
 DRY-RUN: NOT_TESTED
 APPLY: N/A
@@ -403,10 +403,10 @@ RESTORE VERIFY: N/A
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -417,7 +417,21 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/audio-sessions
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
-**Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+**Observed behavior (campanha inicial 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Endpoint identity hashes/property-availability/states foram coletados por MMDevice. O runner também sumarizou PnP `AudioEndpoint`/`Media` por status/problem/enumerator/hash, com candidatos USB/Bluetooth/Root/virtual registrados sem IDs brutos. O prototype não converte nome em prova de virtual/physical ou loopback/capture path e mantém a correlação exata endpoint-to-parent como `NOT_TESTED`; o gate observado fica `PARTIAL`.
+
+Evidência: /prototypes/audio/C-AUDIO-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — actual virtual/physical endpoint and capture-path awareness.
+- Evidência realmente executada: Prototype seguro adicional executado: Endpoint identity hashes/property-availability/states foram coletados por MMDevice. O runner também sumarizou PnP `AudioEndpoint`/`Media` por status/problem/enumerator/hash, com candidatos USB/Bluetooth/Root/virtual registrados sem IDs brutos. O prototype não converte nome em prova de virtual/physical ou loopback/capture path e mantém a correlação exata endpoint-to-parent como `NOT_TESTED`; o gate observado fica `PARTIAL`. Evidência: `/prototypes/audio/C-AUDIO-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Yes, read-only endpoint/PnP inspection is safe. Teste recomendado: Enumerate virtual and physical render/capture endpoints, provider/parent path and direction; verify virtual loopback/capture is labeled and not treated as physical hardware.
+- Impedimento ou limitação restante: A prova adicional cobre somente a premissa e o ambiente registrados na seção 31; os cenários restantes do gate e a matriz de compatibilidade permanecem não comprovados.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Reasonable

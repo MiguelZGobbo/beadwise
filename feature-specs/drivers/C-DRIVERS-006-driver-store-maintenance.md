@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Driver store maintenance  
-ID: C-DRIVERS-006  
-Tipo: Diagnostic, Diagnostic / UX, Safeguard / Repair  
-Technical Domain: DRIVERS  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Repair, Update  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Driver store maintenance
+ID: C-DRIVERS-006
+Tipo: Diagnostic, Diagnostic / UX, Safeguard / Repair
+Technical Domain: DRIVERS
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Repair, Update
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -300,9 +300,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -436,6 +436,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/client-management/mdm/policy-csp-deviceinstallation
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — PnPUtil inventory/export, preview, current/in-use block and removal/restore semantics.
+- Evidência realmente executada: No direct probe; all operations are `NOT_TESTED`.
+- Execução segura neste host / teste: Inventory/export/preview may be safe; removal and rollback are not safe without a sacrificial driver fixture/admin. Teste recomendado: Use a non-critical test driver package in a disposable VM/test machine; enumerate, export, preview, remove, verify and restore from known package.
+- Impedimento ou limitação restante: Non-admin live desktop and no sacrificial package/VM; `/delete-driver` could destabilize the host.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

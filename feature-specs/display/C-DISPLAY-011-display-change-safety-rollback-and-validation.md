@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Display change safety, rollback & validation  
-ID: C-DISPLAY-011  
-Tipo: Diagnostic / Validation, Safeguard, Safeguard / Repair  
-Technical Domain: DISPLAY  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Display change safety, rollback & validation
+ID: C-DISPLAY-011
+Tipo: Diagnostic / Validation, Safeguard, Safeguard / Repair
+Technical Domain: DISPLAY
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: DEFERRED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -302,9 +302,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -438,6 +438,15 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://support.microsoft.com/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — `SDC_VALIDATE`, snapshot, real Apply/Verify/Rollback and missing-monitor fallback.
+- Evidência realmente executada: No direct probe; all applicable operations are `NOT_TESTED`.
+- Execução segura neste host / teste: Validation-only is safe; real display mode change/rollback is not safe on the active single-display desktop. Teste recomendado: In a sacrificial multi-monitor/VM-capable fixture, validate valid/invalid modes, Apply, Verify, disconnect path and exact rollback; persist evidence.
+- Impedimento ou limitação restante: No safe secondary display/sacrificial session and no prototype; do not risk loss of display access.
+- Disposição: `DEFERRED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

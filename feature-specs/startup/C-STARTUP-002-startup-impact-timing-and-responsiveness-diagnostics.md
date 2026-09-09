@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Startup impact, timing & responsiveness diagnostics  
-ID: C-STARTUP-002  
-Tipo: Diagnostic, Diagnostic / Benchmark, Diagnostic / Tool  
-Technical Domain: STARTUP  
-Primary Product Area: TBD  
-Also Used By: Optimization, Diagnostics  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Startup impact, timing & responsiveness diagnostics
+ID: C-STARTUP-002
+Tipo: Diagnostic, Diagnostic / Benchmark, Diagnostic / Tool
+Technical Domain: STARTUP
+Primary Product Area: TBD
+Also Used By: Optimization, Diagnostics
+Shared Capability: No
+Final UI Placement: TBD
+Status: BLOCKED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -273,8 +273,8 @@ N/A.
 - Windows 11 26H1: Target condicional; não presumir equivalência de build/event schema.
 
 ### Arquitetura
-x64: target principal.  
-ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.  
+x64: target principal.
+ARM64: expected for APIs Win32/WinRT documentadas, mas scripts/tooling e executáveis-alvo precisam de teste.
 Other: TBD.
 
 ### Hardware
@@ -399,6 +399,15 @@ Date: TBD
 Observed behavior: N/A nesta revisão; nenhuma execução real foi alegada.
 
 **Observed behavior (campanha 2026-09-08):** nenhuma prova específica desta capability foi executada neste host; resultado `NOT_TESTED`. A necessidade de prototype foi reavaliada e o status `SPECIFIED` foi preservado porque os gates aplicáveis continuam abertos.
+
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Sim — impacto de boot/logon repetido e ETW.
+- Evidência realmente executada: NENHUMA.
+- Execução segura neste host / teste: Não integralmente — apenas verificar WPR/ETW availability sem iniciar boot trace.
+- Impedimento ou limitação restante: Prova essencial requer boot/reboot controlado; não executar reboot/boot trace nesta sessão.
+- Disposição: `BLOCKED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

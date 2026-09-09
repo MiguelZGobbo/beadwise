@@ -2,17 +2,17 @@
 
 ## 3. Identificação
 
-Nome: Audio driver & device health  
-ID: C-AUDIO-003  
-Tipo: Diagnostic, Diagnostic / Repair  
-Technical Domain: AUDIO  
-Primary Product Area: TBD  
-Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration  
-Shared Capability: No  
-Final UI Placement: TBD  
-Status: SPECIFIED  
-Prioridade: TBD  
-Responsável: TBD  
+Nome: Audio driver & device health
+ID: C-AUDIO-003
+Tipo: Diagnostic, Diagnostic / Repair
+Technical Domain: AUDIO
+Primary Product Area: TBD
+Also Used By: My PC, Diagnostics, Gaming, Repair, Configuration
+Shared Capability: No
+Final UI Placement: TBD
+Status: SPECIFIED
+Prioridade: TBD
+Responsável: TBD
 Última revisão: 2026-09-08
 
 ## 4. Resumo
@@ -304,9 +304,9 @@ Usar o snapshot e a interface oficial correspondente para restaurar o estado; es
 - Other: Unsupported/TBD.
 
 ### Hardware
-CPU vendor: Conditional/N/A  
-GPU vendor: Conditional/N/A  
-Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.  
+CPU vendor: Conditional/N/A
+GPU vendor: Conditional/N/A
+Laptop/Desktop: Detectar; não assumir equivalência em energia/firmware.
 Device class: conforme a capability.
 
 ## 22. Dependências
@@ -409,25 +409,26 @@ Required
 ## 30. Prova técnica
 
 ### Script/protótipo
-Local: `/prototypes/audio/c-audio-003/` — **TBD / ainda não executado nesta fase documental**.
+Local: /prototypes/audio/C-AUDIO-001/ — executado em hardware Windows real nesta auditoria.
 
 ### Resultado
 ```text
-DETECT: NOT_TESTED
-PLAN: NOT_TESTED
-DRY-RUN: NOT_TESTED
-APPLY: NOT_TESTED
-VERIFY: NOT_TESTED
-ROLLBACK: NOT_TESTED
-RESTORE VERIFY: NOT_TESTED
+DETECT: PASS (MMDevice active/disabled/unplugged endpoint-state slice)
+PLAN: PASS (read-only; Changes = [])
+DRY-RUN: PASS (no mutation surface invoked)
+APPLY: N/A
+VERIFY: PASS (state-mask normalization)
+ROLLBACK: N/A
+RESTORE VERIFY: N/A
+PNP PROBLEM/EVENT CORRELATION: NOT_TESTED
 ```
 
 ### Ambiente utilizado
 ```text
-Windows version: TBD
-Hardware: TBD
-Admin: TBD
-Date: TBD
+Windows version: Windows 11 Pro 10.0.26200 build 26200 x64
+Hardware: AMD Ryzen 7 5700; Radeon RX 570; desktop
+Admin: No
+Date: 2026-09-08
 ```
 
 A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplicáveis.
@@ -439,8 +440,22 @@ A spec não deve receber `PROVEN` antes dessa prova quando os itens forem aplic�
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/audio-sessions
 - Documented behavior — https://learn.microsoft.com/windows/win32/coreaudio/device-formats
 
-**Observed behavior (campanha 2026-09-08):** probes compartilhados read-only executados neste host: `audio.devices.cim`=PASS, `audio.services`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature.
+**Observed behavior (campanha inicial 2026-09-08):** probes compartilhados read-only executados neste host: `audio.devices.cim`=PASS, `audio.services`=PASS. Evidência: `/prototypes/system/C-SYSTEM-017/results/domain-evidence.json`. Estes sinais são parciais e não satisfazem, sozinhos, o gate DETECT completo desta feature. A prova segura adicional posterior, registrada abaixo, é a evidência mais recente para o slice explicitado.
 - https://learn.microsoft.com/windows-hardware/drivers/install/device-manager-problem-codes
+
+<!-- PHASE2-SAFE-PROOF-2026-09-08:START -->
+**Prova segura adicional observada (2026-09-08):** Core Audio enumerou 8 endpoints active, 6 disabled e 3 unplugged nesta coleta, sem induzir mudança. O runner também sumarizou devices PnP `AudioEndpoint`/`Media` com status/problem codes e hashes, preservando casos naturalmente presentes como `Problem=45` sem fabricar falha. Isso prova state/problem-code read-only básico, mas não correlaciona exatamente endpoint-to-parent, driver events ou falha de serviço; essas partes permanecem `NOT_TESTED`.
+
+Evidência: /prototypes/audio/C-AUDIO-001/results/.
+<!-- PHASE2-SAFE-PROOF-2026-09-08:END -->
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:START -->
+**Auditoria final da necessidade de prova (2026-09-08):**
+- Prova prática adicional essencial: Yes — PnP problem state, endpoint state, events and healthy/disabled/problem cases.
+- Evidência realmente executada: Prototype seguro adicional executado: Core Audio enumerou 8 endpoints active, 6 disabled e 3 unplugged nesta coleta, sem induzir mudança. O runner também sumarizou devices PnP `AudioEndpoint`/`Media` com status/problem codes e hashes, preservando casos naturalmente presentes como `Problem=45` sem fabricar falha. Isso prova state/problem-code read-only básico, mas não correlaciona exatamente endpoint-to-parent, driver events ou falha de serviço; essas partes permanecem `NOT_TESTED`. Evidência: `/prototypes/audio/C-AUDIO-001/results/`. A evidência anterior foi substituída por esta observação mais recente.
+- Execução segura neste host / teste: Healthy baseline is safe; inducing disabled/unplugged/problem-code states is not safe on this live machine. Teste recomendado: Implement read-only PnP + Core Audio state correlation; capture a healthy device and a real non-present/disabled/problem fixture, or an isolated fixture, and verify `Unknown` vs failure.
+- Impedimento ou limitação restante: No problem-device fixture was available; driver update/rollback belongs to Drivers and must not be faked here.
+- Disposição: `SPECIFIED`. Nenhum `PASS` foi inferido; o status reflete somente a evidência e os bloqueios registrados.
+<!-- PHASE2-FINAL-SPECIFIED-AUDIT:END -->
 
 ## 32. Benefício real
 Situational

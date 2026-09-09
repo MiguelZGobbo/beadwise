@@ -1,0 +1,189 @@
+{
+  "generatedAt": "2026-09-08T22:52:19.4822539-03:00",
+  "safety": {
+    "persistentMutation": false,
+    "timerResolutionMutation": false,
+    "temporaryDirectoryRemoved": true
+  },
+  "probes": [
+    {
+      "featureId": "C-ENERGY-013",
+      "status": "PARTIAL",
+      "mechanism": "NtQueryTimerResolution + read-only powercfg /requests + bounded powercfg /energy attempt",
+      "evidence": {
+        "ntQueryTimerResolution": {
+          "callSucceeded": true,
+          "sampleCount": 20,
+          "maximum100ns": 156250,
+          "minimum100ns": 5000,
+          "current100ns": 10000,
+          "distinctCurrentValues100ns": [
+            10000
+          ],
+          "samples": [
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            },
+            {
+              "ntStatus": 0,
+              "maximum100ns": 156250,
+              "minimum100ns": 5000,
+              "current100ns": 10000,
+              "currentMilliseconds": 1.0
+            }
+          ]
+        },
+        "powercfgRequests": {
+          "exitCode": 1,
+          "rawOutput": "Este comando requer privilégios de administrador e deve ser executado de um prompt de comando elevado."
+        },
+        "powercfgEnergy": {
+          "exitCode": 1,
+          "reportCreated": false,
+          "reportBytes": 0,
+          "rawOutput": "Este comando requer privilégios de administrador e deve ser executado de um prompt de comando elevado.",
+          "temporaryReportRemoved": true
+        },
+        "attribution": {
+          "status": "UNSUPPORTED",
+          "reason": "No stable structured per-process timer-request attribution API was exercised; localized powercfg text is retained only as raw evidence."
+        },
+        "mutationAttempted": false
+      },
+      "limitations": [
+        "Detection of the effective timer resolution passed, but per-process attribution remains unsupported.",
+        "No timeBeginPeriod/timeEndPeriod request was issued and no energy-impact claim is inferred."
+      ]
+    }
+  ]
+}
