@@ -1,8 +1,6 @@
-using Microsoft.UI.Xaml;
-
 namespace BeadWise.App;
 
-public partial class App : Application
+public partial class App : Microsoft.UI.Xaml.Application
 {
     public App()
     {
