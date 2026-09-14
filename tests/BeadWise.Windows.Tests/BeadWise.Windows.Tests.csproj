@@ -13,6 +13,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BeadWise.ControlledProcessFixture\BeadWise.ControlledProcessFixture.csproj" />
     <ProjectReference Include="..\..\src\BeadWise.Windows\BeadWise.Windows.csproj" />
   </ItemGroup>
   <ItemGroup>

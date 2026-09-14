@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeadWise.Application.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeadWise.Windows.Tests", "tests\BeadWise.Windows.Tests\BeadWise.Windows.Tests.csproj", "{3C584951-77FE-4397-A9B8-B3DD8FE1C4BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeadWise.ControlledProcessFixture", "tests\BeadWise.ControlledProcessFixture\BeadWise.ControlledProcessFixture.csproj", "{E91BD6C0-5302-49E7-80A2-D93CA259392E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{3C584951-77FE-4397-A9B8-B3DD8FE1C4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C584951-77FE-4397-A9B8-B3DD8FE1C4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C584951-77FE-4397-A9B8-B3DD8FE1C4BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E91BD6C0-5302-49E7-80A2-D93CA259392E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E91BD6C0-5302-49E7-80A2-D93CA259392E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E91BD6C0-5302-49E7-80A2-D93CA259392E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E91BD6C0-5302-49E7-80A2-D93CA259392E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
