@@ -1,8 +1,30 @@
 # BeadWise
 
+<p align="center">
+  <img src="assets/logo-beadwise.png" alt="Logo do BeadWise" width="190" />
+</p>
+
 O BeadWise é um projeto em desenvolvimento para diagnóstico e manutenção assistida de PCs Windows. A proposta é tornar mudanças no sistema mais compreensíveis e controladas: observar o estado, preparar um plano explícito e, quando aplicável, executar e verificar operações com atenção a risco e recuperação.
 
 > **Status:** a base arquitetural e alguns fluxos de backend estão implementados; a interface e o conjunto completo de funcionalidades ainda estão em desenvolvimento. O projeto não deve ser tratado como um otimizador pronto para uso.
+
+## Stack
+
+<p>
+  <img alt="C#" src="https://img.shields.io/badge/C%23-512BD4?style=flat&logo=csharp&logoColor=white" />
+  <img alt=".NET 10" src="https://img.shields.io/badge/.NET%2010-512BD4?style=flat&logo=dotnet&logoColor=white" />
+  <img alt="WinUI 3" src="https://img.shields.io/badge/WinUI%203-0078D4?style=flat&logo=windows&logoColor=white" />
+  <img alt="Windows App SDK" src="https://img.shields.io/badge/Windows%20App%20SDK-0078D4?style=flat&logo=windows&logoColor=white" />
+  <img alt="xUnit" src="https://img.shields.io/badge/xUnit-8A2BE2?style=flat" />
+  <img alt="System.Text.Json" src="https://img.shields.io/badge/System.Text.Json-512BD4?style=flat&logo=dotnet&logoColor=white" />
+  <img alt="Git" src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" />
+</p>
+
+- **C# e .NET 10** para a aplicação e os projetos de backend.
+- **WinUI 3 e Windows App SDK** para a futura interface desktop.
+- **xUnit** para testes automatizados.
+- **System.Text.Json** para serialização das sessões locais.
+- **Git** para versionamento.
 
 ## Fluxo do produto
 
@@ -36,24 +58,6 @@ flowchart LR
 - Testes automatizados para o domínio, os casos de uso e as integrações Windows cobertas pela solução.
 
 Esses fluxos formam uma base técnica em evolução; não representam ainda uma experiência completa de diagnóstico, otimização ou recuperação para usuários finais.
-
-## Stack
-
-<p>
-  <img alt="C#" src="https://img.shields.io/badge/C%23-512BD4?style=flat&logo=csharp&logoColor=white" />
-  <img alt=".NET 10" src="https://img.shields.io/badge/.NET%2010-512BD4?style=flat&logo=dotnet&logoColor=white" />
-  <img alt="WinUI 3" src="https://img.shields.io/badge/WinUI%203-0078D4?style=flat&logo=windows&logoColor=white" />
-  <img alt="Windows App SDK" src="https://img.shields.io/badge/Windows%20App%20SDK-0078D4?style=flat&logo=windows&logoColor=white" />
-  <img alt="xUnit" src="https://img.shields.io/badge/xUnit-8A2BE2?style=flat" />
-  <img alt="System.Text.Json" src="https://img.shields.io/badge/System.Text.Json-512BD4?style=flat&logo=dotnet&logoColor=white" />
-  <img alt="Git" src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" />
-</p>
-
-- **C# e .NET 10** para a aplicação e os projetos de backend.
-- **WinUI 3 e Windows App SDK** para a futura interface desktop.
-- **xUnit** para testes automatizados.
-- **System.Text.Json** para serialização das sessões locais.
-- **Git** para versionamento.
 
 ## Executar localmente
 
