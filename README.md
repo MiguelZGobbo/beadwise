@@ -1,9 +1,5 @@
 # BeadWise
 
-<p align="center">
-  <img src="assets/logo-beadwise.png" alt="Logo do BeadWise" width="190" />
-</p>
-
 O BeadWise é um projeto em desenvolvimento para diagnóstico e manutenção assistida de PCs Windows. A proposta é tornar mudanças no sistema mais compreensíveis e controladas: observar o estado, preparar um plano explícito e, quando aplicável, executar e verificar operações com atenção a risco e recuperação.
 
 > **Status:** a base arquitetural e alguns fluxos de backend estão implementados; a interface e o conjunto completo de funcionalidades ainda estão em desenvolvimento. O projeto não deve ser tratado como um otimizador pronto para uso.
@@ -30,23 +26,9 @@ O BeadWise é um projeto em desenvolvimento para diagnóstico e manutenção ass
 
 O fluxo orientador do BeadWise é **Detect → Understand → Recommend → Apply → Measure → Keep/Rollback**. Ele mostra como uma observação pode evoluir até uma mudança avaliada e mantida ou revertida.
 
-```mermaid
-flowchart LR
-    D["Detect<br/>observar o estado"] --> U["Understand<br/>interpretar evidências"]
-    U --> R["Recommend<br/>preparar recomendações"]
-    R --> A["Apply<br/>planejar e executar"]
-    A --> M["Measure<br/>observar o resultado"]
-    M --> K["Keep / Rollback<br/>manter ou recuperar"]
+![Infográfico do fluxo Detect, Understand, Recommend, Apply, Measure e Keep/Rollback do BeadWise, com o estágio atual de cada etapa](assets/beadwise-product-flow.png)
 
-    classDef current fill:#e8f5e9,stroke:#2e7d32,color:#173b1a
-    classDef experimental fill:#fff3e0,stroke:#ef6c00,color:#5d3100
-    classDef planned fill:#f1f3f5,stroke:#6c757d,color:#343a40
-    class D current
-    class A experimental
-    class U,R,M,K planned
-```
-
-<sub>Verde: observação de processos implementada. Laranja: execução experimental restrita a processos de teste controlados. Cinza: etapas da visão do produto ainda em desenvolvimento.</sub>
+<sub>Infográfico conceitual, não é uma captura da interface. Verde: observação de processos implementada. Laranja: execução experimental restrita a processos de teste controlados. Cinza: etapas da visão do produto ainda em desenvolvimento.</sub>
 
 ## O que já existe
 
