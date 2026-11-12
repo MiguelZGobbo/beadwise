@@ -1,5 +1,6 @@
 using BeadWise.Core.Errors;
 using BeadWise.Core.Operations;
+using BeadWise.Core.Processes;
 using BeadWise.Core.Results;
 using BeadWise.Core.Sessions;
 using BeadWise.Core.Snapshots;
@@ -95,6 +96,104 @@ public sealed class SessionTests
     }
 
     [Fact]
+    public void FailedRecoveryDoesNotReplaceTheOriginalFailure()
+    {
+        var recoveryFailure = new Error("RECOVERY_FAILED", ErrorCategory.RecoveryFailed);
+        var failed = Session.Create(SessionId, CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt.AddSeconds(1), Failure)
+            .TransitionTo(SessionState.Recovering, CreatedAt.AddSeconds(2))
+            .TransitionTo(SessionState.Failed, CreatedAt.AddSeconds(3), recoveryFailure);
+
+        Assert.Equal(Failure, failed.Failure);
+        Assert.Equal(RecoveryState.Failed, failed.RecoveryState);
+    }
+
+    [Fact]
+    public void CompletedSessionCanOnlyStartAnExplicitFixtureReset()
+    {
+        var completed = Session.Create(SessionId, CreatedAt)
+            .TransitionTo(SessionState.Planned, CreatedAt)
+            .TransitionTo(SessionState.Approved, CreatedAt)
+            .TransitionTo(SessionState.Applying, CreatedAt)
+            .TransitionTo(SessionState.Verifying, CreatedAt)
+            .TransitionTo(SessionState.Completed, CreatedAt);
+        var identity = new ProcessIdentity(42, CreatedAt);
+
+        Assert.Throws<InvalidOperationException>(() => completed.TransitionTo(SessionState.Recovering, CreatedAt));
+        Assert.Throws<InvalidOperationException>(() => completed.BeginRecovery(RecoveryReason.FailureRecovery, identity, CreatedAt));
+        var recovering = completed.BeginRecovery(RecoveryReason.ExplicitFixtureReset, identity, CreatedAt);
+        var recovered = recovering.CompleteRecovery(new ProcessIdentity(43, CreatedAt), CreatedAt);
+        Assert.Null(recovered.Failure);
+        Assert.Equal(RecoveryReason.ExplicitFixtureReset, recovered.RecoveryEvidence!.Reason);
+        Assert.Equal(identity, recovered.RecoveryEvidence.OriginalIdentity);
+        Assert.Equal(43, recovered.RecoveryEvidence.RecoveredIdentity!.Value.ProcessId);
+    }
+
+    [Fact]
+    public void TypedRecoveryPreservesBothOriginalAndRecoveryErrors()
+    {
+        var error = new Error("RECREATE_FAILED", ErrorCategory.RecoveryFailed);
+        var failed = Session.Create(SessionId, CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt, Failure)
+            .BeginRecovery(RecoveryReason.FailureRecovery, new ProcessIdentity(42, CreatedAt), CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt, error);
+
+        Assert.Equal(Failure, failed.Failure);
+        Assert.Equal(Failure, failed.RecoveryEvidence!.OriginalError);
+        Assert.Equal(error, failed.RecoveryEvidence.RecoveryError);
+        Assert.Throws<InvalidOperationException>(() => failed.BeginRecovery(
+            RecoveryReason.ExplicitFixtureReset, failed.RecoveryEvidence.OriginalIdentity, CreatedAt));
+    }
+
+    [Fact]
+    public void FailedExplicitResetCanBeRetriedWithoutInventingAnOriginalFailure()
+    {
+        var completed = Session.Create(SessionId, CreatedAt)
+            .TransitionTo(SessionState.Planned, CreatedAt)
+            .TransitionTo(SessionState.Approved, CreatedAt)
+            .TransitionTo(SessionState.Applying, CreatedAt)
+            .TransitionTo(SessionState.Verifying, CreatedAt)
+            .TransitionTo(SessionState.Completed, CreatedAt);
+        var identity = new ProcessIdentity(42, CreatedAt);
+        var failed = completed.BeginRecovery(RecoveryReason.ExplicitFixtureReset, identity, CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt, new Error("RESET_FAILED", ErrorCategory.RecoveryFailed));
+        Assert.Null(failed.Failure);
+        Assert.Equal("RESET_FAILED", failed.RecoveryEvidence!.RecoveryError!.Code);
+
+        var retry = failed.BeginRecovery(RecoveryReason.ExplicitFixtureReset, identity, CreatedAt);
+        Assert.Null(retry.Failure);
+        Assert.Null(retry.RecoveryEvidence!.OriginalError);
+        Assert.Null(retry.RecoveryEvidence.RecoveryError);
+    }
+
+    [Fact]
+    public void EvidenceCannotCarryAnEarlierRecoveryErrorIntoAnActiveAttempt()
+    {
+        var original = Session.Create(SessionId, CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt, Failure)
+            .BeginRecovery(RecoveryReason.FailureRecovery, new ProcessIdentity(42, CreatedAt), CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt, new Error("RESET_FAILED", ErrorCategory.RecoveryFailed));
+        Assert.Throws<ArgumentException>(() => new Session(original.SessionId, SessionState.Recovering,
+            original.CreatedAt, original.UpdatedAt, original.PlanId, original.Operations, original.Snapshots,
+            original.Results, original.Failure, RecoveryState.InProgress, original.RecoveryEvidence));
+        Assert.Throws<InvalidOperationException>(() => original.TransitionTo(SessionState.Recovering, CreatedAt));
+        Assert.Null(original.BeginRecovery(RecoveryReason.FailureRecovery,
+            original.RecoveryEvidence!.OriginalIdentity, CreatedAt).RecoveryEvidence!.RecoveryError);
+    }
+
+    [Fact]
+    public void EvidenceCannotBeAttachedToARequiredButUnattemptedRecovery()
+    {
+        var recovered = Session.Create(SessionId, CreatedAt)
+            .TransitionTo(SessionState.Failed, CreatedAt, Failure)
+            .BeginRecovery(RecoveryReason.FailureRecovery, new ProcessIdentity(42, CreatedAt), CreatedAt)
+            .CompleteRecovery(new ProcessIdentity(43, CreatedAt), CreatedAt);
+        Assert.Throws<ArgumentException>(() => new Session(recovered.SessionId, SessionState.Failed,
+            recovered.CreatedAt, recovered.UpdatedAt, recovered.PlanId, recovered.Operations, recovered.Snapshots,
+            recovered.Results, recovered.Failure, RecoveryState.Required, recovered.RecoveryEvidence));
+    }
+
+    [Fact]
     public void ObviouslyInvalidTransitionIsRejected()
     {
         var session = Session.Create(SessionId, CreatedAt);
@@ -179,6 +278,15 @@ public sealed class SessionTests
             RecoveryState.Completed);
 
         Assert.Throws<ArgumentException>(create);
+    }
+
+    [Fact]
+    public void SessionRejectsUnknownStateValues()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Session(SessionId, (SessionState)999,
+            CreatedAt, CreatedAt, null, [], [], [], null, RecoveryState.NotRequired));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Session(SessionId, SessionState.Created,
+            CreatedAt, CreatedAt, null, [], [], [], null, (RecoveryState)999));
     }
 
     [Fact]

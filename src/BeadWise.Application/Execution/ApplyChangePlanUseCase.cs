@@ -4,6 +4,7 @@ using BeadWise.Core.Operations;
 using BeadWise.Core.Planning;
 using BeadWise.Core.Results;
 using BeadWise.Core.Sessions;
+using BeadWise.Core.Logging;
 
 namespace BeadWise.Application.Execution;
 
@@ -12,11 +13,15 @@ public sealed class ApplyChangePlanUseCase
     private readonly IControlledProcessActionExecutor _executor;
     private readonly ISessionStore _sessionStore;
     private readonly TimeProvider _timeProvider;
+    private readonly IPrivilegeBoundary _privilegeBoundary;
+    private readonly IExecutionLog _log;
 
     public ApplyChangePlanUseCase(
         IControlledProcessActionExecutor executor,
         ISessionStore sessionStore,
-        TimeProvider? timeProvider = null)
+        TimeProvider? timeProvider = null,
+        IPrivilegeBoundary? privilegeBoundary = null,
+        IExecutionLog? log = null)
     {
         ArgumentNullException.ThrowIfNull(executor);
         ArgumentNullException.ThrowIfNull(sessionStore);
@@ -24,6 +29,8 @@ public sealed class ApplyChangePlanUseCase
         _executor = executor;
         _sessionStore = sessionStore;
         _timeProvider = timeProvider ?? TimeProvider.System;
+        _privilegeBoundary = privilegeBoundary ?? new UnprivilegedBoundary();
+        _log = log ?? NullExecutionLog.Instance;
     }
 
     public Result<Session> Execute(ChangePlan? plan, Session? approvedSession)
@@ -37,10 +44,20 @@ public sealed class ApplyChangePlanUseCase
         var approvedPlan = plan!;
         var session = approvedSession!;
         var operation = approvedPlan.Operations[0];
+        var authorization = _privilegeBoundary.Authorize(
+            approvedPlan.PrivilegeRequirements.Concat(approvedPlan.Operations.Select(item => item.PrivilegeRequirement))
+                .Distinct().ToArray());
+        if (authorization.Status is not ResultStatus.Success || authorization.Value != true)
+        {
+            var error = authorization.Error ?? new Error("PRIVILEGE_DENIED", ErrorCategory.Blocked);
+            _log.WriteForPlan(ExecutionEvent.Failure, approvedPlan, session.SessionId, error);
+            return Result<Session>.Blocked(error);
+        }
         var prepared = _executor.Prepare(approvedPlan, session);
         if (prepared.Status is not ResultStatus.Success || prepared.Value is null)
         {
             prepared.Value?.Dispose();
+            _log.WriteForPlan(ExecutionEvent.Failure, approvedPlan, session.SessionId, prepared.Error);
             return MapFailure<IControlledProcessActionPreparation>(prepared);
         }
 
@@ -63,10 +80,16 @@ public sealed class ApplyChangePlanUseCase
         var preApplySave = _sessionStore.Save(applyingSession);
         if (preApplySave.Status is not ResultStatus.Success)
         {
+            _log.WriteForPlan(ExecutionEvent.Failure, approvedPlan, session.SessionId, preApplySave.Error);
             return MapFailure<Session>(preApplySave);
         }
 
+        _log.WriteForPlan(ExecutionEvent.SnapshotCaptured, approvedPlan, session.SessionId);
+        _log.WriteForPlan(ExecutionEvent.SessionPersisted, approvedPlan, session.SessionId);
+        _log.WriteForPlan(ExecutionEvent.OperationStarted, approvedPlan, session.SessionId);
         var applyResult = _executor.Execute(approvedPlan, applyingSession, preparation);
+        _log.WriteForPlan(applyResult.Status is ResultStatus.Success ? ExecutionEvent.OperationCompleted : ExecutionEvent.Failure,
+            approvedPlan, session.SessionId, applyResult.Error);
         var operationResult = applyResult.Status is ResultStatus.Success
             ? Result<string>.Success($"APPLY_DISPATCHED:{operation.OperationId:D}")
             : MapOperationFailure(applyResult);
@@ -91,6 +114,7 @@ public sealed class ApplyChangePlanUseCase
         var postApplySave = _sessionStore.Save(recordedSession);
         if (postApplySave.Status is not ResultStatus.Success)
         {
+            _log.WriteForPlan(ExecutionEvent.Failure, approvedPlan, session.SessionId, postApplySave.Error);
             return Result<Session>.Partial(
                 recordedSession,
                 new Error(
@@ -100,6 +124,7 @@ public sealed class ApplyChangePlanUseCase
                     recoverable: true));
         }
 
+        _log.WriteForPlan(ExecutionEvent.SessionPersisted, approvedPlan, session.SessionId);
         return applyResult.Status switch
         {
             ResultStatus.Success => Result<Session>.Success(recordedSession),
@@ -159,7 +184,8 @@ public sealed class ApplyChangePlanUseCase
             snapshots ?? source.Snapshots,
             results ?? source.Results,
             source.Failure,
-            source.RecoveryState);
+            source.RecoveryState,
+            source.RecoveryEvidence);
 
     private static Result<string> MapOperationFailure(Result<Operation> source) =>
         source.Status switch

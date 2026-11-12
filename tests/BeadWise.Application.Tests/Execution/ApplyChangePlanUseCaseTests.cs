@@ -13,6 +13,32 @@ namespace BeadWise.Application.Tests.Execution;
 
 public sealed class ApplyChangePlanUseCaseTests
 {
+    [Fact]
+    public void PrivilegeBoundaryRunsBeforePreparingOrPersisting()
+    {
+        var events = new List<string>();
+        var plan = CreatePlan();
+        var session = CreateApprovedSession(plan);
+        var executor = CreateExecutor(events, plan, session, plan.Operations[0]);
+        var useCase = new ApplyChangePlanUseCase(executor, new RecordingSessionStore(events),
+            privilegeBoundary: new DenyingBoundary(events));
+
+        var result = useCase.Execute(plan, session);
+
+        Assert.Equal(ResultStatus.Blocked, result.Status);
+        Assert.Equal("ADMIN_REQUIRED", result.Error?.Code);
+        Assert.Equal(["privilege"], events);
+    }
+
+    private sealed class DenyingBoundary(List<string> events) : IPrivilegeBoundary
+    {
+        public Result<bool> Authorize(IReadOnlyList<PrivilegeRequirement> requirements)
+        {
+            events.Add("privilege");
+            return Result<bool>.Blocked(new Error("ADMIN_REQUIRED", ErrorCategory.AdminRequired));
+        }
+    }
+
     private static readonly DateTimeOffset CreatedAt =
         new(2026, 9, 15, 12, 0, 0, TimeSpan.Zero);
     private static readonly DateTimeOffset ApplyingAt = CreatedAt.AddMinutes(1);

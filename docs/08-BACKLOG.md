@@ -273,40 +273,44 @@ Não resolver esses itens prematuramente se ainda faltarem requisitos.
 
 Só iniciar quando houver maturidade suficiente de UX.
 
+Definição da fase 11: [Design system](09-DESIGN-SYSTEM.md), conforme DEC-052. Os itens concluídos abaixo representam especificação, não implementação WinUI. A referência local da fase 10 substitui o Stitch conforme DEC-051; sua [validação registrada](../prototypes/ux/phase-10/VALIDATION.md) cobre a demonstração, não operações reais nem acessibilidade nativa.
+
 ```text
 ## Design
 
-- [ ] Criar primeira exploração visual no Stitch
-- [ ] Prototipar jornada principal
-- [ ] Validar fluxo
-- [ ] Definir Design System
-- [ ] Identificar componentes reutilizáveis
-- [ ] Definir AppShell
-- [ ] Definir Navigation
-- [ ] Definir estados das features
-- [ ] Definir loading/error/success states
-- [ ] Exportar referências visuais
+- [x] Criar referência visual local da fase 10 (substitui Stitch; DEC-051)
+- [x] Prototipar jornada principal com dados simulados
+- [x] Validar fluxo da demonstração local (VALIDATION.md da fase 10)
+- [x] Definir Design System documental (fase 11; DEC-052)
+- [x] Identificar componentes reutilizáveis e mapear para WinUI
+- [x] Definir AppShell e adaptação de layout
+- [x] Definir Navigation separada do indicador de etapas
+- [x] Definir apresentação dos estados das features
+- [x] Definir loading/error/success, pendências e recuperação
+- [x] Registrar referências visuais da fase 10
 ```
 
 ---
 
 # 15. Backend Backlog
 
-Ainda não deve ser preenchido extensivamente durante discovery.
+Fase 12 conforme [plano aprovado](10-BACKEND-IMPLEMENTATION-PLAN.md) e DEC-053. Marcar uma entrega como concluída exige implementação e validação; compilação ou teste bloqueado não substitui PASS.
 
 ```text
 ## Backend
 
-- [ ] Criar solution inicial após arquitetura ser aprovada
-- [ ] Criar Optimizer.Core
-- [ ] Criar Optimizer.Application
-- [ ] Criar Optimizer.Windows
-- [ ] Criar Optimizer.Persistence
-- [ ] Criar Optimizer.DevTools
-- [ ] Criar projetos de testes
+- [x] Criar solution BeadWise e projetos Core/Application/Windows/App/testes
+- [ ] [12.1] Concluir recovery da fixture, persistência v2, privilégios, logs e pipeline completo
+- [x] [12.2] Validar inventários de sistema e processos no host registrado
+- [x] [12.3] Validar inventário de endpoints de áudio no host registrado
+- [x] [12.4] Validar inventário de monitores e modos no host registrado
+- [x] [12.5] Validar inventário de drivers/PnP no host registrado
+- [x] [12.6] Integrar relatório tipado, composição e catálogo de recortes
 ```
 
-Depois, features aprovadas poderão gerar itens específicos.
+Persistência permanece em JSON dentro de Windows. DevTools pertence à fase 13; nenhum assembly adicional é necessário para a fase 12. Alterações reais em configurações do usuário ficam fora deste recorte.
+
+12.1 está implementada, mas 19 testes reais de fixture permanecem bloqueados pelo Controle de Aplicativo. A fase 12 não está encerrada; ver evidências e limites no plano. Não marcar esse impedimento como PASS.
 
 ---
 
@@ -332,6 +336,8 @@ A implementação deve reutilizar a mesma lógica do produto.
 
 # 17. Frontend Backlog
 
+A [especificação da fase 11](09-DESIGN-SYSTEM.md) é a referência para estes itens. Todos permanecem pendentes de implementação e validação nativas; a definição documental não os conclui.
+
 ```text
 ## Frontend
 
@@ -342,6 +348,7 @@ A implementação deve reutilizar a mesma lógica do produto.
 - [ ] Criar MockFeatureProvider
 - [ ] Implementar primeira tela com mocks
 - [ ] Validar visualmente
+- [ ] Validar teclado, Narrador, alto contraste, movimento reduzido e escala de 200% pela matriz do design system
 - [ ] Implementar telas restantes gradualmente
 - [ ] Integrar backend real
 ```

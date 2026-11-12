@@ -1,5 +1,6 @@
 using BeadWise.Core.Errors;
 using BeadWise.Core.Operations;
+using BeadWise.Core.Processes;
 using BeadWise.Core.Results;
 using BeadWise.Core.Sessions;
 using BeadWise.Core.Snapshots;
@@ -162,6 +163,95 @@ public sealed class JsonSessionStoreTests : IDisposable
         Assert.Equal("OPERATION_BLOCKED", loaded.Results[3].Error?.Code);
         Assert.Equal("OPERATION_UNSUPPORTED", loaded.Results[4].Error?.Code);
         Assert.Equal("OPERATION_CANCELLED", loaded.Results[5].Error?.Code);
+    }
+
+    [Fact]
+    public void VersionTwoRoundTripPreservesRecoveryEvidenceAndSnapshots()
+    {
+        var store = new JsonSessionStore(_storeRoot);
+        var original = CreateFailedSession(SessionId)
+            .BeginRecovery(RecoveryReason.FailureRecovery, new ProcessIdentity(42, CreatedAt), CreatedAt.AddMinutes(3))
+            .TransitionTo(SessionState.Failed, CreatedAt.AddMinutes(4),
+                new Error("RECREATE_FAILED", ErrorCategory.RecoveryFailed));
+
+        Assert.Equal(ResultStatus.Success, store.Save(original).Status);
+        var json = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(SessionPath(SessionId)))!;
+        Assert.Equal(2, json["version"]!.GetValue<int>());
+        var loaded = Assert.IsType<Session>(store.Load(SessionId).Value);
+        Assert.Equal(original.RecoveryEvidence, loaded.RecoveryEvidence);
+        Assert.Equal(original.Snapshots, loaded.Snapshots);
+        Assert.Equal(original.Failure, loaded.Failure);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void MissingOrVersionOneLoadsAsLegacy(bool explicitVersion)
+    {
+        var store = new JsonSessionStore(_storeRoot);
+        var original = CreateFailedSession(SessionId);
+        Assert.Equal(ResultStatus.Success, store.Save(original).Status);
+        var json = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(SessionPath(SessionId)))!.AsObject();
+        json.Remove("recoveryEvidence");
+        if (explicitVersion) json["version"] = 1;
+        else json.Remove("version");
+        File.WriteAllText(SessionPath(SessionId), json.ToJsonString());
+
+        var loaded = Assert.IsType<Session>(store.Load(SessionId).Value);
+        Assert.Null(loaded.RecoveryEvidence);
+        AssertSessionEquivalent(original, loaded);
+    }
+
+    [Fact]
+    public void FutureSessionVersionIsRejected()
+    {
+        var store = new JsonSessionStore(_storeRoot);
+        Assert.Equal(ResultStatus.Success, store.Save(CreateFailedSession(SessionId)).Status);
+        var json = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(SessionPath(SessionId)))!.AsObject();
+        json["version"] = 3;
+        File.WriteAllText(SessionPath(SessionId), json.ToJsonString());
+
+        var loaded = store.Load(SessionId);
+        Assert.Equal(ResultStatus.Failed, loaded.Status);
+        Assert.Equal("SESSION_CONTENT_INVALID", loaded.Error!.Code);
+    }
+
+    [Theory]
+    [InlineData("state")]
+    [InlineData("recoveryState")]
+    public void UnknownSessionStateInJsonIsRejected(string property)
+    {
+        var store = new JsonSessionStore(_storeRoot);
+        Assert.Equal(ResultStatus.Success, store.Save(CreateFailedSession(SessionId)).Status);
+        var json = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(SessionPath(SessionId)))!.AsObject();
+        json[property] = 999;
+        File.WriteAllText(SessionPath(SessionId), json.ToJsonString());
+        var loaded = store.Load(SessionId);
+        Assert.Equal(ResultStatus.Failed, loaded.Status);
+        Assert.Equal("SESSION_CONTENT_INVALID", loaded.Error!.Code);
+    }
+
+    [Theory]
+    [InlineData("Recovering", "InProgress", true)]
+    [InlineData("Failed", "Required", false)]
+    public void VersionTwoRejectsEvidenceInconsistentWithRecoveryState(string state, string recoveryState, bool failed)
+    {
+        var store = new JsonSessionStore(_storeRoot);
+        var recovering = CreateFailedSession(SessionId).BeginRecovery(RecoveryReason.FailureRecovery,
+            new ProcessIdentity(42, CreatedAt), CreatedAt.AddMinutes(3));
+        var source = failed
+            ? recovering.TransitionTo(SessionState.Failed, CreatedAt.AddMinutes(4),
+                new Error("RESET_FAILED", ErrorCategory.RecoveryFailed))
+            : recovering.CompleteRecovery(new ProcessIdentity(43, CreatedAt), CreatedAt.AddMinutes(4));
+        Assert.Equal(ResultStatus.Success, store.Save(source).Status);
+        var json = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(SessionPath(SessionId)))!.AsObject();
+        json["state"] = state;
+        json["recoveryState"] = recoveryState;
+        File.WriteAllText(SessionPath(SessionId), json.ToJsonString());
+
+        var loaded = store.Load(SessionId);
+        Assert.Equal(ResultStatus.Failed, loaded.Status);
+        Assert.Equal("SESSION_CONTENT_INVALID", loaded.Error!.Code);
     }
 
     [Fact]

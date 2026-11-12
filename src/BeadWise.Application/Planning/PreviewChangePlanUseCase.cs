@@ -1,11 +1,17 @@
 using BeadWise.Core.Errors;
 using BeadWise.Core.Planning;
 using BeadWise.Core.Results;
+using BeadWise.Core.Logging;
 
 namespace BeadWise.Application.Planning;
 
 public sealed class PreviewChangePlanUseCase
 {
+    private readonly IExecutionLog _log;
+
+    public PreviewChangePlanUseCase(IExecutionLog? log = null) =>
+        _log = log ?? NullExecutionLog.Instance;
+
     private const string InvalidPlanErrorCode = "INVALID_CHANGE_PLAN";
 
     public Result<ChangePlan> Execute(ChangePlan? plan)
@@ -19,6 +25,7 @@ public sealed class PreviewChangePlanUseCase
                     "The change plan is incomplete or internally inconsistent."));
         }
 
+        _log.WriteForPlan(ExecutionEvent.DryRunCompleted, plan);
         return Result<ChangePlan>.Success(plan);
     }
 

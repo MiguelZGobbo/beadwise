@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>BeadWise — Jornada de cuidado</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="navigation">
+        <a class="brand" href="./"><img src="logo.png" alt="" />BeadWise</a>
+        <p class="nav-title">Cuidado com seu PC</p>
+        <nav aria-label="Etapas da jornada" id="steps"></nav>
+        <div class="aside-note">
+          Entenda primeiro.<br />Decida com confiança.
+        </div>
+        <span class="demo-label">Demonstração · dados simulados</span>
+      </aside>
+      <main id="main" tabindex="-1"></main>
+    </div>
+    <footer class="demo-panel">
+      <details>
+        <summary>Painel de demonstração</summary>
+        <div class="demo-controls">
+          <label for="scenario">Cenário</label
+          ><select id="scenario"></select
+          ><button id="reset">Carregar cenário / reiniciar</button
+          ><span>Nenhuma ação modifica o Windows.</span>
+        </div>
+      </details>
+      <p id="notice" role="status"></p>
+    </footer>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

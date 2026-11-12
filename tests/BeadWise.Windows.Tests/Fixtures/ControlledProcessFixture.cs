@@ -17,7 +17,10 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
     private const string ShutdownPrefix = "BEADWISE_FIXTURE_SHUTDOWN";
     private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(5);
     private readonly Process _process;
-    private bool _disposed;
+    private readonly object _recoveryLock = new();
+    private readonly FixtureDisposalCoordinator _disposal;
+    private ControlledFixtureRecovery? _recovery;
+    private volatile bool _disposed;
 
     private ControlledProcessFixture(
         Process process,
@@ -27,6 +30,10 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
         _process = process;
         FixtureKey = fixtureKey;
         Identity = identity;
+        _disposal = new FixtureDisposalCoordinator(_recoveryLock,
+            () => _recovery?.DisposeAsync().AsTask() ?? Task.CompletedTask,
+            () => StopProcessAsync(_process, FixtureKey),
+            _process.Dispose);
     }
 
     public Guid FixtureKey { get; }
@@ -52,11 +59,39 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
             FixtureKey,
             approvedPlan);
 
+    internal ControlledProcessTarget CreateTarget() =>
+        ControlledProcessTarget.FromOwnedFixture(_process, FixtureKey, Identity);
+
+    internal ControlledFixtureRecovery CreateRecovery(ChangePlan approvedPlan) =>
+        ControlledFixtureRecovery.ForOwner(this, approvedPlan);
+
+    internal ControlledFixtureRecovery GetOrCreateRecovery(
+        ChangePlan approvedPlan, Func<ControlledFixtureRecovery> create)
+    {
+        ArgumentNullException.ThrowIfNull(approvedPlan);
+        lock (_recoveryLock)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            if (_recovery is not null)
+            {
+                if (!_recovery.IsBoundTo(this, approvedPlan))
+                    throw new InvalidOperationException("The fixture already has a different recovery plan.");
+                return _recovery;
+            }
+
+            var recovery = create();
+            if (!recovery.IsBoundTo(this, approvedPlan))
+                throw new InvalidOperationException("The recovery context does not belong to this fixture and plan.");
+            return _recovery = recovery;
+        }
+    }
+
     public static Task<ControlledProcessFixture> StartAsync() =>
         StartAsync(new ControlledProcessFixtureOptions());
 
     public static Task<ControlledProcessFixture> StartAsync(
-        ControlledProcessFixtureOptions options)
+        ControlledProcessFixtureOptions options,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(options);
         if (options.StartupTimeout <= TimeSpan.Zero)
@@ -70,7 +105,8 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
             throw new ArgumentOutOfRangeException(nameof(options));
         }
 
-        return StartCoreAsync(options, (int)maximumLifetimeMilliseconds);
+        cancellationToken.ThrowIfCancellationRequested();
+        return StartCoreAsync(options, (int)maximumLifetimeMilliseconds, cancellationToken);
     }
 
     internal static bool MatchesReadySignal(
@@ -88,7 +124,8 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
 
     private static async Task<ControlledProcessFixture> StartCoreAsync(
         ControlledProcessFixtureOptions options,
-        int maximumLifetimeMilliseconds)
+        int maximumLifetimeMilliseconds,
+        CancellationToken cancellationToken)
     {
         var fixtureKey = Guid.NewGuid();
         var executablePath = Path.ChangeExtension(
@@ -128,8 +165,8 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
 
         try
         {
-            var readyLine = await process.StandardOutput.ReadLineAsync()
-                .WaitAsync(options.StartupTimeout);
+            var readyLine = await process.StandardOutput.ReadLineAsync(cancellationToken)
+                .AsTask().WaitAsync(options.StartupTimeout, cancellationToken);
             ValidateReadyLine(readyLine, fixtureKey, process.Id);
 
             if (process.HasExited)
@@ -144,6 +181,7 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
         }
         catch (Exception startupFailure)
         {
+            var ownershipTransferred = false;
             try
             {
                 if (options.StartupFailureCleanup is not null)
@@ -154,36 +192,39 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
                 {
                     await StopProcessAsync(process, fixtureKey);
                 }
+                if (!HasExited(process))
+                    throw new InvalidOperationException("Startup cleanup did not confirm the fixture exited.");
             }
             catch (Exception cleanupFailure)
             {
                 startupFailure.Data["BeadWise.ControlledProcessFixture.CleanupFailure"] =
                     cleanupFailure;
+                if (options.RetainStartupCleanup is not null)
+                {
+                    options.RetainStartupCleanup(CreatePendingCleanup(process, fixtureKey));
+                    ownershipTransferred = true;
+                }
+                else
+                {
+                    ownershipTransferred = true;
+                    _ = ReleaseAfterExitAsync(process);
+                }
             }
             finally
             {
-                process.Dispose();
+                if (!ownershipTransferred) process.Dispose();
             }
 
             throw;
         }
     }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        if (_disposed)
+        lock (_recoveryLock)
         {
-            return;
-        }
-
-        _disposed = true;
-        try
-        {
-            await StopProcessAsync(_process, FixtureKey);
-        }
-        finally
-        {
-            _process.Dispose();
+            _disposed = true;
+            return new ValueTask(_disposal.DisposeAsync());
         }
     }
 
@@ -221,6 +262,48 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
         await process.WaitForExitAsync().WaitAsync(ShutdownTimeout);
     }
 
+    private static PendingFixtureCleanup CreatePendingCleanup(Process process, Guid fixtureKey)
+    {
+        ProcessIdentity? identity = null;
+        try
+        {
+            if (!HasExited(process))
+                identity = new ProcessIdentity(process.Id, new DateTimeOffset(process.StartTime.ToUniversalTime()));
+        }
+        catch (Exception exception) when (exception is not OutOfMemoryException)
+        {
+            // An unavailable identity cannot authorize a forced stop.
+        }
+
+        return new PendingFixtureCleanup(
+            () => HasExited(process),
+            () => StopProcessAsync(process, fixtureKey),
+            async () =>
+            {
+                if (identity is null) throw new InvalidOperationException("The launch identity is unavailable.");
+                var target = ControlledProcessTarget.FromOwnedFixture(process, fixtureKey, identity.Value);
+                if (!target.IsOwnedLaunchContext()) throw new InvalidOperationException("Fixture ownership was lost.");
+                if (!target.IsRunning()) return;
+                if (target.ReadIdentity() != identity.Value) throw new InvalidOperationException("Fixture identity changed.");
+                target.Kill();
+                await process.WaitForExitAsync().WaitAsync(ShutdownTimeout);
+            },
+            process.Dispose);
+    }
+
+    private static async Task ReleaseAfterExitAsync(Process process)
+    {
+        try
+        {
+            await process.WaitForExitAsync();
+            if (HasExited(process)) process.Dispose();
+        }
+        catch (Exception exception) when (exception is not OutOfMemoryException)
+        {
+            // An indeterminate exit is not permission to act on a different process.
+        }
+    }
+
     private static bool IsClosedPipeFailure(Exception exception) =>
         exception is IOException or InvalidOperationException or ObjectDisposedException;
 
@@ -240,4 +323,6 @@ internal sealed class ControlledProcessFixtureOptions
     public bool SuppressReadySignal { get; init; }
 
     internal Func<Task>? StartupFailureCleanup { get; init; }
+
+    internal Action<PendingFixtureCleanup>? RetainStartupCleanup { get; init; }
 }

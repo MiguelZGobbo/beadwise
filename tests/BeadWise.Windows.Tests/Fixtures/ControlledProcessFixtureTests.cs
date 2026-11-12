@@ -59,6 +59,29 @@ public sealed class ControlledProcessFixtureTests
     }
 
     [Fact]
+    public async Task FailedStartupCleanupTransfersOwnershipUntilChildIsCleaned()
+    {
+        PendingFixtureCleanup? pending = null;
+        var options = new ControlledProcessFixtureOptions
+        {
+            StartupTimeout = TimeSpan.FromMilliseconds(250),
+            SuppressReadySignal = true,
+            StartupFailureCleanup = () => Task.FromException(new IOException("cleanup failed")),
+            RetainStartupCleanup = child => pending = child
+        };
+        try
+        {
+            await Assert.ThrowsAsync<TimeoutException>(() => ControlledProcessFixture.StartAsync(options));
+            Assert.NotNull(pending);
+            Assert.True(await pending.TryCleanupAsync(force: true));
+        }
+        finally
+        {
+            if (pending is not null) await pending.TryCleanupAsync(force: true);
+        }
+    }
+
+    [Fact]
     public void ReadySignalMustMatchTheExpectedCorrelationTokenAndProcessId()
     {
         var expectedKey = Guid.Parse("9c1cad0c-1d47-4b8f-96cf-5532d0dcf700");

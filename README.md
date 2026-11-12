@@ -33,9 +33,12 @@ O fluxo orientador do BeadWise é **Detect → Understand → Recommend → Appl
 ## O que já existe
 
 - Observação de processos do Windows, incluindo identidade e disponibilidade dos dados coletados.
+- Inventários de sistema, endpoints de áudio, monitores/modos e drivers/PnP, com origem dos dados e indicação de informações indisponíveis.
+- Relatório diagnóstico tipado, coletado sequencialmente e consumível por código sem iniciar a interface.
 - Modelos de operações e planos que registram pré-condições, risco, privilégios, necessidade de reinicialização e reversibilidade.
 - Validação estrutural de planos e um fluxo experimental de execução restrito a um processo de teste controlado.
 - Criação e carregamento de sessões, com persistência local em arquivos JSON.
+- Persistência de sessões v2 compatível com documentos v1, recuperação explícita da fixture e logs locais limitados a metadados.
 - Resultados e erros tipados para representar falhas, resultados parciais e capacidades indisponíveis.
 - Testes automatizados para o domínio, os casos de uso e as integrações Windows cobertas pela solução.
 
@@ -82,6 +85,8 @@ dotnet test BeadWise.sln
 ```
 
 Os testes cobrem regras de domínio, validação de planos, casos de uso, persistência e carregamento de sessões, observação de processos e ações sobre processos de teste controlados. As operações de teste usam uma fixture dedicada; os testes não constituem validação de alterações gerais em máquinas de usuários.
+
+Os novos inventários incluem testes de normalização e leitura real do Windows. A recuperação continua exclusiva da fixture: recriar um processo de teste não restaura a memória de um processo encerrado. O [plano e registro da fase 12](docs/10-BACKEND-IMPLEMENTATION-PLAN.md) descreve os recortes, o uso sem UI e os impedimentos de validação observados. Bloqueios pelo Controle de Aplicativo não são contabilizados como testes aprovados.
 
 ## Estrutura do repositório
 

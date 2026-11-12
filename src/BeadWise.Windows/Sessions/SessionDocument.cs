@@ -8,6 +8,8 @@ namespace BeadWise.Windows.Sessions;
 
 internal sealed class SessionDocument
 {
+    public int Version { get; init; } = 1;
+
     public required Guid SessionId { get; init; }
 
     public required SessionState State { get; init; }
@@ -27,6 +29,23 @@ internal sealed class SessionDocument
     public required ErrorDocument? Failure { get; init; }
 
     public required RecoveryState RecoveryState { get; init; }
+
+    public RecoveryEvidenceDocument? RecoveryEvidence { get; init; }
+}
+
+internal sealed class RecoveryEvidenceDocument
+{
+    public required RecoveryReason Reason { get; init; }
+    public required ProcessIdentityDocument OriginalIdentity { get; init; }
+    public required ProcessIdentityDocument? RecoveredIdentity { get; init; }
+    public required ErrorDocument? OriginalError { get; init; }
+    public required ErrorDocument? RecoveryError { get; init; }
+}
+
+internal sealed class ProcessIdentityDocument
+{
+    public required int ProcessId { get; init; }
+    public required DateTimeOffset CreationTime { get; init; }
 }
 
 internal sealed class OperationDocument

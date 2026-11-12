@@ -1053,7 +1053,9 @@ Logs são evidência, não fonte de verdade operacional.
 
 # DEC-035 — Google Stitch será ferramenta de prototipação
 
-Status: ACCEPTED
+Status: SUPERSEDED
+
+Superseded by: DEC-051
 
 Context:
 
@@ -1554,3 +1556,53 @@ registrar
 ```
 
 O objetivo deste arquivo é evitar decisões acidentais, não impedir evolução.
+
+---
+
+# DEC-051 — Protótipo local navegável na fase 10
+
+Status: ACCEPTED
+
+Data: 2026-11-12
+
+Supersedes: DEC-035
+
+Context: O usuário delegou a construção da interface ao agente e aprovou o plano da fase 10, sem necessidade de operar o Stitch.
+
+Decision: Construir a jornada principal em HTML, CSS e JavaScript locais, sem dependências externas, em `prototypes/ux/phase-10/`. Cenários determinísticos simulam análise, seleção, plano, execução, verificação e recuperação. O protótipo não realiza alterações no Windows.
+
+Reasoning: Permite validar navegação, estados e apresentação diretamente, mantendo uma referência revisável no repositório.
+
+Consequences: WinUI 3 continua sendo o destino de produção. O protótipo não altera contratos C# nem representa funcionalidades já implementadas. A extração de componentes definitivos fica para a fase 11. As regras das DEC-036 e DEC-037 também se aplicam à referência local. Menções anteriores ao Stitch no plano e no fluxo registram a direção histórica, substituída nesta fase por esta decisão.
+
+---
+
+# DEC-052 — Design system documental baseado na fase 10
+
+Status: ACCEPTED
+
+Data: 2026-11-12
+
+Context: O usuário escolheu uma definição completa do design system na fase 11, preservando o visual atual e deixando a galeria e a biblioteca WinUI para a etapa de frontend.
+
+Decision: Adotar [09-DESIGN-SYSTEM.md](09-DESIGN-SYSTEM.md) como referência central de tokens, componentes, contratos de apresentação, estados, acessibilidade e adaptação. Consolidar tema claro, azul da marca e Segoe UI; alto contraste é requisito da implementação inicial e tema escuro fica para evolução posterior. As diferenças necessárias de contraste e comportamento nativo ficam explícitas na especificação.
+
+Reasoning: A extração documentada permite reutilizar decisões e componentes sem converter cegamente o HTML/CSS nem antecipar a implementação de todas as telas. A definição cobre os cenários da fase 10 e separa aplicação, verificação, medição e recuperação.
+
+Consequences: Esta decisão complementa DEC-036, DEC-037 e DEC-051. A fase 11 entrega a definição; não entrega componentes nativos, novos contratos C#, integração com backend ou certificação de acessibilidade. A implementação futura deve usar controles nativos e recursos de tema, respeitar a matriz de validação e preservar a separação entre navegação global e etapas. Protótipo e capturas permanecem como referências, com as diferenças documentadas. Backlog de definição e backlog de implementação são acompanhados separadamente.
+
+---
+
+# DEC-053 — Fase 12 com inventários reais e núcleo controlado
+
+Status: ACCEPTED
+
+Data: 2026-11-12
+
+Context: O usuário aprovou a implementação completa da fase 12 por entregas, escolhendo diagnósticos e núcleo controlado em vez de alterações reais nas configurações do usuário.
+
+Decision: Implementar os recortes de sistema, processos, áudio, monitores e drivers/PnP descritos em 10-BACKEND-IMPLEMENTATION-PLAN.md. Manter os quatro assemblies, .NET 10, contratos tipados em Core, coordenação em Application e integrações Windows isoladas. Relatório diagnóstico em memória, catálogo explícito de cobertura e coleta sequencial com resultados parciais. A composição dos provedores deve funcionar sem instanciar WinUI.
+
+Reasoning: As provas existentes demonstram recortes, não features completas. A expansão preserva limites de evidência e permite uso futuro pela CLI e UI sem duplicar coletores. Alterações reais, telemetria contínua, benchmark e histórico não são necessários para este objetivo.
+
+Consequences: Recuperação significa restaurar a fixture controlada, sem restaurar memória de processos encerrados. Autorização exige contexto vivo do harness; JSON não autoriza execução. ExplicitFixtureReset e FailureRecovery distinguem reset solicitado de falha, preservando separadamente erro original e erro de recuperação. JSON v2 adiciona evidência e aceita documentos v1. Privilégios administrativos ficam bloqueados nesta fase; o mecanismo final de elevação continua aberto. Logs JSONL contêm somente metadados e ficam limitados a três arquivos de 10 MiB, separados do estado operacional. Windows 11 x64 é referência de validação inicial, não promessa de suporte universal. Bloqueios de execução pelo Controle de Aplicativo permanecem impedimentos de validação, sem redução dos critérios de aceitação.

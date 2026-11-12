@@ -2,17 +2,20 @@ using BeadWise.Core.Contracts;
 using BeadWise.Core.Planning;
 using BeadWise.Core.Results;
 using BeadWise.Core.Sessions;
+using BeadWise.Core.Logging;
 
 namespace BeadWise.Application.Sessions;
 
 public sealed class CreateAndPersistSessionUseCase
 {
     private readonly ISessionStore _store;
+    private readonly IExecutionLog _log;
 
-    public CreateAndPersistSessionUseCase(ISessionStore store)
+    public CreateAndPersistSessionUseCase(ISessionStore store, IExecutionLog? log = null)
     {
         ArgumentNullException.ThrowIfNull(store);
         _store = store;
+        _log = log ?? NullExecutionLog.Instance;
     }
 
     public Result<Session> Execute(
@@ -34,6 +37,9 @@ public sealed class CreateAndPersistSessionUseCase
             null,
             RecoveryState.NotRequired);
 
-        return _store.Save(session);
+        var result = _store.Save(session);
+        _log.WriteForPlan(result.Status is ResultStatus.Success ? ExecutionEvent.SessionPersisted : ExecutionEvent.Failure,
+            plan, sessionId, result.Error);
+        return result;
     }
 }

@@ -4,11 +4,17 @@ using BeadWise.Core.Operations;
 using BeadWise.Core.Planning;
 using BeadWise.Core.Processes;
 using BeadWise.Core.Results;
+using BeadWise.Core.Logging;
 
 namespace BeadWise.Application.Planning;
 
 public sealed class CreateControlledProcessChangePlanUseCase
 {
+    private readonly IExecutionLog _log;
+
+    public CreateControlledProcessChangePlanUseCase(IExecutionLog? log = null) =>
+        _log = log ?? NullExecutionLog.Instance;
+
     private const string InvalidTargetErrorCode = "INVALID_CONTROLLED_PROCESS_TARGET";
 
     public Result<ChangePlan> Execute(
@@ -55,6 +61,7 @@ public sealed class CreateControlledProcessChangePlanUseCase
             [RestartRequirement.None],
             "Recovery may create a new controlled fixture process, not restore the original process instance.");
 
+        _log.WriteForPlan(ExecutionEvent.PlanBuilt, plan);
         return Result<ChangePlan>.Success(plan);
     }
 

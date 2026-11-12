@@ -1,6 +1,7 @@
 using System.Text.Json;
 using BeadWise.Core.Errors;
 using BeadWise.Core.Operations;
+using BeadWise.Core.Processes;
 using BeadWise.Core.Results;
 using BeadWise.Core.Sessions;
 using BeadWise.Core.Snapshots;
@@ -12,6 +13,7 @@ internal static class SessionDocumentMapper
     public static SessionDocument ToDocument(Session session) =>
         new()
         {
+            Version = 2,
             SessionId = session.SessionId,
             State = session.State,
             CreatedAt = session.CreatedAt,
@@ -21,11 +23,16 @@ internal static class SessionDocumentMapper
             Snapshots = session.Snapshots.Select(ToDocument).ToList(),
             Results = session.Results.Select(ToDocument).ToList(),
             Failure = session.Failure is null ? null : ToDocument(session.Failure),
-            RecoveryState = session.RecoveryState
+            RecoveryState = session.RecoveryState,
+            RecoveryEvidence = session.RecoveryEvidence is null ? null : ToDocument(session.RecoveryEvidence)
         };
 
-    public static Session FromDocument(SessionDocument document) =>
-        new(
+    public static Session FromDocument(SessionDocument document)
+    {
+        if (document.Version is < 1 or > 2 || (document.Version == 1 && document.RecoveryEvidence is not null))
+            throw new JsonException($"Unsupported session document version {document.Version}.");
+
+        return new Session(
             document.SessionId,
             document.State,
             document.CreatedAt,
@@ -35,7 +42,34 @@ internal static class SessionDocumentMapper
             Required(document.Snapshots, nameof(document.Snapshots)).Select(FromDocument),
             Required(document.Results, nameof(document.Results)).Select(FromDocument),
             document.Failure is null ? null : FromDocument(document.Failure),
-            document.RecoveryState);
+            document.RecoveryState,
+            document.RecoveryEvidence is null ? null : FromDocument(document.RecoveryEvidence));
+    }
+
+    private static RecoveryEvidenceDocument ToDocument(RecoveryEvidence evidence) => new()
+    {
+        Reason = evidence.Reason,
+        OriginalIdentity = ToDocument(evidence.OriginalIdentity),
+        RecoveredIdentity = evidence.RecoveredIdentity is { } identity ? ToDocument(identity) : null,
+        OriginalError = evidence.OriginalError is null ? null : ToDocument(evidence.OriginalError),
+        RecoveryError = evidence.RecoveryError is null ? null : ToDocument(evidence.RecoveryError)
+    };
+
+    private static RecoveryEvidence FromDocument(RecoveryEvidenceDocument document) => new(
+        document.Reason,
+        FromDocument(document.OriginalIdentity ?? throw new JsonException("Original identity is required.")),
+        document.RecoveredIdentity is null ? null : FromDocument(document.RecoveredIdentity),
+        document.OriginalError is null ? null : FromDocument(document.OriginalError),
+        document.RecoveryError is null ? null : FromDocument(document.RecoveryError));
+
+    private static ProcessIdentityDocument ToDocument(ProcessIdentity identity) => new()
+    {
+        ProcessId = identity.ProcessId,
+        CreationTime = identity.CreationTime
+    };
+
+    private static ProcessIdentity FromDocument(ProcessIdentityDocument document) =>
+        new(document.ProcessId, document.CreationTime);
 
     private static OperationDocument ToDocument(Operation operation) =>
         new()

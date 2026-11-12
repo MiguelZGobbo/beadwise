@@ -4,6 +4,7 @@ using BeadWise.Core.Observations;
 using BeadWise.Core.Planning;
 using BeadWise.Core.Results;
 using BeadWise.Core.Sessions;
+using BeadWise.Core.Logging;
 
 namespace BeadWise.Application.Execution;
 
@@ -14,17 +15,20 @@ public sealed class VerifyChangePlanUseCase
     private readonly IControlledProcessStateSource _source;
     private readonly ISessionStore _sessionStore;
     private readonly TimeProvider _timeProvider;
+    private readonly IExecutionLog _log;
 
     public VerifyChangePlanUseCase(
         IControlledProcessStateSource source,
         ISessionStore sessionStore,
-        TimeProvider? timeProvider = null)
+        TimeProvider? timeProvider = null,
+        IExecutionLog? log = null)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(sessionStore);
         _source = source;
         _sessionStore = sessionStore;
         _timeProvider = timeProvider ?? TimeProvider.System;
+        _log = log ?? NullExecutionLog.Instance;
     }
 
     public async Task<Result<Session>> ExecuteAsync(
@@ -49,8 +53,16 @@ public sealed class VerifyChangePlanUseCase
             }
         }
 
+        _log.WriteForPlan(ExecutionEvent.VerifyStarted, plan!, verifying.SessionId);
         var outcome = await ObserveUntilExitAsync(plan!, cancellationToken).ConfigureAwait(false);
-        return PersistOutcome(verifying, outcome);
+        var result = PersistOutcome(verifying, outcome);
+        _log.WriteForPlan(result.Status switch
+        {
+            ResultStatus.Success => ExecutionEvent.VerifyCompleted,
+            ResultStatus.Cancelled => ExecutionEvent.Cancelled,
+            _ => ExecutionEvent.Failure
+        }, plan!, verifying.SessionId, result.Error);
+        return result;
     }
 
     private async Task<Result<string>> ObserveUntilExitAsync(ChangePlan plan, CancellationToken cancellationToken)
@@ -114,7 +126,7 @@ public sealed class VerifyChangePlanUseCase
     {
         var recorded = new Session(verifying.SessionId, verifying.State, verifying.CreatedAt,
             _timeProvider.GetUtcNow(), verifying.PlanId, verifying.Operations, verifying.Snapshots,
-            [.. verifying.Results, outcome], verifying.Failure, verifying.RecoveryState);
+            [.. verifying.Results, outcome], verifying.Failure, verifying.RecoveryState, verifying.RecoveryEvidence);
         if (outcome.Status is ResultStatus.Success)
         {
             recorded = recorded.TransitionTo(SessionState.Completed, recorded.UpdatedAt);
