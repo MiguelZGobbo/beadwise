@@ -51,4 +51,16 @@ public sealed class Operation
     public Reversibility Reversibility { get; }
 
     public IReadOnlyList<ExecutionResource> ExecutionResources { get; }
+
+    public bool HasSameLogicalContentAs(Operation? other) =>
+        other is not null &&
+        OperationId == other.OperationId &&
+        Description == other.Description &&
+        CurrentState == other.CurrentState &&
+        TargetState == other.TargetState &&
+        Risk == other.Risk &&
+        PrivilegeRequirement == other.PrivilegeRequirement &&
+        RestartRequirement == other.RestartRequirement &&
+        Reversibility == other.Reversibility &&
+        ExecutionResources.SequenceEqual(other.ExecutionResources);
 }

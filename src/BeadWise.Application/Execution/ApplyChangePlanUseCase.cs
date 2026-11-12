@@ -134,7 +134,7 @@ public sealed class ApplyChangePlanUseCase
 
         if (session.PlanId != plan.PlanId ||
             session.Operations.Count != plan.Operations.Count ||
-            !OperationsMatch(session.Operations[0], plan.Operations[0]))
+            !session.Operations[0].HasSameLogicalContentAs(plan.Operations[0]))
         {
             return new Error(
                 "SESSION_PLAN_MISMATCH",
@@ -144,17 +144,6 @@ public sealed class ApplyChangePlanUseCase
 
         return null;
     }
-
-    private static bool OperationsMatch(Operation left, Operation right) =>
-        left.OperationId == right.OperationId &&
-        left.Description == right.Description &&
-        left.CurrentState == right.CurrentState &&
-        left.TargetState == right.TargetState &&
-        left.Risk == right.Risk &&
-        left.PrivilegeRequirement == right.PrivilegeRequirement &&
-        left.RestartRequirement == right.RestartRequirement &&
-        left.Reversibility == right.Reversibility &&
-        left.ExecutionResources.SequenceEqual(right.ExecutionResources);
 
     private static Session CopySession(
         Session source,

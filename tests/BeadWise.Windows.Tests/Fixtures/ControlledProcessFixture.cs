@@ -37,6 +37,12 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
 
     public bool IsRunning => !_disposed && !_process.HasExited;
 
+    internal IControlledProcessStateSource CreateStateSource(ChangePlan approvedPlan) =>
+        new ControlledProcessFixtureStateSource(
+            ControlledProcessTarget.FromOwnedFixture(_process, FixtureKey, Identity),
+            FixtureKey,
+            approvedPlan);
+
     internal IControlledProcessActionExecutor CreateActionExecutor(ChangePlan approvedPlan) =>
         new ControlledProcessFixtureActionExecutor(
             ControlledProcessTarget.FromOwnedFixture(

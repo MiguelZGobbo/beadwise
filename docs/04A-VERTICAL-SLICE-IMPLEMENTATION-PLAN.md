@@ -1457,6 +1457,55 @@ Gate:
 - sucesso somente por estado observado;
 - retorno de API sozinho não basta.
 
+### Fechamento da Etapa 9 — 2026-11-12
+
+**ETAPA 9 — VERIFY: PASS**
+
+- `IControlledProcessStateSource` retorna `Result<Observation<bool>>`; o valor
+  indica se a instância original continua em execução, com origem e timestamp.
+- O adaptador Windows usa o `Process` original mantido pelo harness e valida
+  plano aprovado, `FixtureKey` e identidade capturada. Enquanto o processo está
+  ativo, revalida PID + CreationTime. Após o encerramento observado, o vínculo
+  permanece na instância original; não há busca por PID nem substituição do alvo.
+- Acesso negado, objeto descartado e leituras indisponíveis retornam erros
+  estruturados, nunca equivalem a processo encerrado. Verify não executa mutação.
+- `VerifyChangePlanUseCase.ExecuteAsync` exige sessão `Applying` ou `Verifying`,
+  operação correspondente, snapshot e resultado `APPLY_DISPATCHED` bem-sucedido.
+  A transição para `Verifying` é persistida antes da primeira observação.
+- A consulta é imediata e depois ocorre em intervalos de até 100 ms, com limite
+  de 5 segundos medido por relógio monotônico. Uma observação concluída exatamente
+  no limite pode confirmar encerramento; observações posteriores não podem.
+- Somente observação disponível com `false` registra `VERIFY_SUCCEEDED` e
+  conclui a sessão. Timeout ou leitura inconclusiva registram `Failed`.
+- Cancelamento registra resultado cancelado e mantém `Verifying`, permitindo
+  nova tentativa explícita com a sessão registrada e a mesma fixture disponível.
+  Nenhuma nova tentativa executa Apply novamente.
+- Falha na gravação final retorna `Partial`, sessão em memória e
+  `VERIFY_RESULT_PERSIST_FAILED`. O formato JSON existente foi preservado.
+- A comparação de operações foi centralizada em
+  `Operation.HasSameLogicalContentAs`, preservando a semântica usada por Apply
+  e ChangePlan e reutilizando-a na validação de Verify.
+
+Evidências desta implementação:
+
+| Verificação | Resultado |
+| --- | --- |
+| `dotnet build BeadWise.sln --no-restore` | PASS; 0 erros, 0 avisos |
+| `dotnet test BeadWise.sln --no-build --no-restore` | Core 61/61; Application 67/67; Windows 62/62 |
+| Apply → Verify → recarga JSON com duas fixtures reais | Sessão `Completed`; snapshot e resultados preservados; segunda fixture ativa |
+| Relógio controlado | Encerramento tardio, timeout, cancelamento e limite exato de 5 segundos |
+| Revisão independente | Achado de aceitação após o prazo corrigido; dois testes de regressão falharam antes e passaram após a correção |
+| Processos `BeadWise.ControlledProcessFixture` após a suíte | 0 |
+| `git diff --check` | PASS |
+
+Os 55 testes adicionados cobrem os contratos e a comparação compartilhada,
+inconsistências de entrada, erros de leitura, falhas nas persistências e isolamento
+das fixtures. Não foram adicionados pacotes, UI, elevação ou alteração do inventário.
+
+**Próximo trabalho: Etapa 10 — Recovery fixture.** A retomada após reiniciar o
+aplicativo não faz parte desta etapa: a fonte depende da instância mantida pelo
+harness. Este PASS não representa o PASS do vertical slice completo.
+
 ## Etapa 10 — Recovery fixture
 
 Restaurar estado de teste.

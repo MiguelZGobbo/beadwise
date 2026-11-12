@@ -62,6 +62,36 @@ public sealed class OperationTests
                 []));
     }
 
+    [Theory]
+    [InlineData("same")]
+    [InlineData("id")]
+    [InlineData("description")]
+    [InlineData("current")]
+    [InlineData("target")]
+    [InlineData("risk")]
+    [InlineData("privilege")]
+    [InlineData("restart")]
+    [InlineData("reversibility")]
+    [InlineData("resource")]
+    public void LogicalComparisonIncludesEveryOperationField(string changedField)
+    {
+        var original = CreateOperation([new ExecutionResource("Process", "original")]);
+        var candidate = new Operation(
+            changedField == "id" ? Guid.NewGuid() : original.OperationId,
+            changedField == "description" ? "Changed" : original.Description,
+            changedField == "current" ? "Changed" : original.CurrentState,
+            changedField == "target" ? "Changed" : original.TargetState,
+            changedField == "risk" ? Risk.High : original.Risk,
+            changedField == "privilege" ? PrivilegeRequirement.Administrator : original.PrivilegeRequirement,
+            changedField == "restart" ? RestartRequirement.Reboot : original.RestartRequirement,
+            changedField == "reversibility" ? Reversibility.Irreversible : original.Reversibility,
+            [new ExecutionResource("Process", changedField == "resource" ? "changed" : "original")]);
+
+        Assert.Equal(changedField == "same", original.HasSameLogicalContentAs(candidate));
+        Assert.Equal(changedField == "same", candidate.HasSameLogicalContentAs(original));
+        Assert.False(original.HasSameLogicalContentAs(null));
+    }
+
     private static Operation CreateOperation(IEnumerable<ExecutionResource> resources) =>
         new(
             Guid.Parse("cb984403-4faf-4182-876b-710404f0b6bf"),

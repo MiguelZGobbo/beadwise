@@ -160,7 +160,7 @@ internal sealed class ControlledProcessFixtureActionExecutor : IControlledProces
             session.State != expectedSessionState ||
             plan.Operations.Count != 1 ||
             session.Operations.Count != 1 ||
-            !OperationsMatch(session.Operations[0], plan.Operations[0]))
+            !session.Operations[0].HasSameLogicalContentAs(plan.Operations[0]))
         {
             return new Error(
                 "INVALID_APPLY_PLAN",
@@ -259,17 +259,6 @@ internal sealed class ControlledProcessFixtureActionExecutor : IControlledProces
         string.Create(
             CultureInfo.InvariantCulture,
             $"{_fixtureKey:D}|pid={_target.ExpectedIdentity.ProcessId}|created={_target.ExpectedIdentity.CreationTime.ToUniversalTime():O}");
-
-    private static bool OperationsMatch(Operation left, Operation right) =>
-        left.OperationId == right.OperationId &&
-        left.Description == right.Description &&
-        left.CurrentState == right.CurrentState &&
-        left.TargetState == right.TargetState &&
-        left.Risk == right.Risk &&
-        left.PrivilegeRequirement == right.PrivilegeRequirement &&
-        left.RestartRequirement == right.RestartRequirement &&
-        left.Reversibility == right.Reversibility &&
-        left.ExecutionResources.SequenceEqual(right.ExecutionResources);
 
     private static Result<T> TargetFailure<T>(Error error) =>
         error.Category == ErrorCategory.TargetChanged || error.Category == ErrorCategory.Blocked
