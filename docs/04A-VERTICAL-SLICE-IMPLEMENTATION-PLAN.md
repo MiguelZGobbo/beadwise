@@ -1395,6 +1395,59 @@ Gate:
 - safeguards;
 - operation result estruturado.
 
+### Fechamento da Etapa 8 — 2026-11-12
+
+**ETAPA 8 — APPLY: PASS**
+
+A implementação local foi revisada e revalidada em Windows com .NET SDK
+10.0.400. Não foram necessárias correções de código nesta retomada. As
+alterações de Apply permanecem no worktree, sem commit ou push.
+
+Contratos e invariantes confirmados:
+
+- `ChangePlan.HasSameLogicalContentAs` compara o conteúdo lógico completo;
+  o executor permanece vinculado ao plano aprovado, sem reconstruí-lo.
+- `IControlledProcessActionExecutor` separa `Prepare` de `Execute`;
+  `IControlledProcessActionPreparation` é descartável, vinculada ao executor,
+  plano, operação e sessão, com consumo atômico de uso único.
+- Falha antes da execução descarta a preparação. Snapshot e sessão em
+  `Applying` são persistidos antes de qualquer tentativa de mutação.
+- O executor usa a instância original de `Process` lançada pelo harness,
+  revalidando ownership, marker/FixtureKey e PID + CreationTime. Não há
+  aquisição ou reaquisição por PID, nem ação sobre árvore de processos.
+- Após a tentativa, o resultado estruturado é persistido. Falha na segunda
+  persistência retorna `Partial` com a sessão contendo o resultado da tentativa.
+- Apply bem-sucedido mantém `SessionState.Applying`: o despacho da ação não
+  equivale a Verify nem à conclusão do fluxo completo.
+
+Evidências executadas nesta retomada:
+
+| Verificação | Resultado |
+| --- | --- |
+| `dotnet restore BeadWise.sln` | PASS |
+| `dotnet build BeadWise.sln --no-restore` | PASS; 0 erros, 0 avisos |
+| `dotnet test BeadWise.sln --no-build --no-restore --logger "console;verbosity=normal"` | Core 51/51; Application 38/38; Windows 46/46 |
+| Integração real com duas fixtures | Somente a fixture autorizada encerrada; segunda preservada |
+| Integração Apply + JSON | Snapshot e resultado persistidos; sessão permanece `Applying` |
+| Processos `BeadWise.ControlledProcessFixture` após a suíte | 0 |
+| `git diff --check` | PASS |
+| Revisão estática independente do Apply | Nenhum achado acionável |
+
+Os testes incluem plano alterado, preparação descartada/reutilizada/de outro
+executor ou sessão, consumo concorrente, PID com CreationTime diferente,
+ownership/marker inválido, alvo encerrado ou descartado, AccessDenied e falhas
+nas persistências anterior e posterior à tentativa. Cenários negativos que
+exigem simulação usam fakes; as provas de isolamento e JSON usam processos reais.
+
+A auditoria das referências confirmou Core independente de Windows e
+Application dependente apenas de Core. Não foram introduzidos pacotes,
+elevação, P/Invoke ou busca por PID no caminho de Apply. A terminação utiliza
+exclusivamente `Process.Kill()` da instância controlada.
+
+**Próximo trabalho: Etapa 9 — Verify.** Verify, Recovery, privilege boundary
+e interface não foram implementados nesta etapa. Este PASS não representa
+o PASS do vertical slice completo.
+
 ## Etapa 9 — Verify
 
 Reobservar por fonte real.

@@ -1,6 +1,9 @@
 using System.Diagnostics;
 using BeadWise.ControlledProcessFixture;
+using BeadWise.Core.Contracts;
+using BeadWise.Core.Planning;
 using BeadWise.Core.Processes;
+using BeadWise.Windows.Processes;
 
 namespace BeadWise.Windows.Tests.Fixtures;
 
@@ -33,6 +36,15 @@ internal sealed class ControlledProcessFixture : IAsyncDisposable
     public ProcessIdentity Identity { get; }
 
     public bool IsRunning => !_disposed && !_process.HasExited;
+
+    internal IControlledProcessActionExecutor CreateActionExecutor(ChangePlan approvedPlan) =>
+        new ControlledProcessFixtureActionExecutor(
+            ControlledProcessTarget.FromOwnedFixture(
+                _process,
+                FixtureKey,
+                Identity),
+            FixtureKey,
+            approvedPlan);
 
     public static Task<ControlledProcessFixture> StartAsync() =>
         StartAsync(new ControlledProcessFixtureOptions());

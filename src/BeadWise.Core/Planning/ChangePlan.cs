@@ -55,4 +55,28 @@ public sealed class ChangePlan
     public IReadOnlyList<RestartRequirement> RestartRequirements { get; }
 
     public string? RecoveryInformation { get; }
+
+    public bool HasSameLogicalContentAs(ChangePlan? other) =>
+        other is not null &&
+        PlanId == other.PlanId &&
+        FeatureIds.SequenceEqual(other.FeatureIds) &&
+        Operations.Count == other.Operations.Count &&
+        Operations.Zip(other.Operations).All(pair => OperationsMatch(pair.First, pair.Second)) &&
+        Preconditions.SequenceEqual(other.Preconditions) &&
+        Risk == other.Risk &&
+        Warnings.SequenceEqual(other.Warnings) &&
+        PrivilegeRequirements.SequenceEqual(other.PrivilegeRequirements) &&
+        RestartRequirements.SequenceEqual(other.RestartRequirements) &&
+        RecoveryInformation == other.RecoveryInformation;
+
+    private static bool OperationsMatch(Operation left, Operation right) =>
+        left.OperationId == right.OperationId &&
+        left.Description == right.Description &&
+        left.CurrentState == right.CurrentState &&
+        left.TargetState == right.TargetState &&
+        left.Risk == right.Risk &&
+        left.PrivilegeRequirement == right.PrivilegeRequirement &&
+        left.RestartRequirement == right.RestartRequirement &&
+        left.Reversibility == right.Reversibility &&
+        left.ExecutionResources.SequenceEqual(right.ExecutionResources);
 }

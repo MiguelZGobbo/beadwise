@@ -4,6 +4,7 @@ using BeadWise.Windows.Processes;
 
 namespace BeadWise.Windows.Tests.Fixtures;
 
+[Collection(ControlledProcessCollection.Name)]
 public sealed class ControlledProcessFixtureTests
 {
     [Fact]

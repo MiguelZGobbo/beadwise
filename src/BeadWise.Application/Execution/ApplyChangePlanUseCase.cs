@@ -1,0 +1,194 @@
+using BeadWise.Core.Contracts;
+using BeadWise.Core.Errors;
+using BeadWise.Core.Operations;
+using BeadWise.Core.Planning;
+using BeadWise.Core.Results;
+using BeadWise.Core.Sessions;
+
+namespace BeadWise.Application.Execution;
+
+public sealed class ApplyChangePlanUseCase
+{
+    private readonly IControlledProcessActionExecutor _executor;
+    private readonly ISessionStore _sessionStore;
+    private readonly TimeProvider _timeProvider;
+
+    public ApplyChangePlanUseCase(
+        IControlledProcessActionExecutor executor,
+        ISessionStore sessionStore,
+        TimeProvider? timeProvider = null)
+    {
+        ArgumentNullException.ThrowIfNull(executor);
+        ArgumentNullException.ThrowIfNull(sessionStore);
+
+        _executor = executor;
+        _sessionStore = sessionStore;
+        _timeProvider = timeProvider ?? TimeProvider.System;
+    }
+
+    public Result<Session> Execute(ChangePlan? plan, Session? approvedSession)
+    {
+        var validationError = Validate(plan, approvedSession);
+        if (validationError is not null)
+        {
+            return Result<Session>.Failed(validationError);
+        }
+
+        var approvedPlan = plan!;
+        var session = approvedSession!;
+        var operation = approvedPlan.Operations[0];
+        var prepared = _executor.Prepare(approvedPlan, session);
+        if (prepared.Status is not ResultStatus.Success || prepared.Value is null)
+        {
+            prepared.Value?.Dispose();
+            return MapFailure<IControlledProcessActionPreparation>(prepared);
+        }
+
+        using var preparation = prepared.Value;
+        if (preparation.PlanId != approvedPlan.PlanId ||
+            preparation.OperationId != operation.OperationId ||
+            preparation.Snapshot.SessionId != session.SessionId ||
+            preparation.Snapshot.OperationId != operation.OperationId)
+        {
+            return Result<Session>.Failed(
+                new Error(
+                    "INVALID_APPLY_PREPARATION",
+                    ErrorCategory.InvalidPlan,
+                    "The prepared authorization does not match the approved plan and session."));
+        }
+
+        var applyingSession = CopySession(
+            session.TransitionTo(SessionState.Applying, _timeProvider.GetUtcNow()),
+            snapshots: [.. session.Snapshots, preparation.Snapshot]);
+        var preApplySave = _sessionStore.Save(applyingSession);
+        if (preApplySave.Status is not ResultStatus.Success)
+        {
+            return MapFailure<Session>(preApplySave);
+        }
+
+        var applyResult = _executor.Execute(approvedPlan, applyingSession, preparation);
+        var operationResult = applyResult.Status is ResultStatus.Success
+            ? Result<string>.Success($"APPLY_DISPATCHED:{operation.OperationId:D}")
+            : MapOperationFailure(applyResult);
+        var recordedSession = CopySession(
+            applyingSession,
+            results: [.. applyingSession.Results, operationResult]);
+
+        if (applyResult.Status is ResultStatus.Failed or
+            ResultStatus.Blocked or
+            ResultStatus.Unsupported or
+            ResultStatus.Cancelled)
+        {
+            recordedSession = recordedSession.TransitionTo(
+                SessionState.Failed,
+                _timeProvider.GetUtcNow(),
+                applyResult.Error ?? new Error(
+                    "APPLY_FAILED",
+                    ErrorCategory.ApplyFailed,
+                    "Apply ended without the required structured error."));
+        }
+
+        var postApplySave = _sessionStore.Save(recordedSession);
+        if (postApplySave.Status is not ResultStatus.Success)
+        {
+            return Result<Session>.Partial(
+                recordedSession,
+                new Error(
+                    "APPLY_RESULT_PERSIST_FAILED",
+                    ErrorCategory.PartialFailure,
+                    postApplySave.Error?.Code,
+                    recoverable: true));
+        }
+
+        return applyResult.Status switch
+        {
+            ResultStatus.Success => Result<Session>.Success(recordedSession),
+            ResultStatus.Partial => Result<Session>.Partial(
+                recordedSession,
+                applyResult.Error,
+                applyResult.Warnings),
+            ResultStatus.Blocked => Result<Session>.Blocked(applyResult.Error!),
+            ResultStatus.Unsupported => Result<Session>.Unsupported(applyResult.Error!),
+            ResultStatus.Cancelled => Result<Session>.Cancelled(applyResult.Error!),
+            _ => Result<Session>.Failed(applyResult.Error!)
+        };
+    }
+
+    private static Error? Validate(ChangePlan? plan, Session? session)
+    {
+        if (plan is null || plan.Operations.Count != 1)
+        {
+            return new Error(
+                "INVALID_APPLY_PLAN",
+                ErrorCategory.InvalidPlan,
+                "Apply requires exactly one existing operation.");
+        }
+
+        if (session is null || session.State is not SessionState.Approved)
+        {
+            return new Error(
+                "SESSION_NOT_APPROVED",
+                ErrorCategory.InvalidPlan,
+                "Apply requires an approved session.");
+        }
+
+        if (session.PlanId != plan.PlanId ||
+            session.Operations.Count != plan.Operations.Count ||
+            !OperationsMatch(session.Operations[0], plan.Operations[0]))
+        {
+            return new Error(
+                "SESSION_PLAN_MISMATCH",
+                ErrorCategory.InvalidPlan,
+                "The approved session does not contain the supplied logical plan.");
+        }
+
+        return null;
+    }
+
+    private static bool OperationsMatch(Operation left, Operation right) =>
+        left.OperationId == right.OperationId &&
+        left.Description == right.Description &&
+        left.CurrentState == right.CurrentState &&
+        left.TargetState == right.TargetState &&
+        left.Risk == right.Risk &&
+        left.PrivilegeRequirement == right.PrivilegeRequirement &&
+        left.RestartRequirement == right.RestartRequirement &&
+        left.Reversibility == right.Reversibility &&
+        left.ExecutionResources.SequenceEqual(right.ExecutionResources);
+
+    private static Session CopySession(
+        Session source,
+        IEnumerable<Core.Snapshots.Snapshot>? snapshots = null,
+        IEnumerable<Result<string>>? results = null) =>
+        new(
+            source.SessionId,
+            source.State,
+            source.CreatedAt,
+            source.UpdatedAt,
+            source.PlanId,
+            source.Operations,
+            snapshots ?? source.Snapshots,
+            results ?? source.Results,
+            source.Failure,
+            source.RecoveryState);
+
+    private static Result<string> MapOperationFailure(Result<Operation> source) =>
+        source.Status switch
+        {
+            ResultStatus.Failed => Result<string>.Failed(source.Error!),
+            ResultStatus.Blocked => Result<string>.Blocked(source.Error!),
+            ResultStatus.Unsupported => Result<string>.Unsupported(source.Error!),
+            ResultStatus.Cancelled => Result<string>.Cancelled(source.Error!),
+            _ => Result<string>.Partial(null, source.Error, source.Warnings)
+        };
+
+    private static Result<Session> MapFailure<T>(Result<T> source) =>
+        source.Status switch
+        {
+            ResultStatus.Blocked => Result<Session>.Blocked(source.Error!),
+            ResultStatus.Unsupported => Result<Session>.Unsupported(source.Error!),
+            ResultStatus.Cancelled => Result<Session>.Cancelled(source.Error!),
+            ResultStatus.Partial => Result<Session>.Partial(null, source.Error, source.Warnings),
+            _ => Result<Session>.Failed(source.Error!)
+        };
+}

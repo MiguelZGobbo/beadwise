@@ -82,6 +82,29 @@ public sealed class ChangePlanTests
                 []));
     }
 
+    [Fact]
+    public void LogicalContentIncludesEveryPlanAndOperationField()
+    {
+        var original = CreatePlan(["Controlled fixture only"]);
+        var equivalent = CreatePlan(["Controlled fixture only"]);
+        var changedWarnings = CreatePlan(["Different warning"]);
+
+        Assert.True(original.HasSameLogicalContentAs(equivalent));
+        Assert.False(original.HasSameLogicalContentAs(changedWarnings));
+    }
+
+    private static ChangePlan CreatePlan(IEnumerable<string> warnings) =>
+        new(
+            Guid.Parse("1ee3b188-2082-4893-96b8-a3603995d96b"),
+            ["C-PROCESSES-001", "C-PROCESSES-007"],
+            [CreateOperation()],
+            ["Target identity is current"],
+            Risk.Medium,
+            warnings,
+            [PrivilegeRequirement.None],
+            [RestartRequirement.Process],
+            "Recreate only the controlled fixture.");
+
     private static Operation CreateOperation() =>
         new(
             Guid.Parse("cb984403-4faf-4182-876b-710404f0b6bf"),
