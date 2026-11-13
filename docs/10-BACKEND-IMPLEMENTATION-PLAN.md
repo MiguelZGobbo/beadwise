@@ -1,6 +1,6 @@
 # Fase 12 — Backend de diagnóstico e núcleo controlado
 
-Plano aprovado em 2026-11-12. Implementação entregue; aceitação final da fase bloqueada pela execução da fixture no ambiente atual.
+Plano aprovado em 2026-11-12. Fase concluída em 2026-11-13 após validação local da fixture; resultados históricos de bloqueio preservados abaixo.
 
 ## Objetivo e limites
 
@@ -10,7 +10,7 @@ Os recortes implementados não aprovam integralmente as Feature Specs. Preservar
 
 ## Entregas
 
-- [ ] 12.1: recuperação e verificação da fixture, JSON v2, fronteira de privilégios, logs correlacionados, pipeline completo.
+- [x] 12.1: recuperação e verificação da fixture, JSON v2, fronteira de privilégios, logs correlacionados, pipeline completo.
 - [x] 12.2: sistema (C-SYSTEM-001) e inventário existente de processos (C-PROCESSES-001).
 - [x] 12.3: endpoints, direção, estados e papéis padrão de áudio (C-AUDIO-001/003).
 - [x] 12.4: monitores/adaptadores, modo atual e modos suportados (C-DISPLAY-001/002), sem testar/aplicar modos.
@@ -19,7 +19,7 @@ Os recortes implementados não aprovam integralmente as Feature Specs. Preservar
 
 12.1 precede a expansão dos adaptadores. Cada entrega exige testes e evidência atual antes de ser marcada concluída.
 
-12.1 está implementada e seus testes puros passam, mas o pipeline da fixture real ainda não foi validado neste ambiente. As demais marcações se limitam aos recortes e ao host registrados abaixo, sem aprovação das features completas.
+12.1 foi validada com a fixture real em 2026-11-13. As marcações se limitam aos recortes e ao host registrados abaixo, sem aprovação das features completas.
 
 ## Contratos
 
@@ -95,3 +95,22 @@ As 19 falhas não são PASS nem skips. O fechamento de 12.1 exige repetir o pipe
 - Bateria de notebook, VM, ARM64, dispositivo real com problema, falhas reais de permissão e outros ambientes não foram validados. As falhas correspondentes têm cobertura simulada; isso não amplia suporte declarado.
 - Correções decorrentes das revisões: status parcial de verificação, contexto único da fixture, proteção contra retries concorrentes/cancelados, retenção de filho com limpeza pendente, matriz de estados v2, adaptadores sem monitor e endpoints padrão não encontrados na enumeração.
 - Revisão final: cancelamento tipado ou síncrono durante replay preserva o estado durável; descarte com falha permite nova tentativa de limpeza, compartilha tentativas em andamento e não reutiliza o handle original já liberado. Dois testes de cancelamento e três de coordenação de descarte foram acrescentados e passaram; build e suítes afetadas foram reexecutados nos resultados acima.
+
+## Fechamento da fase — 2026-11-13
+
+O usuário autorizou e realizou manualmente a desativação do Smart App Control pela interface Segurança do Windows. Antes da alteração, VerifiedAndReputablePolicyState era 1 e o evento 3077 identificava VerifiedAndReputableDesktop ({0283ac0f-fff1-49ae-ada1-8a933130cad6}) bloqueando a fixture sem assinatura. Depois, a consulta retornou 0. A ferramenta de UI recusou automatizar Segurança do Windows; não foram feitas alterações por Registro ou remoção de políticas. Defender e firewall não foram alterados nesta execução. A proteção permanece desativada neste host para desenvolvimento; não foi testada sua reativação.
+
+Ambiente: Windows 11 Pro x64, 26H2, build 26300.9974; SDK .NET 10.0.400. Build da solução aprovado, zero erros e avisos. Não foi necessário reiniciar nem alterar código para liberar a fixture.
+
+| Projeto | Aprovados | Falhas | Ignorados |
+|---|---:|---:|---:|
+| Core | 69 | 0 | 0 |
+| Application | 99 | 0 | 0 |
+| Windows | 122 | 0 | 0 |
+| Total | 290 | 0 | 0 |
+
+Primeiro passaram os três testes focados de inicialização, descarte idempotente e pipeline completo com recuperação repetida. Depois passou toda a suíte Windows. A comparação dos TRX confirmou que os 19 testes antes bloqueados agora passaram. Ao final havia zero processos BeadWise.ControlledProcessFixture em execução. A suíte cobre ownership, identidade divergente, timeout, cleanup, persistência e preservação dos erros sem afrouxar assertions ou adicionar skips.
+
+Evidências locais: `.reviews/phase12/2026-11-13/{core,application,windows}.trx`. Comandos: `dotnet build BeadWise.sln --no-restore --verbosity minimal` e `dotnet test tests/<projeto>/<projeto>.csproj --no-build --no-restore --logger 'trx;LogFileName=<nome>.trx' --results-directory .reviews/phase12/2026-11-13`. Os resultados bloqueados de 2026-11-12 permanecem como histórico, não como aprovações retroativas.
+
+12.1 e a fase 12 estão concluídas dentro dos recortes aprovados. Permanecem os limites de hardware e plataforma documentados; não há aprovação integral das Feature Specs. A próxima fase é DevTools/CLI.

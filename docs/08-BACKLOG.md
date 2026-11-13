@@ -300,7 +300,7 @@ Fase 12 conforme [plano aprovado](10-BACKEND-IMPLEMENTATION-PLAN.md) e DEC-053. 
 ## Backend
 
 - [x] Criar solution BeadWise e projetos Core/Application/Windows/App/testes
-- [ ] [12.1] Concluir recovery da fixture, persistência v2, privilégios, logs e pipeline completo
+- [x] [12.1] Concluir recovery da fixture, persistência v2, privilégios, logs e pipeline completo
 - [x] [12.2] Validar inventários de sistema e processos no host registrado
 - [x] [12.3] Validar inventário de endpoints de áudio no host registrado
 - [x] [12.4] Validar inventário de monitores e modos no host registrado
@@ -310,7 +310,7 @@ Fase 12 conforme [plano aprovado](10-BACKEND-IMPLEMENTATION-PLAN.md) e DEC-053. 
 
 Persistência permanece em JSON dentro de Windows. DevTools pertence à fase 13; nenhum assembly adicional é necessário para a fase 12. Alterações reais em configurações do usuário ficam fora deste recorte.
 
-12.1 está implementada, mas 19 testes reais de fixture permanecem bloqueados pelo Controle de Aplicativo. A fase 12 não está encerrada; ver evidências e limites no plano. Não marcar esse impedimento como PASS.
+Fase 12 encerrada em 2026-11-13: 290 testes aprovados, incluindo os 19 testes de fixture anteriormente bloqueados. O usuário desativou manualmente o Smart App Control neste host de desenvolvimento. Ver evidências, histórico e limites no plano. Próxima entrega: fase 13, DevTools/CLI.
 
 ---
 

@@ -1606,3 +1606,19 @@ Decision: Implementar os recortes de sistema, processos, áudio, monitores e dri
 Reasoning: As provas existentes demonstram recortes, não features completas. A expansão preserva limites de evidência e permite uso futuro pela CLI e UI sem duplicar coletores. Alterações reais, telemetria contínua, benchmark e histórico não são necessários para este objetivo.
 
 Consequences: Recuperação significa restaurar a fixture controlada, sem restaurar memória de processos encerrados. Autorização exige contexto vivo do harness; JSON não autoriza execução. ExplicitFixtureReset e FailureRecovery distinguem reset solicitado de falha, preservando separadamente erro original e erro de recuperação. JSON v2 adiciona evidência e aceita documentos v1. Privilégios administrativos ficam bloqueados nesta fase; o mecanismo final de elevação continua aberto. Logs JSONL contêm somente metadados e ficam limitados a três arquivos de 10 MiB, separados do estado operacional. Windows 11 x64 é referência de validação inicial, não promessa de suporte universal. Bloqueios de execução pelo Controle de Aplicativo permanecem impedimentos de validação, sem redução dos critérios de aceitação.
+
+---
+
+# DEC-054 — Ambiente local para validar a fixture da fase 12
+
+Status: ACCEPTED
+
+Data: 2026-11-13
+
+Context: O Smart App Control bloqueava o executável local sem assinatura da fixture; 19 testes não conseguiam iniciar. O usuário escolheu validar neste Windows 11 e autorizou a desativação do recurso.
+
+Decision: O usuário desativou manualmente o Smart App Control pela interface oficial. Manter essa configuração no host de desenvolvimento para permitir builds locais. Não implementar bypass no produto, alterar APIs públicas, remover políticas ou desativar Defender/firewall. Esta decisão é específica do ambiente de desenvolvimento e não orienta usuários finais a reduzirem suas proteções.
+
+Reasoning: O estado observado mudou de 1 para 0 e todos os 19 testes antes bloqueados passaram, sem mudanças no código. As três suítes totalizaram 290 aprovações, zero falhas e zero skips; não restaram processos da fixture.
+
+Consequences: A fase 12 fica encerrada nos recortes aprovados, com evidências em 10-BACKEND-IMPLEMENTATION-PLAN.md. A desativação afeta todo o PC; reativação não foi exercitada. Os impedimentos históricos permanecem registrados. A fase 13 poderá reutilizar o backend validado.
